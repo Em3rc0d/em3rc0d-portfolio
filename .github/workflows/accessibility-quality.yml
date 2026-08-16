@@ -6,6 +6,7 @@ on:
     paths:
       - "src/**"
       - "scripts/accessibility-smoke.mjs"
+      - "scripts/keyboard-smoke.mjs"
       - ".github/workflows/accessibility-quality.yml"
       - "package.json"
       - "tsconfig.json"
@@ -53,3 +54,6 @@ jobs:
 
       - name: Run route and width accessibility smoke
         run: node scripts/accessibility-smoke.mjs
+
+      - name: Run keyboard interaction smoke
+        run: node scripts/keyboard-smoke.mjs
