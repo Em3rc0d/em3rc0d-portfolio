@@ -3,6 +3,7 @@ import { IBM_Plex_Mono, Instrument_Sans } from "next/font/google";
 import { DynamicSemantics } from "@/components/accessibility/dynamic-semantics";
 import { MotionPolicy } from "@/components/accessibility/motion-policy";
 import { SkipLink } from "@/components/accessibility/skip-link";
+import { getSiteOrigin } from "@/lib/site-config";
 import "./globals.css";
 import "./internal.css";
 import "./foundation.css";
@@ -30,13 +31,35 @@ const ibmPlexMono = IBM_Plex_Mono({
   weight: ["400", "500", "600"],
 });
 
+const description =
+  "Software Developer — Systems, Full Stack & Applied AI. I turn messy operational problems into working software.";
+const metadataBase = getSiteOrigin() ?? undefined;
+
 export const metadata: Metadata = {
+  metadataBase,
   title: {
     default: "Eduardo Merino — The Build Room",
     template: "%s — Eduardo Merino",
   },
-  description:
-    "Software Developer — Systems, Full Stack & Applied AI. I turn messy operational problems into working software.",
+  description,
+  applicationName: "THE BUILD ROOM",
+  authors: [{ name: "Eduardo Merino" }],
+  creator: "Eduardo Merino",
+  openGraph: {
+    type: "website",
+    siteName: "THE BUILD ROOM",
+    title: "Eduardo Merino — The Build Room",
+    description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Eduardo Merino — The Build Room",
+    description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
