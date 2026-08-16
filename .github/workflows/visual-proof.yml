@@ -6,6 +6,7 @@ on:
     paths:
       - "src/**"
       - "package.json"
+      - "package-lock.json"
       - "tsconfig.json"
       - ".github/workflows/visual-proof.yml"
 
@@ -25,9 +26,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install locked dependencies
+        run: npm ci
 
       - name: Build
         run: npm run build
@@ -57,105 +59,35 @@ jobs:
 
       - name: Capture desktop startup state
         run: |
-          "${{ steps.chrome.outputs.binary }}" \
-            --headless=new \
-            --no-sandbox \
-            --disable-gpu \
-            --hide-scrollbars \
-            --window-size=1440,1000 \
-            --virtual-time-budget=1200 \
-            --screenshot=startup-desktop.png \
-            http://127.0.0.1:3000/
+          "${{ steps.chrome.outputs.binary }}" --headless=new --no-sandbox --disable-gpu --hide-scrollbars --window-size=1440,1000 --virtual-time-budget=1200 --screenshot=startup-desktop.png http://127.0.0.1:3000/
 
       - name: Capture mobile startup state
         run: |
-          "${{ steps.chrome.outputs.binary }}" \
-            --headless=new \
-            --no-sandbox \
-            --disable-gpu \
-            --hide-scrollbars \
-            --window-size=390,844 \
-            --virtual-time-budget=1200 \
-            --screenshot=startup-mobile.png \
-            http://127.0.0.1:3000/
+          "${{ steps.chrome.outputs.binary }}" --headless=new --no-sandbox --disable-gpu --hide-scrollbars --window-size=390,844 --virtual-time-budget=1200 --screenshot=startup-mobile.png http://127.0.0.1:3000/
 
       - name: Capture desktop settled Home
         run: |
-          "${{ steps.chrome.outputs.binary }}" \
-            --headless=new \
-            --no-sandbox \
-            --disable-gpu \
-            --hide-scrollbars \
-            --force-prefers-reduced-motion=reduce \
-            --window-size=1440,1000 \
-            --virtual-time-budget=800 \
-            --screenshot=home-desktop.png \
-            http://127.0.0.1:3000/
+          "${{ steps.chrome.outputs.binary }}" --headless=new --no-sandbox --disable-gpu --hide-scrollbars --force-prefers-reduced-motion=reduce --window-size=1440,1000 --virtual-time-budget=800 --screenshot=home-desktop.png http://127.0.0.1:3000/
 
       - name: Capture mobile settled Home
         run: |
-          "${{ steps.chrome.outputs.binary }}" \
-            --headless=new \
-            --no-sandbox \
-            --disable-gpu \
-            --hide-scrollbars \
-            --force-prefers-reduced-motion=reduce \
-            --window-size=390,844 \
-            --virtual-time-budget=800 \
-            --screenshot=home-mobile.png \
-            http://127.0.0.1:3000/
+          "${{ steps.chrome.outputs.binary }}" --headless=new --no-sandbox --disable-gpu --hide-scrollbars --force-prefers-reduced-motion=reduce --window-size=390,844 --virtual-time-budget=800 --screenshot=home-mobile.png http://127.0.0.1:3000/
 
       - name: Capture AutoPulse cover desktop
         run: |
-          "${{ steps.chrome.outputs.binary }}" \
-            --headless=new \
-            --no-sandbox \
-            --disable-gpu \
-            --hide-scrollbars \
-            --force-prefers-reduced-motion=reduce \
-            --window-size=1440,1000 \
-            --virtual-time-budget=800 \
-            --screenshot=autopulse-cover-desktop.png \
-            http://127.0.0.1:3000/systems/autopulse
+          "${{ steps.chrome.outputs.binary }}" --headless=new --no-sandbox --disable-gpu --hide-scrollbars --force-prefers-reduced-motion=reduce --window-size=1440,1000 --virtual-time-budget=800 --screenshot=autopulse-cover-desktop.png http://127.0.0.1:3000/systems/autopulse
 
       - name: Capture AutoPulse cover mobile
         run: |
-          "${{ steps.chrome.outputs.binary }}" \
-            --headless=new \
-            --no-sandbox \
-            --disable-gpu \
-            --hide-scrollbars \
-            --force-prefers-reduced-motion=reduce \
-            --window-size=390,844 \
-            --virtual-time-budget=800 \
-            --screenshot=autopulse-cover-mobile.png \
-            http://127.0.0.1:3000/systems/autopulse
+          "${{ steps.chrome.outputs.binary }}" --headless=new --no-sandbox --disable-gpu --hide-scrollbars --force-prefers-reduced-motion=reduce --window-size=390,844 --virtual-time-budget=800 --screenshot=autopulse-cover-mobile.png http://127.0.0.1:3000/systems/autopulse
 
       - name: Capture AutoPulse architecture desktop
         run: |
-          "${{ steps.chrome.outputs.binary }}" \
-            --headless=new \
-            --no-sandbox \
-            --disable-gpu \
-            --hide-scrollbars \
-            --force-prefers-reduced-motion=reduce \
-            --window-size=1440,1000 \
-            --virtual-time-budget=800 \
-            --screenshot=autopulse-architecture-desktop.png \
-            'http://127.0.0.1:3000/systems/autopulse#architecture'
+          "${{ steps.chrome.outputs.binary }}" --headless=new --no-sandbox --disable-gpu --hide-scrollbars --force-prefers-reduced-motion=reduce --window-size=1440,1000 --virtual-time-budget=800 --screenshot=autopulse-architecture-desktop.png 'http://127.0.0.1:3000/systems/autopulse#architecture'
 
       - name: Capture AutoPulse verification desktop
         run: |
-          "${{ steps.chrome.outputs.binary }}" \
-            --headless=new \
-            --no-sandbox \
-            --disable-gpu \
-            --hide-scrollbars \
-            --force-prefers-reduced-motion=reduce \
-            --window-size=1440,1000 \
-            --virtual-time-budget=800 \
-            --screenshot=autopulse-verification-desktop.png \
-            'http://127.0.0.1:3000/systems/autopulse#verification'
+          "${{ steps.chrome.outputs.binary }}" --headless=new --no-sandbox --disable-gpu --hide-scrollbars --force-prefers-reduced-motion=reduce --window-size=1440,1000 --virtual-time-budget=800 --screenshot=autopulse-verification-desktop.png 'http://127.0.0.1:3000/systems/autopulse#verification'
 
       - name: Upload visual proof
         uses: actions/upload-artifact@v4
