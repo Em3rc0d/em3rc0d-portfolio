@@ -53,7 +53,37 @@ jobs:
           exit 1
 
       - name: Run route and width accessibility smoke
-        run: node scripts/accessibility-smoke.mjs
+        id: route_smoke
+        shell: bash
+        run: |
+          set +e
+          node scripts/accessibility-smoke.mjs 2>&1 | tee accessibility-route-smoke.log
+          status=${PIPESTATUS[0]}
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          exit 0
 
       - name: Run keyboard interaction smoke
-        run: node scripts/keyboard-smoke.mjs
+        id: keyboard_smoke
+        shell: bash
+        run: |
+          set +e
+          node scripts/keyboard-smoke.mjs 2>&1 | tee accessibility-keyboard-smoke.log
+          status=${PIPESTATUS[0]}
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload accessibility quality reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: accessibility-quality-reports
+          path: |
+            accessibility-route-smoke.log
+            accessibility-keyboard-smoke.log
+          retention-days: 30
+
+      - name: Enforce accessibility gate
+        shell: bash
+        run: |
+          test "${{ steps.route_smoke.outputs.status }}" = "0"
+          test "${{ steps.keyboard_smoke.outputs.status }}" = "0"
