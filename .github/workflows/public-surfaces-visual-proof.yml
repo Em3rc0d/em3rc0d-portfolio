@@ -13,6 +13,7 @@ on:
       - "src/lib/content/types.ts"
       - "scripts/capture-browser-section.mjs"
       - ".github/workflows/public-surfaces-visual-proof.yml"
+      - "package-lock.json"
 
 permissions:
   contents: read
@@ -27,7 +28,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install
+          cache: npm
+      - run: npm ci
       - run: npm run build
 
       - name: Start production server
@@ -56,46 +58,32 @@ jobs:
 
       - name: Capture Notes index desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/notes '.notes-index-intro' notes-index-desktop.png 1440 1000
-
       - name: Capture Notes ledger desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/notes '.notes-ledger' notes-ledger-desktop.png 1440 1000
-
       - name: Capture Built Verified note desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/notes/no-data-is-not-zero '.note-sheet' note-built-desktop.png 1440 1000
-
       - name: Capture Exploring note desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/notes/when-does-a-listing-become-one-opportunity '.note-sheet' note-exploring-desktop.png 1440 1000
-
       - name: Capture About hero desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/about '.about-hero' about-hero-desktop.png 1440 1000
-
       - name: Capture About operating sequence desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/about '.about-sequence' about-sequence-desktop.png 1440 1000
-
       - name: Capture About mechanical note desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/about '.about-mechanical-note' about-mechanical-desktop.png 1440 1000
-
       - name: Capture Contact hero desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/contact '.contact-hero' contact-hero-desktop.png 1440 1000
-
       - name: Capture Contact intake desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/contact '.contact-intake' contact-intake-desktop.png 1440 1000
-
       - name: Capture Contact channels desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/contact '.contact-channels' contact-channels-desktop.png 1440 1000
-
       - name: Capture Notes mobile
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/notes '.notes-index-intro' notes-mobile.png 390 844
-
       - name: Capture Exploring note mobile
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/notes/when-does-a-listing-become-one-opportunity '.note-sheet' note-exploring-mobile.png 390 844
-
       - name: Capture About mobile
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/about '.about-hero' about-mobile.png 390 844
-
       - name: Capture Contact mobile
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/contact '.contact-hero' contact-mobile.png 390 844
-
       - name: Capture Contact intake mobile
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/contact '.contact-intake' contact-intake-mobile.png 390 844
 
