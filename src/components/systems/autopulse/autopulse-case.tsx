@@ -6,6 +6,16 @@ import { motion } from "motion/react";
 import { SiteHeader } from "@/components/shell/site-header";
 import { autopulseCase } from "@/content/autopulse";
 
+function evidenceHref(id: string) {
+  return id.startsWith("E-AP-") ? `/evidence/${id.toLowerCase()}` : null;
+}
+
+function EvidenceReference({ id }: { id: string }) {
+  const href = evidenceHref(id);
+  if (!href) return <span>{id}</span>;
+  return <Link href={href}>{id}</Link>;
+}
+
 export function AutoPulseCase() {
   const [activeNode, setActiveNode] = useState<string>(autopulseCase.architecture[0].id);
   const selectedNode =
@@ -178,7 +188,14 @@ export function AutoPulseCase() {
                 </div>
                 <div>
                   <dt>EVIDENCE</dt>
-                  <dd>{decision.evidence.join(" · ")}</dd>
+                  <dd className="ap-inline-evidence">
+                    {decision.evidence.map((id, index) => (
+                      <span key={id}>
+                        {index > 0 ? " · " : ""}
+                        <EvidenceReference id={id} />
+                      </span>
+                    ))}
+                  </dd>
                 </div>
               </dl>
             </article>
@@ -227,12 +244,12 @@ export function AutoPulseCase() {
           >
             <div>
               <span>COMPONENT / {selectedNode.number}</span>
-              <span>{selectedNode.evidence}</span>
+              <EvidenceReference id={selectedNode.evidence} />
             </div>
             <p>{selectedNode.label}</p>
             <h3>{selectedNode.title}</h3>
             <p>{selectedNode.detail}</p>
-            <a href="#evidence">Inspect evidence →</a>
+            <Link href={`/evidence/${selectedNode.evidence.toLowerCase()}`}>Inspect evidence →</Link>
           </motion.aside>
         </div>
       </section>
@@ -247,7 +264,7 @@ export function AutoPulseCase() {
           <div className="ap-code-specimen">
             <div className="ap-code-title">
               <span>TelemetryBlockRepository.ts</span>
-              <span>E-AP-03</span>
+              <Link href="/evidence/e-ap-03">E-AP-03</Link>
             </div>
             <pre aria-label="Simplified persistence contract excerpt"><code>{`if (calculatedCrc !== encodedBlock.payloadCrc)
   return INVALID_BLOCK_CRC
@@ -308,7 +325,7 @@ same sequence / different payload → CONFLICT`}</code></pre>
             ))}
           </div>
           <div className="ap-recovery-claim">
-            <span>E-AP-06</span>
+            <Link href="/evidence/e-ap-06">E-AP-06</Link>
             <p>
               `recoverOrphanedSessions()` reconciles durable counters and records
               `UNEXPECTED_APP_TERMINATION` instead of fabricating a clean completion.
@@ -343,7 +360,7 @@ same sequence / different payload → CONFLICT`}</code></pre>
                 <strong>{item.state}</strong>
               </div>
               <div role="cell">
-                <span>{item.evidence}</span>
+                <EvidenceReference id={item.evidence} />
                 <p>{item.proof}</p>
               </div>
             </div>
@@ -368,11 +385,11 @@ same sequence / different payload → CONFLICT`}</code></pre>
 
         <div className="ap-evidence-ledger">
           {autopulseCase.evidence.map(([id, label, state]) => (
-            <div key={id}>
+            <Link key={id} href={`/evidence/${id.toLowerCase()}`}>
               <span>{id}</span>
               <strong>{label}</strong>
               <small>{state}</small>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
