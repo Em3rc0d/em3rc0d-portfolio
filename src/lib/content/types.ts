@@ -23,14 +23,43 @@ export interface SystemRecord {
   href?: string;
 }
 
+export type EvidenceState =
+  | "IMPLEMENTED"
+  | "SOURCE_VERIFIED"
+  | "TEST_ARTIFACT"
+  | "FIELD_VALIDATED"
+  | "IN_TEST"
+  | "NOT_CLAIMED";
+
+export type EvidenceType =
+  | "ARCHITECTURE"
+  | "IMPLEMENTATION"
+  | "TEST"
+  | "RECOVERY"
+  | "PRODUCT"
+  | "MODEL";
+
+export interface EvidenceSource {
+  label: string;
+  repository: string;
+  path: string;
+  ref: string;
+  reviewedBlobSha?: string;
+}
+
 export interface EvidenceRecord {
   id: string;
+  slug: string;
   systemId: string;
-  type: string;
+  systemName: string;
+  title: string;
+  type: EvidenceType;
   claim: string;
-  state: "VERIFIED" | "PARTIAL" | "IN_TEST" | "UNVERIFIED";
-  source: string;
+  state: EvidenceState;
+  sources: readonly EvidenceSource[];
   publicability: Publicability;
   context: string;
   limitations: string;
+  relatedDecisionIds: readonly string[];
+  relatedArchitectureIds: readonly string[];
 }
