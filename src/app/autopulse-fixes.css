@@ -1,4 +1,4 @@
-/* SLICE 03 browser-audit corrections. Kept separate so visual fixes remain traceable. */
+/* SLICE 03 browser-audit corrections plus SLICE 04 evidence-link integration. */
 
 .ap-cover-copy,
 .ap-cover-copy > *,
@@ -12,6 +12,81 @@
   max-width: 100%;
   font-size: clamp(1.65rem, 2.35vw, 2.65rem);
   overflow-wrap: anywhere;
+}
+
+.ap-inline-evidence a,
+.ap-component-inspector > div a,
+.ap-code-title a,
+.ap-recovery-claim a,
+.ap-verification-table [role="cell"] > a {
+  color: var(--redline);
+  font: 600 .58rem/1.25 var(--font-mono), monospace;
+  text-decoration: none;
+}
+
+.ap-inline-evidence a:hover,
+.ap-component-inspector > div a:hover,
+.ap-code-title a:hover,
+.ap-recovery-claim a:hover,
+.ap-verification-table [role="cell"] > a:hover {
+  text-decoration: underline;
+  text-underline-offset: .2rem;
+}
+
+.ap-component-inspector > div a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: .55rem;
+}
+
+.ap-code-title a {
+  font-size: .57rem;
+}
+
+.ap-recovery-claim a {
+  display: inline-flex;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: .62rem;
+}
+
+.ap-verification-table [role="cell"] > a {
+  display: block;
+  margin-bottom: .8rem;
+  font-size: .54rem;
+}
+
+.ap-evidence-ledger > a {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line-light);
+  transition: padding 160ms ease, background 160ms ease;
+}
+
+.ap-evidence-ledger > a:hover {
+  padding-inline: .75rem;
+  background: color-mix(in srgb, white 42%, transparent);
+}
+
+.ap-evidence-ledger > a span {
+  color: var(--redline);
+  font: 600 .6rem/1 var(--font-mono), monospace;
+}
+
+.ap-evidence-ledger > a strong {
+  font-size: .9rem;
+  font-weight: 550;
+}
+
+.ap-evidence-ledger > a small {
+  color: color-mix(in srgb, var(--ink) 55%, transparent);
+  font: 500 .5rem/1.2 var(--font-mono), monospace;
+  text-align: right;
 }
 
 @media (max-width: 640px) {
@@ -44,5 +119,14 @@
 
   .ap-component-inspector h3 {
     font-size: clamp(1.6rem, 8vw, 2.25rem);
+  }
+
+  .ap-evidence-ledger > a {
+    grid-template-columns: 4.5rem 1fr;
+  }
+
+  .ap-evidence-ledger > a small {
+    grid-column: 2;
+    text-align: left;
   }
 }
