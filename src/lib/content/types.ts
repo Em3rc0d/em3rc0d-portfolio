@@ -63,3 +63,33 @@ export interface EvidenceRecord {
   relatedDecisionIds: readonly string[];
   relatedArchitectureIds: readonly string[];
 }
+
+export type NoteState = "BUILT_VERIFIED" | "EXPLORING";
+
+export type NoteTerritory =
+  | "SYSTEM THINKING"
+  | "BUILDING"
+  | "RECOVERY"
+  | "APPLIED AI"
+  | "EVIDENCE"
+  | "FIELD NOTE";
+
+export interface NoteSection {
+  heading: string;
+  body: string;
+}
+
+export interface NoteRecord {
+  id: string;
+  slug: string;
+  title: string;
+  thesis: string;
+  state: NoteState;
+  territory: NoteTerritory;
+  systemName?: string;
+  systemHref?: string;
+  relatedEvidenceIds: readonly string[];
+  sections: readonly NoteSection[];
+  currentBoundary?: string;
+  publicability: Publicability;
+}
