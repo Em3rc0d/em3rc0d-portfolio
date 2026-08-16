@@ -8,6 +8,8 @@ on:
       - "src/app/evidence.css"
       - "src/components/evidence/**"
       - "src/content/evidence.ts"
+      - "src/content/cv-engine-evidence.ts"
+      - "src/content/evidence-index.ts"
       - "src/lib/content/types.ts"
       - "scripts/capture-browser-section.mjs"
       - ".github/workflows/evidence-visual-proof.yml"
@@ -58,14 +60,17 @@ jobs:
       - name: Capture Evidence records desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/evidence '.evidence-record-list' evidence-records-desktop.png 1440 1000
 
-      - name: Capture Evidence dossier desktop
-        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/evidence/e-ap-06 '.evidence-inspector-sheet' evidence-dossier-desktop.png 1440 1000
+      - name: Capture AutoPulse dossier desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/evidence/e-ap-06 '.evidence-inspector-sheet' evidence-autopulse-dossier-desktop.png 1440 1000
+
+      - name: Capture CV Engine dossier desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/evidence/e-cv-12 '.evidence-inspector-sheet' evidence-cv-engine-dossier-desktop.png 1440 1000
 
       - name: Capture Evidence records mobile
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/evidence '.evidence-record-list' evidence-records-mobile.png 390 844
 
-      - name: Capture Evidence dossier mobile
-        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/evidence/e-ap-06 '.evidence-inspector-sheet' evidence-dossier-mobile.png 390 844
+      - name: Capture CV Engine dossier mobile
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/evidence/e-cv-12 '.evidence-inspector-sheet' evidence-cv-engine-dossier-mobile.png 390 844
 
       - name: Upload Evidence proof
         uses: actions/upload-artifact@v4
@@ -74,7 +79,8 @@ jobs:
           path: |
             evidence-intro-desktop.png
             evidence-records-desktop.png
-            evidence-dossier-desktop.png
+            evidence-autopulse-dossier-desktop.png
+            evidence-cv-engine-dossier-desktop.png
             evidence-records-mobile.png
-            evidence-dossier-mobile.png
+            evidence-cv-engine-dossier-mobile.png
           retention-days: 30
