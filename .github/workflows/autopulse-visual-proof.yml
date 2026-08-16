@@ -10,6 +10,7 @@ on:
       - "src/app/systems/[slug]/page.tsx"
       - "scripts/capture-browser-section.mjs"
       - ".github/workflows/autopulse-visual-proof.yml"
+      - "package-lock.json"
 
 permissions:
   contents: read
@@ -24,8 +25,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
-      - run: npm install
+      - run: npm ci
       - run: npm run build
 
       - name: Start production server
