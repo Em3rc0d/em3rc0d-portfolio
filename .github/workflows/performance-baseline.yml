@@ -1,0 +1,83 @@
+name: Performance Baseline
+
+on:
+  push:
+    branches: [develop]
+    paths:
+      - "src/**"
+      - "scripts/performance-baseline.mjs"
+      - ".github/workflows/performance-baseline.yml"
+      - "package.json"
+      - "package-lock.json"
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - "src/**"
+      - "scripts/performance-baseline.mjs"
+      - "package.json"
+      - "package-lock.json"
+
+permissions:
+  contents: read
+
+jobs:
+  baseline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
+
+      - name: Build production bundle
+        run: npm run build
+
+      - name: Start production server
+        run: |
+          npm start > /tmp/build-room-next.log 2>&1 &
+          for i in {1..30}; do
+            curl --fail --silent http://127.0.0.1:3000/ > /dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/build-room-next.log
+          exit 1
+
+      - name: Resolve and start Chrome CDP
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+            --remote-debugging-port=9222 --user-data-dir=/tmp/build-room-perf-chrome \
+            about:blank > /tmp/perf-chrome.log 2>&1 &
+          for i in {1..30}; do
+            curl --fail --silent http://127.0.0.1:9222/json/version > /dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/perf-chrome.log
+          exit 1
+
+      - name: Capture production browser baseline
+        run: node scripts/performance-baseline.mjs
+
+      - name: Persist performance baseline
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-baseline
+          path: artifacts/performance/
+          if-no-files-found: error
+          retention-days: 30
