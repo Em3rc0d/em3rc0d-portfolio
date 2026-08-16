@@ -3,7 +3,7 @@
 **Project:** THE BUILD ROOM  
 **Repository:** `Em3rc0d/em3rc0d-portfolio`  
 **Active branch:** `develop`  
-**Current phase:** BUILD / QUALITY HARDENING
+**Current phase:** BUILD / RELEASE HARDENING
 
 ## Gate status
 
@@ -32,8 +32,9 @@ SLICE 05 — CV Engine              ✅ CLOSED
 FLAGSHIP DIFFERENTIATION GATE     ✅ PASS
 SLICE 06 — Notes/About/Contact    ✅ CLOSED
 PUBLIC SURFACE GATE               ✅ PASS
-SLICE 07 — Mobile/Accessibility   ← IN PROGRESS
-SLICE 08 — Performance/Launch     ⛔
+SLICE 07 — Mobile/Accessibility   ✅ CLOSED
+ACCESSIBILITY QUALITY GATE        ✅ PASS
+SLICE 08 — Performance/Launch     ← IN PROGRESS
 ```
 
 ## Verified build records
@@ -44,6 +45,7 @@ SLICE 08 — Performance/Launch     ⛔
 - `build/SLICE-04-evidence-system.md`
 - `build/SLICE-05-cv-engine.md`
 - `build/SLICE-06-notes-about-contact.md`
+- `build/SLICE-07-mobile-accessibility.md`
 
 ## Browser-proven public experience
 
@@ -59,22 +61,39 @@ EXPLORING NOTE                    ✅
 ABOUT                             ✅
 CONTACT                           ✅
 CONTACT MOBILE INTAKE             ✅
+320PX NARROW-WIDTH EXPERIENCE     ✅
+REDUCED-MOTION EXPERIENCE         ✅
+KEYBOARD INTERACTION              ✅
 ```
 
-Latest public-surface gate:
+Latest accessibility gate:
 
 ```text
-Portfolio CI                    31964534742  ✅
-Public Surfaces Visual Proof    31964534774  ✅
-Artifact ID                     9268135676
-Artifact digest                 sha256:d5484f3ec99d77b20270fb2a2058ace925c46e83557101add12f5244ad7a938d
+Portfolio CI                    31965990175  ✅
+Accessibility Quality          31965990169  ✅
+Accessibility Visual Proof     31965966492  ✅
+Quality artifact ID            9268520380
+Visual artifact ID             9268504022
 ```
 
-The first public-surface proof found a real Contact mobile overflow. It was corrected and re-proven before SLICE 06 closure.
+Final quality matrix:
 
-Reusable browser harness:
+```text
+60 / 60 route-width checks      ✅
+6 / 6 keyboard checks           ✅
+```
 
-`scripts/capture-browser-section.mjs`
+The narrow-width gate discovered real 320/360px defects in Evidence, Notes, About and Contact. They were corrected at their min-content / responsive typography source rather than hidden with global overflow masking.
+
+The first keyboard harness also produced a test-driver false negative across native buttons. The CDP Enter driver was corrected before the application was judged.
+
+Reusable browser / quality harnesses:
+
+```text
+scripts/capture-browser-section.mjs
+scripts/accessibility-smoke.mjs
+scripts/keyboard-smoke.mjs
+```
 
 ## Public systems / reputation chain
 
@@ -94,7 +113,7 @@ ABOUT
 CONTACT
 ```
 
-Notes now distinguish:
+Notes distinguish:
 
 ```text
 BUILT / VERIFIED
@@ -167,31 +186,33 @@ Still next / not claimed complete:
 
 `M4B-07 — Opportunity Identity / Lifecycle`
 
-## SLICE 07 responsibility
+## SLICE 08 responsibility
 
-The architecture, visual identity, flagship cases, evidence system and public reputation surfaces are now built.
+The portfolio now has its principal content, interaction grammar and accessibility quality baseline.
 
-SLICE 07 is **not a redesign**.
+SLICE 08 is **not another feature slice**.
 
-It is a cross-portfolio quality gate over the current implementation:
+It is the release-readiness boundary:
 
 ```text
-KEYBOARD NAVIGATION
-FOCUS VISIBILITY
-INTERACTIVE SEMANTICS
-HOVER / FOCUS / TOUCH EQUIVALENCE
-REDUCED MOTION
-COLOR-INDEPENDENT STATE COMMUNICATION
-CONTRAST
-MULTI-WIDTH OVERFLOW
-TOUCH TARGET QUALITY
-DIAGRAM / TABLE READABILITY
-MOBILE NAVIGATION
-EVIDENCE / NOTE INSPECTION ON MOBILE
-ROUTE-BY-ROUTE ACCESSIBILITY SMOKE TESTS
+DEPENDENCY / BUILD DETERMINISM
+PRODUCTION CONFIGURATION
+ASSET / FONT / SCRIPT REVIEW
+BUNDLE / RUNTIME COST
+PERFORMANCE BASELINE
+METADATA / TITLE / DESCRIPTION
+CANONICAL / SOCIAL PREVIEW
+ROBOTS / SITEMAP
+404 / ROUTE INTEGRITY
+SECURITY / EXTERNAL LINK REVIEW
+LAUNCH ENVIRONMENT CONTRACT
+RELEASE CHECKLIST
+FINAL PRODUCTION GATE
 ```
 
-Visual changes are authorized only when they correct a quality/accessibility failure.
+Optimization is authorized only after the baseline is measured.
+
+Deployment is authorized only after the launch contract and release gate are frozen.
 
 ## Permanent truth rules
 
@@ -206,4 +227,4 @@ Visual changes are authorized only when they correct a quality/accessibility fai
 
 ## Next action
 
-Execute **SLICE 07 — Mobile / Accessibility** beginning with a route/component accessibility inventory and a frozen quality contract before making corrective changes.
+Execute **SLICE 08A — Performance / Launch Baseline & Release Contract** before any deployment decision.
