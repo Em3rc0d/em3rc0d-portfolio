@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Instrument_Sans } from "next/font/google";
 import { MotionPolicy } from "@/components/accessibility/motion-policy";
+import { SkipLink } from "@/components/accessibility/skip-link";
 import "./globals.css";
 import "./internal.css";
 import "./foundation.css";
@@ -44,9 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${instrumentSans.variable} ${ibmPlexMono.variable}`}>
       <body>
-        <a className="skip-link" href="#main-content">
-          Skip to content
-        </a>
+        <SkipLink />
         <MotionPolicy>{children}</MotionPolicy>
       </body>
     </html>
