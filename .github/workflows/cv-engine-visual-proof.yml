@@ -4,7 +4,7 @@ on:
   push:
     branches: [develop]
     paths:
-      - "src/app/cv-engine.css"
+      - "src/app/cv-engine*.css"
       - "src/components/systems/cv-engine/**"
       - "src/content/cv-engine.ts"
       - "src/content/cv-engine-evidence.ts"
@@ -64,17 +64,26 @@ jobs:
       - name: Capture CAN WANT desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#target' cv-can-want-desktop.png 1440 1000
 
-      - name: Capture market ingress desktop
+      - name: Capture market ingress chapter desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#market' cv-market-desktop.png 1440 1000
+
+      - name: Capture provider flow desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '.cv-provider-flow' cv-provider-flow-desktop.png 1440 1000
 
       - name: Capture UNKNOWN desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#unknown' cv-unknown-desktop.png 1440 1000
 
-      - name: Capture exact snapshot desktop
+      - name: Capture exact snapshot chapter desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#snapshot' cv-snapshot-desktop.png 1440 1000
 
-      - name: Capture verification desktop
+      - name: Capture snapshot flow desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '.cv-snapshot-flow' cv-snapshot-flow-desktop.png 1440 1000
+
+      - name: Capture verification chapter desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#verification' cv-verification-desktop.png 1440 1000
+
+      - name: Capture verification matrix desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '.cv-verification-table' cv-verification-table-desktop.png 1440 1000
 
       - name: Capture evidence desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#evidence' cv-evidence-desktop.png 1440 1000
@@ -82,8 +91,11 @@ jobs:
       - name: Capture cover mobile
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#cover' cv-cover-mobile.png 390 844
 
-      - name: Capture CAN WANT mobile
-        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#target' cv-can-want-mobile.png 390 844
+      - name: Capture CAN mobile
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '.cv-can-side' cv-can-mobile.png 390 844
+
+      - name: Capture WANT mobile
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '.cv-want-side' cv-want-mobile.png 390 844
 
       - name: Capture UNKNOWN mobile
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#unknown' cv-unknown-mobile.png 390 844
@@ -98,11 +110,15 @@ jobs:
             cv-match-desktop.png
             cv-can-want-desktop.png
             cv-market-desktop.png
+            cv-provider-flow-desktop.png
             cv-unknown-desktop.png
             cv-snapshot-desktop.png
+            cv-snapshot-flow-desktop.png
             cv-verification-desktop.png
+            cv-verification-table-desktop.png
             cv-evidence-desktop.png
             cv-cover-mobile.png
-            cv-can-want-mobile.png
+            cv-can-mobile.png
+            cv-want-mobile.png
             cv-unknown-mobile.png
           retention-days: 30
