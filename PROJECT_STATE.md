@@ -14,7 +14,7 @@ STEP 0.4  Deep Evidence Dossiers                 ✅
 STEP 0.5  Case Study Architecture                ✅
 STEP 0.6  Portfolio Information Architecture     ✅
 STEP 0.7  Visual & Interaction System            ✅
-STEP 0.8  Visual Direction / Prototype           ✅ core browser proof achieved
+STEP 0.8  Visual Direction / Prototype           ✅ browser-proven
 STEP 0.9  Build Contract                         ✅
 
 STEP 1.0  BUILD                                  IN PROGRESS
@@ -28,8 +28,9 @@ SLICE 02 — Startup → Home         ✅ CLOSED
 SLICE 03 — AutoPulse              ✅ CLOSED
 CORE VISUAL GATE                  ✅ PASS
 SLICE 04 — Evidence System        ✅ CLOSED
-SLICE 05 — CV Engine              ← IN PROGRESS
-SLICE 06 — Notes/About/Contact    ⛔
+SLICE 05 — CV Engine              ✅ CLOSED
+FLAGSHIP DIFFERENTIATION GATE     ✅ PASS
+SLICE 06 — Notes/About/Contact    ← IN PROGRESS
 SLICE 07 — Mobile/Accessibility   ⛔
 SLICE 08 — Performance/Launch     ⛔
 ```
@@ -40,45 +41,71 @@ SLICE 08 — Performance/Launch     ⛔
 - `build/SLICE-02-startup-to-home.md`
 - `build/SLICE-03-autopulse.md`
 - `build/SLICE-04-evidence-system.md`
+- `build/SLICE-05-cv-engine.md`
 
-## Core visual proof
-
-Home, AutoPulse, and the Evidence System are browser-proven.
+## Browser-proven core
 
 ```text
-AutoPulse final CI                 31962452856  ✅
-AutoPulse final Visual Proof       31962452921  ✅
-Evidence Visual Proof              31960461622  ✅
-Evidence artifact digest           sha256:004ba48ba42e74025f113665184e99d8670e08035424e619ba73548405cd517b
+HOME                              ✅
+AUTOPULSE                         ✅
+CV ENGINE                         ✅
+EVIDENCE LIBRARY                  ✅
+EVIDENCE DOSSIERS                 ✅
 ```
 
-A reusable Chrome DevTools Protocol harness exists at:
+Final CV Engine proof:
+
+```text
+Portfolio CI                   31963708321  ✅
+CV Engine Visual Proof         31963708388  ✅
+Artifact ID                    9267916055
+Artifact digest                sha256:518a05d49a0e23e145473c340d6218cd1b73fff74773b5f687f35bb8b13cf542
+Evidence corpus proof          31963343162  ✅
+Evidence corpus digest         sha256:01ab5b369cee1b13bdc1f03f04ba24f5453d695ef7f8ca0ae7cec025f576fc4f
+```
+
+Reusable browser harness:
 
 `scripts/capture-browser-section.mjs`
 
-## Current flagship systems
+## Flagship systems
 
 ```text
 01 / AUTOPULSE   ✅ implemented + evidence-linked
-02 / CV ENGINE   ← active flagship recovery/build slice
+02 / CV ENGINE   ✅ implemented + evidence-linked
 ```
 
-Supporting candidates:
+Flagship responsibilities are intentionally different:
 
 ```text
-Graph
-Infra Monitor
-prodAgentic
-GPets
+AUTOPULSE
+messy physical/runtime signal
+→ durable state
+→ recovery
+→ integrity
+
+CV ENGINE
+multiple truth classes
+→ provenance
+→ comparison
+→ bounded recommendation
+→ controlled market ingress
 ```
 
-RAG remains reserved/private until cleared.
+The two cases share THE BUILD ROOM language but are not repeated templates.
 
 ## Evidence system state
 
-Evidence identifiers are now first-class portfolio objects.
+Evidence identifiers are first-class portfolio objects.
 
-The current relationship is:
+Current public corpus:
+
+```text
+AutoPulse   E-AP-01 → E-AP-09
+CV Engine   E-CV-01 → E-CV-14
+```
+
+Relationship:
 
 ```text
 CASE CLAIM
@@ -92,41 +119,45 @@ EVIDENCE DOSSIER
 SOURCE PROVENANCE + LIMITATIONS
 ```
 
-AutoPulse currently seeds the public evidence corpus with `E-AP-01` through `E-AP-09`.
+## CV Engine current boundary
 
-## CV Engine source of truth recovered
+Current market architecture is portfolio-authorized through:
 
-The current CV Engine repository is:
+`M4B-06 — Market Assessment Integration`
 
-`Em3rc0d/harvard-ats-resume`
+The following remains explicitly next / not claimed complete:
 
-Active source branch for portfolio recovery:
+`M4B-07 — Opportunity Identity / Lifecycle`
 
-`develop`
+Therefore the portfolio does not claim completed cross-source logical identity, deduplication, OPEN/CLOSED/STALE or freshness semantics.
 
-Important correction:
+## SLICE 06 responsibility
 
-The root README still describes an older "AI Harvard ATS Resume Builder" framing. It is historical/product provenance, **not sufficient current architecture authority**.
+The engineering core is now strong enough that the next risk is no longer credibility of the systems. It is whether the visitor can understand the **person, thinking practice, and path to contact** around that evidence.
 
-The current `develop` tree contains a substantially deeper ATS v2 / Application Intelligence system including:
+SLICE 06 must complete:
 
-- Career Vault;
-- Career Evidence / Assertions / Snapshots;
-- Job Snapshot / Job Requirement;
-- MatchReport / RequirementMatch;
-- Claim Ledger / Resume Version;
-- Career Target;
-- Opportunity Space / Opportunity History;
-- MarketObservation + ObservationOccurrence;
-- controlled external source acquisition;
-- derived market interpretation;
-- market job projection;
-- opportunity assessment;
-- source-grounded resume composition;
-- semantic grounding / explainability;
-- dedicated ATS2 and Market test suites.
+```text
+NOTES
+public engineering notebook
+BUILT / VERIFIED != EXPLORING
+short inspectable technical entries
+links back into systems/evidence where appropriate
 
-Therefore the CV Engine public case must be recovered from **current `develop` source + current docs/tests**, not from the root README marketing description.
+ABOUT
+who Eduardo is without title inflation
+how he works
+systems/full-stack/applied-AI positioning
+subtle personal mechanical/automotive signal
+no lifestyle-page detour
+
+CONTACT
+commercially useful route
+trust-first
+short
+low theatrics
+clear ways to start a conversation
+```
 
 ## Permanent truth rules
 
@@ -136,8 +167,9 @@ Therefore the CV Engine public case must be recovered from **current `develop` s
 - generated concept imagery is not identity evidence;
 - public claims must map to evidence and ownership;
 - deprecated work is preserved rather than silently erased;
-- root README language never overrides newer domain/source truth.
+- historical README language never overrides newer domain/source truth;
+- current technical/R&D boundaries must remain visible when relevant.
 
 ## Next action
 
-Continue **SLICE 05 — CV Engine** with a source-grounded Evidence Dossier and claim ceiling before implementing the second flagship case.
+Execute **SLICE 06 — Notes / About / Contact**, beginning with a content/publicability audit of the existing route placeholders and available public personal/project material before implementation.
