@@ -1,14 +1,20 @@
-import { SectionFoundation } from "@/components/shell/section-foundation";
+import { EvidenceLibrary } from "@/components/evidence/evidence-library";
+import { SiteHeader } from "@/components/shell/site-header";
+import { publicEvidenceRecords } from "@/content/evidence";
 
-export const metadata = { title: "Evidence" };
+export const metadata = {
+  title: "Evidence",
+  description:
+    "Inspectable public evidence for Eduardo Merino's systems: claims, source provenance, verification state, context, and limitations.",
+};
 
 export default function EvidencePage() {
   return (
-    <SectionFoundation
-      id="EVIDENCE"
-      title="Claims should be inspectable."
-      description="Architecture, tests, product artifacts, field evidence, and source provenance will live here with explicit scope and limitations."
-      status="SLICE 04 / NOT YET BUILT"
-    />
+    <main className="evidence-page">
+      <div className="evidence-page-header">
+        <SiteHeader />
+      </div>
+      <EvidenceLibrary records={publicEvidenceRecords} />
+    </main>
   );
 }
