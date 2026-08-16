@@ -11,6 +11,7 @@ on:
       - "src/app/systems/[slug]/page.tsx"
       - "scripts/capture-browser-section.mjs"
       - ".github/workflows/cv-engine-visual-proof.yml"
+      - "package-lock.json"
 
 permissions:
   contents: read
@@ -25,7 +26,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install
+          cache: npm
+      - run: npm ci
       - run: npm run build
 
       - name: Start production server
@@ -54,49 +56,34 @@ jobs:
 
       - name: Capture CV Engine cover desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#cover' cv-cover-desktop.png 1440 1000
-
       - name: Capture CV Engine truth desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#truth' cv-truth-desktop.png 1440 1000
-
       - name: Capture CV Engine match desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#match' cv-match-desktop.png 1440 1000
-
       - name: Capture CAN WANT desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#target' cv-can-want-desktop.png 1440 1000
-
       - name: Capture market ingress chapter desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#market' cv-market-desktop.png 1440 1000
-
       - name: Capture provider flow desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '.cv-provider-flow' cv-provider-flow-desktop.png 1440 1000
-
       - name: Capture UNKNOWN desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#unknown' cv-unknown-desktop.png 1440 1000
-
       - name: Capture exact snapshot chapter desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#snapshot' cv-snapshot-desktop.png 1440 1000
-
       - name: Capture snapshot flow desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '.cv-snapshot-flow' cv-snapshot-flow-desktop.png 1440 1000
-
       - name: Capture verification chapter desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#verification' cv-verification-desktop.png 1440 1000
-
       - name: Capture verification matrix desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '.cv-verification-table' cv-verification-table-desktop.png 1440 1000
-
       - name: Capture evidence desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#evidence' cv-evidence-desktop.png 1440 1000
-
       - name: Capture cover mobile
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#cover' cv-cover-mobile.png 390 844
-
       - name: Capture CAN mobile
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '.cv-can-side' cv-can-mobile.png 390 844
-
       - name: Capture WANT mobile
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '.cv-want-side' cv-want-mobile.png 390 844
-
       - name: Capture UNKNOWN mobile
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#unknown' cv-unknown-mobile.png 390 844
 
