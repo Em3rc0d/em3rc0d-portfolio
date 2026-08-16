@@ -1,0 +1,74 @@
+name: Release Quality
+
+on:
+  push:
+    branches: [develop]
+    paths:
+      - "src/**"
+      - "scripts/release-smoke.mjs"
+      - ".github/workflows/release-quality.yml"
+      - "package.json"
+      - "package-lock.json"
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - "src/**"
+      - "scripts/release-smoke.mjs"
+      - ".github/workflows/release-quality.yml"
+      - "package.json"
+      - "package-lock.json"
+
+permissions:
+  contents: read
+
+env:
+  NEXT_PUBLIC_SITE_URL: https://portfolio.example.invalid
+  EXPECTED_SITE_ORIGIN: https://portfolio.example.invalid
+
+jobs:
+  release-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Build with configured-origin fixture
+        run: npm run build
+
+      - name: Start production server
+        run: |
+          npm start > /tmp/build-room-release.log 2>&1 &
+          for i in {1..30}; do
+            curl --fail --silent http://127.0.0.1:3000/ > /dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/build-room-release.log
+          exit 1
+
+      - name: Run release route / metadata smoke
+        shell: bash
+        run: |
+          set +e
+          node scripts/release-smoke.mjs 2>&1 | tee release-smoke.log
+          status=${PIPESTATUS[0]}
+          exit "$status"
+
+      - name: Persist release smoke report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-quality-report
+          path: release-smoke.log
+          if-no-files-found: error
+          retention-days: 30
