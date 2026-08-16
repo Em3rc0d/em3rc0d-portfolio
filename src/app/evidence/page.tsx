@@ -1,6 +1,6 @@
 import { EvidenceLibrary } from "@/components/evidence/evidence-library";
 import { SiteHeader } from "@/components/shell/site-header";
-import { publicEvidenceRecords } from "@/content/evidence";
+import { publicEvidenceRecords } from "@/content/evidence-index";
 
 export const metadata = {
   title: "Evidence",
