@@ -1,0 +1,53 @@
+name: Dependency Reproducibility
+
+on:
+  push:
+    branches: [develop]
+    paths:
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/dependency-reproducibility.yml"
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - "package.json"
+      - "package-lock.json"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Bootstrap lockfile when absent
+        if: ${{ hashFiles('package-lock.json') == '' }}
+        run: npm install --package-lock-only --ignore-scripts
+
+      - name: Clean deterministic install
+        run: npm ci
+
+      - name: Verify source gates
+        run: |
+          npm run lint
+          npm run typecheck
+          npm run build
+
+      - name: Persist dependency lock proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-reproducibility
+          path: package-lock.json
+          if-no-files-found: error
+          retention-days: 30
