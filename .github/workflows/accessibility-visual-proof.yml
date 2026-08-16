@@ -1,0 +1,93 @@
+name: Accessibility Visual Proof
+
+on:
+  push:
+    branches: [develop]
+    paths:
+      - "src/**"
+      - "scripts/capture-browser-section.mjs"
+      - "scripts/capture-keyboard-focus.mjs"
+      - ".github/workflows/accessibility-visual-proof.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - run: npm run build
+
+      - name: Start production server
+        run: |
+          npm start > /tmp/build-room-next.log 2>&1 &
+          for i in {1..30}; do
+            curl --fail --silent http://127.0.0.1:3000/ > /dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/build-room-next.log
+          exit 1
+
+      - name: Resolve and start Chrome CDP
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+            --remote-debugging-port=9222 --user-data-dir=/tmp/build-room-a11y-proof-chrome \
+            about:blank > /tmp/a11y-proof-chrome.log 2>&1 &
+          for i in {1..30}; do
+            curl --fail --silent http://127.0.0.1:9222/json/version > /dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/a11y-proof-chrome.log
+          exit 1
+
+      - name: Capture reduced-motion Home mobile
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/ '.hero-v2' a11y-home-reduced-motion-390.png 390 844
+
+      - name: Capture Evidence dossier at 320
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/evidence/e-cv-12 '.evidence-inspector-sheet' a11y-evidence-320.png 320 844
+
+      - name: Capture Exploring note at 320
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/notes/when-does-a-listing-become-one-opportunity '.note-sheet' a11y-note-320.png 320 844
+
+      - name: Capture About at 320
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/about '.about-hero' a11y-about-320.png 320 844
+
+      - name: Capture Contact at 320
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/contact '.contact-hero' a11y-contact-320.png 320 844
+
+      - name: Capture AutoPulse architecture at 320
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/autopulse '.ap-architecture-workbench' a11y-autopulse-inspector-320.png 320 844
+
+      - name: Capture CV Engine truth selector at 320
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '.cv-truth-stack' a11y-cv-truth-320.png 320 844
+
+      - name: Capture Home skip-link keyboard focus
+        run: node scripts/capture-keyboard-focus.mjs http://127.0.0.1:3000/ a11y-home-focus-390.png 390 844
+
+      - name: Capture Contact skip-link keyboard focus
+        run: node scripts/capture-keyboard-focus.mjs http://127.0.0.1:3000/contact a11y-contact-focus-390.png 390 844
+
+      - name: Upload accessibility proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: accessibility-visual-proof
+          path: |
+            a11y-home-reduced-motion-390.png
+            a11y-evidence-320.png
+            a11y-note-320.png
+            a11y-about-320.png
+            a11y-contact-320.png
+            a11y-autopulse-inspector-320.png
+            a11y-cv-truth-320.png
+            a11y-home-focus-390.png
+            a11y-contact-focus-390.png
+          retention-days: 30
