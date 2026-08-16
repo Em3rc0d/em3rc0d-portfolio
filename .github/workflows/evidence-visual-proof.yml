@@ -13,6 +13,7 @@ on:
       - "src/lib/content/types.ts"
       - "scripts/capture-browser-section.mjs"
       - ".github/workflows/evidence-visual-proof.yml"
+      - "package-lock.json"
 
 permissions:
   contents: read
@@ -27,7 +28,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install
+          cache: npm
+      - run: npm ci
       - run: npm run build
 
       - name: Start production server
@@ -56,19 +58,14 @@ jobs:
 
       - name: Capture Evidence intro desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/evidence '.evidence-library-intro' evidence-intro-desktop.png 1440 1000
-
       - name: Capture Evidence records desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/evidence '.evidence-record-list' evidence-records-desktop.png 1440 1000
-
       - name: Capture AutoPulse dossier desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/evidence/e-ap-06 '.evidence-inspector-sheet' evidence-autopulse-dossier-desktop.png 1440 1000
-
       - name: Capture CV Engine dossier desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/evidence/e-cv-12 '.evidence-inspector-sheet' evidence-cv-engine-dossier-desktop.png 1440 1000
-
       - name: Capture Evidence records mobile
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/evidence '.evidence-record-list' evidence-records-mobile.png 390 844
-
       - name: Capture CV Engine dossier mobile
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/evidence/e-cv-12 '.evidence-inspector-sheet' evidence-cv-engine-dossier-mobile.png 390 844
 
