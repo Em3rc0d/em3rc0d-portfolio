@@ -1,4 +1,6 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { AutoPulseCase } from "@/components/systems/autopulse/autopulse-case";
 import { SiteHeader } from "@/components/shell/site-header";
 import { systems } from "@/content/systems";
 
@@ -12,6 +14,20 @@ export function generateStaticParams() {
     .map((system) => ({ slug: system.slug }));
 }
 
+export async function generateMetadata({ params }: SystemPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const system = systems.find(
+    (candidate) => candidate.slug === slug && candidate.publicability !== "PRIVATE",
+  );
+
+  if (!system) return {};
+
+  return {
+    title: system.name,
+    description: system.summary,
+  };
+}
+
 export default async function SystemPage({ params }: SystemPageProps) {
   const { slug } = await params;
   const system = systems.find(
@@ -20,6 +36,10 @@ export default async function SystemPage({ params }: SystemPageProps) {
 
   if (!system || !system.href) {
     notFound();
+  }
+
+  if (system.slug === "autopulse") {
+    return <AutoPulseCase />;
   }
 
   return (
@@ -64,8 +84,8 @@ export default async function SystemPage({ params }: SystemPageProps) {
           <p className="technical-label">BUILD STATUS / CASE FOUNDATION</p>
           <p>
             This route is intentionally present before its full case composition is
-            built. The next slice replaces this foundation with Problem, Model,
-            Decisions, Architecture, Build, Failure, Verification, and Evidence.
+            built. The next dedicated flagship slice will replace this foundation
+            with a system-specific case composition.
           </p>
         </section>
       </section>
