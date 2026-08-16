@@ -1,0 +1,139 @@
+/* SLICE 07 — Cross-portfolio accessibility hardening. */
+
+:root {
+  --signal-on-paper: #b83c2f;
+  --amber-on-paper: #805c14;
+}
+
+/* -------------------------------------------------------------------------- */
+/* SKIP LINK                                                                   */
+/* -------------------------------------------------------------------------- */
+
+.skip-link {
+  position: fixed;
+  top: .75rem;
+  left: .75rem;
+  z-index: 9999;
+  padding: .8rem 1rem;
+  border: 2px solid var(--paper);
+  background: var(--carbon);
+  color: var(--paper);
+  font: 600 .68rem/1 var(--font-mono), monospace;
+  text-transform: uppercase;
+  transform: translateY(calc(-100% - 1.5rem));
+  transition: transform 120ms ease;
+}
+
+.skip-link:focus-visible {
+  outline: 2px solid var(--redline);
+  outline-offset: 3px;
+  transform: translateY(0);
+}
+
+.skip-target:focus {
+  outline: none;
+}
+
+/* -------------------------------------------------------------------------- */
+/* LIGHT-SURFACE SIGNAL CONTRAST                                               */
+/* -------------------------------------------------------------------------- */
+
+.paper-stage,
+.ap-model,
+.ap-build,
+.ap-verification,
+.ap-evidence,
+.ap-component-inspector,
+.cv-truth,
+.cv-truth-inspector,
+.cv-job-truth,
+.cv-assessment,
+.cv-projection,
+.cv-verification,
+.cv-evidence,
+.cv-can-want,
+.cv-source-evidence-node,
+.cv-market-observation,
+.cv-snapshot-id,
+.evidence-library-body,
+.evidence-inspector-sheet,
+.notes-index-body,
+.note-sheet,
+.about-method,
+.about-rules,
+.about-routes,
+.contact-entry-paths,
+.contact-intake,
+.contact-exit {
+  --redline: var(--signal-on-paper);
+}
+
+/* Nested dark surfaces keep the brighter dark-surface signal. */
+.cv-can-side,
+.note-boundary,
+.evidence-limitations {
+  --redline: #ef513d;
+}
+
+.note-page.is-exploring .note-heading > div > p,
+.note-page.is-exploring .note-heading dt {
+  color: var(--amber-on-paper);
+}
+
+/* -------------------------------------------------------------------------- */
+/* CURRENT ROUTE                                                               */
+/* -------------------------------------------------------------------------- */
+
+.primary-nav a[aria-current="page"] {
+  color: var(--paper);
+  font-weight: 650;
+  text-decoration: underline;
+  text-decoration-color: var(--redline);
+  text-decoration-thickness: 1px;
+  text-underline-offset: .35rem;
+}
+
+/* -------------------------------------------------------------------------- */
+/* COARSE POINTER / MOBILE TARGETS                                             */
+/* -------------------------------------------------------------------------- */
+
+@media (pointer: coarse), (max-width: 720px) {
+  .primary-nav a,
+  .hero-v2-header nav a,
+  .notes-filter button,
+  .evidence-filters button,
+  .contact-primary-action {
+    min-height: 2.75rem;
+  }
+
+  .primary-nav a,
+  .hero-v2-header nav a {
+    align-items: center;
+    padding-block: .45rem;
+  }
+
+  .notes-filter button,
+  .evidence-filters button {
+    padding: .75rem .9rem;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* REDUCED MOTION                                                              */
+/* -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    transition-delay: 0ms !important;
+  }
+}
