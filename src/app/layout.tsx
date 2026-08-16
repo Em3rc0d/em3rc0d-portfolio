@@ -4,6 +4,7 @@ import "./globals.css";
 import "./internal.css";
 import "./foundation.css";
 import "./startup.css";
+import "./autopulse.css";
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
