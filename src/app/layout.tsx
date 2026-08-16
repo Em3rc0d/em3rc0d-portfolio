@@ -10,6 +10,7 @@ import "./evidence.css";
 import "./cv-engine.css";
 import "./cv-engine-fixes.css";
 import "./public-surfaces.css";
+import "./public-surfaces-fixes.css";
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
