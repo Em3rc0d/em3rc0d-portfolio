@@ -28,21 +28,14 @@ const NAV = [
 export function StartupHero() {
   const reduceMotion = useReducedMotion();
   const [ready, setReady] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-
-    if (reduceMotion) {
-      setReady(true);
-      return;
-    }
-
-    const timer = window.setTimeout(() => setReady(true), 1850);
+    const delay = reduceMotion ? 0 : 1850;
+    const timer = window.setTimeout(() => setReady(true), delay);
     return () => window.clearTimeout(timer);
   }, [reduceMotion]);
 
-  const introEnabled = mounted && !reduceMotion && !ready;
+  const introEnabled = !reduceMotion && !ready;
 
   return (
     <LayoutGroup id="build-room-entry">
