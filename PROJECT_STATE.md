@@ -3,7 +3,7 @@
 **Project:** THE BUILD ROOM  
 **Repository:** `Em3rc0d/em3rc0d-portfolio`  
 **Active branch:** `develop`  
-**Current phase:** BUILD
+**Current phase:** BUILD / QUALITY HARDENING
 
 ## Gate status
 
@@ -30,8 +30,9 @@ CORE VISUAL GATE                  ✅ PASS
 SLICE 04 — Evidence System        ✅ CLOSED
 SLICE 05 — CV Engine              ✅ CLOSED
 FLAGSHIP DIFFERENTIATION GATE     ✅ PASS
-SLICE 06 — Notes/About/Contact    ← IN PROGRESS
-SLICE 07 — Mobile/Accessibility   ⛔
+SLICE 06 — Notes/About/Contact    ✅ CLOSED
+PUBLIC SURFACE GATE               ✅ PASS
+SLICE 07 — Mobile/Accessibility   ← IN PROGRESS
 SLICE 08 — Performance/Launch     ⛔
 ```
 
@@ -42,8 +43,9 @@ SLICE 08 — Performance/Launch     ⛔
 - `build/SLICE-03-autopulse.md`
 - `build/SLICE-04-evidence-system.md`
 - `build/SLICE-05-cv-engine.md`
+- `build/SLICE-06-notes-about-contact.md`
 
-## Browser-proven core
+## Browser-proven public experience
 
 ```text
 HOME                              ✅
@@ -51,22 +53,62 @@ AUTOPULSE                         ✅
 CV ENGINE                         ✅
 EVIDENCE LIBRARY                  ✅
 EVIDENCE DOSSIERS                 ✅
+ENGINEERING NOTEBOOK              ✅
+BUILT / VERIFIED NOTE             ✅
+EXPLORING NOTE                    ✅
+ABOUT                             ✅
+CONTACT                           ✅
+CONTACT MOBILE INTAKE             ✅
 ```
 
-Final CV Engine proof:
+Latest public-surface gate:
 
 ```text
-Portfolio CI                   31963708321  ✅
-CV Engine Visual Proof         31963708388  ✅
-Artifact ID                    9267916055
-Artifact digest                sha256:518a05d49a0e23e145473c340d6218cd1b73fff74773b5f687f35bb8b13cf542
-Evidence corpus proof          31963343162  ✅
-Evidence corpus digest         sha256:01ab5b369cee1b13bdc1f03f04ba24f5453d695ef7f8ca0ae7cec025f576fc4f
+Portfolio CI                    31964534742  ✅
+Public Surfaces Visual Proof    31964534774  ✅
+Artifact ID                     9268135676
+Artifact digest                 sha256:d5484f3ec99d77b20270fb2a2058ace925c46e83557101add12f5244ad7a938d
 ```
+
+The first public-surface proof found a real Contact mobile overflow. It was corrected and re-proven before SLICE 06 closure.
 
 Reusable browser harness:
 
 `scripts/capture-browser-section.mjs`
+
+## Public systems / reputation chain
+
+```text
+HOME
+  ↓
+SYSTEMS
+  ├─ AUTOPULSE
+  └─ CV ENGINE
+        ↓
+EVIDENCE
+        ↓
+NOTES
+        ↓
+ABOUT
+        ↓
+CONTACT
+```
+
+Notes now distinguish:
+
+```text
+BUILT / VERIFIED
+EXPLORING
+```
+
+Contact currently exposes only real public routes:
+
+```text
+LinkedIn  https://www.linkedin.com/in/emerinoc
+GitHub    https://github.com/Em3rc0d
+```
+
+No inferred company email, dead form, fake availability or response-time promise is published.
 
 ## Flagship systems
 
@@ -75,7 +117,7 @@ Reusable browser harness:
 02 / CV ENGINE   ✅ implemented + evidence-linked
 ```
 
-Flagship responsibilities are intentionally different:
+Flagship responsibilities remain distinct:
 
 ```text
 AUTOPULSE
@@ -92,11 +134,7 @@ multiple truth classes
 → controlled market ingress
 ```
 
-The two cases share THE BUILD ROOM language but are not repeated templates.
-
 ## Evidence system state
-
-Evidence identifiers are first-class portfolio objects.
 
 Current public corpus:
 
@@ -119,45 +157,41 @@ EVIDENCE DOSSIER
 SOURCE PROVENANCE + LIMITATIONS
 ```
 
-## CV Engine current boundary
+## Current R&D boundary kept visible
 
-Current market architecture is portfolio-authorized through:
+CV Engine is portfolio-authorized through:
 
 `M4B-06 — Market Assessment Integration`
 
-The following remains explicitly next / not claimed complete:
+Still next / not claimed complete:
 
 `M4B-07 — Opportunity Identity / Lifecycle`
 
-Therefore the portfolio does not claim completed cross-source logical identity, deduplication, OPEN/CLOSED/STALE or freshness semantics.
+## SLICE 07 responsibility
 
-## SLICE 06 responsibility
+The architecture, visual identity, flagship cases, evidence system and public reputation surfaces are now built.
 
-The engineering core is now strong enough that the next risk is no longer credibility of the systems. It is whether the visitor can understand the **person, thinking practice, and path to contact** around that evidence.
+SLICE 07 is **not a redesign**.
 
-SLICE 06 must complete:
+It is a cross-portfolio quality gate over the current implementation:
 
 ```text
-NOTES
-public engineering notebook
-BUILT / VERIFIED != EXPLORING
-short inspectable technical entries
-links back into systems/evidence where appropriate
-
-ABOUT
-who Eduardo is without title inflation
-how he works
-systems/full-stack/applied-AI positioning
-subtle personal mechanical/automotive signal
-no lifestyle-page detour
-
-CONTACT
-commercially useful route
-trust-first
-short
-low theatrics
-clear ways to start a conversation
+KEYBOARD NAVIGATION
+FOCUS VISIBILITY
+INTERACTIVE SEMANTICS
+HOVER / FOCUS / TOUCH EQUIVALENCE
+REDUCED MOTION
+COLOR-INDEPENDENT STATE COMMUNICATION
+CONTRAST
+MULTI-WIDTH OVERFLOW
+TOUCH TARGET QUALITY
+DIAGRAM / TABLE READABILITY
+MOBILE NAVIGATION
+EVIDENCE / NOTE INSPECTION ON MOBILE
+ROUTE-BY-ROUTE ACCESSIBILITY SMOKE TESTS
 ```
+
+Visual changes are authorized only when they correct a quality/accessibility failure.
 
 ## Permanent truth rules
 
@@ -168,8 +202,8 @@ clear ways to start a conversation
 - public claims must map to evidence and ownership;
 - deprecated work is preserved rather than silently erased;
 - historical README language never overrides newer domain/source truth;
-- current technical/R&D boundaries must remain visible when relevant.
+- current technical/R&D boundaries remain visible when relevant.
 
 ## Next action
 
-Execute **SLICE 06 — Notes / About / Contact**, beginning with a content/publicability audit of the existing route placeholders and available public personal/project material before implementation.
+Execute **SLICE 07 — Mobile / Accessibility** beginning with a route/component accessibility inventory and a frozen quality contract before making corrective changes.
