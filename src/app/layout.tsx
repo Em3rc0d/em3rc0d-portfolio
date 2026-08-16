@@ -3,6 +3,7 @@ import { IBM_Plex_Mono, Instrument_Sans } from "next/font/google";
 import "./globals.css";
 import "./internal.css";
 import "./foundation.css";
+import "./startup.css";
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
