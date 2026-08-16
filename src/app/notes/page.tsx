@@ -1,14 +1,20 @@
-import { SectionFoundation } from "@/components/shell/section-foundation";
+import { NotesIndex } from "@/components/notes/notes-index";
+import { SiteHeader } from "@/components/shell/site-header";
+import { publicNotes } from "@/content/notes";
 
-export const metadata = { title: "Engineering Notebook" };
+export const metadata = {
+  title: "Engineering Notebook",
+  description:
+    "Short public engineering records from Eduardo Merino: systems thinking, recovery, evidence, applied AI, and current exploration boundaries.",
+};
 
 export default function NotesPage() {
   return (
-    <SectionFoundation
-      id="NOTES"
-      title="Engineering Notebook."
-      description="Short records about systems thinking, building, recovery, applied AI, and field work — connected back to real systems and evidence."
-      status="SLICE 06 / NOT YET BUILT"
-    />
+    <main className="notes-page">
+      <div className="public-carbon-header">
+        <SiteHeader />
+      </div>
+      <NotesIndex notes={publicNotes} />
+    </main>
   );
 }
