@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SiteHeader } from "@/components/shell/site-header";
+import { StartupHero } from "@/components/home/startup-hero";
 import { flagshipSystems } from "@/content/systems";
 
 export default function Home() {
@@ -11,61 +11,7 @@ export default function Home() {
         <span>100</span>
       </div>
 
-      <section className="carbon-stage hero-stage" aria-labelledby="hero-title">
-        <SiteHeader />
-
-        <div className="hero-grid">
-          <div className="hero-copy">
-            <p className="technical-label">SYSTEM / PORTFOLIO / 001</p>
-            <h1 id="hero-title">
-              I turn messy
-              <span>operational problems</span>
-              into working software.
-            </h1>
-            <p className="hero-role">
-              Software Developer — Systems, Full Stack &amp; Applied AI
-            </p>
-
-            <div className="hero-actions">
-              <Link className="action action-primary" href="/systems">
-                Explore systems <span aria-hidden="true">↗</span>
-              </Link>
-              <Link className="action action-secondary" href="/contact">
-                Start a conversation
-              </Link>
-            </div>
-          </div>
-
-          <div className="hero-system-map" aria-label="Engineering process">
-            <p className="technical-label">PROCESS / HOW I BUILD</p>
-            <ol>
-              {[
-                ["01", "Understand", "Find the actual problem."],
-                ["02", "Model", "Make boundaries and state visible."],
-                ["03", "Build", "Turn decisions into working software."],
-                ["04", "Verify", "Make claims inspectable."],
-              ].map(([id, title, copy]) => (
-                <li key={id}>
-                  <span className="process-id">{id}</span>
-                  <div>
-                    <strong>{title}</strong>
-                    <p>{copy}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
-
-        <div className="startup-remnant" aria-hidden="true">
-          <span>IDENTITY</span>
-          <span>SYSTEMS</span>
-          <span>EVIDENCE</span>
-          <span>INTERFACE</span>
-          <div className="startup-line" />
-          <span className="startup-state">SYSTEM READY</span>
-        </div>
-      </section>
+      <StartupHero />
 
       <section className="systems-runway" aria-labelledby="systems-heading">
         <div className="section-heading-row">
