@@ -1,0 +1,23 @@
+/* SLICE 06 browser-audit corrections. */
+
+.contact-hero-grid,
+.contact-hero-grid > *,
+.contact-hero-copy,
+.contact-hero-copy > * {
+  min-width: 0;
+}
+
+@media (max-width: 620px) {
+  .contact-hero h1 {
+    max-width: 100%;
+    font-size: clamp(3.45rem, 13.4vw, 4.2rem);
+    line-height: .88;
+    letter-spacing: -.065em;
+  }
+
+  .contact-hero-copy > p,
+  .contact-hero-copy > span {
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+}
