@@ -10,11 +10,11 @@
 ```text
 STEP 0.1  Evidence / Positioning Recovery        ✅
 STEP 0.3  Personal/Public Evidence Recovery      ✅
-STEP 0.4  Deep Evidence Dossiers                 ✅ baseline knowledge recovered
+STEP 0.4  Deep Evidence Dossiers                 ✅
 STEP 0.5  Case Study Architecture                ✅
 STEP 0.6  Portfolio Information Architecture     ✅
-STEP 0.7  Visual & Interaction System            ✅ system definition
-STEP 0.8  Visual Direction / Prototype           ◉ direction approved; browser proof active in BUILD
+STEP 0.7  Visual & Interaction System            ✅
+STEP 0.8  Visual Direction / Prototype           ✅ core browser proof achieved
 STEP 0.9  Build Contract                         ✅
 
 STEP 1.0  BUILD                                  IN PROGRESS
@@ -25,64 +25,61 @@ STEP 1.0  BUILD                                  IN PROGRESS
 ```text
 SLICE 01 — Foundation             ✅ CLOSED
 SLICE 02 — Startup → Home         ✅ CLOSED
-SLICE 03 — AutoPulse              ← IN PROGRESS
-SLICE 04 — Evidence System        ⛔
+SLICE 03 — AutoPulse              ✅ CLOSED
+CORE VISUAL GATE                  ✅ PASS
+SLICE 04 — Evidence System        ← IN PROGRESS
 SLICE 05 — CV Engine              ⛔
 SLICE 06 — Notes/About/Contact    ⛔
 SLICE 07 — Mobile/Accessibility   ⛔
 SLICE 08 — Performance/Launch     ⛔
 ```
 
-## Verified build evidence
+## Verified build records
 
-### SLICE 01 — Foundation
+- `build/SLICE-01-foundation.md`
+- `build/SLICE-02-startup-to-home.md`
+- `build/SLICE-03-autopulse.md`
+
+## Core visual proof
+
+Home and AutoPulse now pass browser-level visual inspection rather than only source/Figma review.
+
+AutoPulse final verification:
 
 ```text
-Install dependencies   ✅
-Lint                    ✅
-Typecheck               ✅
-Production build        ✅
+Portfolio CI              31959994942  ✅
+AutoPulse Visual Proof    31959994949  ✅
+Artifact                  autopulse-section-visual-proof
+Digest                    sha256:e956c8855b5026b2f96f45d77374482f7b2cd232455bd601f07d604d47693037
 ```
 
-Record: `build/SLICE-01-foundation.md`
+Final AutoPulse proof includes real-viewport desktop/mobile captures for Cover, Problem, Architecture, Verification, and Evidence.
 
-### SLICE 02 — Startup → Home
+A reusable Chrome DevTools Protocol harness now exists at:
 
-Core CI and browser visual proof are green.
-
-Implemented:
-
-- startup parameter sequence;
-- shared-layout startup → Home continuity;
-- reduced-motion and no-script fallbacks;
-- desktop/mobile browser captures;
-- deterministic Visual Proof workflow.
-
-Record: `build/SLICE-02-startup-to-home.md`
+`scripts/capture-browser-section.mjs`
 
 ## Current visual decision
 
-The first Figma static direction is **not** final implementation authority.
-
-The active direction combines:
+The active THE BUILD ROOM identity is now browser-proven:
 
 - serious engineering atmosphere;
-- cinematic dark environment;
-- controlled red signal accent;
+- Carbon / Paper semantic materials;
+- controlled Redline signal accent;
 - strong editorial typography;
 - meaningful technical notation;
-- selective mechanical imagery;
-- oversized system moments;
-- Carbon → Paper evidence transitions;
-- motion that transforms state rather than decorates sections.
+- restrained mechanical undertone;
+- system-specific compositions rather than repeated cards;
+- motion/state continuity;
+- evidence confidence visible in the interface.
 
-The startup now transforms into the Home in implementation.
+The first static Figma direction remains deprecated as implementation authority.
 
 ## Current flagship systems
 
 ```text
-01 / AUTOPULSE
-02 / CV ENGINE
+01 / AUTOPULSE   ✅ case implemented
+02 / CV ENGINE   ⛔ later slice
 ```
 
 Supporting candidates:
@@ -94,46 +91,15 @@ prodAgentic
 GPets
 ```
 
-RAG remains reserved/private in the content model until cleared for public routing.
+RAG remains reserved/private until cleared.
 
-## Critical build gate
+## AutoPulse truth state
 
-```text
-HOME                         ✅ browser proof
-        ↓
-SLICE 03 — AUTOPULSE         ← IN PROGRESS
-        ↓
-CORE VISUAL GATE
-```
+AutoPulse source/evidence dossier:
 
-Do not expand into the full portfolio until AutoPulse proves that the visual system can support a deep engineering case, not only an impressive entry experience.
+`evidence/systems/autopulse-evidence-dossier-v1.md`
 
-## AutoPulse claim discipline
-
-AutoPulse case content must be grounded in current repository/evidence state.
-
-The historical README is a source, not automatic current truth.
-
-Every public case statement must distinguish:
-
-```text
-IMPLEMENTED
-VERIFIED
-FIELD-VALIDATED
-IN TEST
-HISTORICAL / SUPERSEDED
-```
-
-The case may use stronger automotive/mechanical imagery because the domain earns it, but must not invent gauges, field results, or production maturity.
-
-## Known foundation gaps
-
-- dependency lockfile still needs to be generated/committed before deployment hardening;
-- CI Actions runtime warning should be revisited during tooling hardening;
-- full animation video proof is not yet captured;
-- dedicated accessibility walkthrough remains later.
-
-None blocks SLICE 03.
+The case intentionally distinguishes source implementation, test artifacts, and the current physical field gate. It does not claim general FIELD-VALIDATED state from historical context alone.
 
 ## Permanent truth rules
 
@@ -146,4 +112,6 @@ None blocks SLICE 03.
 
 ## Next action
 
-Recover current AutoPulse architecture/evidence from `Em3rc0d/autoPulse`, then implement **SLICE 03 — AutoPulse** on `develop`.
+Implement **SLICE 04 — Evidence System**.
+
+The evidence IDs already visible in AutoPulse must become typed, routable, inspectable objects with explicit source, state, publicability, context, limitations, and related system/decision relationships.
