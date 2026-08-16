@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AutoPulseCase } from "@/components/systems/autopulse/autopulse-case";
+import { CvEngineCase } from "@/components/systems/cv-engine/cv-engine-case";
 import { SiteHeader } from "@/components/shell/site-header";
 import { systems } from "@/content/systems";
 
@@ -40,6 +41,10 @@ export default async function SystemPage({ params }: SystemPageProps) {
 
   if (system.slug === "autopulse") {
     return <AutoPulseCase />;
+  }
+
+  if (system.slug === "cv-engine") {
+    return <CvEngineCase />;
   }
 
   return (
@@ -84,8 +89,8 @@ export default async function SystemPage({ params }: SystemPageProps) {
           <p className="technical-label">BUILD STATUS / CASE FOUNDATION</p>
           <p>
             This route is intentionally present before its full case composition is
-            built. The next dedicated flagship slice will replace this foundation
-            with a system-specific case composition.
+            built. A dedicated system slice will replace this foundation when its
+            evidence and public story contract are frozen.
           </p>
         </section>
       </section>
