@@ -7,7 +7,7 @@ on:
       - "src/app/notes/**"
       - "src/app/about/**"
       - "src/app/contact/**"
-      - "src/app/public-surfaces.css"
+      - "src/app/public-surfaces*.css"
       - "src/components/notes/**"
       - "src/content/notes.ts"
       - "src/lib/content/types.ts"
@@ -96,6 +96,9 @@ jobs:
       - name: Capture Contact mobile
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/contact '.contact-hero' contact-mobile.png 390 844
 
+      - name: Capture Contact intake mobile
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/contact '.contact-intake' contact-intake-mobile.png 390 844
+
       - name: Upload public surfaces proof
         uses: actions/upload-artifact@v4
         with:
@@ -115,4 +118,5 @@ jobs:
             note-exploring-mobile.png
             about-mobile.png
             contact-mobile.png
+            contact-intake-mobile.png
           retention-days: 30
