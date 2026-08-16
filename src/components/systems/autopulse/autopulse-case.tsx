@@ -7,7 +7,7 @@ import { SiteHeader } from "@/components/shell/site-header";
 import { autopulseCase } from "@/content/autopulse";
 
 export function AutoPulseCase() {
-  const [activeNode, setActiveNode] = useState(autopulseCase.architecture[0].id);
+  const [activeNode, setActiveNode] = useState<string>(autopulseCase.architecture[0].id);
   const selectedNode =
     autopulseCase.architecture.find((node) => node.id === activeNode) ??
     autopulseCase.architecture[0];
@@ -198,7 +198,7 @@ export function AutoPulseCase() {
         </div>
 
         <div className="ap-architecture-workbench">
-          <div className="ap-architecture-flow" role="list" aria-label="AutoPulse architecture components">
+          <div className="ap-architecture-flow" aria-label="AutoPulse architecture components">
             {autopulseCase.architecture.map((node, index) => {
               const isActive = node.id === activeNode;
               return (
@@ -208,7 +208,6 @@ export function AutoPulseCase() {
                   onClick={() => setActiveNode(node.id)}
                   className={isActive ? "is-active" : undefined}
                   aria-pressed={isActive}
-                  role="listitem"
                 >
                   <span>{node.number}</span>
                   <small>{node.label}</small>
