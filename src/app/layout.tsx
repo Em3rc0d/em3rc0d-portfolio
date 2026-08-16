@@ -6,6 +6,7 @@ import "./foundation.css";
 import "./startup.css";
 import "./autopulse.css";
 import "./autopulse-fixes.css";
+import "./evidence.css";
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
