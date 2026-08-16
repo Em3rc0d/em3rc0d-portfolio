@@ -8,6 +8,7 @@ on:
       - "scripts/capture-browser-section.mjs"
       - "scripts/capture-keyboard-focus.mjs"
       - ".github/workflows/accessibility-visual-proof.yml"
+      - "package-lock.json"
 
 permissions:
   contents: read
@@ -22,7 +23,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install
+          cache: npm
+      - run: npm ci
       - run: npm run build
 
       - name: Start production server
