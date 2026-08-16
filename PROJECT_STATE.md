@@ -27,8 +27,8 @@ SLICE 01 — Foundation             ✅ CLOSED
 SLICE 02 — Startup → Home         ✅ CLOSED
 SLICE 03 — AutoPulse              ✅ CLOSED
 CORE VISUAL GATE                  ✅ PASS
-SLICE 04 — Evidence System        ← IN PROGRESS
-SLICE 05 — CV Engine              ⛔
+SLICE 04 — Evidence System        ✅ CLOSED
+SLICE 05 — CV Engine              ← IN PROGRESS
 SLICE 06 — Notes/About/Contact    ⛔
 SLICE 07 — Mobile/Accessibility   ⛔
 SLICE 08 — Performance/Launch     ⛔
@@ -39,47 +39,28 @@ SLICE 08 — Performance/Launch     ⛔
 - `build/SLICE-01-foundation.md`
 - `build/SLICE-02-startup-to-home.md`
 - `build/SLICE-03-autopulse.md`
+- `build/SLICE-04-evidence-system.md`
 
 ## Core visual proof
 
-Home and AutoPulse now pass browser-level visual inspection rather than only source/Figma review.
-
-AutoPulse final verification:
+Home, AutoPulse, and the Evidence System are browser-proven.
 
 ```text
-Portfolio CI              31959994942  ✅
-AutoPulse Visual Proof    31959994949  ✅
-Artifact                  autopulse-section-visual-proof
-Digest                    sha256:e956c8855b5026b2f96f45d77374482f7b2cd232455bd601f07d604d47693037
+AutoPulse final CI                 31962452856  ✅
+AutoPulse final Visual Proof       31962452921  ✅
+Evidence Visual Proof              31960461622  ✅
+Evidence artifact digest           sha256:004ba48ba42e74025f113665184e99d8670e08035424e619ba73548405cd517b
 ```
 
-Final AutoPulse proof includes real-viewport desktop/mobile captures for Cover, Problem, Architecture, Verification, and Evidence.
-
-A reusable Chrome DevTools Protocol harness now exists at:
+A reusable Chrome DevTools Protocol harness exists at:
 
 `scripts/capture-browser-section.mjs`
-
-## Current visual decision
-
-The active THE BUILD ROOM identity is now browser-proven:
-
-- serious engineering atmosphere;
-- Carbon / Paper semantic materials;
-- controlled Redline signal accent;
-- strong editorial typography;
-- meaningful technical notation;
-- restrained mechanical undertone;
-- system-specific compositions rather than repeated cards;
-- motion/state continuity;
-- evidence confidence visible in the interface.
-
-The first static Figma direction remains deprecated as implementation authority.
 
 ## Current flagship systems
 
 ```text
-01 / AUTOPULSE   ✅ case implemented
-02 / CV ENGINE   ⛔ later slice
+01 / AUTOPULSE   ✅ implemented + evidence-linked
+02 / CV ENGINE   ← active flagship recovery/build slice
 ```
 
 Supporting candidates:
@@ -93,13 +74,59 @@ GPets
 
 RAG remains reserved/private until cleared.
 
-## AutoPulse truth state
+## Evidence system state
 
-AutoPulse source/evidence dossier:
+Evidence identifiers are now first-class portfolio objects.
 
-`evidence/systems/autopulse-evidence-dossier-v1.md`
+The current relationship is:
 
-The case intentionally distinguishes source implementation, test artifacts, and the current physical field gate. It does not claim general FIELD-VALIDATED state from historical context alone.
+```text
+CASE CLAIM
+    ↓
+DECISION / COMPONENT / VERIFICATION
+    ↓
+EVIDENCE ID
+    ↓
+EVIDENCE DOSSIER
+    ↓
+SOURCE PROVENANCE + LIMITATIONS
+```
+
+AutoPulse currently seeds the public evidence corpus with `E-AP-01` through `E-AP-09`.
+
+## CV Engine source of truth recovered
+
+The current CV Engine repository is:
+
+`Em3rc0d/harvard-ats-resume`
+
+Active source branch for portfolio recovery:
+
+`develop`
+
+Important correction:
+
+The root README still describes an older "AI Harvard ATS Resume Builder" framing. It is historical/product provenance, **not sufficient current architecture authority**.
+
+The current `develop` tree contains a substantially deeper ATS v2 / Application Intelligence system including:
+
+- Career Vault;
+- Career Evidence / Assertions / Snapshots;
+- Job Snapshot / Job Requirement;
+- MatchReport / RequirementMatch;
+- Claim Ledger / Resume Version;
+- Career Target;
+- Opportunity Space / Opportunity History;
+- MarketObservation + ObservationOccurrence;
+- controlled external source acquisition;
+- derived market interpretation;
+- market job projection;
+- opportunity assessment;
+- source-grounded resume composition;
+- semantic grounding / explainability;
+- dedicated ATS2 and Market test suites.
+
+Therefore the CV Engine public case must be recovered from **current `develop` source + current docs/tests**, not from the root README marketing description.
 
 ## Permanent truth rules
 
@@ -108,10 +135,9 @@ The case intentionally distinguishes source implementation, test artifacts, and 
 - no company/private artifacts published for visual impact;
 - generated concept imagery is not identity evidence;
 - public claims must map to evidence and ownership;
-- deprecated work is preserved rather than silently erased.
+- deprecated work is preserved rather than silently erased;
+- root README language never overrides newer domain/source truth.
 
 ## Next action
 
-Implement **SLICE 04 — Evidence System**.
-
-The evidence IDs already visible in AutoPulse must become typed, routable, inspectable objects with explicit source, state, publicability, context, limitations, and related system/decision relationships.
+Continue **SLICE 05 — CV Engine** with a source-grounded Evidence Dossier and claim ceiling before implementing the second flagship case.
