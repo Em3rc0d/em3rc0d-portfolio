@@ -36,19 +36,32 @@
     font-size: clamp(1.85rem, 9.5vw, 2.5rem);
   }
 
-  /* Long note titles must preserve whole-page width at the smallest supported viewport. */
+  /* Long note records must preserve whole-page width at the smallest supported viewport. */
+  .note-page,
+  .note-sheet,
+  .note-sheet *,
   .note-heading,
   .note-heading > *,
   .note-heading h1,
   .note-boundary,
-  .note-relations {
+  .note-relations,
+  .note-relations > * {
     min-width: 0;
   }
 
   .note-heading h1 {
     max-width: 100%;
     font-size: clamp(2.55rem, 12.6vw, 3.4rem);
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  .note-heading dd,
+  .note-sections h2,
+  .note-sections p,
+  .note-boundary h2,
+  .note-relations a,
+  .note-relations span {
+    overflow-wrap: anywhere;
   }
 
   /* About retains the oversized editorial identity but no word may set page width. */
