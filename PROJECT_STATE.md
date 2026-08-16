@@ -14,7 +14,7 @@ STEP 0.4  Deep Evidence Dossiers                 ✅ baseline knowledge recovere
 STEP 0.5  Case Study Architecture                ✅
 STEP 0.6  Portfolio Information Architecture     ✅
 STEP 0.7  Visual & Interaction System            ✅ system definition
-STEP 0.8  Visual Direction / Prototype           ◉ direction approved; browser motion proof continues in BUILD
+STEP 0.8  Visual Direction / Prototype           ◉ direction approved; browser proof active in BUILD
 STEP 0.9  Build Contract                         ✅
 
 STEP 1.0  BUILD                                  IN PROGRESS
@@ -24,8 +24,8 @@ STEP 1.0  BUILD                                  IN PROGRESS
 
 ```text
 SLICE 01 — Foundation             ✅ CLOSED
-SLICE 02 — Startup → Home         ← NEXT
-SLICE 03 — AutoPulse              ⛔
+SLICE 02 — Startup → Home         ✅ CLOSED
+SLICE 03 — AutoPulse              ← IN PROGRESS
 SLICE 04 — Evidence System        ⛔
 SLICE 05 — CV Engine              ⛔
 SLICE 06 — Notes/About/Contact    ⛔
@@ -33,9 +33,9 @@ SLICE 07 — Mobile/Accessibility   ⛔
 SLICE 08 — Performance/Launch     ⛔
 ```
 
-## Foundation evidence
+## Verified build evidence
 
-GitHub Actions verification for the final SLICE 01 configuration:
+### SLICE 01 — Foundation
 
 ```text
 Install dependencies   ✅
@@ -44,22 +44,21 @@ Typecheck               ✅
 Production build        ✅
 ```
 
-Verified routes include:
+Record: `build/SLICE-01-foundation.md`
 
-```text
-/
-/about
-/contact
-/evidence
-/notes
-/systems
-/systems/autopulse
-/systems/cv-engine
-```
+### SLICE 02 — Startup → Home
 
-Full implementation record:
+Core CI and browser visual proof are green.
 
-`build/SLICE-01-foundation.md`
+Implemented:
+
+- startup parameter sequence;
+- shared-layout startup → Home continuity;
+- reduced-motion and no-script fallbacks;
+- desktop/mobile browser captures;
+- deterministic Visual Proof workflow.
+
+Record: `build/SLICE-02-startup-to-home.md`
 
 ## Current visual decision
 
@@ -77,7 +76,7 @@ The active direction combines:
 - Carbon → Paper evidence transitions;
 - motion that transforms state rather than decorates sections.
 
-The startup must transform into the Home.
+The startup now transforms into the Home in implementation.
 
 ## Current flagship systems
 
@@ -100,22 +99,41 @@ RAG remains reserved/private in the content model until cleared for public routi
 ## Critical build gate
 
 ```text
-SLICE 02 — Startup → Home
+HOME                         ✅ browser proof
         ↓
-SLICE 03 — AutoPulse
+SLICE 03 — AUTOPULSE         ← IN PROGRESS
         ↓
 CORE VISUAL GATE
 ```
 
-Do not expand into the entire site until Home + AutoPulse prove the design in-browser.
+Do not expand into the full portfolio until AutoPulse proves that the visual system can support a deep engineering case, not only an impressive entry experience.
+
+## AutoPulse claim discipline
+
+AutoPulse case content must be grounded in current repository/evidence state.
+
+The historical README is a source, not automatic current truth.
+
+Every public case statement must distinguish:
+
+```text
+IMPLEMENTED
+VERIFIED
+FIELD-VALIDATED
+IN TEST
+HISTORICAL / SUPERSEDED
+```
+
+The case may use stronger automotive/mechanical imagery because the domain earns it, but must not invent gauges, field results, or production maturity.
 
 ## Known foundation gaps
 
 - dependency lockfile still needs to be generated/committed before deployment hardening;
-- CI actions runtime warning should be revisited during tooling hardening;
-- visual excellence is not proven by CI and remains a browser-level gate.
+- CI Actions runtime warning should be revisited during tooling hardening;
+- full animation video proof is not yet captured;
+- dedicated accessibility walkthrough remains later.
 
-None blocks SLICE 02.
+None blocks SLICE 03.
 
 ## Permanent truth rules
 
@@ -128,8 +146,4 @@ None blocks SLICE 02.
 
 ## Next action
 
-Implement **SLICE 02 — Startup → Home** on `develop`.
-
-Its acceptance criterion is structural:
-
-> **The startup must reorganize into the Home instead of disappearing before a conventional landing page appears.**
+Recover current AutoPulse architecture/evidence from `Em3rc0d/autoPulse`, then implement **SLICE 03 — AutoPulse** on `develop`.
