@@ -6,6 +6,8 @@ on:
     paths:
       - "src/**"
       - "scripts/performance-baseline.mjs"
+      - "scripts/performance-budget-check.mjs"
+      - "scripts/performance-budget.json"
       - ".github/workflows/performance-baseline.yml"
       - "package.json"
       - "package-lock.json"
@@ -14,6 +16,8 @@ on:
     paths:
       - "src/**"
       - "scripts/performance-baseline.mjs"
+      - "scripts/performance-budget-check.mjs"
+      - "scripts/performance-budget.json"
       - "package.json"
       - "package-lock.json"
 
@@ -33,15 +37,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
-      - name: Install dependencies
-        shell: bash
-        run: |
-          if [ -f package-lock.json ]; then
-            npm ci
-          else
-            npm install
-          fi
+      - name: Install locked dependencies
+        run: npm ci
 
       - name: Build production bundle
         run: npm run build
@@ -72,6 +71,15 @@ jobs:
 
       - name: Capture production browser baseline
         run: node scripts/performance-baseline.mjs
+
+      - name: Enforce structural performance budget when configured
+        shell: bash
+        run: |
+          if [ -f scripts/performance-budget.json ] && [ -f scripts/performance-budget-check.mjs ]; then
+            node scripts/performance-budget-check.mjs
+          else
+            echo "Performance budget not frozen yet; baseline-only run."
+          fi
 
       - name: Persist performance baseline
         if: always()
