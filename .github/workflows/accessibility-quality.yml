@@ -1,0 +1,55 @@
+name: Accessibility Quality
+
+on:
+  push:
+    branches: [develop]
+    paths:
+      - "src/**"
+      - "scripts/accessibility-smoke.mjs"
+      - ".github/workflows/accessibility-quality.yml"
+      - "package.json"
+      - "tsconfig.json"
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: npm install
+      - run: npm run build
+
+      - name: Start production server
+        run: |
+          npm start > /tmp/build-room-next.log 2>&1 &
+          for i in {1..30}; do
+            curl --fail --silent http://127.0.0.1:3000/ > /dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/build-room-next.log
+          exit 1
+
+      - name: Resolve and start Chrome CDP
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+            --remote-debugging-port=9222 --user-data-dir=/tmp/build-room-a11y-chrome \
+            about:blank > /tmp/a11y-chrome.log 2>&1 &
+          for i in {1..30}; do
+            curl --fail --silent http://127.0.0.1:9222/json/version > /dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/a11y-chrome.log
+          exit 1
+
+      - name: Run route and width accessibility smoke
+        run: node scripts/accessibility-smoke.mjs
