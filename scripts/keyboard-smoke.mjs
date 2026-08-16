@@ -84,10 +84,12 @@ async function createSession(path, width = 390, height = 844) {
       return response.result.value;
     },
     async key(key, code, virtualKeyCode) {
+      const text = key === "Enter" ? "\r" : key === " " ? " " : undefined;
       await send("Input.dispatchKeyEvent", {
-        type: "rawKeyDown",
+        type: text ? "keyDown" : "rawKeyDown",
         key,
         code,
+        ...(text ? { text, unmodifiedText: text } : {}),
         windowsVirtualKeyCode: virtualKeyCode,
         nativeVirtualKeyCode: virtualKeyCode,
       });
@@ -98,7 +100,7 @@ async function createSession(path, width = 390, height = 844) {
         windowsVirtualKeyCode: virtualKeyCode,
         nativeVirtualKeyCode: virtualKeyCode,
       });
-      await sleep(180);
+      await sleep(220);
     },
     async close() {
       socket.close();
