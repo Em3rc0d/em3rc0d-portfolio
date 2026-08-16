@@ -4,6 +4,8 @@ import { systems } from "@/content/systems";
 
 export const metadata = {
   title: "Systems",
+  description:
+    "Inspectable software systems built by Eduardo Merino, organized by problem, architecture, implementation, constraints, verification, and evidence.",
 };
 
 export default function SystemsPage() {
