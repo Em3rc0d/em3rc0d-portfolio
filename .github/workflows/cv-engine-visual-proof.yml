@@ -1,0 +1,108 @@
+name: CV Engine Visual Proof
+
+on:
+  push:
+    branches: [develop]
+    paths:
+      - "src/app/cv-engine.css"
+      - "src/components/systems/cv-engine/**"
+      - "src/content/cv-engine.ts"
+      - "src/content/cv-engine-evidence.ts"
+      - "src/app/systems/[slug]/page.tsx"
+      - "scripts/capture-browser-section.mjs"
+      - ".github/workflows/cv-engine-visual-proof.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - run: npm run build
+
+      - name: Start production server
+        run: |
+          npm start > /tmp/build-room-next.log 2>&1 &
+          for i in {1..30}; do
+            curl --fail --silent http://127.0.0.1:3000/systems/cv-engine > /dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/build-room-next.log
+          exit 1
+
+      - name: Resolve and start Chrome CDP
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+            --remote-debugging-port=9222 --user-data-dir=/tmp/build-room-cv-chrome \
+            about:blank > /tmp/cv-chrome.log 2>&1 &
+          for i in {1..30}; do
+            curl --fail --silent http://127.0.0.1:9222/json/version > /dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/cv-chrome.log
+          exit 1
+
+      - name: Capture CV Engine cover desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#cover' cv-cover-desktop.png 1440 1000
+
+      - name: Capture CV Engine truth desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#truth' cv-truth-desktop.png 1440 1000
+
+      - name: Capture CV Engine match desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#match' cv-match-desktop.png 1440 1000
+
+      - name: Capture CAN WANT desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#target' cv-can-want-desktop.png 1440 1000
+
+      - name: Capture market ingress desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#market' cv-market-desktop.png 1440 1000
+
+      - name: Capture UNKNOWN desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#unknown' cv-unknown-desktop.png 1440 1000
+
+      - name: Capture exact snapshot desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#snapshot' cv-snapshot-desktop.png 1440 1000
+
+      - name: Capture verification desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#verification' cv-verification-desktop.png 1440 1000
+
+      - name: Capture evidence desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#evidence' cv-evidence-desktop.png 1440 1000
+
+      - name: Capture cover mobile
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#cover' cv-cover-mobile.png 390 844
+
+      - name: Capture CAN WANT mobile
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#target' cv-can-want-mobile.png 390 844
+
+      - name: Capture UNKNOWN mobile
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/cv-engine '#unknown' cv-unknown-mobile.png 390 844
+
+      - name: Upload CV Engine proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: cv-engine-section-visual-proof
+          path: |
+            cv-cover-desktop.png
+            cv-truth-desktop.png
+            cv-match-desktop.png
+            cv-can-want-desktop.png
+            cv-market-desktop.png
+            cv-unknown-desktop.png
+            cv-snapshot-desktop.png
+            cv-verification-desktop.png
+            cv-evidence-desktop.png
+            cv-cover-mobile.png
+            cv-can-want-mobile.png
+            cv-unknown-mobile.png
+          retention-days: 30
