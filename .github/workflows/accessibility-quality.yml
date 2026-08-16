@@ -9,6 +9,7 @@ on:
       - "scripts/keyboard-smoke.mjs"
       - ".github/workflows/accessibility-quality.yml"
       - "package.json"
+      - "package-lock.json"
       - "tsconfig.json"
 
 permissions:
@@ -24,8 +25,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
-      - run: npm install
+      - run: npm ci
       - run: npm run build
 
       - name: Start production server
