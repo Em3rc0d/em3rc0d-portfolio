@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Instrument_Sans } from "next/font/google";
+import { MotionPolicy } from "@/components/accessibility/motion-policy";
 import "./globals.css";
 import "./internal.css";
 import "./foundation.css";
@@ -11,6 +12,7 @@ import "./cv-engine.css";
 import "./cv-engine-fixes.css";
 import "./public-surfaces.css";
 import "./public-surfaces-fixes.css";
+import "./accessibility.css";
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
@@ -41,7 +43,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${instrumentSans.variable} ${ibmPlexMono.variable}`}>
-      <body>{children}</body>
+      <body>
+        <a className="skip-link" href="#main-content">
+          Skip to content
+        </a>
+        <MotionPolicy>{children}</MotionPolicy>
+      </body>
     </html>
   );
 }
