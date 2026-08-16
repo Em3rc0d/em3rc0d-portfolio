@@ -1,0 +1,73 @@
+/* SLICE 07 — narrow-width corrections discovered by the 320/360px quality matrix. */
+
+/* Evidence dossiers: every provenance/relationship column may shrink and wrap. */
+.evidence-inspector-sheet,
+.evidence-inspector-sheet *,
+.evidence-sources,
+.evidence-sources > header,
+.evidence-sources > a,
+.evidence-relations,
+.evidence-relations > * {
+  min-width: 0;
+}
+
+.evidence-sources > header {
+  flex-wrap: wrap;
+}
+
+.evidence-sources code,
+.evidence-relations strong,
+.evidence-relations a,
+.evidence-inspector-claim h2 {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 360px) {
+  .evidence-inspector-sheet {
+    width: calc(100% - .75rem);
+    padding-inline: .85rem;
+  }
+
+  .evidence-inspector-heading h1 {
+    font-size: clamp(2.8rem, 16vw, 4.2rem);
+  }
+
+  .evidence-inspector-claim h2 {
+    font-size: clamp(1.85rem, 9.5vw, 2.5rem);
+  }
+
+  /* Long note titles must preserve whole-page width at the smallest supported viewport. */
+  .note-heading,
+  .note-heading > *,
+  .note-heading h1,
+  .note-boundary,
+  .note-relations {
+    min-width: 0;
+  }
+
+  .note-heading h1 {
+    max-width: 100%;
+    font-size: clamp(2.55rem, 12.6vw, 3.4rem);
+    overflow-wrap: break-word;
+  }
+
+  /* About retains the oversized editorial identity but no word may set page width. */
+  .about-hero-grid,
+  .about-hero-grid > *,
+  .about-hero h1 {
+    min-width: 0;
+  }
+
+  .about-hero h1 {
+    max-width: 100%;
+    font-size: clamp(3.2rem, 15vw, 4.2rem);
+  }
+
+  /* Contact's longest word is the limiting mobile measure; scale by viewport, not a desktop-biased minimum. */
+  .contact-hero h1 {
+    max-width: 100%;
+    font-size: clamp(2.8rem, 11.5vw, 3.55rem);
+    line-height: .9;
+    letter-spacing: -.06em;
+  }
+}
