@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Instrument_Sans } from "next/font/google";
+import { DynamicSemantics } from "@/components/accessibility/dynamic-semantics";
 import { MotionPolicy } from "@/components/accessibility/motion-policy";
 import { SkipLink } from "@/components/accessibility/skip-link";
 import "./globals.css";
@@ -47,6 +48,7 @@ export default function RootLayout({
     <html lang="en" className={`${instrumentSans.variable} ${ibmPlexMono.variable}`}>
       <body>
         <SkipLink />
+        <DynamicSemantics />
         <MotionPolicy>{children}</MotionPolicy>
       </body>
     </html>
