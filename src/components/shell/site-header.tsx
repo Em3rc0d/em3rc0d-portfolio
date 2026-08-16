@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const navItems = [
   ["Systems", "/systems"],
@@ -9,6 +12,8 @@ const navItems = [
 ] as const;
 
 export function SiteHeader() {
+  const pathname = usePathname();
+
   return (
     <header className="site-header">
       <Link className="site-identity" href="/" aria-label="Eduardo Merino — Home">
@@ -20,16 +25,19 @@ export function SiteHeader() {
 
       <nav aria-label="Primary navigation">
         <ul className="primary-nav">
-          {navItems.map(([label, href], index) => (
-            <li key={href}>
-              <Link href={href}>
-                <span className="nav-index" aria-hidden="true">
-                  0{index + 1}
-                </span>
-                {label}
-              </Link>
-            </li>
-          ))}
+          {navItems.map(([label, href], index) => {
+            const isCurrent = pathname === href || pathname.startsWith(`${href}/`);
+            return (
+              <li key={href}>
+                <Link href={href} aria-current={isCurrent ? "page" : undefined}>
+                  <span className="nav-index" aria-hidden="true">
+                    0{index + 1}
+                  </span>
+                  {label}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </nav>
     </header>
