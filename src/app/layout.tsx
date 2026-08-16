@@ -14,6 +14,7 @@ import "./cv-engine-fixes.css";
 import "./public-surfaces.css";
 import "./public-surfaces-fixes.css";
 import "./accessibility.css";
+import "./accessibility-fixes.css";
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
