@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { findEvidenceBySlug, publicEvidenceRecords } from "@/content/evidence";
+import { findEvidenceBySlug, publicEvidenceRecords } from "@/content/evidence-index";
 
 interface EvidencePageProps {
   params: Promise<{ slug: string }>;
@@ -22,6 +22,10 @@ export default async function EvidenceRecordPage({ params }: EvidencePageProps) 
   const { slug } = await params;
   const record = findEvidenceBySlug(slug);
   if (!record) notFound();
+
+  const systemHref = record.systemId === "02"
+    ? "/systems/cv-engine#evidence"
+    : "/systems/autopulse#evidence";
 
   return (
     <main className="evidence-inspector">
@@ -100,7 +104,7 @@ export default async function EvidenceRecordPage({ params }: EvidencePageProps) 
             <p className="evidence-inspector-label">ARCHITECTURE REFERENCES</p>
             <strong>{record.relatedArchitectureIds.length ? record.relatedArchitectureIds.join(" · ") : "NONE MAPPED"}</strong>
           </div>
-          <Link href="/systems/autopulse#evidence">RETURN TO AUTOPULSE →</Link>
+          <Link href={systemHref}>RETURN TO {record.systemName.toUpperCase()} →</Link>
         </section>
       </section>
     </main>
