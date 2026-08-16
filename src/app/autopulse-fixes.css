@@ -1,0 +1,36 @@
+/* SLICE 03 browser-audit corrections. Kept separate so visual fixes remain traceable. */
+
+.ap-cover-copy,
+.ap-cover-copy > *,
+.ap-cover-grid > * {
+  min-width: 0;
+}
+
+@media (max-width: 640px) {
+  .ap-cover-copy h1 {
+    max-width: 100%;
+    font-size: clamp(4rem, 21vw, 5.15rem);
+    line-height: .8;
+    letter-spacing: -.08em;
+  }
+
+  .ap-thesis {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    font-size: .98rem;
+  }
+
+  .ap-cover-topline {
+    display: grid;
+    grid-template-columns: auto 1fr;
+  }
+
+  .ap-cover-topline span:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .ap-machine {
+    width: 100%;
+    min-width: 0;
+  }
+}
