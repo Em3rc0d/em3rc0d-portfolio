@@ -17,7 +17,7 @@ STEP 0.7  Visual & Interaction System            ✅
 STEP 0.8  Visual Direction / Prototype           ✅ browser-proven
 STEP 0.9  Build Contract                         ✅
 
-STEP 1.0  BUILD                                  IN PROGRESS
+STEP 1.0  BUILD                                  ◉ RELEASE HARDENING
 ```
 
 ## Build slice status
@@ -34,7 +34,17 @@ SLICE 06 — Notes/About/Contact    ✅ CLOSED
 PUBLIC SURFACE GATE               ✅ PASS
 SLICE 07 — Mobile/Accessibility   ✅ CLOSED
 ACCESSIBILITY QUALITY GATE        ✅ PASS
-SLICE 08 — Performance/Launch     ← IN PROGRESS
+SLICE 08 — Performance/Launch     ◉ PRE-PRODUCTION GATE PASSED
+```
+
+SLICE 08 sub-state:
+
+```text
+08A — Release Contract             ✅ CLOSED
+08B — Build Determinism            ✅ CLOSED
+08C — Performance Baseline/Budget  ✅ CLOSED
+08D — Search/Share/Route Gate      ✅ CLOSED
+08E — Production Deployment Proof  ⛔ EXTERNAL DEPENDENCY
 ```
 
 ## Verified build records
@@ -46,6 +56,7 @@ SLICE 08 — Performance/Launch     ← IN PROGRESS
 - `build/SLICE-05-cv-engine.md`
 - `build/SLICE-06-notes-about-contact.md`
 - `build/SLICE-07-mobile-accessibility.md`
+- `build/SLICE-08-performance-launch.md`
 
 ## Browser-proven public experience
 
@@ -66,17 +77,7 @@ REDUCED-MOTION EXPERIENCE         ✅
 KEYBOARD INTERACTION              ✅
 ```
 
-Latest accessibility gate:
-
-```text
-Portfolio CI                    31965990175  ✅
-Accessibility Quality          31965990169  ✅
-Accessibility Visual Proof     31965966492  ✅
-Quality artifact ID            9268520380
-Visual artifact ID             9268504022
-```
-
-Final quality matrix:
+Final accessibility matrix:
 
 ```text
 60 / 60 route-width checks      ✅
@@ -93,6 +94,9 @@ Reusable browser / quality harnesses:
 scripts/capture-browser-section.mjs
 scripts/accessibility-smoke.mjs
 scripts/keyboard-smoke.mjs
+scripts/performance-baseline.mjs
+scripts/performance-budget-check.mjs
+scripts/release-smoke.mjs
 ```
 
 ## Public systems / reputation chain
@@ -186,33 +190,97 @@ Still next / not claimed complete:
 
 `M4B-07 — Opportunity Identity / Lifecycle`
 
-## SLICE 08 responsibility
+## Release hardening state
 
-The portfolio now has its principal content, interaction grammar and accessibility quality baseline.
-
-SLICE 08 is **not another feature slice**.
-
-It is the release-readiness boundary:
+Dependency graph:
 
 ```text
-DEPENDENCY / BUILD DETERMINISM
-PRODUCTION CONFIGURATION
-ASSET / FONT / SCRIPT REVIEW
-BUNDLE / RUNTIME COST
-PERFORMANCE BASELINE
-METADATA / TITLE / DESCRIPTION
-CANONICAL / SOCIAL PREVIEW
-ROBOTS / SITEMAP
-404 / ROUTE INTEGRITY
-SECURITY / EXTERNAL LINK REVIEW
-LAUNCH ENVIRONMENT CONTRACT
-RELEASE CHECKLIST
-FINAL PRODUCTION GATE
+package-lock.json             ✅ COMMITTED
+npm ci                        ✅ REQUIRED BY PERSISTENT GATES
+reproducibility gate          ✅ PASS
 ```
 
-Optimization is authorized only after the baseline is measured.
+Performance system:
 
-Deployment is authorized only after the launch contract and release gate are frozen.
+```text
+7 routes × 2 profiles         ✅ 14 / 14 baseline measurements
+runtime failures              ✅ 0
+structural performance budget ✅ ENFORCED
+```
+
+Hard-budget metrics are intentionally limited to stable structural cost signals:
+
+```text
+transfer bytes
+resource count
+DOM element count
+JS event-listener count
+```
+
+GitHub-runner FCP/load timing remains laboratory evidence only and is not promoted to a public performance claim.
+
+Release quality system verifies:
+
+```text
+10 public routes / metadata   ✅
+Open Graph / Twitter          ✅
+app icon metadata             ✅
+robots.txt                    ✅
+sitemap.xml                   ✅
+404 boundary                  ✅
+```
+
+Production-origin authority is configuration-driven through:
+
+`NEXT_PUBLIC_SITE_URL`
+
+No origin is guessed when this variable is absent.
+
+## Current production boundary
+
+GitHub repository state currently exposes:
+
+```text
+DEPLOYMENTS       0
+ENVIRONMENTS      0
+PRODUCTION ORIGIN NONE RECOVERED
+```
+
+Therefore the project is accurately classified as:
+
+# `PRE-PRODUCTION READY`
+
+—not yet `PRODUCTION RELEASED`.
+
+## Remaining SLICE 08 responsibility
+
+`08E — Production Deployment & Origin Proof`
+
+Required sequence:
+
+```text
+CONNECT / SELECT HOSTING AUTHORITY
+        ↓
+DEPLOY VERIFIED RELEASE CANDIDATE
+        ↓
+OBTAIN REAL HTTPS ORIGIN
+        ↓
+SET NEXT_PUBLIC_SITE_URL
+        ↓
+REBUILD / REDEPLOY
+        ↓
+RUN PRODUCTION SMOKE AT REAL ORIGIN
+        ↓
+VERIFY REAL ROBOTS / SITEMAP / SOCIAL METADATA
+        ↓
+RECORD DEPLOYMENT EVIDENCE
+        ↓
+SLICE 08 CLOSED
+        ↓
+THE BUILD ROOM v1.0 RELEASED
+```
+
+Do not close SLICE 08 against a fixture domain or a local server.
 
 ## Permanent truth rules
 
@@ -227,4 +295,4 @@ Deployment is authorized only after the launch contract and release gate are fro
 
 ## Next action
 
-Execute **SLICE 08A — Performance / Launch Baseline & Release Contract** before any deployment decision.
+Execute **SLICE 08E — Production Deployment & Origin Proof** once a real hosting authority is connected.
