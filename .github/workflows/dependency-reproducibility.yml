@@ -1,0 +1,75 @@
+name: Dependency Reproducibility
+
+on:
+  push:
+    branches: [develop]
+    paths:
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/dependency-reproducibility.yml"
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - "package.json"
+      - "package-lock.json"
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Detect dependency lock state
+        id: lock
+        shell: bash
+        run: |
+          if [ -f package-lock.json ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Bootstrap lockfile when absent
+        if: ${{ steps.lock.outputs.present == 'false' }}
+        run: npm install --package-lock-only --ignore-scripts
+
+      - name: Clean deterministic install
+        run: npm ci
+
+      - name: Verify source gates
+        run: |
+          npm run lint
+          npm run typecheck
+          npm run build
+
+      - name: Persist dependency lock proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-reproducibility
+          path: package-lock.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Commit bootstrapped lockfile
+        if: ${{ github.event_name == 'push' && steps.lock.outputs.present == 'false' }}
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package-lock.json
+          git commit -m "build: lock dependency graph"
+          git push origin HEAD:develop

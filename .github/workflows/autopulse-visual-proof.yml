@@ -1,0 +1,100 @@
+name: AutoPulse Visual Proof
+
+on:
+  push:
+    branches: [develop]
+    paths:
+      - "src/app/autopulse*.css"
+      - "src/components/systems/autopulse/**"
+      - "src/content/autopulse.ts"
+      - "src/app/systems/[slug]/page.tsx"
+      - "scripts/capture-browser-section.mjs"
+      - ".github/workflows/autopulse-visual-proof.yml"
+      - "package-lock.json"
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Start production server
+        run: |
+          npm start > /tmp/build-room-next.log 2>&1 &
+          for i in {1..30}; do
+            curl --fail --silent http://127.0.0.1:3000/systems/autopulse > /dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/build-room-next.log
+          exit 1
+
+      - name: Resolve Chrome
+        id: chrome
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "binary=$CHROME_BIN" >> "$GITHUB_OUTPUT"
+
+      - name: Start Chrome CDP
+        run: |
+          "${{ steps.chrome.outputs.binary }}" \
+            --headless=new \
+            --no-sandbox \
+            --disable-gpu \
+            --hide-scrollbars \
+            --remote-debugging-port=9222 \
+            --user-data-dir=/tmp/build-room-chrome \
+            about:blank > /tmp/build-room-chrome.log 2>&1 &
+          for i in {1..30}; do
+            curl --fail --silent http://127.0.0.1:9222/json/version > /dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/build-room-chrome.log
+          exit 1
+
+      - name: Capture AutoPulse cover desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/autopulse '#cover' autopulse-cover-desktop.png 1440 1000
+
+      - name: Capture AutoPulse problem desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/autopulse '#problem' autopulse-problem-desktop.png 1440 1000
+
+      - name: Capture AutoPulse architecture desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/autopulse '#architecture' autopulse-architecture-desktop.png 1440 1000
+
+      - name: Capture AutoPulse verification desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/autopulse '#verification' autopulse-verification-desktop.png 1440 1000
+
+      - name: Capture AutoPulse evidence desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/autopulse '#evidence' autopulse-evidence-desktop.png 1440 1000
+
+      - name: Capture AutoPulse cover mobile
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/autopulse '#cover' autopulse-cover-mobile.png 390 844
+
+      - name: Capture AutoPulse architecture mobile
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/autopulse '#architecture' autopulse-architecture-mobile.png 390 844
+
+      - name: Upload AutoPulse proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: autopulse-section-visual-proof
+          path: |
+            autopulse-cover-desktop.png
+            autopulse-problem-desktop.png
+            autopulse-architecture-desktop.png
+            autopulse-verification-desktop.png
+            autopulse-evidence-desktop.png
+            autopulse-cover-mobile.png
+            autopulse-architecture-mobile.png
+          retention-days: 30

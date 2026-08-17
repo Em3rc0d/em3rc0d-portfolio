@@ -1,0 +1,29 @@
+.foundation-status {
+  display: grid;
+  grid-template-columns: minmax(12rem, .28fr) minmax(0, .72fr);
+  gap: clamp(2rem, 8vw, 8rem);
+  width: min(calc(100% - (var(--page-pad) * 2)), var(--content-max));
+  margin: 0 auto;
+  padding: 2rem 0;
+  border-top: 1px solid var(--line-dark);
+  border-bottom: 1px solid var(--line-dark);
+}
+
+.foundation-status > span {
+  color: var(--redline);
+  font: 500 .7rem/1.4 var(--font-mono), monospace;
+  letter-spacing: .06em;
+}
+
+.foundation-status > p {
+  max-width: 48rem;
+  margin: 0;
+  color: var(--alloy);
+  line-height: 1.7;
+}
+
+@media (max-width: 760px) {
+  .foundation-status {
+    grid-template-columns: 1fr;
+  }
+}
