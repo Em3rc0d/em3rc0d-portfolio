@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { SiteHeader } from "@/components/shell/site-header";
 
@@ -57,9 +58,13 @@ export default function AboutPage() {
           </div>
 
           <figure className="about-builder-portrait">
-            <img
-              src="/media/eduardo-authentic.svg"
+            <Image
+              src="/media/eduardo-authentic.jpg"
               alt="Eduardo Merino, the builder behind THE BUILD ROOM"
+              width={400}
+              height={400}
+              sizes="(max-width: 1100px) 100vw, 38vw"
+              priority
             />
             <figcaption>
               <span>BUILDER / HUMAN CONTEXT</span>
