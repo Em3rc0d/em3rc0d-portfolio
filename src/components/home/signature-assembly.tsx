@@ -25,9 +25,10 @@ export function SignatureAssembly({ ready }: { ready: boolean }) {
 
         <div className="assembly-stack">
           {LAYERS.map(([id, label, detail], index) => {
+            const offset = (index - 2) * 1.2;
             const style = {
               "--assembly-depth": `${index * 34}px`,
-              "--assembly-index": index,
+              "--assembly-offset": `${offset}rem`,
             } as CSSProperties;
 
             return (
