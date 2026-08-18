@@ -9,6 +9,14 @@ on:
       - "package-lock.json"
       - "tsconfig.json"
       - ".github/workflows/visual-proof.yml"
+  pull_request:
+    branches: [develop]
+    paths:
+      - "src/**"
+      - "package.json"
+      - "package-lock.json"
+      - "tsconfig.json"
+      - ".github/workflows/visual-proof.yml"
 
 permissions:
   contents: read
