@@ -45,11 +45,11 @@ export function SignatureAssembly({ ready }: { ready: boolean }) {
       <div className="signature-assembly-frame" aria-hidden="true">
         <div className="assembly-stack">
           {LAYERS.map((layer, index) => {
-            // A wider exploded offset keeps every responsibility label visible in the
-            // settled browser composition instead of letting the front plate hide the stack.
-            const offset = (index - 2) * 2.15;
+            // Keep the settled assembly visibly exploded so plate identities remain
+            // inspectable instead of collapsing into one unreadable decorative stack.
+            const offset = (index - 2) * 2.75;
             const style = {
-              "--assembly-depth": `${index * 26}px`,
+              "--assembly-depth": `${index * 22}px`,
               "--assembly-offset": `${offset}rem`,
             } as CSSProperties;
 
@@ -88,6 +88,9 @@ export function SignatureAssembly({ ready }: { ready: boolean }) {
         id="assembly-caption"
         data-label="SIGNATURE SYSTEM / SEPARATE RESPONSIBILITIES → ONE COHERENT SYSTEM"
       >
+        <strong className="assembly-responsibilities">
+          INTERFACE / LOGIC / DATA / INFRASTRUCTURE / EVIDENCE
+        </strong>
         Each plate owns a different responsibility. The mechanical idea is the behavior:
         separate parts align, engage and lock only when the system can move from input to
         durable state and inspectable proof.
