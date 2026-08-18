@@ -13,16 +13,11 @@ const LAYERS = [
 
 export function SignatureAssembly({ ready }: { ready: boolean }) {
   const reduceMotion = useReducedMotion();
-  const settled = ready || reduceMotion;
+  const settled = ready || Boolean(reduceMotion);
 
   return (
     <figure className="signature-assembly" aria-labelledby="assembly-caption">
       <div className="signature-assembly-frame" aria-hidden="true">
-        <span className="assembly-axis assembly-axis-x" />
-        <span className="assembly-axis assembly-axis-y" />
-        <span className="assembly-orbit assembly-orbit-a" />
-        <span className="assembly-orbit assembly-orbit-b" />
-
         <div className="assembly-stack">
           {LAYERS.map(([id, label, detail], index) => {
             const offset = (index - 2) * 1.2;
@@ -33,54 +28,40 @@ export function SignatureAssembly({ ready }: { ready: boolean }) {
 
             return (
               <motion.div
-                className="assembly-layer-motion"
+                className="assembly-layer"
                 key={id}
+                style={style}
+                data-id={id}
+                data-label={label}
+                data-detail={detail}
                 initial={false}
-                animate={{
-                  opacity: settled ? 1 : 0.18,
-                  x: settled ? 0 : (index - 2) * 18,
-                  y: settled ? 0 : (2 - index) * 11,
-                  scale: settled ? 1 : 0.96,
-                }}
+                animate={{ opacity: settled ? 1 : 0.14 }}
                 transition={{
                   delay: reduceMotion ? 0 : index * 0.055,
-                  duration: reduceMotion ? 0 : 0.48,
+                  duration: reduceMotion ? 0 : 0.45,
                   ease: [0.16, 1, 0.3, 1],
                 }}
-              >
-                <div className="assembly-layer" style={style}>
-                  <span>{id}</span>
-                  <strong>{label}</strong>
-                  <small>{detail}</small>
-                  <i />
-                </div>
-              </motion.div>
+              />
             );
           })}
         </div>
 
         <motion.div
-          className="assembly-core-motion"
+          className="assembly-core"
+          data-label="EM"
+          data-detail="SYSTEM / 001"
           initial={false}
-          animate={{ opacity: settled ? 1 : 0.15, scale: settled ? 1 : 0.76 }}
-          transition={{ duration: reduceMotion ? 0 : 0.5, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="assembly-core">
-            <span>EM</span>
-            <small>SYSTEM / 001</small>
-          </div>
-        </motion.div>
-
-        <div className="assembly-trace assembly-trace-a" />
-        <div className="assembly-trace assembly-trace-b" />
+          animate={{ opacity: settled ? 1 : 0.12 }}
+          transition={{ duration: reduceMotion ? 0 : 0.45, ease: [0.16, 1, 0.3, 1] }}
+        />
       </div>
 
-      <figcaption id="assembly-caption">
-        <span>SIGNATURE SYSTEM / FIVE RESPONSIBILITIES</span>
-        <p>
-          Interface, logic, data, infrastructure and evidence align into one
-          inspectable system. Mechanical behavior is the undertone—not the subject.
-        </p>
+      <figcaption
+        id="assembly-caption"
+        data-label="SIGNATURE SYSTEM / FIVE RESPONSIBILITIES"
+      >
+        Interface, logic, data, infrastructure and evidence align into one
+        inspectable system. Mechanical behavior is the undertone—not the subject.
       </figcaption>
     </figure>
   );
