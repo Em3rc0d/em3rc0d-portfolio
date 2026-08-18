@@ -19,6 +19,7 @@ import "./accessibility.css";
 import "./accessibility-fixes.css";
 import "./visual-material-v2.css";
 import "./visual-material-v2-fixes.css";
+import "./usability-v2.css";
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
