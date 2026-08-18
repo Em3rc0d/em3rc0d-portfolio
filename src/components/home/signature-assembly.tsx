@@ -32,9 +32,8 @@ export function SignatureAssembly({ ready }: { ready: boolean }) {
 
             return (
               <motion.div
-                className="assembly-layer"
+                className="assembly-layer-motion"
                 key={id}
-                style={style}
                 initial={false}
                 animate={{
                   opacity: settled ? 1 : 0.18,
@@ -48,23 +47,27 @@ export function SignatureAssembly({ ready }: { ready: boolean }) {
                   ease: [0.16, 1, 0.3, 1],
                 }}
               >
-                <span>{id}</span>
-                <strong>{label}</strong>
-                <small>{detail}</small>
-                <i />
+                <div className="assembly-layer" style={style}>
+                  <span>{id}</span>
+                  <strong>{label}</strong>
+                  <small>{detail}</small>
+                  <i />
+                </div>
               </motion.div>
             );
           })}
         </div>
 
         <motion.div
-          className="assembly-core"
+          className="assembly-core-motion"
           initial={false}
           animate={{ opacity: settled ? 1 : 0.15, scale: settled ? 1 : 0.76 }}
           transition={{ duration: reduceMotion ? 0 : 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span>EM</span>
-          <small>SYSTEM / 001</small>
+          <div className="assembly-core">
+            <span>EM</span>
+            <small>SYSTEM / 001</small>
+          </div>
         </motion.div>
 
         <div className="assembly-trace assembly-trace-a" />
