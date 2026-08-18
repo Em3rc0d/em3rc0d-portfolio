@@ -21,6 +21,7 @@ import "./visual-material-v2.css";
 import "./visual-material-v2-fixes.css";
 import "./usability-v2.css";
 import "./evidence-library-usability.css";
+import "./material-reality-acceptance.css";
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
