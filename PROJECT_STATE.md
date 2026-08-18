@@ -2,22 +2,49 @@
 
 **Project:** THE BUILD ROOM  
 **Repository:** `Em3rc0d/em3rc0d-portfolio`  
-**Active branch:** `develop`  
-**Current phase:** BUILD / RELEASE HARDENING
+**Stable production branch:** `main`  
+**Active work branch:** `develop`  
+**Current phase:** `STEP 1.1 — REPUTATION COMPLETENESS`
+
+## Release state
+
+# `THE BUILD ROOM v1.0 — PRODUCTION RELEASED`
+
+Public origin:
+
+`https://em3rc0d-portfolio.vercel.app`
+
+Final v1 production authority:
+
+```text
+GitHub production branch   main
+Production merge commit    3f92fdcb3adb423e2b4b04474e17bb2f51e3caf6
+Release PR                 #2
+Vercel deployment          dpl_3JCdaqsDSRMJn4Rnqq2n91XAqD5K
+Deployment state           READY
+Node authority             22.x
+NEXT_PUBLIC_SITE_URL       ACTIVE
+```
+
+Production proof:
+
+`evidence/production-release-proof-v1.md`
+
+---
 
 ## Gate status
 
 ```text
-STEP 0.1  Evidence / Positioning Recovery        ✅
-STEP 0.3  Personal/Public Evidence Recovery      ✅
-STEP 0.4  Deep Evidence Dossiers                 ✅
-STEP 0.5  Case Study Architecture                ✅
-STEP 0.6  Portfolio Information Architecture     ✅
-STEP 0.7  Visual & Interaction System            ✅
-STEP 0.8  Visual Direction / Prototype           ✅ browser-proven
-STEP 0.9  Build Contract                         ✅
-
-STEP 1.0  BUILD                                  ◉ RELEASE HARDENING
+STEP 0.1  Evidence / Positioning Recovery        ✅ CLOSED
+STEP 0.3  Personal/Public Evidence Recovery      ✅ CLOSED
+STEP 0.4  Deep Evidence Dossiers                 ✅ CLOSED
+STEP 0.5  Case Study Architecture                ✅ CLOSED
+STEP 0.6  Portfolio Information Architecture     ✅ CLOSED
+STEP 0.7  Visual & Interaction System            ✅ CLOSED
+STEP 0.8  Visual Direction / Prototype           ✅ CLOSED / browser-proven
+STEP 0.9  Build Contract                         ✅ CLOSED
+STEP 1.0  BUILD                                  ✅ CLOSED / production-proven
+STEP 1.1  Reputation Completeness                ◉ ACTIVE
 ```
 
 ## Build slice status
@@ -34,18 +61,21 @@ SLICE 06 — Notes/About/Contact    ✅ CLOSED
 PUBLIC SURFACE GATE               ✅ PASS
 SLICE 07 — Mobile/Accessibility   ✅ CLOSED
 ACCESSIBILITY QUALITY GATE        ✅ PASS
-SLICE 08 — Performance/Launch     ◉ PRE-PRODUCTION GATE PASSED
+SLICE 08 — Performance/Launch     ✅ CLOSED
+PRODUCTION RELEASE GATE           ✅ PASS
 ```
 
-SLICE 08 sub-state:
+SLICE 08 final state:
 
 ```text
 08A — Release Contract             ✅ CLOSED
 08B — Build Determinism            ✅ CLOSED
 08C — Performance Baseline/Budget  ✅ CLOSED
 08D — Search/Share/Route Gate      ✅ CLOSED
-08E — Production Deployment Proof  ⛔ EXTERNAL DEPENDENCY
+08E — Production Deployment Proof  ✅ CLOSED
 ```
+
+---
 
 ## Verified build records
 
@@ -57,11 +87,16 @@ SLICE 08 sub-state:
 - `build/SLICE-06-notes-about-contact.md`
 - `build/SLICE-07-mobile-accessibility.md`
 - `build/SLICE-08-performance-launch.md`
+- `evidence/production-release-proof-v1.md`
+- `evidence/production-website-soul-audit-v1.md`
+
+---
 
 ## Browser-proven public experience
 
 ```text
 HOME                              ✅
+SYSTEMS INDEX                     ✅
 AUTOPULSE                         ✅
 CV ENGINE                         ✅
 EVIDENCE LIBRARY                  ✅
@@ -99,6 +134,8 @@ scripts/performance-budget-check.mjs
 scripts/release-smoke.mjs
 ```
 
+---
+
 ## Public systems / reputation chain
 
 ```text
@@ -133,6 +170,8 @@ GitHub    https://github.com/Em3rc0d
 
 No inferred company email, dead form, fake availability or response-time promise is published.
 
+---
+
 ## Flagship systems
 
 ```text
@@ -164,6 +203,7 @@ Current public corpus:
 ```text
 AutoPulse   E-AP-01 → E-AP-09
 CV Engine   E-CV-01 → E-CV-14
+TOTAL       23 public evidence records
 ```
 
 Relationship:
@@ -190,13 +230,16 @@ Still next / not claimed complete:
 
 `M4B-07 — Opportunity Identity / Lifecycle`
 
-## Release hardening state
+---
 
-Dependency graph:
+## Release proof state
+
+Dependency/build authority:
 
 ```text
 package-lock.json             ✅ COMMITTED
 npm ci                        ✅ REQUIRED BY PERSISTENT GATES
+Node runtime                  ✅ 22.x repository-authoritative
 reproducibility gate          ✅ PASS
 ```
 
@@ -204,11 +247,11 @@ Performance system:
 
 ```text
 7 routes × 2 profiles         ✅ 14 / 14 baseline measurements
-runtime failures              ✅ 0
+runtime failures              ✅ 0 in baseline
 structural performance budget ✅ ENFORCED
 ```
 
-Hard-budget metrics are intentionally limited to stable structural cost signals:
+Hard-budget metrics remain intentionally limited to stable structural cost signals:
 
 ```text
 transfer bytes
@@ -219,68 +262,101 @@ JS event-listener count
 
 GitHub-runner FCP/load timing remains laboratory evidence only and is not promoted to a public performance claim.
 
-Release quality system verifies:
+Production/search/share proof:
 
 ```text
 10 public routes / metadata   ✅
 Open Graph / Twitter          ✅
 app icon metadata             ✅
-robots.txt                    ✅
-sitemap.xml                   ✅
+robots.txt                    ✅ real Host + Sitemap
+sitemap.xml                   ✅ real production-origin routes
 404 boundary                  ✅
+HTTPS / HSTS                  ✅
+production runtime errors     ✅ none found in final audit window
 ```
 
 Production-origin authority is configuration-driven through:
 
-`NEXT_PUBLIC_SITE_URL`
+`NEXT_PUBLIC_SITE_URL=https://em3rc0d-portfolio.vercel.app`
 
 No origin is guessed when this variable is absent.
 
-## Current production boundary
+---
 
-GitHub repository state currently exposes:
+## Production closure
 
-```text
-DEPLOYMENTS       0
-ENVIRONMENTS      0
-PRODUCTION ORIGIN NONE RECOVERED
-```
-
-Therefore the project is accurately classified as:
-
-# `PRE-PRODUCTION READY`
-
-—not yet `PRODUCTION RELEASED`.
-
-## Remaining SLICE 08 responsibility
-
-`08E — Production Deployment & Origin Proof`
-
-Required sequence:
+The final production deployment proves the full release boundary:
 
 ```text
-CONNECT / SELECT HOSTING AUTHORITY
-        ↓
-DEPLOY VERIFIED RELEASE CANDIDATE
-        ↓
-OBTAIN REAL HTTPS ORIGIN
-        ↓
-SET NEXT_PUBLIC_SITE_URL
-        ↓
-REBUILD / REDEPLOY
-        ↓
-RUN PRODUCTION SMOKE AT REAL ORIGIN
-        ↓
-VERIFY REAL ROBOTS / SITEMAP / SOCIAL METADATA
-        ↓
-RECORD DEPLOYMENT EVIDENCE
-        ↓
-SLICE 08 CLOSED
-        ↓
+PROVEN PRODUCT
+      ↓
+DETERMINISTIC BUILD
+      ↓
+ACCESSIBILITY + RESPONSIVE GATES
+      ↓
+PERFORMANCE BASELINE + BUDGET
+      ↓
+SEARCH / SHARE / ROUTE INTEGRITY
+      ↓
+REAL VERCEL HOST
+      ↓
+REAL HTTPS ORIGIN
+      ↓
+PRODUCTION ENV AUTHORITY
+      ↓
+NODE 22 PARITY
+      ↓
+DEPLOYED PRODUCTION SMOKE
+      ↓
 THE BUILD ROOM v1.0 RELEASED
 ```
 
-Do not close SLICE 08 against a fixture domain or a local server.
+`STEP 1.0` is closed. Future product changes must not reopen BUILD without a concrete defect or new scoped product requirement.
+
+---
+
+## STEP 1.1 — Reputation Completeness
+
+The production soul audit identified the next representation boundary:
+
+```text
+PERSONAL BUILDING       ✅ VERY STRONG
+CONCURRENT R&D          ✅ VERY STRONG
+PROFESSIONAL DEPTH      ◉ UNDERREPRESENTED
+```
+
+Authority:
+
+`plan/STEP-1.1-reputation-completeness-plan-v1.md`
+
+Execution order:
+
+```text
+1. PROFESSIONAL DEPTH RECORD
+   real professional/client system
+   → PUBLIC / SANITIZED / ABSTRACTED publication contract
+   → operational context
+   → ownership / boundaries
+   → architecture / implementation responsibility
+   → public-safe evidence
+
+2. GPETS / FULL-STACK PROOF
+   recover Cineplanet challenge evidence
+   → decide whether it proves UI ↔ Application ↔ Domain ↔ Data/Backend
+
+3. SUPPORTING-SYSTEM TRIAGE
+   Graph / Infra Monitor / prodAgentic / GPets
+   → BUILD RECORD / HIDE UNTIL READY / RETIRE FROM PUBLIC
+
+4. CONVERSION COMPLETENESS
+   only verified public contact routes
+
+5. REPUTATION COMPLETENESS GATE
+```
+
+This is content/evidence expansion, **not Visual Direction v3**.
+
+---
 
 ## Permanent truth rules
 
@@ -291,8 +367,9 @@ Do not close SLICE 08 against a fixture domain or a local server.
 - public claims must map to evidence and ownership;
 - deprecated work is preserved rather than silently erased;
 - historical README language never overrides newer domain/source truth;
-- current technical/R&D boundaries remain visible when relevant.
+- current technical/R&D boundaries remain visible when relevant;
+- production success does not authorize stronger project/product claims than the underlying evidence.
 
 ## Next action
 
-Execute **SLICE 08E — Production Deployment & Origin Proof** once a real hosting authority is connected.
+Begin **STEP 1.1A — Professional Depth Recovery & Publication Contract**.

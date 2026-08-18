@@ -2,7 +2,7 @@
 
 **Project:** Eduardo Merino Portfolio  
 **Slice:** `08 — Performance / Launch`  
-**State:** `PRE-PRODUCTION GATE PASSED / PRODUCTION DEPLOYMENT PENDING`  
+**State:** `CLOSED / PRODUCTION-PROVEN`  
 **Branch:** `develop`
 
 ---
@@ -11,9 +11,9 @@
 
 SLICE 08 is not a feature slice.
 
-Its responsibility is to convert the browser-proven portfolio into a reproducible, measurable, searchable, shareable and deployment-ready release candidate without weakening the evidence-first product contract.
+Its responsibility is to convert the browser-proven portfolio into a reproducible, measurable, searchable, shareable and deployment-proven release without weakening the evidence-first product contract.
 
-The release boundary is:
+The release boundary is now fully closed:
 
 ```text
 PROVEN PRODUCT
@@ -29,9 +29,9 @@ PRE-PRODUCTION RELEASE GATE
 REAL HOST + REAL ORIGIN
       ↓
 PRODUCTION PROOF
+      ↓
+THE BUILD ROOM v1.0 RELEASED
 ```
-
-The final production proof is intentionally not claimed until an actual deployment exists.
 
 ---
 
@@ -41,7 +41,7 @@ Frozen contract:
 
 `arch/quality/performance-launch-contract-v1.md`
 
-The contract separates three classes of work.
+The contract separated three classes of work.
 
 ## Required before launch
 
@@ -53,7 +53,7 @@ The contract separates three classes of work.
 - structural regression budgets;
 - final deployed-origin proof.
 
-## Can be proven before a domain exists
+## Proven before a domain existed
 
 - lockfile and `npm ci` reproducibility;
 - lint / typecheck / production build;
@@ -65,15 +65,16 @@ The contract separates three classes of work.
 - robots/sitemap behavior through a configured-origin fixture;
 - 404 boundary.
 
-## Requires real deployment authority
+## Proven at real production authority
 
 - actual hosting target;
 - actual HTTPS production origin;
 - `NEXT_PUBLIC_SITE_URL` set to that origin;
-- final canonical/robots/sitemap values at the real origin;
-- deployed production smoke.
+- final robots/sitemap values at the real origin;
+- deployed production smoke;
+- Node 22 production parity.
 
-No domain or host is inferred by the source tree.
+No domain or host was inferred by the source tree.
 
 ---
 
@@ -96,7 +97,7 @@ package-lock.json
 .github/workflows/dependency-reproducibility.yml
 ```
 
-The lock was generated under the same Node 22 line used by project CI and immediately validated through:
+The lock was generated under Node 22 and immediately validated through:
 
 ```text
 npm ci
@@ -116,7 +117,7 @@ TYPECHECK              PASS
 PRODUCTION BUILD       PASS
 ```
 
-All persistent build/browser gates were then migrated from `npm install` to `npm ci`.
+All persistent build/browser gates were migrated from `npm install` to `npm ci`.
 
 The portfolio therefore no longer relies on unconstrained dependency re-resolution during proof runs.
 
@@ -185,7 +186,7 @@ First measured desktop baseline:
 
 These timings are laboratory observations from a GitHub runner, **not public user-performance claims**.
 
-The baseline is useful for architecture comparison and regression detection, not for claiming production Core Web Vitals before a production origin exists.
+The baseline is useful for architecture comparison and regression detection, not for claiming production Core Web Vitals without real-user monitoring.
 
 ---
 
@@ -209,7 +210,7 @@ runtime.domElements
 runtime.jsEventListeners
 ```
 
-Budgets are route-specific and were frozen from the measured release candidate with deliberate operating margin rather than arbitrary industry-score chasing.
+Budgets are route-specific and were frozen from the measured release candidate with deliberate operating margin rather than arbitrary score chasing.
 
 The performance workflow executes:
 
@@ -221,7 +222,7 @@ Enforce structural performance budget
 Persist performance artifact
 ```
 
-Current release candidate remains inside the frozen budget.
+The released v1 implementation remains inside the frozen budget at the release gate.
 
 ---
 
@@ -229,14 +230,14 @@ Current release candidate remains inside the frozen budget.
 
 A global `MutationObserver` used by the accessibility semantic repair layer was reviewed because the performance baseline revealed a shared runtime floor.
 
-The optimization was **not authorized for this release**.
+The optimization was **not authorized for v1**.
 
 Reason:
 
-- current runtime measurements are healthy;
+- current runtime measurements were healthy;
 - the observer protects two Motion-replaced live-region inspectors;
-- AutoPulse/CV Engine keyboard and live-region behavior is already browser-proven;
-- removing it requires flagship component refactoring with little measured release benefit.
+- AutoPulse/CV Engine keyboard and live-region behavior was already browser-proven;
+- removing it required flagship component refactoring with little measured release benefit.
 
 Decision:
 
@@ -245,7 +246,7 @@ KEEP PROVEN ACCESSIBILITY BEHAVIOR
 DEFER OBSERVER REMOVAL TO POST-LAUNCH OPTIMIZATION
 ```
 
-This prevents release hardening from becoming speculative refactor churn.
+This prevented release hardening from becoming speculative refactor churn.
 
 ---
 
@@ -337,7 +338,7 @@ UNKNOWN ROUTE
   └─ 404
 ```
 
-Final release smoke result:
+Pre-production release-smoke result:
 
 ```text
 PASS — 10 public routes + metadata/search/404 boundary
@@ -359,56 +360,131 @@ STRUCTURAL PERFORMANCE BUDGET     ✅ PASS
 RELEASE QUALITY                   ✅ PASS
 ```
 
-The release candidate is therefore:
-
-# `PRE-PRODUCTION READY`
-
-This does **not** mean `PRODUCTION RELEASED`.
+The release candidate was therefore correctly classified as `PRE-PRODUCTION READY` until a real production host existed.
 
 ---
 
-# 10. External Production Dependency
+# 10. 08E — Production Deployment & Origin Proof
 
-GitHub repository audit found:
+The previously external dependency is now closed.
+
+## Production authority
 
 ```text
-DEPLOYMENTS       0
-ENVIRONMENTS      0
-PRODUCTION ORIGIN NONE RECOVERED
+Host                       Vercel
+Team                       faridmerinos-projects
+Project                    em3rc0d-portfolio
+Production branch          main
+Production merge commit    3f92fdcb3adb423e2b4b04474e17bb2f51e3caf6
+Production deployment      dpl_3JCdaqsDSRMJn4Rnqq2n91XAqD5K
+Production state           READY
+Public origin              https://em3rc0d-portfolio.vercel.app
 ```
 
-Therefore the source repository cannot truthfully close the final production gate by itself.
+PR #2 (`release: close THE BUILD ROOM v1 production parity`) was merged into `main` before the final deployment.
 
-Remaining responsibility:
+## Node runtime parity
 
-# `08E — Production Deployment & Origin Proof`
+A real deployment audit discovered that the first Vercel production build used Node 24 while the repository quality contract used Node 22.
 
-Required inputs/actions:
+Correction:
 
-1. select/connect hosting authority;
-2. deploy the verified release candidate;
-3. obtain the actual HTTPS production origin;
-4. set `NEXT_PUBLIC_SITE_URL` to that origin;
-5. rebuild/redeploy with that authority;
-6. execute production smoke against the real URL;
-7. verify real robots/sitemap/social metadata;
-8. record deployment evidence;
-9. only then declare `SLICE 08 CLOSED` / `THE BUILD ROOM v1.0 RELEASED`.
+```json
+"engines": {
+  "node": "22.x"
+}
+```
+
+The final Vercel build explicitly reports:
+
+```text
+Skipping build cache since Node.js version changed from 24.x to 22.x
+engines.node = 22.x overrides Vercel Project Settings 24.x
+Node 22.x used
+```
+
+This closes build/runtime authority divergence.
+
+## Final production build
+
+```text
+Next.js                    16.3.1
+Compile                    PASS
+TypeScript                 PASS
+Static generation          45 / 45
+Deployment                 PASS
+Production state           READY
+```
+
+## Real origin
+
+`NEXT_PUBLIC_SITE_URL` is configured as:
+
+```text
+https://em3rc0d-portfolio.vercel.app
+```
+
+Final deployed `robots.txt`:
+
+```text
+User-Agent: *
+Allow: /
+Host: https://em3rc0d-portfolio.vercel.app
+Sitemap: https://em3rc0d-portfolio.vercel.app/sitemap.xml
+```
+
+Final deployed `sitemap.xml`:
+
+```text
+HTTP 200
+real production origin
+Home / Systems / AutoPulse / CV Engine
+23 Evidence dossiers
+8 Notebook records
+About / Contact
+```
+
+## Runtime audit
+
+The final production deployment was queried for `error` and `fatal` runtime logs.
+
+Result:
+
+```text
+ERROR / FATAL LOGS FOUND: 0
+```
+
+This is evidence for the audited release window, not a perpetual SLA claim.
+
+Full evidence record:
+
+`evidence/production-release-proof-v1.md`
 
 ---
 
-# 11. Gate
+# 11. Final Gate
 
 ```text
 SLICE 08A — Release Contract             ✅ CLOSED
 SLICE 08B — Build Determinism             ✅ CLOSED
 SLICE 08C — Performance Baseline/Budget   ✅ CLOSED
 SLICE 08D — Search / Share / Route Gate   ✅ CLOSED
-SLICE 08E — Production Deployment Proof   ⛔ EXTERNAL DEPENDENCY
+SLICE 08E — Production Deployment Proof   ✅ CLOSED
 ```
 
 ## Final slice state
 
-# `PRE-PRODUCTION GATE PASSED / DEPLOYMENT PENDING`
+# `SLICE 08 — CLOSED / PRODUCTION-PROVEN`
 
-Do not close SLICE 08 until a real production origin has been deployed and inspected.
+Therefore:
+
+```text
+STEP 1.0 — BUILD                        ✅ CLOSED
+THE BUILD ROOM v1.0                     ✅ PRODUCTION RELEASED
+```
+
+The next authority is:
+
+`plan/STEP-1.1-reputation-completeness-plan-v1.md`
+
+Future work is reputation/content completeness unless a concrete product defect justifies reopening BUILD.
