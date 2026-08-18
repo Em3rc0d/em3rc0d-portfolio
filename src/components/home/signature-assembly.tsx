@@ -4,11 +4,36 @@ import type { CSSProperties } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 const LAYERS = [
-  ["01", "INTERFACE", "human surface"],
-  ["02", "LOGIC", "application rules"],
-  ["03", "DATA", "durable state"],
-  ["04", "INFRASTRUCTURE", "runtime boundary"],
-  ["05", "EVIDENCE", "inspectable proof"],
+  {
+    id: "01",
+    kind: "interface",
+    label: "INTERFACE",
+    detail: "INPUT → UI → OUTPUT",
+  },
+  {
+    id: "02",
+    kind: "logic",
+    label: "LOGIC",
+    detail: "CAPTURE → VALIDATE → PERSIST",
+  },
+  {
+    id: "03",
+    kind: "data",
+    label: "DATA",
+    detail: "SESSION_ID · TIME · STATE",
+  },
+  {
+    id: "04",
+    kind: "infrastructure",
+    label: "INFRASTRUCTURE",
+    detail: "CLIENT → API → SERVICE → STORE",
+  },
+  {
+    id: "05",
+    kind: "evidence",
+    label: "EVIDENCE",
+    detail: "CLAIM → SOURCE → LIMIT",
+  },
 ] as const;
 
 export function SignatureAssembly({ ready }: { ready: boolean }) {
@@ -19,21 +44,24 @@ export function SignatureAssembly({ ready }: { ready: boolean }) {
     <figure className="signature-assembly" aria-labelledby="assembly-caption">
       <div className="signature-assembly-frame" aria-hidden="true">
         <div className="assembly-stack">
-          {LAYERS.map(([id, label, detail], index) => {
-            const offset = (index - 2) * 1.2;
+          {LAYERS.map((layer, index) => {
+            // Keep the settled assembly visibly exploded so plate identities remain
+            // inspectable instead of collapsing into one unreadable decorative stack.
+            const offset = (index - 2) * 2.75;
             const style = {
-              "--assembly-depth": `${index * 34}px`,
+              "--assembly-depth": `${index * 22}px`,
               "--assembly-offset": `${offset}rem`,
             } as CSSProperties;
 
             return (
               <motion.div
                 className="assembly-layer"
-                key={id}
+                key={layer.id}
                 style={style}
-                data-id={id}
-                data-label={label}
-                data-detail={detail}
+                data-id={layer.id}
+                data-kind={layer.kind}
+                data-label={layer.label}
+                data-detail={layer.detail}
                 initial={false}
                 animate={{ opacity: settled ? 1 : 0.14 }}
                 transition={{
@@ -48,8 +76,8 @@ export function SignatureAssembly({ ready }: { ready: boolean }) {
 
         <motion.div
           className="assembly-core"
-          data-label="EM"
-          data-detail="SYSTEM / 001"
+          data-label="SYSTEM"
+          data-detail="05 RESPONSIBILITIES / 01 WHOLE"
           initial={false}
           animate={{ opacity: settled ? 1 : 0.12 }}
           transition={{ duration: reduceMotion ? 0 : 0.45, ease: [0.16, 1, 0.3, 1] }}
@@ -58,10 +86,14 @@ export function SignatureAssembly({ ready }: { ready: boolean }) {
 
       <figcaption
         id="assembly-caption"
-        data-label="SIGNATURE SYSTEM / FIVE RESPONSIBILITIES"
+        data-label="SIGNATURE SYSTEM / SEPARATE RESPONSIBILITIES → ONE COHERENT SYSTEM"
       >
-        Interface, logic, data, infrastructure and evidence align into one
-        inspectable system. Mechanical behavior is the undertone—not the subject.
+        <strong className="assembly-responsibilities">
+          INTERFACE / LOGIC / DATA / INFRASTRUCTURE / EVIDENCE
+        </strong>
+        Each plate owns a different responsibility. The mechanical idea is the behavior:
+        separate parts align, engage and lock only when the system can move from input to
+        durable state and inspectable proof.
       </figcaption>
     </figure>
   );

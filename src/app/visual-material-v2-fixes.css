@@ -60,6 +60,61 @@
   transform: none;
 }
 
+/* The five plates must read as different responsibilities before the caption is read.
+   Patterns are CSS-only so the Home DOM budget does not grow for decoration. */
+.assembly-layer[data-kind="interface"] {
+  background:
+    linear-gradient(90deg, transparent 7%, rgba(241,239,232,.08) 7% 8%, transparent 8% 94%, rgba(241,239,232,.08) 94% 95%, transparent 95%),
+    linear-gradient(0deg, transparent 25%, rgba(241,239,232,.08) 25% 26%, transparent 26% 72%, rgba(241,239,232,.08) 72% 73%, transparent 73%),
+    linear-gradient(120deg, rgba(255,255,255,.055), transparent 42%),
+    color-mix(in srgb, var(--graphite) 90%, transparent);
+}
+
+.assembly-layer[data-kind="logic"] {
+  background:
+    radial-gradient(circle at 18% 50%, rgba(239,81,61,.32) 0 2px, transparent 3px),
+    radial-gradient(circle at 50% 50%, rgba(239,81,61,.32) 0 2px, transparent 3px),
+    radial-gradient(circle at 82% 50%, rgba(239,81,61,.32) 0 2px, transparent 3px),
+    linear-gradient(90deg, transparent 18%, rgba(239,81,61,.14) 18% 82%, transparent 82%),
+    linear-gradient(120deg, rgba(255,255,255,.04), transparent 42%),
+    color-mix(in srgb, var(--graphite) 90%, transparent);
+}
+
+.assembly-layer[data-kind="data"] {
+  background:
+    repeating-linear-gradient(0deg, transparent 0 16px, rgba(241,239,232,.045) 16px 17px),
+    repeating-linear-gradient(90deg, transparent 0 62px, rgba(241,239,232,.035) 62px 63px),
+    linear-gradient(120deg, rgba(255,255,255,.04), transparent 42%),
+    color-mix(in srgb, var(--graphite) 91%, transparent);
+}
+
+.assembly-layer[data-kind="infrastructure"] {
+  background:
+    linear-gradient(90deg,
+      transparent 0 9%, rgba(211,157,54,.08) 9% 19%, transparent 19% 29%,
+      rgba(211,157,54,.08) 29% 45%, transparent 45% 57%,
+      rgba(211,157,54,.08) 57% 72%, transparent 72% 82%,
+      rgba(211,157,54,.08) 82% 92%, transparent 92%),
+    linear-gradient(120deg, rgba(255,255,255,.04), transparent 42%),
+    color-mix(in srgb, var(--graphite) 91%, transparent);
+}
+
+.assembly-layer[data-kind="evidence"] {
+  border-color: color-mix(in srgb, var(--paper) 34%, transparent);
+  background:
+    linear-gradient(90deg, transparent 11%, rgba(17,19,21,.09) 11% 11.4%, transparent 11.4%),
+    repeating-linear-gradient(0deg, transparent 0 19px, rgba(17,19,21,.075) 19px 20px),
+    var(--paper-soft);
+}
+
+.assembly-layer[data-kind="evidence"]::before {
+  color: var(--redline);
+}
+
+.assembly-layer[data-kind="evidence"]::after {
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
+}
+
 .assembly-core {
   position: absolute;
   top: 50%;
@@ -75,14 +130,16 @@
 
 .assembly-core::before {
   content: attr(data-label);
-  font: 600 clamp(1.2rem, 2.4vw, 2rem)/1 var(--font-mono), monospace;
+  font: 600 clamp(1.05rem, 2vw, 1.65rem)/1 var(--font-mono), monospace;
 }
 
 .assembly-core::after {
+  max-width: 8rem;
+  margin-top: .55rem;
   content: attr(data-detail);
   color: var(--alloy);
-  font: 500 .48rem/1 var(--font-mono), monospace;
-  letter-spacing: .06em;
+  font: 500 .44rem/1.35 var(--font-mono), monospace;
+  letter-spacing: .055em;
 }
 
 .signature-assembly figcaption {
@@ -197,5 +254,10 @@
 
   .operating-model-sequence li::before {
     min-height: 2.7rem;
+  }
+
+  .assembly-layer::before,
+  .assembly-layer::after {
+    font-size: .46rem;
   }
 }
