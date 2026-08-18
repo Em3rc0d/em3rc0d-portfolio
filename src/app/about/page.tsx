@@ -59,13 +59,13 @@ export default function AboutPage() {
 
           <figure className="about-builder-portrait">
             <Image
-              src="/media/eduardo-authentic.webp"
+              src="/portrait/eduardo.webp"
               alt="Eduardo Merino, the builder behind THE BUILD ROOM"
               width={480}
               height={594}
               sizes="(max-width: 1100px) 100vw, 38vw"
-              quality={90}
               priority
+              unoptimized
             />
             <figcaption>
               <span>BUILDER / HUMAN CONTEXT</span>
