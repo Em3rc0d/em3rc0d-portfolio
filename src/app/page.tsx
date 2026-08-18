@@ -46,10 +46,13 @@ export default function Home() {
 
         <ol className="operating-model-sequence">
           {operatingSequence.map(([id, title, detail]) => (
-            <li key={id}>
-              <span>{id}</span>
-              <strong>{title}</strong>
-              <p>{detail}</p>
+            <li
+              key={id}
+              data-id={id}
+              data-title={title}
+              aria-label={`${id} ${title}. ${detail}`}
+            >
+              {detail}
             </li>
           ))}
         </ol>
@@ -93,21 +96,28 @@ export default function Home() {
                   <div className={`system-artifact-stage artifact-${system.slug}`} aria-label={`${system.name} engineering artifact preview`}>
                     <div className="artifact-system-path">
                       {system.path.map((step, index) => (
-                        <div key={step}>
-                          <span>{String(index + 1).padStart(2, "0")}</span>
-                          <strong>{step}</strong>
-                          {index < system.path.length - 1 ? <i aria-hidden="true" /> : null}
-                        </div>
+                        <span
+                          className="artifact-path-step"
+                          key={step}
+                          data-id={String(index + 1).padStart(2, "0")}
+                          data-label={step}
+                          data-terminal={index === system.path.length - 1 ? "true" : "false"}
+                          aria-label={`${String(index + 1).padStart(2, "0")} ${step}`}
+                        />
                       ))}
                     </div>
 
                     <div className="artifact-evidence-ledger">
                       <p>INSPECTABLE ARTIFACTS</p>
                       {evidence.map((item) => (
-                        <Link href={`/evidence/${item.slug}`} key={item.id}>
-                          <span>{item.id}</span>
-                          <strong>{item.title}</strong>
-                          <small>{item.state.replace("_", " ")}</small>
+                        <Link
+                          href={`/evidence/${item.slug}`}
+                          key={item.id}
+                          data-id={item.id}
+                          data-state={item.state.replace("_", " ")}
+                          aria-label={`${item.id}: ${item.title}. ${item.state.replace("_", " ")}`}
+                        >
+                          {item.title}
                         </Link>
                       ))}
                     </div>
