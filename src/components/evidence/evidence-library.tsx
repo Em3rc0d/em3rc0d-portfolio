@@ -14,6 +14,11 @@ const FILTERS: readonly ("ALL" | EvidenceType)[] = [
   "TEST",
 ];
 
+const filterLabel = (filter: (typeof FILTERS)[number]) =>
+  filter === "ALL"
+    ? "All evidence"
+    : filter.charAt(0) + filter.slice(1).toLowerCase();
+
 interface EvidenceLibraryProps {
   records: readonly EvidenceRecord[];
 }
@@ -33,13 +38,23 @@ export function EvidenceLibrary({ records }: EvidenceLibraryProps) {
     <section className="evidence-library-body" aria-labelledby="evidence-library-heading">
       <header className="evidence-library-intro">
         <div>
-          <p className="evidence-kicker">INSPECTION LIBRARY / PUBLIC</p>
-          <h1 id="evidence-library-heading">Evidence, with its limits attached.</h1>
+          <p className="evidence-kicker">PROOF LIBRARY / PUBLIC</p>
+          <h1 id="evidence-library-heading">See what backs the work.</h1>
         </div>
-        <p>
-          A claim is only useful here if you can inspect what supports it, where the
-          source came from, and what the artifact does not prove.
-        </p>
+        <div className="evidence-library-intro-copy">
+          <p>
+            Each record answers one practical question: what claim is being made,
+            what supports it, and where the proof stops.
+          </p>
+          <details className="evidence-library-guide">
+            <summary>How to read an evidence record</summary>
+            <ol>
+              <li><strong>What this proves</strong><span>The exact engineering claim.</span></li>
+              <li><strong>What supports it</strong><span>Source, test, product or field material.</span></li>
+              <li><strong>What it does not prove</strong><span>The limit that keeps the claim honest.</span></li>
+            </ol>
+          </details>
+        </div>
       </header>
 
       <div className="evidence-filters" aria-label="Filter evidence by type">
@@ -50,14 +65,14 @@ export function EvidenceLibrary({ records }: EvidenceLibraryProps) {
             onClick={() => setActiveFilter(filter)}
             aria-pressed={activeFilter === filter}
           >
-            {filter}
+            {filterLabel(filter)}
           </button>
         ))}
       </div>
 
-      <div className="evidence-library-count">
+      <div className="evidence-library-count" aria-live="polite">
         <span>{String(visibleRecords.length).padStart(2, "0")}</span>
-        <p>VISIBLE RECORDS</p>
+        <p>records shown</p>
       </div>
 
       <div className="evidence-record-list">
@@ -69,14 +84,14 @@ export function EvidenceLibrary({ records }: EvidenceLibraryProps) {
           >
             <span className="evidence-record-id">{record.id}</span>
             <div className="evidence-record-main">
-              <p>{record.type}</p>
+              <p>{record.systemName} · {record.type.toLowerCase()}</p>
               <h2>{record.title}</h2>
               <span>{record.claim}</span>
             </div>
             <div className="evidence-record-state">
-              <span>{record.systemName}</span>
+              <span>Status</span>
               <strong>{record.state.replaceAll("_", " ")}</strong>
-              <small>{record.publicability}</small>
+              <small>{record.publicability.toLowerCase()}</small>
             </div>
             <span className="evidence-record-open" aria-hidden="true">↗</span>
           </Link>
