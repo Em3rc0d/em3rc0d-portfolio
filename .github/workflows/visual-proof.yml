@@ -5,6 +5,7 @@ on:
     branches: [develop]
     paths:
       - "src/**"
+      - "scripts/capture-browser-section.mjs"
       - "package.json"
       - "package-lock.json"
       - "tsconfig.json"
@@ -13,6 +14,7 @@ on:
     branches: [develop]
     paths:
       - "src/**"
+      - "scripts/capture-browser-section.mjs"
       - "package.json"
       - "package-lock.json"
       - "tsconfig.json"
@@ -89,13 +91,43 @@ jobs:
         run: |
           "${{ steps.chrome.outputs.binary }}" --headless=new --no-sandbox --disable-gpu --hide-scrollbars --force-prefers-reduced-motion=reduce --window-size=390,844 --virtual-time-budget=800 --screenshot=autopulse-cover-mobile.png http://127.0.0.1:3000/systems/autopulse
 
+      - name: Start Chrome CDP for section captures
+        run: |
+          "${{ steps.chrome.outputs.binary }}" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+            --remote-debugging-port=9222 --user-data-dir=/tmp/build-room-visual-cdp about:blank \
+            > /tmp/build-room-visual-cdp.log 2>&1 &
+          for i in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:9222/json/version > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/build-room-visual-cdp.log
+          exit 1
+
+      - name: Capture mobile Home signature object
+        run: |
+          node scripts/capture-browser-section.mjs \
+            http://127.0.0.1:3000/ \
+            '.signature-assembly' \
+            home-signature-mobile.png \
+            390 844
+
       - name: Capture AutoPulse architecture desktop
         run: |
-          "${{ steps.chrome.outputs.binary }}" --headless=new --no-sandbox --disable-gpu --hide-scrollbars --force-prefers-reduced-motion=reduce --window-size=1440,1000 --virtual-time-budget=800 --screenshot=autopulse-architecture-desktop.png 'http://127.0.0.1:3000/systems/autopulse#architecture'
+          node scripts/capture-browser-section.mjs \
+            http://127.0.0.1:3000/systems/autopulse \
+            '#architecture' \
+            autopulse-architecture-desktop.png \
+            1440 1000
 
       - name: Capture AutoPulse verification desktop
         run: |
-          "${{ steps.chrome.outputs.binary }}" --headless=new --no-sandbox --disable-gpu --hide-scrollbars --force-prefers-reduced-motion=reduce --window-size=1440,1000 --virtual-time-budget=800 --screenshot=autopulse-verification-desktop.png 'http://127.0.0.1:3000/systems/autopulse#verification'
+          node scripts/capture-browser-section.mjs \
+            http://127.0.0.1:3000/systems/autopulse \
+            '#verification' \
+            autopulse-verification-desktop.png \
+            1440 1000
 
       - name: Upload visual proof
         uses: actions/upload-artifact@v4
@@ -106,6 +138,7 @@ jobs:
             startup-mobile.png
             home-desktop.png
             home-mobile.png
+            home-signature-mobile.png
             autopulse-cover-desktop.png
             autopulse-cover-mobile.png
             autopulse-architecture-desktop.png
