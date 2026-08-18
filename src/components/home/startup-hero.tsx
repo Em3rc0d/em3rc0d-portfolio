@@ -8,14 +8,9 @@ import {
   motion,
   useReducedMotion,
 } from "motion/react";
+import { SignatureAssembly } from "@/components/home/signature-assembly";
 
 const PARAMETERS = ["IDENTITY", "SYSTEMS", "EVIDENCE", "INTERFACE"] as const;
-const PROCESS = [
-  ["01", "Understand", "Find the actual operational problem."],
-  ["02", "Model", "Make boundaries, state, and relationships visible."],
-  ["03", "Build", "Turn explicit decisions into working software."],
-  ["04", "Verify", "Make the important claims inspectable."],
-] as const;
 
 const NAV = [
   ["Systems", "/systems"],
@@ -84,7 +79,7 @@ export function StartupHero() {
         >
           <div className="hero-v2-copy">
             <div className="hero-v2-kicker">
-              <span>PORTFOLIO / 001</span>
+              <span>EDUARDO MERINO / PORTFOLIO 001</span>
               <span>SOFTWARE SYSTEMS</span>
               <span className="hero-v2-status">READY</span>
             </div>
@@ -106,24 +101,7 @@ export function StartupHero() {
             </div>
           </div>
 
-          <aside className="hero-v2-process" aria-label="Engineering process">
-            <div className="process-spine" aria-hidden="true">
-              <span />
-              <i />
-            </div>
-            <p className="technical-label">PROCESS / SYSTEM MAKING</p>
-            <ol>
-              {PROCESS.map(([id, title, copy]) => (
-                <li key={id}>
-                  <span className="process-id">{id}</span>
-                  <div>
-                    <strong>{title}</strong>
-                    <p>{copy}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </aside>
+          <SignatureAssembly ready={ready || Boolean(reduceMotion)} />
         </motion.div>
 
         {ready || reduceMotion ? (
@@ -167,7 +145,7 @@ export function StartupHero() {
                 <div className="startup-coordinate-row">
                   <span>ENTRY / 00</span>
                   <span>BUILD ROOM INITIALIZATION</span>
-                  <span>REV / 01</span>
+                  <span>REV / 02</span>
                 </div>
 
                 <motion.p
@@ -175,7 +153,7 @@ export function StartupHero() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.24 }}
                 >
-                  CHARGING SYSTEM PARAMETERS
+                  ALIGNING SYSTEM RESPONSIBILITIES
                 </motion.p>
 
                 <div className="startup-locks">
