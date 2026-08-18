@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { SiteHeader } from "@/components/shell/site-header";
 
@@ -39,19 +40,41 @@ export default function AboutPage() {
     <main className="about-page">
       <section className="about-hero">
         <SiteHeader />
-        <div className="about-hero-grid">
-          <div>
-            <p className="public-kicker">ABOUT / BUILDER CONTEXT</p>
-            <h1>Understand the system first.</h1>
+        <div className="about-hero-grid about-hero-grid-v2">
+          <div className="about-builder-copy">
+            <div>
+              <p className="public-kicker">ABOUT / BUILDER</p>
+              <h1>Understand the system first.</h1>
+            </div>
+
+            <div className="about-identity">
+              <p>Eduardo Merino</p>
+              <strong>Software Developer — Systems, Full Stack &amp; Applied AI</strong>
+              <span>
+                I turn messy operational problems into working software by moving from
+                reality, to boundaries, to models, to buildable decisions and evidence.
+              </span>
+            </div>
           </div>
-          <div className="about-identity">
-            <p>Eduardo Merino</p>
-            <strong>Software Developer — Systems, Full Stack &amp; Applied AI</strong>
-            <span>
-              I turn messy operational problems into working software by moving from
-              reality, to boundaries, to models, to buildable decisions and evidence.
-            </span>
-          </div>
+
+          <figure className="about-builder-portrait">
+            <Image
+              src="/media/eduardo-authentic.jpg"
+              alt="Eduardo Merino, the builder behind THE BUILD ROOM"
+              width={400}
+              height={400}
+              sizes="(max-width: 1100px) 100vw, 38vw"
+              priority
+            />
+            <figcaption>
+              <span>BUILDER / HUMAN CONTEXT</span>
+              <strong>One person behind the systems.</strong>
+              <p>
+                The technical interface becomes quieter here on purpose. The portfolio
+                should prove engineering without turning the engineer into another HUD panel.
+              </p>
+            </figcaption>
+          </figure>
         </div>
       </section>
 
