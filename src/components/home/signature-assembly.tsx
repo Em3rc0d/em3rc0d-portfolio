@@ -45,9 +45,11 @@ export function SignatureAssembly({ ready }: { ready: boolean }) {
       <div className="signature-assembly-frame" aria-hidden="true">
         <div className="assembly-stack">
           {LAYERS.map((layer, index) => {
-            const offset = (index - 2) * 1.2;
+            // A wider exploded offset keeps every responsibility label visible in the
+            // settled browser composition instead of letting the front plate hide the stack.
+            const offset = (index - 2) * 2.15;
             const style = {
-              "--assembly-depth": `${index * 34}px`,
+              "--assembly-depth": `${index * 26}px`,
               "--assembly-offset": `${offset}rem`,
             } as CSSProperties;
 
