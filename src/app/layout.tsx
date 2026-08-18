@@ -18,6 +18,7 @@ import "./public-surfaces-fixes.css";
 import "./accessibility.css";
 import "./accessibility-fixes.css";
 import "./visual-material-v2.css";
+import "./visual-material-v2-fixes.css";
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
