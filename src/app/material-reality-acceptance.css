@@ -2,6 +2,11 @@
    These overrides are intentionally narrow: they respond to generated screenshots,
    not to a new design direction. */
 
+/* HOME — keep the assembly mechanical while exposing enough plate surface to read it. */
+.assembly-stack {
+  transform: rotateX(48deg) rotateZ(-14deg);
+}
+
 /* HOME — keep Evidence distinct without letting one bright plate erase the stack. */
 .assembly-layer[data-kind="evidence"] {
   border-color: color-mix(in srgb, var(--paper) 40%, transparent);
@@ -19,6 +24,14 @@
 
 .assembly-layer[data-kind="evidence"]::after {
   color: color-mix(in srgb, var(--alloy) 72%, transparent);
+}
+
+.assembly-responsibilities {
+  display: block;
+  margin-bottom: .85rem;
+  color: var(--paper);
+  font: 600 .61rem/1.5 var(--font-mono), monospace;
+  letter-spacing: .055em;
 }
 
 /* AUTOPULSE — product material must sit beside the identity, not over the wordmark. */
