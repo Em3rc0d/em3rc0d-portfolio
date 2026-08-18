@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { motion } from "motion/react";
 import { SiteHeader } from "@/components/shell/site-header";
+import { AutoPulseProductSpecimen } from "@/components/systems/autopulse/autopulse-product-specimen";
 import { autopulseCase } from "@/content/autopulse";
 
 function evidenceHref(id: string) {
@@ -54,27 +55,7 @@ export function AutoPulseCase() {
             </div>
           </div>
 
-          <div className="ap-machine" aria-label="AutoPulse system path visualization">
-            <div className="ap-machine-orbit" aria-hidden="true">
-              <i />
-              <i />
-              <i />
-              <span>AP</span>
-            </div>
-            <div className="ap-machine-path">
-              {autopulseCase.path.map((step, index) => (
-                <div key={step}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <strong>{step}</strong>
-                  {index < autopulseCase.path.length - 1 ? <i aria-hidden="true" /> : null}
-                </div>
-              ))}
-            </div>
-            <div className="ap-machine-caption">
-              <span>INPUT / UNRELIABLE</span>
-              <span>OUTPUT / INSPECTABLE STATE</span>
-            </div>
-          </div>
+          <AutoPulseProductSpecimen />
         </div>
 
         <nav className="ap-case-nav" aria-label="AutoPulse case chapters">
