@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: EvidencePageProps): Promise<M
   const { slug } = await params;
   const record = findEvidenceBySlug(slug);
   if (!record) return {};
-  return { title: `${record.id} — ${record.title}`, description: record.claim };
+  return { title: record.id, description: record.claim };
 }
 
 export default async function EvidenceRecordPage({ params }: EvidencePageProps) {
