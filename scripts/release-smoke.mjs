@@ -57,6 +57,11 @@ async function fetchText(pathname) {
   return { response, text: await response.text() };
 }
 
+async function fetchBytes(pathname) {
+  const response = await fetch(`${BASE_URL}${pathname}`, { redirect: "manual" });
+  return { response, bytes: new Uint8Array(await response.arrayBuffer()) };
+}
+
 for (const [pathname, expectedTitle] of routeChecks) {
   try {
     const { response, text } = await fetchText(pathname);
@@ -152,6 +157,53 @@ try {
 }
 
 try {
+  const { response, bytes } = await fetchBytes("/portrait/eduardo.webp");
+  if (response.status !== 200) {
+    fail("portrait asset status", `expected 200, received ${response.status}`);
+  } else {
+    pass("portrait asset status");
+  }
+
+  const contentType = response.headers.get("content-type") ?? "";
+  if (!contentType.toLowerCase().includes("image/webp")) {
+    fail("portrait asset content type", `expected image/webp, received ${JSON.stringify(contentType)}`);
+  } else {
+    pass("portrait asset content type");
+  }
+
+  const riff = String.fromCharCode(...bytes.slice(0, 4));
+  const webp = String.fromCharCode(...bytes.slice(8, 12));
+  if (riff !== "RIFF" || webp !== "WEBP") {
+    fail("portrait asset WebP signature", `expected RIFF/WEBP, received ${JSON.stringify(riff)}/${JSON.stringify(webp)}`);
+  } else {
+    pass("portrait asset WebP signature");
+  }
+
+  if (bytes.byteLength < 30000) {
+    fail("portrait asset payload", `expected a non-trivial portrait payload, received ${bytes.byteLength} bytes`);
+  } else {
+    pass("portrait asset payload");
+  }
+} catch (error) {
+  fail("portrait asset", error instanceof Error ? error.message : String(error));
+}
+
+try {
+  const { response, text } = await fetchText("/about");
+  if (response.status !== 200) {
+    fail("About portrait wiring", `expected 200, received ${response.status}`);
+  } else if (!text.includes("/portrait/eduardo.webp")) {
+    fail("About portrait wiring", "About does not reference the repaired portrait route");
+  } else if (text.includes("/_next/image?url=%2Fmedia%2Feduardo-authentic.webp")) {
+    fail("About portrait wiring", "About still requests the corrupted optimized media path");
+  } else {
+    pass("About portrait wiring");
+  }
+} catch (error) {
+  fail("About portrait wiring", error instanceof Error ? error.message : String(error));
+}
+
+try {
   const { response } = await fetchText("/this-route-must-not-exist-build-room-release-smoke");
   if (response.status !== 404) fail("unknown route 404", `expected 404, received ${response.status}`);
   else pass("unknown route 404");
@@ -165,4 +217,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`\nRelease smoke passed: ${routeChecks.length} public routes + metadata/search/404 boundary.`);
+console.log(`\nRelease smoke passed: ${routeChecks.length} public routes + metadata/search/portrait/404 boundary.`);
