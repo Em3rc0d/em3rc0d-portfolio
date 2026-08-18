@@ -59,19 +59,20 @@ export default function AboutPage() {
 
           <figure className="about-builder-portrait">
             <Image
-              src="/media/eduardo-authentic.jpg"
+              src="/media/eduardo-authentic.webp"
               alt="Eduardo Merino, the builder behind THE BUILD ROOM"
-              width={400}
-              height={400}
+              width={480}
+              height={594}
               sizes="(max-width: 1100px) 100vw, 38vw"
+              quality={90}
               priority
             />
             <figcaption>
               <span>BUILDER / HUMAN CONTEXT</span>
               <strong>One person behind the systems.</strong>
               <p>
-                The technical interface becomes quieter here on purpose. The portfolio
-                should prove engineering without turning the engineer into another HUD panel.
+                This is the human side of THE BUILD ROOM: the person responsible for
+                understanding the problem, making the decisions and building the system.
               </p>
             </figcaption>
           </figure>
