@@ -1,0 +1,65 @@
+/* Browser-acceptance corrections for SLICE 11.
+   These overrides are intentionally narrow: they respond to generated screenshots,
+   not to a new design direction. */
+
+/* HOME — keep Evidence distinct without letting one bright plate erase the stack. */
+.assembly-layer[data-kind="evidence"] {
+  border-color: color-mix(in srgb, var(--paper) 40%, transparent);
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--paper-soft) 88%, transparent) 0 .72rem, transparent .72rem),
+    repeating-linear-gradient(0deg, transparent 0 19px, rgba(241,239,232,.07) 19px 20px),
+    repeating-linear-gradient(90deg, transparent 0 72px, rgba(241,239,232,.045) 72px 73px),
+    linear-gradient(120deg, rgba(255,255,255,.055), transparent 42%),
+    color-mix(in srgb, var(--graphite) 92%, transparent);
+}
+
+.assembly-layer[data-kind="evidence"]::before {
+  color: var(--redline);
+}
+
+.assembly-layer[data-kind="evidence"]::after {
+  color: color-mix(in srgb, var(--alloy) 72%, transparent);
+}
+
+/* AUTOPULSE — product material must sit beside the identity, not over the wordmark. */
+@media (min-width: 1101px) {
+  .ap-cover-copy h1 {
+    font-size: clamp(5.2rem, 8.8vw, 9.2rem);
+  }
+}
+
+/* AUTOPULSE MOBILE — compress metadata enough for the real product surface to
+   begin entering the first browsing sequence rather than feeling one screen away. */
+@media (max-width: 640px) {
+  .ap-cover-grid {
+    gap: 2.5rem;
+    padding-top: 3rem;
+  }
+
+  .ap-cover-meta {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 2.25rem;
+  }
+
+  .ap-cover-meta > div,
+  .ap-cover-meta > div:last-child {
+    min-width: 0;
+    padding: .7rem .55rem;
+    border-right: 1px solid var(--ap-line);
+    border-bottom: 0;
+  }
+
+  .ap-cover-meta > div:last-child {
+    border-right: 0;
+  }
+
+  .ap-cover-meta span,
+  .ap-cover-meta strong {
+    font-size: .5rem;
+    overflow-wrap: anywhere;
+  }
+
+  .ap-product-specimen {
+    margin-top: .25rem;
+  }
+}
