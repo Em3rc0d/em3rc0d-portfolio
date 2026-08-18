@@ -1,0 +1,14 @@
+.assembly-layer {
+  --layer-offset: var(--assembly-offset);
+}
+
+.about-builder-portrait {
+  background:
+    radial-gradient(circle at 50% 35%, rgba(239,81,61,.09), transparent 18rem),
+    linear-gradient(145deg, #171b1e, #0a0d0f);
+}
+
+.about-builder-portrait img {
+  position: relative;
+  z-index: 1;
+}
