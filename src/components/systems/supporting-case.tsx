@@ -15,7 +15,7 @@ export function SupportingCase({ system, record }: SupportingCaseProps) {
     .filter((candidate) => candidate !== undefined);
 
   return (
-    <main className="build-room-shell supporting-case-shell">
+    <main className={`build-room-shell supporting-case-shell supporting-case-${system.slug}`}>
       <section className="supporting-cover supporting-frame carbon-stage" aria-labelledby="supporting-title">
         <SiteHeader />
         <div className="supporting-cover-grid">
@@ -47,23 +47,19 @@ export function SupportingCase({ system, record }: SupportingCaseProps) {
         </div>
       </section>
 
-      <section className="supporting-frame supporting-context" aria-labelledby="supporting-problem">
-        <div>
-          <p className="technical-label">CONTEXT / PROBLEM</p>
-          <h2 id="supporting-problem">The engineering starts with the operating reality.</h2>
-        </div>
-        <div className="supporting-reading-column">
+      <section className="supporting-frame supporting-operating" aria-labelledby="supporting-operating-title">
+        <div className="supporting-operating-copy">
+          <p className="technical-label">OPERATING REALITY / MODEL</p>
+          <h2 id="supporting-operating-title">Understand the system before showing the implementation.</h2>
           <p>{record.context}</p>
           <p>{record.problem}</p>
+          <div className="supporting-responsibility-note">
+            <span>RESPONSIBILITY</span>
+            <strong>{record.responsibility}</strong>
+          </div>
         </div>
-      </section>
 
-      <section className="supporting-frame supporting-model carbon-stage" aria-labelledby="supporting-model">
-        <header>
-          <p className="technical-label">ARCHITECTURE / MODEL</p>
-          <h2 id="supporting-model">Keep the responsibilities visible.</h2>
-        </header>
-        <div className="supporting-card-grid" data-count={record.architecture.length}>
+        <div className="supporting-model-board" data-count={record.architecture.length}>
           {record.architecture.map((item, index) => (
             <article key={item.title}>
               <span>{String(index + 1).padStart(2, "0")}</span>
@@ -74,28 +70,47 @@ export function SupportingCase({ system, record }: SupportingCaseProps) {
         </div>
       </section>
 
-      <section className="supporting-frame supporting-build" aria-labelledby="supporting-build">
-        <div className="supporting-responsibility">
-          <p className="technical-label">RESPONSIBILITY / IMPLEMENTATION</p>
-          <h2 id="supporting-build">What Eduardo actually owned or contributed.</h2>
-          <p>{record.responsibility}</p>
+      <section className="supporting-frame supporting-build-proof carbon-stage" aria-labelledby="supporting-build-title">
+        <div className="supporting-build-column">
+          <header>
+            <p className="technical-label">IMPLEMENTATION</p>
+            <h2 id="supporting-build-title">What was actually built or contributed.</h2>
+          </header>
+          <div className="supporting-implementation-list supporting-implementation-list-v2">
+            {record.implementation.map((item, index) => (
+              <article key={item.title}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <div><h3>{item.title}</h3><p>{item.body}</p></div>
+              </article>
+            ))}
+          </div>
         </div>
-        <div className="supporting-implementation-list">
-          {record.implementation.map((item, index) => (
-            <article key={item.title}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <div><h3>{item.title}</h3><p>{item.body}</p></div>
-            </article>
-          ))}
+
+        <div className="supporting-proof-column">
+          <header>
+            <p className="technical-label">EVIDENCE / INSPECT</p>
+            <h2>Claims stay connected to proof.</h2>
+          </header>
+          <div className="supporting-evidence-grid supporting-evidence-grid-v2">
+            {evidence.map((item) => (
+              <Link key={item.id} href={`/evidence/${item.slug}`}>
+                <span>{item.id} · {item.state.replaceAll("_", " ")}</span>
+                <strong>{item.title}</strong>
+                <em>Inspect evidence ↗</em>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="supporting-frame supporting-constraints carbon-stage" aria-labelledby="supporting-constraints">
-        <header>
+      <section className="supporting-frame supporting-limit supporting-limit-v2" aria-labelledby="supporting-limit-title">
+        <div className="supporting-limit-copy">
           <p className="technical-label">CONSTRAINTS / CLAIM CEILING</p>
-          <h2 id="supporting-constraints">The constraints are part of the proof.</h2>
-        </header>
-        <ol>
+          <h2 id="supporting-limit-title">What this case proves — and what it does not.</h2>
+          <p>{record.limitation}</p>
+        </div>
+
+        <ol className="supporting-constraint-ledger">
           {record.constraints.map((constraint, index) => (
             <li key={constraint}>
               <span>{String(index + 1).padStart(2, "0")}</span>
@@ -103,36 +118,8 @@ export function SupportingCase({ system, record }: SupportingCaseProps) {
             </li>
           ))}
         </ol>
-      </section>
 
-      <section className="supporting-frame supporting-evidence" aria-labelledby="supporting-evidence">
-        <header>
-          <p className="technical-label">EVIDENCE / INSPECT</p>
-          <h2 id="supporting-evidence">Claims stay connected to evidence.</h2>
-          <p>
-            The evidence level follows the publication boundary: public source when it is safe,
-            abstracted provenance when professional confidentiality is the harder constraint.
-          </p>
-        </header>
-        <div className="supporting-evidence-grid">
-          {evidence.map((item) => (
-            <Link key={item.id} href={`/evidence/${item.slug}`}>
-              <span>{item.id} · {item.state.replaceAll("_", " ")}</span>
-              <strong>{item.title}</strong>
-              <p>{item.claim}</p>
-              <em>Inspect evidence ↗</em>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="supporting-frame supporting-limit carbon-stage" aria-labelledby="supporting-limit">
-        <div>
-          <p className="technical-label">LIMITATION / 01</p>
-          <h2 id="supporting-limit">What this case does not claim.</h2>
-          <p>{record.limitation}</p>
-        </div>
-        <div className="supporting-next-actions">
+        <div className="supporting-next-actions supporting-next-actions-v2">
           {record.sourceLink ? (
             <a href={record.sourceLink.href} target="_blank" rel="noreferrer">
               {record.sourceLink.label} ↗

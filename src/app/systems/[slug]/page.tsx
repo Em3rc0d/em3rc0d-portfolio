@@ -6,6 +6,9 @@ import { SupportingCase } from "@/components/systems/supporting-case";
 import { findSupportingCase } from "@/content/supporting-cases";
 import { systems } from "@/content/systems";
 import { absoluteSiteUrl } from "@/lib/site-config";
+import "../../visual-acceptance-v2b.css";
+import "../../visual-acceptance-v2c.css";
+import "../../visual-acceptance-v2e.css";
 
 interface SystemPageProps {
   params: Promise<{ slug: string }>;

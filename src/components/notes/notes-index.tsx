@@ -18,27 +18,33 @@ export function NotesIndex({ notes }: { notes: readonly NoteRecord[] }) {
     [filter, notes],
   );
 
+  const builtCount = notes.filter((note) => note.state === "BUILT_VERIFIED").length;
+  const exploringCount = notes.filter((note) => note.state === "EXPLORING").length;
+
   return (
-    <section className="notes-index-body">
-      <header className="notes-index-intro">
-        <div>
+    <section className="notes-index-body notes-index-body-v2">
+      <header className="notes-index-intro notes-index-intro-v2">
+        <div className="notes-index-titleblock">
           <p className="public-kicker">PUBLIC ENGINEERING NOTEBOOK</p>
           <h1>Small records of how I think while building.</h1>
-        </div>
-        <div className="notes-index-contract">
           <p>
-            Notes are shorter than case studies. The standard is not lower: each record
-            says whether it comes from built/verified work or from an open line of
-            exploration.
+            Shorter than a case study. More focused than a project update. Each note keeps
+            one engineering idea, boundary, or question inspectable.
           </p>
-          <div>
-            <span>BUILT / VERIFIED</span><small>grounded in current system/evidence work</small>
-            <span>EXPLORING</span><small>question or boundary still being worked through</small>
-          </div>
+        </div>
+
+        <div className="notes-index-dashboard">
+          <div><strong>{String(builtCount).padStart(2, "0")}</strong><span>BUILT / VERIFIED</span></div>
+          <div><strong>{String(exploringCount).padStart(2, "0")}</strong><span>EXPLORING</span></div>
+        </div>
+
+        <div className="notes-index-contract notes-index-contract-v2">
+          <span><b>BUILT / VERIFIED</b><small>Grounded in current system or evidence work.</small></span>
+          <span><b>EXPLORING</b><small>A question or boundary that is still being worked through.</small></span>
         </div>
       </header>
 
-      <div className="notes-filter" aria-label="Filter notebook records by state">
+      <div className="notes-filter notes-filter-v2" aria-label="Filter notebook records by state">
         {FILTERS.map((option) => (
           <button
             type="button"
@@ -46,29 +52,30 @@ export function NotesIndex({ notes }: { notes: readonly NoteRecord[] }) {
             onClick={() => setFilter(option)}
             aria-pressed={filter === option}
           >
-            {option === "ALL" ? "ALL" : stateLabel(option)}
+            {option === "ALL" ? `ALL / ${visibleNotes.length}` : stateLabel(option)}
           </button>
         ))}
       </div>
 
-      <div className="notes-ledger">
+      <div className="notes-grid-v2">
         {visibleNotes.map((note) => (
           <Link
             key={note.id}
             href={`/notes/${note.slug}`}
-            className={note.state === "EXPLORING" ? "note-row is-exploring" : "note-row"}
+            className={note.state === "EXPLORING" ? "note-card-v2 is-exploring" : "note-card-v2"}
           >
-            <span className="note-row-id">{note.id}</span>
-            <div className="note-row-main">
-              <p>{note.territory}</p>
-              <h2>{note.title}</h2>
-              <span>{note.thesis}</span>
-            </div>
-            <div className="note-row-state">
+            <header>
+              <span>{note.id}</span>
+              <span>{note.territory}</span>
               <strong>{stateLabel(note.state)}</strong>
-              <span>{note.systemName ?? "FIELD NOTE"}</span>
+            </header>
+            <div>
+              <h2>{note.title}</h2>
+              <p>{note.thesis}</p>
             </div>
-            <b aria-hidden="true">↗</b>
+            <footer>
+              <span>{note.systemName ?? "FIELD NOTE"}</span>
+            </footer>
           </Link>
         ))}
       </div>

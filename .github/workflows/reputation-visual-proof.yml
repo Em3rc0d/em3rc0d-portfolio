@@ -11,6 +11,7 @@ on:
       - "src/app/systems/**"
       - "src/app/evidence/**"
       - "src/app/reputation-completeness.css"
+      - "src/app/visual-acceptance-v2*.css"
       - "scripts/capture-browser-section.mjs"
       - ".github/workflows/reputation-visual-proof.yml"
       - "package.json"
@@ -25,6 +26,7 @@ on:
       - "src/app/systems/**"
       - "src/app/evidence/**"
       - "src/app/reputation-completeness.css"
+      - "src/app/visual-acceptance-v2*.css"
       - "scripts/capture-browser-section.mjs"
       - ".github/workflows/reputation-visual-proof.yml"
       - "package.json"
@@ -74,12 +76,16 @@ jobs:
 
       - name: Capture professional case desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/infrastructure-site-mapper '.supporting-cover' professional-cover-desktop.png 1440 1000
-      - name: Capture professional evidence frame desktop
-        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/infrastructure-site-mapper '.supporting-evidence' professional-evidence-desktop.png 1440 1000
+      - name: Capture professional model desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/infrastructure-site-mapper '.supporting-operating' professional-model-desktop.png 1440 1000
+      - name: Capture professional implementation and evidence desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/infrastructure-site-mapper '.supporting-build-proof' professional-proof-frame-desktop.png 1440 1000
       - name: Capture GPets case desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/gpets '.supporting-cover' gpets-cover-desktop.png 1440 1000
-      - name: Capture GPets architecture desktop
-        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/gpets '.supporting-model' gpets-model-desktop.png 1440 1000
+      - name: Capture GPets model desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/gpets '.supporting-operating' gpets-model-desktop.png 1440 1000
+      - name: Capture GPets implementation and evidence desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/gpets '.supporting-build-proof' gpets-proof-frame-desktop.png 1440 1000
       - name: Capture withheld professional evidence desktop
         run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/evidence/e-pro-01 '.evidence-inspector-sheet' professional-proof-desktop.png 1440 1000
       - name: Capture public GPets evidence desktop
@@ -100,9 +106,11 @@ jobs:
           name: reputation-visual-proof
           path: |
             professional-cover-desktop.png
-            professional-evidence-desktop.png
+            professional-model-desktop.png
+            professional-proof-frame-desktop.png
             gpets-cover-desktop.png
             gpets-model-desktop.png
+            gpets-proof-frame-desktop.png
             professional-proof-desktop.png
             gpets-proof-desktop.png
             professional-cover-mobile.png

@@ -1,0 +1,540 @@
+/* Visual Acceptance v2 — secondary surface compositions. */
+
+/* -------------------------------------------------------------------------- */
+/* CONTACT                                                                    */
+/* -------------------------------------------------------------------------- */
+
+.contact-page-v2 .contact-briefing,
+.contact-page-v2 .contact-channels-v2 {
+  width: min(calc(100% - (var(--page-pad) * 2)), var(--content-max));
+  margin-inline: auto;
+}
+
+.contact-briefing {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vh, 2.5rem);
+  align-content: center;
+  padding-block: clamp(2rem, 4vh, 4rem);
+}
+
+.contact-briefing-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(20rem, .55fr);
+  gap: clamp(2rem, 6vw, 7rem);
+  align-items: end;
+  padding-bottom: 1.4rem;
+  border-bottom: 1px solid var(--line-light);
+}
+
+.contact-briefing-heading h2,
+.contact-channels-v2 h2 {
+  max-width: 14ch;
+  margin: .75rem 0 0;
+  font-size: clamp(3rem, min(5vw, 8vh), 5.4rem);
+  font-weight: 520;
+  line-height: .9;
+  letter-spacing: -.055em;
+}
+
+.contact-briefing-heading > p,
+.contact-channels-heading > p {
+  margin: 0;
+  color: color-mix(in srgb, var(--ink) 67%, transparent);
+  line-height: 1.6;
+}
+
+.contact-briefing-grid {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  gap: 1px;
+  min-height: 0;
+  border: 1px solid var(--line-light);
+  background: var(--line-light);
+}
+
+.contact-problem-board {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--line-light);
+}
+
+.contact-problem-board article {
+  display: grid;
+  align-content: space-between;
+  min-width: 0;
+  padding: clamp(1rem, 1.8vw, 1.6rem);
+  background: var(--paper);
+}
+
+.contact-problem-board span,
+.contact-context-ledger span,
+.contact-secondary-routes > span {
+  color: var(--redline);
+  font: 600 .56rem/1 var(--font-mono), monospace;
+}
+
+.contact-problem-board h3 {
+  margin: clamp(1.2rem, 3vh, 2.2rem) 0 .55rem;
+  font-size: clamp(1.6rem, 2.4vw, 2.5rem);
+  font-weight: 560;
+  letter-spacing: -.035em;
+}
+
+.contact-problem-board p,
+.contact-context-ledger p {
+  margin: 0;
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+  font-size: .84rem;
+  line-height: 1.45;
+}
+
+.contact-context-ledger {
+  display: grid;
+  background: var(--paper);
+}
+
+.contact-context-ledger > div {
+  display: grid;
+  grid-template-columns: 2.2rem minmax(9rem, .34fr) minmax(0, 1fr);
+  gap: .8rem 1rem;
+  align-items: center;
+  min-width: 0;
+  padding: .9rem 1rem;
+  border-bottom: 1px solid var(--line-light);
+}
+
+.contact-context-ledger > div:last-child { border-bottom: 0; }
+.contact-context-ledger strong { font-size: .78rem; }
+
+.contact-channels-v2 {
+  display: grid;
+  grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: clamp(2rem, 5vw, 6rem);
+  align-content: center;
+  padding-block: clamp(2rem, 5vh, 5rem);
+}
+
+.contact-channels-heading {
+  align-self: center;
+}
+
+.contact-channel-board {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  align-self: center;
+  border: 1px solid var(--line-light);
+  background: var(--line-light);
+}
+
+.contact-channel-board > a {
+  position: relative;
+  display: grid;
+  align-content: end;
+  min-height: clamp(18rem, 42vh, 27rem);
+  padding: clamp(1.2rem, 2.4vw, 2rem);
+  background: var(--paper);
+}
+
+.contact-channel-board > a:hover,
+.contact-channel-board > a:focus-visible {
+  background: color-mix(in srgb, var(--paper) 93%, var(--redline));
+}
+
+.contact-channel-board span {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.2rem;
+  color: var(--redline);
+  font: 600 .56rem/1 var(--font-mono), monospace;
+}
+
+.contact-channel-board strong {
+  font-size: clamp(2rem, 3.5vw, 4rem);
+  font-weight: 520;
+  letter-spacing: -.045em;
+}
+
+.contact-channel-board p {
+  max-width: 22rem;
+  margin: .7rem 0 0;
+  color: color-mix(in srgb, var(--ink) 64%, transparent);
+  line-height: 1.45;
+}
+
+.contact-channel-board b {
+  position: absolute;
+  right: 1.2rem;
+  bottom: 1.2rem;
+  color: var(--redline);
+  font-weight: 400;
+}
+
+.contact-secondary-routes {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 1rem 2rem;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line-light);
+}
+
+.contact-secondary-routes div {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.contact-secondary-routes a {
+  padding-bottom: .3rem;
+  border-bottom: 1px solid var(--redline);
+  font: 600 .62rem/1 var(--font-mono), monospace;
+}
+
+/* -------------------------------------------------------------------------- */
+/* SUPPORTING CASES                                                           */
+/* -------------------------------------------------------------------------- */
+
+.supporting-operating,
+.supporting-build-proof,
+.supporting-limit-v2 {
+  width: min(calc(100% - (var(--page-pad) * 2)), var(--content-max));
+  margin-inline: auto;
+  padding-block: clamp(2rem, 4vh, 4rem);
+}
+
+.supporting-operating {
+  display: grid;
+  grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr);
+  gap: clamp(2rem, 6vw, 7rem);
+  align-items: center;
+}
+
+.supporting-operating-copy h2,
+.supporting-build-proof h2,
+.supporting-limit-v2 h2 {
+  margin: .75rem 0 0;
+  font-size: clamp(2.8rem, min(4.7vw, 7.7vh), 5rem);
+  font-weight: 520;
+  line-height: .9;
+  letter-spacing: -.055em;
+}
+
+.supporting-operating-copy > p:not(.technical-label) {
+  margin: 1rem 0 0;
+  color: var(--alloy);
+  line-height: 1.55;
+}
+
+.supporting-responsibility-note {
+  margin-top: clamp(1.5rem, 4vh, 3rem);
+  padding-top: 1rem;
+  border-top: 1px solid var(--line-dark);
+}
+
+.supporting-responsibility-note span {
+  display: block;
+  margin-bottom: .55rem;
+  color: var(--redline);
+  font: 600 .56rem/1 var(--font-mono), monospace;
+}
+
+.supporting-responsibility-note strong {
+  color: var(--paper);
+  font-size: .95rem;
+  line-height: 1.5;
+}
+
+.supporting-model-board {
+  display: grid;
+  grid-template-columns: repeat(var(--supporting-model-count, 3), minmax(0, 1fr));
+  gap: 1px;
+  border: 1px solid var(--line-dark);
+  background: var(--line-dark);
+}
+
+.supporting-model-board[data-count="4"] { --supporting-model-count: 2; }
+.supporting-model-board[data-count="3"] { --supporting-model-count: 3; }
+
+.supporting-model-board article {
+  min-width: 0;
+  min-height: clamp(12rem, 29vh, 17rem);
+  padding: 1rem;
+  background: var(--carbon);
+}
+
+.supporting-model-board span {
+  color: var(--redline);
+  font: 600 .56rem/1 var(--font-mono), monospace;
+}
+
+.supporting-model-board h3 {
+  margin: clamp(1.8rem, 4vh, 3rem) 0 .7rem;
+  font-size: clamp(1.35rem, 2vw, 2rem);
+  font-weight: 560;
+}
+
+.supporting-model-board p {
+  margin: 0;
+  color: var(--alloy);
+  font-size: .82rem;
+  line-height: 1.45;
+}
+
+.supporting-build-proof {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, .9fr);
+  gap: clamp(2rem, 5vw, 6rem);
+  align-items: center;
+}
+
+.supporting-build-column,
+.supporting-proof-column {
+  min-width: 0;
+}
+
+.supporting-build-proof header {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line-dark);
+}
+
+.supporting-build-proof h2 {
+  font-size: clamp(2.4rem, min(4vw, 6.6vh), 4.2rem);
+}
+
+.supporting-implementation-list-v2 article {
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  gap: .8rem;
+  padding: .9rem 0;
+}
+
+.supporting-implementation-list-v2 h3 {
+  margin: 0 0 .3rem;
+  font-size: clamp(1rem, 1.4vw, 1.35rem);
+}
+
+.supporting-implementation-list-v2 p {
+  margin: 0;
+  color: var(--alloy);
+  font-size: .8rem;
+  line-height: 1.4;
+}
+
+.supporting-evidence-grid-v2 {
+  grid-template-columns: 1fr;
+}
+
+.supporting-evidence-grid-v2 a {
+  min-height: 0;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line-dark);
+}
+
+.supporting-evidence-grid-v2 a strong {
+  margin-top: .5rem;
+  font-size: clamp(1.05rem, 1.7vw, 1.45rem);
+}
+
+.supporting-evidence-grid-v2 a em {
+  margin-top: .7rem;
+}
+
+.supporting-limit-v2 {
+  display: grid;
+  grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: clamp(2rem, 6vw, 7rem);
+  align-items: center;
+}
+
+.supporting-limit-copy > p:last-child {
+  max-width: 42rem;
+  margin: 1.25rem 0 0;
+  color: var(--alloy);
+  line-height: 1.55;
+}
+
+.supporting-constraint-ledger {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line-dark);
+}
+
+.supporting-constraint-ledger li {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line-dark);
+}
+
+.supporting-constraint-ledger span {
+  color: var(--redline);
+  font: 600 .56rem/1 var(--font-mono), monospace;
+}
+
+.supporting-constraint-ledger p {
+  margin: 0;
+  color: var(--alloy);
+  line-height: 1.45;
+}
+
+.supporting-next-actions-v2 {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line-dark);
+}
+
+/* -------------------------------------------------------------------------- */
+/* ABOUT                                                                      */
+/* -------------------------------------------------------------------------- */
+
+.about-mechanical-note-v2 {
+  grid-template-columns: minmax(12rem, .28fr) minmax(0, .72fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+
+.about-mechanical-copy {
+  align-self: center;
+}
+
+.about-routes-inline {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 1rem 2rem;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: 0;
+  margin-top: 0;
+  padding: 1rem 0 0;
+  border-top: 1px solid var(--line-dark);
+}
+
+.about-routes-inline > span {
+  color: var(--redline);
+  font: 600 .56rem/1 var(--font-mono), monospace;
+}
+
+.about-routes-inline > div {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.about-routes-inline a {
+  font: 600 .62rem/1 var(--font-mono), monospace;
+}
+
+@media (min-width: 1101px) {
+  .contact-briefing,
+  .contact-channels-v2,
+  .supporting-operating,
+  .supporting-build-proof,
+  .supporting-limit-v2,
+  .about-mechanical-note-v2 {
+    box-sizing: border-box;
+    height: 100svh;
+    height: 100dvh;
+    min-height: 100dvh;
+    max-height: 100dvh;
+    overflow: clip;
+  }
+}
+
+@media (min-width: 1101px) and (max-height: 760px) {
+  .contact-briefing,
+  .contact-channels-v2,
+  .supporting-operating,
+  .supporting-build-proof,
+  .supporting-limit-v2 {
+    padding-block: 1.4rem;
+  }
+
+  .contact-briefing-heading h2,
+  .contact-channels-v2 h2,
+  .supporting-operating-copy h2,
+  .supporting-limit-v2 h2 {
+    font-size: clamp(2.5rem, min(4.2vw, 6.4vh), 4rem);
+  }
+
+  .contact-problem-board article { padding: .8rem; }
+  .contact-problem-board h3 { margin-top: .7rem; font-size: 1.45rem; }
+  .contact-problem-board p,
+  .contact-context-ledger p { font-size: .73rem; line-height: 1.35; }
+  .contact-context-ledger > div { padding: .55rem .75rem; }
+  .contact-channel-board > a { min-height: clamp(14rem, 34vh, 19rem); }
+
+  .supporting-model-board article {
+    min-height: clamp(9rem, 23vh, 12rem);
+  }
+
+  .supporting-model-board h3 { margin-top: 1rem; }
+  .supporting-model-board p,
+  .supporting-implementation-list-v2 p { font-size: .72rem; }
+}
+
+@media (max-width: 1100px) {
+  .contact-briefing-heading,
+  .contact-briefing-grid,
+  .contact-channels-v2,
+  .supporting-operating,
+  .supporting-build-proof,
+  .supporting-limit-v2 {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-channel-board {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-secondary-routes,
+  .about-routes-inline {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .contact-secondary-routes div,
+  .about-routes-inline > div {
+    flex-wrap: wrap;
+  }
+
+  .supporting-next-actions-v2,
+  .contact-secondary-routes,
+  .about-routes-inline {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 680px) {
+  .contact-problem-board {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-context-ledger > div {
+    grid-template-columns: 2rem 1fr;
+  }
+
+  .contact-context-ledger p {
+    grid-column: 2;
+  }
+
+  .supporting-model-board,
+  .supporting-model-board[data-count="4"],
+  .supporting-model-board[data-count="3"] {
+    grid-template-columns: 1fr;
+    --supporting-model-count: 1;
+  }
+
+  .about-routes-inline > div,
+  .contact-secondary-routes div {
+    display: grid;
+    gap: .9rem;
+  }
+}

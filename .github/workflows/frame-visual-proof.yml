@@ -59,60 +59,79 @@ jobs:
           cat /tmp/frame-proof-chrome.log
           exit 1
 
-      - name: Capture 1792x854 desktop frame matrix
+      - name: Capture visual acceptance matrices
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p artifacts/frame-visual
+          mkdir -p artifacts/frame-visual/user-like artifacts/frame-visual/short
           BASE="http://127.0.0.1:3000"
-          W=1792
-          H=854
 
           capture() {
             local route="$1"
             local selector="$2"
             local file="$3"
-            node scripts/capture-browser-section.mjs "$BASE$route" "$selector" "artifacts/frame-visual/$file.png" "$W" "$H"
+            local width="$4"
+            local height="$5"
+            node scripts/capture-browser-section.mjs "$BASE$route" "$selector" "$file" "$width" "$height"
           }
 
-          capture / '.hero-v2' 'home-01-hero'
-          capture / '.client-paths' 'home-02-client-paths'
-          capture / '.system-records-v2 > .system-encounter-record:nth-child(1)' 'home-03-autopulse'
-          capture / '.system-records-v2 > .system-encounter-record:nth-child(2)' 'home-04-cv-engine'
-          capture / '.operating-model' 'home-05-operating-model'
-          capture / '.paper-stage-v2' 'home-06-evidence'
-          capture / '.home-conversion' 'home-07-conversion'
+          W=1792
+          H=854
+          OUT="artifacts/frame-visual/user-like"
 
-          capture /systems '.internal-stage' 'systems-01-index'
+          capture / '.hero-v2' "$OUT/home-01-hero.png" "$W" "$H"
+          capture / '.client-paths' "$OUT/home-02-client-paths.png" "$W" "$H"
+          capture / '.system-records-v2 > .system-encounter-record:nth-child(1)' "$OUT/home-03-autopulse.png" "$W" "$H"
+          capture / '.system-records-v2 > .system-encounter-record:nth-child(2)' "$OUT/home-04-cv-engine.png" "$W" "$H"
+          capture / '.operating-model' "$OUT/home-05-operating-model.png" "$W" "$H"
+          capture / '.paper-stage-v2' "$OUT/home-06-evidence.png" "$W" "$H"
+          capture / '.home-conversion' "$OUT/home-07-conversion.png" "$W" "$H"
 
-          for i in $(seq 1 10); do
-            capture /systems/autopulse ".autopulse-case > section:nth-of-type($i)" "autopulse-$(printf '%02d' "$i")"
-          done
-
-          for i in $(seq 1 17); do
-            capture /systems/cv-engine ".cv-case > section:nth-of-type($i)" "cv-engine-$(printf '%02d' "$i")"
-          done
+          capture /systems '.systems-room-frame' "$OUT/systems-01-control-room.png" "$W" "$H"
 
           for i in $(seq 1 7); do
-            capture /systems/infrastructure-site-mapper ".supporting-case-shell > section:nth-of-type($i)" "professional-$(printf '%02d' "$i")"
-            capture /systems/gpets ".supporting-case-shell > section:nth-of-type($i)" "gpets-$(printf '%02d' "$i")"
+            capture /systems/autopulse ".autopulse-case > section:nth-of-type($i)" "$OUT/autopulse-$(printf '%02d' "$i").png" "$W" "$H"
           done
 
-          for i in $(seq 1 6); do
-            capture /about ".about-page > section:nth-of-type($i)" "about-$(printf '%02d' "$i")"
+          for i in $(seq 1 8); do
+            capture /systems/cv-engine ".cv-case > section:nth-of-type($i)" "$OUT/cv-engine-$(printf '%02d' "$i").png" "$W" "$H"
+          done
+
+          for i in $(seq 1 4); do
+            capture /systems/infrastructure-site-mapper ".supporting-case-shell > section:nth-of-type($i)" "$OUT/professional-$(printf '%02d' "$i").png" "$W" "$H"
+            capture /systems/gpets ".supporting-case-shell > section:nth-of-type($i)" "$OUT/gpets-$(printf '%02d' "$i").png" "$W" "$H"
           done
 
           for i in $(seq 1 5); do
-            capture /contact ".contact-page > section:nth-of-type($i)" "contact-$(printf '%02d' "$i")"
+            capture /about ".about-page > section:nth-of-type($i)" "$OUT/about-$(printf '%02d' "$i").png" "$W" "$H"
           done
 
-          capture /evidence '.evidence-library-intro' 'evidence-utility-intro'
-          capture /notes '.notes-index-intro' 'notes-utility-intro'
+          for i in $(seq 1 3); do
+            capture /contact ".contact-page > section:nth-of-type($i)" "$OUT/contact-$(printf '%02d' "$i").png" "$W" "$H"
+          done
+
+          capture /evidence '.evidence-library-intro' "$OUT/evidence-utility-intro.png" "$W" "$H"
+          capture /notes '.notes-index-intro' "$OUT/notes-utility-intro.png" "$W" "$H"
+
+          # Short effective desktop proof approximates browser zoom / OS scaling conditions.
+          SW=1280
+          SH=640
+          SHORT="artifacts/frame-visual/short"
+          capture / '.hero-v2' "$SHORT/home-hero-1280x640.png" "$SW" "$SH"
+          capture /systems '.systems-room-frame' "$SHORT/systems-1280x640.png" "$SW" "$SH"
+          capture /systems/autopulse '.autopulse-case > section:nth-of-type(1)' "$SHORT/autopulse-cover-1280x640.png" "$SW" "$SH"
+          capture /systems/autopulse '.autopulse-case > section:nth-of-type(2)' "$SHORT/autopulse-reality-1280x640.png" "$SW" "$SH"
+          capture /systems/cv-engine '.cv-case > section:nth-of-type(1)' "$SHORT/cv-cover-1280x640.png" "$SW" "$SH"
+          capture /systems/cv-engine '.cv-case > section:nth-of-type(2)' "$SHORT/cv-problem-1280x640.png" "$SW" "$SH"
+          capture /systems/infrastructure-site-mapper '.supporting-case-shell > section:nth-of-type(2)' "$SHORT/professional-model-1280x640.png" "$SW" "$SH"
+          capture /systems/gpets '.supporting-case-shell > section:nth-of-type(2)' "$SHORT/gpets-model-1280x640.png" "$SW" "$SH"
+          capture /contact '.contact-page > section:nth-of-type(2)' "$SHORT/contact-briefing-1280x640.png" "$SW" "$SH"
+          capture /about '.about-page > section:nth-of-type(1)' "$SHORT/about-hero-1280x640.png" "$SW" "$SH"
 
       - name: Upload frame visual proof
         uses: actions/upload-artifact@v4
         with:
-          name: frame-visual-proof-1792x854
+          name: frame-visual-acceptance-v2
           path: artifacts/frame-visual/
           if-no-files-found: error
           retention-days: 30

@@ -1,6 +1,7 @@
 import { EvidenceLibrary } from "@/components/evidence/evidence-library";
 import { SiteHeader } from "@/components/shell/site-header";
 import { publicEvidenceRecords } from "@/content/evidence-index";
+import "../visual-acceptance-v2.css";
 
 export const metadata = {
   title: "Evidence",

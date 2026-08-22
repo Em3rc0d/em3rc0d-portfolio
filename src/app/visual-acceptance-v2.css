@@ -1,0 +1,596 @@
+/* Visual Acceptance v2
+   Principle: one desktop frame = one complete visual thought.
+   Geometry is necessary, but visual hierarchy and breathing room are the acceptance target. */
+
+/* -------------------------------------------------------------------------- */
+/* SYSTEMS CONTROL ROOM                                                       */
+/* -------------------------------------------------------------------------- */
+
+.systems-room-frame {
+  min-height: 100svh;
+  min-height: 100dvh;
+  background:
+    radial-gradient(circle at 82% 18%, rgba(239, 81, 61, .055), transparent 24rem),
+    radial-gradient(circle at 18% 82%, rgba(211, 157, 54, .035), transparent 22rem),
+    var(--carbon);
+}
+
+.systems-room-shell {
+  width: min(calc(100% - (var(--page-pad) * 2)), var(--content-max));
+  margin-inline: auto;
+  padding: clamp(2.2rem, 4vh, 3.8rem) 0 clamp(2rem, 3.5vh, 3rem);
+}
+
+.systems-room-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(20rem, .85fr);
+  gap: clamp(2.5rem, 7vw, 8rem);
+  align-items: end;
+  padding-bottom: clamp(1.6rem, 3vh, 2.5rem);
+  border-bottom: 1px solid var(--line-dark);
+}
+
+.systems-room-intro h1 {
+  max-width: 11ch;
+  margin: .75rem 0 0;
+  font-size: clamp(3.2rem, 5.4vw, 6.2rem);
+  font-weight: 520;
+  line-height: .86;
+  letter-spacing: -.06em;
+}
+
+.systems-room-intro-copy {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.systems-room-intro-copy > p {
+  max-width: 42rem;
+  margin: 0;
+  color: var(--alloy);
+  font-size: clamp(.92rem, 1vw, 1.05rem);
+  line-height: 1.58;
+}
+
+.systems-room-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem 1rem;
+  color: color-mix(in srgb, var(--alloy) 72%, transparent);
+  font: 500 .56rem/1.25 var(--font-mono), monospace;
+}
+
+.systems-room-legend span {
+  display: inline-flex;
+  gap: .45rem;
+  align-items: center;
+}
+
+.systems-room-legend i {
+  width: .42rem;
+  height: .42rem;
+  border: 1px solid var(--redline);
+  border-radius: 50%;
+}
+
+.systems-room-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: minmax(0, 1fr);
+  gap: 1px;
+  margin-top: 1px;
+  border: 1px solid var(--line-dark);
+  background: var(--line-dark);
+}
+
+.systems-room-card {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  gap: 1rem;
+  min-width: 0;
+  padding: clamp(1.2rem, 2vw, 2rem);
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, .018), transparent 48%),
+    var(--carbon);
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.systems-room-card::after {
+  position: absolute;
+  inset: auto 0 0;
+  height: 2px;
+  content: "";
+  background: linear-gradient(90deg, var(--redline), transparent 58%);
+  opacity: .25;
+  transition: opacity 180ms ease;
+}
+
+.systems-room-card:hover,
+.systems-room-card:focus-visible {
+  background:
+    radial-gradient(circle at 84% 18%, rgba(239, 81, 61, .07), transparent 18rem),
+    var(--carbon-raised);
+}
+
+.systems-room-card:hover::after,
+.systems-room-card:focus-visible::after {
+  opacity: 1;
+}
+
+.systems-room-card-topline {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: .8rem;
+  align-items: center;
+  color: color-mix(in srgb, var(--alloy) 70%, transparent);
+  font: 600 .53rem/1.2 var(--font-mono), monospace;
+  letter-spacing: .055em;
+}
+
+.systems-room-card-topline span:first-child {
+  color: var(--redline);
+}
+
+.systems-room-card-topline span:nth-child(2) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.systems-room-card-main {
+  align-self: center;
+}
+
+.systems-room-card-main h2 {
+  margin: 0;
+  font-size: clamp(2rem, 3vw, 3.8rem);
+  font-weight: 520;
+  line-height: .94;
+  letter-spacing: -.045em;
+}
+
+.systems-room-card-main p {
+  max-width: 46rem;
+  margin: .8rem 0 0;
+  color: var(--alloy);
+  font-size: clamp(.8rem, .9vw, .95rem);
+  line-height: 1.45;
+}
+
+.systems-room-path {
+  display: grid;
+  grid-template-columns: repeat(var(--path-count, 5), minmax(0, 1fr));
+  border-top: 1px solid var(--line-dark);
+  border-bottom: 1px solid var(--line-dark);
+}
+
+.systems-room-path span {
+  position: relative;
+  min-width: 0;
+  padding: .7rem .55rem .65rem;
+  border-right: 1px solid var(--line-dark);
+  color: color-mix(in srgb, var(--paper) 72%, transparent);
+  font: 500 .58rem/1.25 var(--font-mono), monospace;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.systems-room-path span:last-child {
+  border-right: 0;
+}
+
+.systems-room-path span::before {
+  display: block;
+  margin-bottom: .4rem;
+  color: var(--redline);
+  font-size: .48rem;
+  content: attr(data-id);
+}
+
+.systems-room-card footer {
+  display: flex;
+  gap: .7rem 1rem;
+  align-items: center;
+  color: color-mix(in srgb, var(--alloy) 70%, transparent);
+  font: 500 .53rem/1.2 var(--font-mono), monospace;
+  text-transform: uppercase;
+}
+
+.systems-room-card footer strong {
+  margin-left: auto;
+  padding-bottom: .25rem;
+  border-bottom: 1px solid var(--redline);
+  color: var(--paper);
+  font-weight: 600;
+}
+
+.systems-room-card-autopulse .systems-room-path { --path-count: 4; }
+.systems-room-card-cv-engine .systems-room-path { --path-count: 5; }
+.systems-room-card-infrastructure-site-mapper .systems-room-path { --path-count: 4; }
+.systems-room-card-gpets .systems-room-path { --path-count: 5; }
+
+/* -------------------------------------------------------------------------- */
+/* EVIDENCE LIBRARY                                                           */
+/* -------------------------------------------------------------------------- */
+
+.evidence-library-body {
+  padding-top: 0;
+}
+
+.evidence-library-intro-v2 {
+  min-height: calc(100svh - 5rem);
+  min-height: calc(100dvh - 5rem);
+  padding: clamp(3rem, 6vh, 6rem) 0 clamp(2rem, 4vh, 4rem);
+  grid-template-columns: minmax(0, 1.05fr) minmax(22rem, .75fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 6rem);
+}
+
+.evidence-library-titleblock h1 {
+  max-width: 10ch;
+  margin-top: 1rem;
+  font-size: clamp(4rem, min(7vw, 11vh), 7rem);
+}
+
+.evidence-library-thesis {
+  max-width: 42rem;
+  margin: 1.5rem 0 0;
+  color: color-mix(in srgb, var(--ink) 67%, transparent);
+  font-size: clamp(.95rem, 1.15vw, 1.12rem);
+  line-height: 1.6;
+}
+
+.evidence-library-dashboard {
+  display: grid;
+  gap: 1rem;
+  align-self: center;
+}
+
+.evidence-library-total {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: end;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line-light);
+}
+
+.evidence-library-total strong {
+  color: var(--redline);
+  font: 600 clamp(3.5rem, 6vw, 6rem)/.8 var(--font-mono), monospace;
+  letter-spacing: -.08em;
+}
+
+.evidence-library-total span {
+  max-width: 9rem;
+  padding-bottom: .25rem;
+  color: color-mix(in srgb, var(--ink) 58%, transparent);
+  font: 600 .62rem/1.35 var(--font-mono), monospace;
+  text-transform: uppercase;
+}
+
+.evidence-library-system-counts {
+  display: grid;
+}
+
+.evidence-library-system-counts > div {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr) auto;
+  gap: .8rem;
+  align-items: center;
+  padding: .75rem 0;
+  border-bottom: 1px solid var(--line-light);
+}
+
+.evidence-library-system-counts span,
+.evidence-library-system-counts em {
+  color: var(--redline);
+  font: 600 .58rem/1 var(--font-mono), monospace;
+  font-style: normal;
+}
+
+.evidence-library-system-counts strong {
+  font-size: .9rem;
+  font-weight: 560;
+}
+
+.evidence-reading-contract {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--line-light);
+  border-bottom: 1px solid var(--line-light);
+}
+
+.evidence-reading-contract > span {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  gap: .7rem;
+  align-items: center;
+  padding: 1rem;
+  border-right: 1px solid var(--line-light);
+}
+
+.evidence-reading-contract > span:last-child { border-right: 0; }
+.evidence-reading-contract b { color: var(--redline); font: 600 .56rem/1 var(--font-mono), monospace; }
+.evidence-reading-contract strong { font: 600 .62rem/1 var(--font-mono), monospace; }
+.evidence-reading-contract em { color: color-mix(in srgb, var(--ink) 58%, transparent); font-size: .78rem; font-style: normal; line-height: 1.35; }
+
+.evidence-library-controls {
+  position: sticky;
+  z-index: 5;
+  top: 0;
+  display: flex;
+  gap: 1rem 2rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line-light);
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.evidence-library-controls .evidence-filters,
+.evidence-library-controls .evidence-library-count {
+  margin-top: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.evidence-library-controls .evidence-filters {
+  gap: .35rem;
+}
+
+.evidence-library-controls .evidence-filters button {
+  padding: .55rem .7rem;
+}
+
+.evidence-system-groups {
+  padding-top: clamp(2rem, 5vw, 5rem);
+}
+
+.evidence-system-group {
+  margin-bottom: clamp(4rem, 8vw, 8rem);
+}
+
+.evidence-system-group > header {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: end;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--ink);
+}
+
+.evidence-system-group > header span,
+.evidence-system-group > header strong {
+  color: var(--redline);
+  font: 600 .6rem/1 var(--font-mono), monospace;
+  text-transform: uppercase;
+}
+
+.evidence-system-group > header h2 {
+  margin: 0;
+  font-size: clamp(2rem, 3.5vw, 4rem);
+  font-weight: 520;
+  line-height: .92;
+  letter-spacing: -.045em;
+}
+
+.evidence-record-row-v2 {
+  grid-template-columns: 6.2rem minmax(0, 1fr) 11rem 1.5rem;
+  min-height: 7.2rem;
+  padding: 1rem 0;
+}
+
+.evidence-record-row-v2 .evidence-record-main h3 {
+  margin: .35rem 0 .35rem;
+  font-size: clamp(1.25rem, 1.8vw, 1.8rem);
+  font-weight: 560;
+  line-height: 1.02;
+  letter-spacing: -.025em;
+}
+
+.evidence-record-row-v2 .evidence-record-main > span {
+  display: -webkit-box;
+  overflow: hidden;
+  color: color-mix(in srgb, var(--ink) 64%, transparent);
+  font-size: .82rem;
+  line-height: 1.4;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.evidence-record-row-v2 .evidence-record-state {
+  gap: .35rem;
+}
+
+.evidence-record-row-v2 .evidence-record-state strong {
+  font-size: .62rem;
+}
+
+/* -------------------------------------------------------------------------- */
+/* RESPONSIVE                                                                 */
+/* -------------------------------------------------------------------------- */
+
+@media (min-width: 1101px) {
+  .systems-room-frame {
+    height: 100svh;
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow: clip;
+  }
+
+  .systems-room-shell {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    height: calc(100dvh - 5rem);
+  }
+
+  .systems-room-grid {
+    min-height: 0;
+  }
+
+  .systems-room-card {
+    min-height: 0;
+  }
+}
+
+@media (min-width: 1101px) and (max-height: 760px) {
+  .systems-room-shell {
+    padding-top: 1.2rem;
+    padding-bottom: 1rem;
+  }
+
+  .systems-room-intro {
+    grid-template-columns: minmax(0, 1fr) minmax(20rem, .8fr);
+    padding-bottom: 1rem;
+  }
+
+  .systems-room-intro h1 {
+    max-width: none;
+    font-size: clamp(2.7rem, 4.4vw, 4.2rem);
+  }
+
+  .systems-room-legend { display: none; }
+
+  .systems-room-card {
+    gap: .65rem;
+    padding: .85rem 1rem;
+  }
+
+  .systems-room-card-main h2 {
+    font-size: clamp(1.7rem, 2.5vw, 2.6rem);
+  }
+
+  .systems-room-card-main p {
+    margin-top: .45rem;
+    font-size: .76rem;
+    line-height: 1.35;
+  }
+
+  .systems-room-path span {
+    padding: .45rem;
+    font-size: .52rem;
+  }
+
+  .systems-room-path span::before { margin-bottom: .25rem; }
+}
+
+@media (max-width: 1100px) {
+  .systems-room-intro,
+  .evidence-library-intro-v2 {
+    grid-template-columns: 1fr;
+  }
+
+  .systems-room-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .systems-room-card {
+    min-height: 22rem;
+  }
+
+  .evidence-library-intro-v2 {
+    min-height: auto;
+  }
+
+  .evidence-reading-contract {
+    grid-template-columns: 1fr;
+  }
+
+  .evidence-reading-contract > span {
+    border-right: 0;
+    border-bottom: 1px solid var(--line-light);
+  }
+
+  .evidence-reading-contract > span:last-child { border-bottom: 0; }
+}
+
+@media (max-width: 720px) {
+  .systems-room-shell {
+    padding-top: 2rem;
+  }
+
+  .systems-room-intro h1 {
+    font-size: clamp(3rem, 15vw, 4.7rem);
+  }
+
+  .systems-room-card-topline {
+    grid-template-columns: auto 1fr;
+  }
+
+  .systems-room-card-topline span:last-child {
+    grid-column: 2;
+  }
+
+  .systems-room-path {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .systems-room-card-autopulse .systems-room-path,
+  .systems-room-card-cv-engine .systems-room-path,
+  .systems-room-card-infrastructure-site-mapper .systems-room-path,
+  .systems-room-card-gpets .systems-room-path {
+    --path-count: 2;
+  }
+
+  .systems-room-card footer {
+    flex-wrap: wrap;
+  }
+
+  .systems-room-card footer strong {
+    width: 100%;
+    margin-left: 0;
+    margin-top: .4rem;
+  }
+
+  .evidence-library-titleblock h1 {
+    font-size: clamp(3.2rem, 16vw, 5rem);
+  }
+
+  .evidence-library-controls {
+    position: static;
+    display: grid;
+  }
+
+  .evidence-library-controls .evidence-filters {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: .4rem;
+  }
+
+  .evidence-library-controls .evidence-filters button {
+    flex: 0 0 auto;
+  }
+
+  .evidence-system-group > header {
+    grid-template-columns: 2rem 1fr;
+  }
+
+  .evidence-system-group > header strong {
+    grid-column: 2;
+  }
+
+  .evidence-record-row-v2 {
+    grid-template-columns: 1fr 1.5rem;
+    gap: .7rem 1rem;
+    min-height: 0;
+    padding: 1.15rem 0;
+  }
+
+  .evidence-record-row-v2 .evidence-record-id,
+  .evidence-record-row-v2 .evidence-record-main,
+  .evidence-record-row-v2 .evidence-record-state {
+    grid-column: 1;
+  }
+
+  .evidence-record-row-v2 .evidence-record-open {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+  }
+}

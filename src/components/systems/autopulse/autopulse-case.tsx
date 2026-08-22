@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { motion } from "motion/react";
 import { SiteHeader } from "@/components/shell/site-header";
 import { AutoPulseProductSpecimen } from "@/components/systems/autopulse/autopulse-product-specimen";
 import { autopulseCase } from "@/content/autopulse";
@@ -17,6 +16,8 @@ function EvidenceReference({ id }: { id: string }) {
   return <Link href={href}>{id}</Link>;
 }
 
+const selectedProofIds = ["E-AP-01", "E-AP-03", "E-AP-05", "E-AP-06", "E-AP-07", "E-AP-08"] as const;
+
 export function AutoPulseCase() {
   const [activeNode, setActiveNode] = useState<string>(autopulseCase.architecture[0].id);
   const selectedNode =
@@ -24,7 +25,7 @@ export function AutoPulseCase() {
     autopulseCase.architecture[0];
 
   return (
-    <main className="autopulse-case">
+    <main className="autopulse-case autopulse-case-v2">
       <section className="ap-cover" id="cover">
         <SiteHeader />
 
@@ -40,18 +41,9 @@ export function AutoPulseCase() {
             <p className="ap-thesis">{autopulseCase.thesis}</p>
 
             <div className="ap-cover-meta">
-              <div>
-                <span>ROLE</span>
-                <strong>{autopulseCase.role}</strong>
-              </div>
-              <div>
-                <span>STATE</span>
-                <strong>{autopulseCase.state}</strong>
-              </div>
-              <div>
-                <span>EVIDENCE</span>
-                <strong>{autopulseCase.evidence.length} mapped artifacts</strong>
-              </div>
+              <div><span>ROLE</span><strong>{autopulseCase.role}</strong></div>
+              <div><span>STATE</span><strong>{autopulseCase.state}</strong></div>
+              <div><span>EVIDENCE</span><strong>{autopulseCase.evidence.length} mapped artifacts</strong></div>
             </div>
           </div>
 
@@ -60,193 +52,111 @@ export function AutoPulseCase() {
 
         <nav className="ap-case-nav" aria-label="AutoPulse case chapters">
           {[
-            ["01", "Problem", "#problem"],
-            ["02", "Model", "#model"],
-            ["03", "Decisions", "#decisions"],
-            ["04", "Architecture", "#architecture"],
-            ["05", "Failure", "#failure"],
-            ["06", "Verification", "#verification"],
-            ["07", "Evidence", "#evidence"],
+            ["01", "Reality", "#reality"],
+            ["02", "Decisions", "#decisions"],
+            ["03", "Build", "#build"],
+            ["04", "Recovery", "#recovery"],
+            ["05", "Verification", "#verification"],
+            ["06", "Boundary", "#boundary"],
           ].map(([id, label, href]) => (
-            <a key={href} href={href}>
-              <span>{id}</span>
-              {label}
-            </a>
+            <a key={href} href={href}><span>{id}</span>{label}</a>
           ))}
         </nav>
       </section>
 
-      <section className="ap-problem" id="problem">
-        <div className="ap-section-label">
-          <span>01</span>
-          <p>PROBLEM / SIGNAL</p>
-        </div>
+      <section className="ap-v2-reality" id="reality">
+        <div className="ap-section-label"><span>01</span><p>PROBLEM / SYSTEM MODEL</p></div>
+        <header className="ap-v2-heading">
+          <div><h2>Telemetry is not a clean stream.</h2><p>Reading vehicle data is the easy description. The system has to survive partial, delayed, missing, interrupted, and corrupt outcomes without rewriting them into a clean fiction.</p></div>
+          <strong>SIGNAL → EVENT → BLOCK → SESSION → SUMMARY</strong>
+        </header>
 
-        <div className="ap-problem-main">
-          <h2>Telemetry is not a clean stream.</h2>
-          <p>
-            Reading vehicle data is the easy description. The engineering problem
-            begins when the signal, transport, process and persistence lifecycles do
-            not fail together.
-          </p>
-        </div>
-
-        <div className="ap-problem-signals">
-          {autopulseCase.problemSignals.map((signal, index) => (
-            <motion.article
-              key={signal.id}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ delay: index * 0.08, duration: 0.35 }}
-            >
-              <span>{signal.id}</span>
-              <h3>{signal.title}</h3>
-              <p>{signal.detail}</p>
-            </motion.article>
-          ))}
-        </div>
-      </section>
-
-      <section className="ap-model" id="model">
-        <div className="ap-section-label light">
-          <span>02</span>
-          <p>SYSTEM MODEL</p>
-        </div>
-
-        <div className="ap-model-title">
-          <p>Before architecture, define what has to survive.</p>
-          <h2>Signal → event → block → session.</h2>
-        </div>
-
-        <div className="ap-model-line" aria-label="AutoPulse conceptual system model">
-          {[
-            ["VEHICLE", "physical source"],
-            ["COMMAND RESULT", "success / no-data / failure"],
-            ["ACQUISITION EVENT", "preserved outcome"],
-            ["TELEMETRY BLOCK", "bounded durable unit"],
-            ["LIVE SESSION", "explicit lifecycle"],
-            ["SUMMARY", "integrity-aware interpretation"],
-          ].map(([title, description], index) => (
-            <div key={title}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <strong>{title}</strong>
-              <p>{description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="ap-decisions" id="decisions">
-        <div className="ap-section-label">
-          <span>03</span>
-          <p>ENGINEERING DECISIONS</p>
-        </div>
-
-        <div className="ap-decisions-heading">
-          <h2>The case is in the decisions, not the gauges.</h2>
-          <p>
-            The visible telemetry is only the surface. These decisions define what
-            can still be trusted after the happy path breaks.
-          </p>
-        </div>
-
-        <div className="ap-decision-list">
-          {autopulseCase.decisions.map((decision) => (
-            <article key={decision.id}>
-              <div className="ap-decision-title">
-                <span>{decision.id}</span>
-                <h3>{decision.title}</h3>
-              </div>
-              <dl>
-                <div>
-                  <dt>WHY</dt>
-                  <dd>{decision.why}</dd>
-                </div>
-                <div>
-                  <dt>TRADEOFF</dt>
-                  <dd>{decision.tradeoff}</dd>
-                </div>
-                <div>
-                  <dt>EVIDENCE</dt>
-                  <dd className="ap-inline-evidence">
-                    {decision.evidence.map((id, index) => (
-                      <span key={id}>
-                        {index > 0 ? " · " : ""}
-                        <EvidenceReference id={id} />
-                      </span>
-                    ))}
-                  </dd>
-                </div>
-              </dl>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="ap-architecture" id="architecture">
-        <div className="ap-section-label">
-          <span>04</span>
-          <p>ARCHITECTURE / INSPECT</p>
-        </div>
-
-        <div className="ap-architecture-heading">
-          <h2>Follow one acquisition into durable state.</h2>
-          <p>Choose a component. The inspector exposes the responsibility, not a decorative box.</p>
-        </div>
-
-        <div className="ap-architecture-workbench">
-          <div className="ap-architecture-flow" aria-label="AutoPulse architecture components">
-            {autopulseCase.architecture.map((node, index) => {
-              const isActive = node.id === activeNode;
-              return (
-                <button
-                  type="button"
-                  key={node.id}
-                  onClick={() => setActiveNode(node.id)}
-                  className={isActive ? "is-active" : undefined}
-                  aria-pressed={isActive}
-                >
-                  <span>{node.number}</span>
-                  <small>{node.label}</small>
-                  <strong>{node.title}</strong>
-                  {index < autopulseCase.architecture.length - 1 ? <i aria-hidden="true" /> : null}
-                </button>
-              );
-            })}
+        <div className="ap-v2-reality-grid">
+          <div className="ap-v2-signal-board">
+            {autopulseCase.problemSignals.map((signal) => (
+              <article key={signal.id}>
+                <span>{signal.id}</span><h3>{signal.title}</h3><p>{signal.detail}</p>
+              </article>
+            ))}
           </div>
 
-          <motion.aside
-            key={selectedNode.id}
-            className="ap-component-inspector"
-            initial={{ opacity: 0, x: 14 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.24 }}
-          >
-            <div>
-              <span>COMPONENT / {selectedNode.number}</span>
-              <EvidenceReference id={selectedNode.evidence} />
-            </div>
-            <p>{selectedNode.label}</p>
-            <h3>{selectedNode.title}</h3>
-            <p>{selectedNode.detail}</p>
-            <Link href={`/evidence/${selectedNode.evidence.toLowerCase()}`}>Inspect evidence →</Link>
-          </motion.aside>
+          <div className="ap-v2-model-board" aria-label="AutoPulse conceptual system model">
+            {[
+              ["01", "VEHICLE", "physical source"],
+              ["02", "COMMAND RESULT", "success / no-data / failure"],
+              ["03", "ACQUISITION EVENT", "preserved outcome"],
+              ["04", "TELEMETRY BLOCK", "bounded durable unit"],
+              ["05", "LIVE SESSION", "explicit lifecycle"],
+              ["06", "SUMMARY", "integrity-aware interpretation"],
+            ].map(([id, title, detail]) => (
+              <div key={title}><span>{id}</span><strong>{title}</strong><p>{detail}</p></div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="ap-build" id="build">
-        <div className="ap-section-label light">
-          <span>05</span>
-          <p>BUILD / SOURCE SPECIMENS</p>
-        </div>
+      <section className="ap-v2-decisions" id="decisions">
+        <div className="ap-section-label"><span>02</span><p>DECISIONS / ARCHITECTURE</p></div>
+        <header className="ap-v2-heading">
+          <div><h2>The case is in the decisions, not the gauges.</h2><p>The visible telemetry is only the surface. These decisions define what remains trustworthy when the happy path breaks.</p></div>
+          <p>Select an architecture component to inspect its responsibility and evidence route.</p>
+        </header>
 
-        <div className="ap-build-grid">
-          <div className="ap-code-specimen">
-            <div className="ap-code-title">
-              <span>TelemetryBlockRepository.ts</span>
-              <Link href="/evidence/e-ap-03">E-AP-03</Link>
+        <div className="ap-v2-decision-architecture-grid">
+          <div className="ap-v2-decision-board">
+            {autopulseCase.decisions.map((decision) => (
+              <article key={decision.id}>
+                <span>{decision.id}</span>
+                <h3>{decision.title}</h3>
+                <p>{decision.why}</p>
+                <footer>{decision.evidence.map((id) => <EvidenceReference key={id} id={id} />)}</footer>
+              </article>
+            ))}
+          </div>
+
+          <div className="ap-v2-architecture-board">
+            <div className="ap-v2-architecture-flow" aria-label="AutoPulse architecture components">
+              {autopulseCase.architecture.map((node) => {
+                const isActive = node.id === activeNode;
+                return (
+                  <button
+                    type="button"
+                    key={node.id}
+                    onClick={() => setActiveNode(node.id)}
+                    className={isActive ? "is-active" : undefined}
+                    aria-pressed={isActive}
+                  >
+                    <span>{node.number}</span><small>{node.label}</small><strong>{node.title}</strong>
+                  </button>
+                );
+              })}
             </div>
+
+            <aside
+              key={selectedNode.id}
+              className="ap-v2-component-inspector"
+              aria-live="polite"
+              aria-atomic="true"
+            >
+              <div><span>COMPONENT / {selectedNode.number}</span><EvidenceReference id={selectedNode.evidence} /></div>
+              <h3>{selectedNode.title}</h3>
+              <p>{selectedNode.detail}</p>
+              <Link href={`/evidence/${selectedNode.evidence.toLowerCase()}`}>Inspect evidence →</Link>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section className="ap-v2-build" id="build">
+        <div className="ap-section-label light"><span>03</span><p>BUILD / PERSISTENCE CONTRACT</p></div>
+        <header className="ap-v2-heading">
+          <div><h2>Persistence has a contract.</h2><p>Retry, conflict, sequence gaps, regressions, truncation, and corruption are not the same failure. The repository preserves those differences explicitly.</p></div>
+          <div className="ap-v2-build-tags"><span>BINARY_OBD2_V3</span><span>CRC32</span><span>ORDERED SEQUENCE</span><span>IDEMPOTENT COMMIT</span></div>
+        </header>
+
+        <div className="ap-v2-build-grid">
+          <div className="ap-code-specimen ap-code-specimen-v2">
+            <div className="ap-code-title"><span>TelemetryBlockRepository.ts</span><Link href="/evidence/e-ap-03">E-AP-03</Link></div>
             <pre aria-label="Simplified persistence contract excerpt"><code>{`if (calculatedCrc !== encodedBlock.payloadCrc)
   return INVALID_BLOCK_CRC
 
@@ -260,128 +170,83 @@ identical retry → ALREADY_COMMITTED
 same sequence / different payload → CONFLICT`}</code></pre>
           </div>
 
-          <div className="ap-build-notes">
-            <p className="technical-label">WHAT THIS PROVES</p>
-            <h3>Persistence has a contract.</h3>
-            <p>
-              The repository differentiates idempotent retry, conflicting payload,
-              sequence gaps, regressions, truncation and corruption instead of
-              collapsing every persistence problem into “write failed.”
-            </p>
-            <div className="ap-build-tags">
-              <span>BINARY_OBD2_V3</span>
-              <span>CRC32</span>
-              <span>ORDERED SEQUENCE</span>
-              <span>IDEMPOTENT COMMIT</span>
-            </div>
+          <div className="ap-v2-build-contract">
+            {[
+              ["01", "Integrity", "CRC metadata detects corrupted encoded blocks before they enter trusted state."],
+              ["02", "Sequence", "Expected ordering distinguishes a real gap from a regressive write."],
+              ["03", "Retry", "An identical retry is idempotent; a different payload on the same sequence is a conflict."],
+              ["04", "Durability", "The persistence boundary records enough truth for later recovery and summary integrity."],
+            ].map(([id, title, detail]) => (
+              <article key={id}><span>{id}</span><h3>{title}</h3><p>{detail}</p></article>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="ap-failure" id="failure">
-        <div className="ap-failure-stage">
-          <p className="technical-label">FAILURE MODE / UNEXPECTED TERMINATION</p>
-          <div className="ap-failure-event">
-            <span>ACTIVE SESSION</span>
-            <i aria-hidden="true" />
-            <strong>PROCESS ENDS</strong>
-            <b aria-hidden="true">×</b>
-          </div>
-          <h2>The process can die. The data does not have to.</h2>
+      <section className="ap-v2-recovery" id="recovery">
+        <div className="ap-section-label"><span>04</span><p>FAILURE / RECOVERY</p></div>
+        <header className="ap-v2-heading">
+          <div><h2>The process can die. The data does not have to.</h2><p>An interrupted application should not manufacture a clean completion or throw away durable telemetry that already exists.</p></div>
+          <div className="ap-v2-failure-mark"><span>ACTIVE SESSION</span><b>×</b><strong>PROCESS ENDS</strong></div>
+        </header>
+
+        <div className="ap-v2-recovery-path">
+          {[
+            ["01", "Persisted blocks", "Durable telemetry already exists."],
+            ["02", "Find orphan", "A non-terminal session remains after startup."],
+            ["03", "Reconcile", "Counters are rebuilt from persisted blocks."],
+            ["04", "Mark interrupted", "History records unexpected termination honestly."],
+          ].map(([id, title, detail]) => (
+            <div key={id}><span>{id}</span><strong>{title}</strong><p>{detail}</p></div>
+          ))}
         </div>
 
-        <div className="ap-recovery-stage">
-          <div className="ap-recovery-path">
-            {[
-              ["01", "Persisted blocks", "Durable telemetry already exists."],
-              ["02", "Find orphan", "Non-terminal session remains after startup."],
-              ["03", "Reconcile", "Counters are rebuilt from persisted blocks."],
-              ["04", "Mark interrupted", "History stays honest about the termination."],
-            ].map(([id, title, detail]) => (
-              <div key={id}>
-                <span>{id}</span>
-                <strong>{title}</strong>
-                <p>{detail}</p>
+        <div className="ap-v2-recovery-claim">
+          <Link href="/evidence/e-ap-06">E-AP-06</Link>
+          <p>`recoverOrphanedSessions()` reconciles durable counters and records `UNEXPECTED_APP_TERMINATION` instead of fabricating a clean completion.</p>
+        </div>
+      </section>
+
+      <section className="ap-v2-verification" id="verification">
+        <div className="ap-section-label light"><span>05</span><p>VERIFICATION / EVIDENCE</p></div>
+        <header className="ap-v2-heading">
+          <div><h2>Built is not the same as field-proven.</h2><p>The case keeps the claim ceiling visible. Source and test artifacts prove software behavior; they do not automatically prove every vehicle, adapter, or physical environment.</p></div>
+          <Link href="/evidence">Open full Evidence Library →</Link>
+        </header>
+
+        <div className="ap-v2-verification-grid">
+          <div className="ap-v2-verification-list">
+            {autopulseCase.verification.map((item) => (
+              <div key={item.claim} data-unclaimed={item.state === "NOT CLAIMED" ? "true" : "false"}>
+                <strong>{item.claim}</strong><span>{item.state}</span><EvidenceReference id={item.evidence} />
               </div>
             ))}
           </div>
-          <div className="ap-recovery-claim">
-            <Link href="/evidence/e-ap-06">E-AP-06</Link>
-            <p>
-              `recoverOrphanedSessions()` reconciles durable counters and records
-              `UNEXPECTED_APP_TERMINATION` instead of fabricating a clean completion.
-            </p>
+
+          <aside className="ap-v2-proof-board">
+            <span>SELECTED PROOF ROUTES</span>
+            <div>{selectedProofIds.map((id) => <EvidenceReference key={id} id={id} />)}</div>
+            <p>Detailed provenance, source coordinates, test state, and limitation remain inside each evidence dossier.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section className="ap-v2-boundary" id="boundary">
+        <div className="ap-section-label"><span>06</span><p>CURRENT BOUNDARY / NEXT</p></div>
+        <div className="ap-v2-boundary-grid">
+          <div>
+            <span>CURRENTLY PROVEN</span>
+            <h2>Telemetry can move from imperfect acquisition into durable, recoverable, integrity-aware session state.</h2>
+            <p>The portfolio proof is strongest around software lifecycle, persistence, recovery, and interpretation boundaries.</p>
+          </div>
+          <div>
+            <span>FIELD REALITY</span>
+            <h3>Compatibility remains a physical-system problem.</h3>
+            <p>Vehicle coverage, adapter behavior, and field variability must continue to be earned with real-device evidence rather than inferred from implementation.</p>
+            <strong>DO NOT OVERCLAIM THE FIELD GATE</strong>
           </div>
         </div>
-      </section>
-
-      <section className="ap-verification" id="verification">
-        <div className="ap-section-label light">
-          <span>06</span>
-          <p>VERIFICATION / CLAIM CEILING</p>
-        </div>
-
-        <div className="ap-verification-heading">
-          <h2>Built is not the same as field-proven.</h2>
-          <p>
-            The portfolio deliberately exposes the verification state instead of
-            converting source code into a stronger claim than the evidence supports.
-          </p>
-        </div>
-
-        <div className="ap-verification-table" role="table" aria-label="AutoPulse verification matrix">
-          {autopulseCase.verification.map((item) => (
-            <div role="row" key={item.claim}>
-              <div role="cell">
-                <span>CLAIM</span>
-                <strong>{item.claim}</strong>
-              </div>
-              <div role="cell" className={item.state === "NOT CLAIMED" ? "is-unclaimed" : undefined}>
-                <span>STATE</span>
-                <strong>{item.state}</strong>
-              </div>
-              <div role="cell">
-                <EvidenceReference id={item.evidence} />
-                <p>{item.proof}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="ap-evidence" id="evidence">
-        <div className="ap-paper-marks" aria-hidden="true">
-          <span>+</span><span>+</span><span>+</span><span>+</span>
-        </div>
-
-        <div className="ap-evidence-copy">
-          <p className="technical-label">07 / EVIDENCE DOSSIER</p>
-          <h2>Inspect what each claim rests on.</h2>
-          <p>
-            Current-source evidence is separated from test artifacts and from the
-            physical field gate that remains intentionally unclaimed here.
-          </p>
-          <Link href="/evidence">Open evidence library →</Link>
-        </div>
-
-        <div className="ap-evidence-ledger">
-          {autopulseCase.evidence.map(([id, label, state]) => (
-            <Link key={id} href={`/evidence/${id.toLowerCase()}`}>
-              <span>{id}</span>
-              <strong>{label}</strong>
-              <small>{state}</small>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="ap-next">
-        <p className="technical-label">CASE / NEXT</p>
-        <h2>A reliable session is only useful if the evidence stays honest.</h2>
-        <div>
-          <Link href="/systems">← All systems</Link>
-          <Link href="/evidence">Evidence →</Link>
-        </div>
+        <div className="ap-v2-case-exit"><Link href="/systems">← All systems</Link><Link href="/evidence">Evidence →</Link></div>
       </section>
     </main>
   );

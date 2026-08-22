@@ -135,7 +135,6 @@ await test("Skip link is first keyboard target and moves Home to main content", 
       const style = getComputedStyle(el);
       return {
         className: el?.className ?? '',
-        text: el?.textContent?.trim() ?? '',
         outlineStyle: style.outlineStyle,
         outlineWidth: style.outlineWidth,
       };
@@ -144,7 +143,7 @@ await test("Skip link is first keyboard target and moves Home to main content", 
     assert(first.outlineStyle !== "none" && first.outlineWidth !== "0px", `skip-link focus ring not visible: ${JSON.stringify(first)}`);
 
     await session.key("Enter", "Enter", 13);
-    const after = await session.evaluate(`(() => ({ id: document.activeElement?.id ?? '', tag: document.activeElement?.tagName ?? '' }))()`);
+    const after = await session.evaluate(`(() => ({ id: document.activeElement?.id ?? '' }))()`);
     assert(after.id === "main-content", `skip link did not focus #main-content: ${JSON.stringify(after)}`);
   } finally {
     await session.close();
@@ -178,7 +177,7 @@ await test("Evidence filter activates from keyboard", async () => {
     await session.key("Enter", "Enter", 13);
     const state = await session.evaluate(`(() => {
       const button = [...document.querySelectorAll('.evidence-filters button')].find((el) => el.textContent?.trim() === 'Implementation');
-      const rows = [...document.querySelectorAll('.evidence-record-row')];
+      const rows = [...document.querySelectorAll('.evidence-record-row-v2')];
       return {
         pressed: button?.getAttribute('aria-pressed'),
         rows: rows.length,
@@ -206,14 +205,16 @@ await test("Notes EXPLORING filter activates from keyboard", async () => {
     await session.key("Enter", "Enter", 13);
     const state = await session.evaluate(`(() => {
       const button = [...document.querySelectorAll('.notes-filter button')].find((el) => el.textContent?.trim() === 'EXPLORING');
+      const cards = [...document.querySelectorAll('.note-card-v2')];
       return {
         pressed: button?.getAttribute('aria-pressed'),
-        rows: document.querySelectorAll('.note-row').length,
-        exploringRows: document.querySelectorAll('.note-row.is-exploring').length,
+        cards: cards.length,
+        exploringCards: cards.filter((card) => card.classList.contains('is-exploring')).length,
       };
     })()`);
     assert(state.pressed === "true", `Notes filter did not become pressed: ${JSON.stringify(state)}`);
-    assert(state.rows === state.exploringRows && state.rows > 0, `Notes filter did not isolate exploring rows: ${JSON.stringify(state)}`);
+    assert(state.cards > 0, `Notes exploring filter produced no cards: ${JSON.stringify(state)}`);
+    assert(state.cards === state.exploringCards, `Notes filter leaked non-exploring cards: ${JSON.stringify(state)}`);
   } finally {
     await session.close();
   }
@@ -223,26 +224,27 @@ await test("AutoPulse architecture inspector is keyboard operable and announced"
   const session = await createSession("/systems/autopulse");
   try {
     const setup = await session.evaluate(`(() => {
-      const buttons = [...document.querySelectorAll('.ap-architecture-flow button')];
+      const buttons = [...document.querySelectorAll('.ap-v2-architecture-flow button')];
       if (buttons.length < 2) return { ok: false };
       buttons[1].focus();
-      return { ok: true, before: buttons.map((button) => button.getAttribute('aria-pressed')) };
+      return { ok: true, title: buttons[1].querySelector('strong')?.textContent?.trim() ?? '' };
     })()`);
     assert(setup.ok, "AutoPulse architecture buttons not found");
     await session.key("Enter", "Enter", 13);
     await sleep(250);
     const state = await session.evaluate(`(() => {
-      const buttons = [...document.querySelectorAll('.ap-architecture-flow button')];
-      const inspector = document.querySelector('.ap-component-inspector');
+      const buttons = [...document.querySelectorAll('.ap-v2-architecture-flow button')];
+      const inspector = document.querySelector('.ap-v2-component-inspector');
       return {
         secondPressed: buttons[1]?.getAttribute('aria-pressed'),
+        selectedButtonTitle: buttons[1]?.querySelector('strong')?.textContent?.trim() ?? '',
         title: inspector?.querySelector('h3')?.textContent?.trim() ?? '',
         live: inspector?.getAttribute('aria-live'),
         atomic: inspector?.getAttribute('aria-atomic'),
       };
     })()`);
     assert(state.secondPressed === "true", `AutoPulse second architecture button was not activated: ${JSON.stringify(state)}`);
-    assert(state.title.includes("ObdAcquisitionMapper"), `AutoPulse inspector did not update: ${JSON.stringify(state)}`);
+    assert(state.title === state.selectedButtonTitle && state.title.length > 0, `AutoPulse inspector did not update to selected component: ${JSON.stringify(state)}`);
     assert(state.live === "polite" && state.atomic === "true", `AutoPulse inspector missing live semantics: ${JSON.stringify(state)}`);
   } finally {
     await session.close();
