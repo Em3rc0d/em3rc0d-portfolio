@@ -22,6 +22,7 @@ import "./visual-material-v2-fixes.css";
 import "./usability-v2.css";
 import "./evidence-library-usability.css";
 import "./material-reality-acceptance.css";
+import "./commercial-refinement.css";
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
@@ -37,34 +38,64 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 const description =
-  "Software Developer — Systems, Full Stack & Applied AI. I turn messy operational problems into working software.";
-const metadataBase = getSiteOrigin() ?? undefined;
+  "Software developer building, recovering and improving custom software systems, full-stack products and applied AI for messy operational problems.";
+const siteOrigin = getSiteOrigin();
+const metadataBase = siteOrigin ?? undefined;
 
 export const metadata: Metadata = {
   metadataBase,
   title: {
-    default: "Eduardo Merino — The Build Room",
+    default: "Eduardo Merino — Software Systems & Applied AI",
     template: "%s — Eduardo Merino",
   },
   description,
   applicationName: "THE BUILD ROOM",
   authors: [{ name: "Eduardo Merino" }],
   creator: "Eduardo Merino",
+  keywords: [
+    "software developer",
+    "custom software systems",
+    "full stack development",
+    "applied AI",
+    "workflow automation",
+    "software recovery",
+    "systems integration",
+  ],
   openGraph: {
     type: "website",
     siteName: "THE BUILD ROOM",
-    title: "Eduardo Merino — The Build Room",
+    title: "Eduardo Merino — Software Systems & Applied AI",
     description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Eduardo Merino — The Build Room",
+    title: "Eduardo Merino — Software Systems & Applied AI",
     description,
   },
   robots: {
     index: true,
     follow: true,
   },
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Eduardo Merino",
+  ...(siteOrigin ? { url: siteOrigin.toString() } : {}),
+  jobTitle: "Software Developer",
+  sameAs: [
+    "https://www.linkedin.com/in/emerinoc",
+    "https://github.com/Em3rc0d",
+  ],
+  knowsAbout: [
+    "Custom software systems",
+    "Full-stack software development",
+    "Systems integration",
+    "Software recovery and modernization",
+    "Workflow automation",
+    "Applied artificial intelligence",
+  ],
 };
 
 export default function RootLayout({
@@ -75,6 +106,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${instrumentSans.variable} ${ibmPlexMono.variable}`}>
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         <SkipLink />
         <DynamicSemantics />
         <MotionPolicy>{children}</MotionPolicy>

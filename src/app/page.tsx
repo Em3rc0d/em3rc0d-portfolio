@@ -4,6 +4,29 @@ import { flagshipSystems } from "@/content/systems";
 import { evidenceRecords } from "@/content/evidence";
 import { cvEngineEvidenceRecords } from "@/content/cv-engine-evidence";
 
+const clientPaths = [
+  [
+    "01",
+    "BUILD",
+    "Build custom software systems from operational problems, manual workflows, or product ideas with clear boundaries and ownership.",
+  ],
+  [
+    "02",
+    "RECOVER",
+    "Recover existing products and codebases before changing them: behavior, architecture, dependencies, risks, and missing evidence.",
+  ],
+  [
+    "03",
+    "IMPROVE",
+    "Improve fragmented workflows and integrations so software becomes easier to operate, verify, integrate, and evolve.",
+  ],
+  [
+    "04",
+    "APPLIED AI",
+    "Add AI inside real products while keeping product truth, provenance, failure behavior, and human control explicit.",
+  ],
+] as const;
+
 const operatingSequence = [
   ["01", "RECOVER", "Understand what actually exists before proposing what should exist."],
   ["02", "BOUND", "Separate actors, ownership, state, source truth and responsibility."],
@@ -33,41 +56,38 @@ export default function Home() {
 
       <StartupHero />
 
-      <section className="operating-model" aria-labelledby="operating-model-heading">
-        <div className="operating-model-intro">
-          <p className="technical-label">WORKING MODEL / 01</p>
-          <h2 id="operating-model-heading">From messy reality to inspectable software.</h2>
+      <section className="client-paths narrative-frame" aria-labelledby="client-paths-heading">
+        <header className="client-paths-heading">
+          <p className="technical-label">CLIENT PROBLEMS / 01</p>
+          <h2 id="client-paths-heading">What can I help you make work?</h2>
           <p>
-            The portfolio is not organized around a wall of technologies. It shows
-            the engineering path I use to make ambiguous operational problems small
-            enough to model, build and verify deliberately.
+            You do not need a perfect brief or a service package. Start with the
+            operational problem, the product that already exists, or the outcome
+            that needs to become reliable.
           </p>
-        </div>
+          <Link href="/contact">Start with your situation ↗</Link>
+        </header>
 
-        <ol className="operating-model-sequence">
-          {operatingSequence.map(([id, title, detail]) => (
-            <li
-              key={id}
-              data-id={id}
-              data-title={title}
-              aria-label={`${id} ${title}. ${detail}`}
-            >
-              {detail}
-            </li>
+        <div className="client-path-grid">
+          {clientPaths.map(([id, title, detail]) => (
+            <article key={id} data-index={id}>
+              <h3>{title}</h3>
+              <p>{detail}</p>
+            </article>
           ))}
-        </ol>
+        </div>
       </section>
 
       <section className="systems-runway systems-runway-v2" aria-labelledby="systems-heading">
-        <div className="section-heading-row">
+        <div className="section-heading-row systems-commercial-heading">
           <div>
             <p className="technical-label">SELECTED SYSTEMS / 02</p>
-            <h2 id="systems-heading">Encounter the system before the case study.</h2>
+            <h2 id="systems-heading">See the engineering in working systems.</h2>
           </div>
           <p>
-            Each flagship has its own behavior. The shared language is traceability:
-            a visible system path, real engineering artifacts and a direct route into
-            the proof behind the story.
+            These are not technology lists. Each system exposes the problem, the
+            operating model, engineering decisions, failure behavior, and evidence
+            behind what I claim.
           </p>
         </div>
 
@@ -76,7 +96,10 @@ export default function Home() {
             const evidence = homeEvidence[system.slug as keyof typeof homeEvidence] ?? [];
 
             return (
-              <article className={`system-record system-encounter-record is-${system.slug}`} key={system.id}>
+              <article
+                className={`system-record system-encounter-record narrative-frame is-${system.slug}`}
+                key={system.id}
+              >
                 <div className="system-record-index">
                   <span>{system.id}</span>
                   <span>{system.label}</span>
@@ -93,7 +116,10 @@ export default function Home() {
 
                   <p>{system.summary}</p>
 
-                  <div className={`system-artifact-stage artifact-${system.slug}`} aria-label={`${system.name} engineering artifact preview`}>
+                  <div
+                    className={`system-artifact-stage artifact-${system.slug}`}
+                    aria-label={`${system.name} engineering artifact preview`}
+                  >
                     <div className="artifact-system-path">
                       {system.path.map((step, index) => (
                         <span
@@ -152,63 +178,73 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="builder-bridge" aria-labelledby="builder-bridge-heading">
-        <div>
-          <p className="technical-label">BUILDER / HUMAN CONTEXT</p>
-          <h2 id="builder-bridge-heading">The system has a builder behind it.</h2>
-        </div>
-        <div>
+      <section className="operating-model narrative-frame" aria-labelledby="operating-model-heading">
+        <div className="operating-model-intro">
+          <p className="technical-label">WORKING MODEL / 03</p>
+          <h2 id="operating-model-heading">From messy reality to inspectable software.</h2>
           <p>
-            THE BUILD ROOM is intentionally technical, but not anonymous. The About
-            surface steps away from HUD-like treatment and shows the person, working
-            method and mechanical curiosity behind the systems.
+            Once the problem is clear, the method becomes useful. I recover what is
+            real, define boundaries, model the system, build the smallest coherent
+            path, verify the claims, and evolve from new evidence.
           </p>
-          <Link href="/about">Meet Eduardo <span aria-hidden="true">↗</span></Link>
         </div>
+
+        <ol className="operating-model-sequence">
+          {operatingSequence.map(([id, title, detail]) => (
+            <li
+              key={id}
+              data-id={id}
+              data-title={title}
+              aria-label={`${id} ${title}. ${detail}`}
+            >
+              {detail}
+            </li>
+          ))}
+        </ol>
       </section>
 
-      <section className="paper-stage paper-stage-v2" aria-labelledby="evidence-heading">
-        <div className="paper-registration" aria-hidden="true">
-          <span>+</span>
-          <span>+</span>
-          <span>+</span>
-          <span>+</span>
-        </div>
+      <section
+        className="paper-stage paper-stage-v2 narrative-frame"
+        aria-labelledby="evidence-heading"
+      >
         <div className="paper-copy">
           <p className="technical-label ink-label">CARBON → PAPER / EVIDENCE</p>
           <h2 id="evidence-heading">Claims should be inspectable.</h2>
           <p>
-            Evidence is not a vanity counter. Decisions, source artifacts, tests,
-            recovery behavior and limitations are first-class portfolio objects. The
-            material changes from Carbon to Paper when the visitor opens the record.
+            Decisions, source artifacts, tests, recovery behavior and limitations are
+            first-class portfolio objects. If I say a system behaves a certain way,
+            you can follow the route to the proof behind that statement.
           </p>
           <Link href="/evidence" className="paper-link">
-            Open evidence library <span aria-hidden="true">↗</span>
+            Open evidence library ↗
           </Link>
         </div>
-        <Link href="/evidence/e-ap-06" className="evidence-sample evidence-sample-v2" aria-label="Open AutoPulse orphaned-session recovery evidence">
-          <span className="evidence-id">E-AP-06</span>
-          <strong>Orphaned-session recovery</strong>
+        <Link
+          href="/evidence/e-ap-06"
+          className="evidence-sample evidence-sample-v2 evidence-sample-compact"
+          aria-label="Open AutoPulse orphaned-session recovery evidence"
+        >
+          <strong>E-AP-06 · Orphaned-session recovery</strong>
           <p>
             Persisted telemetry can reconcile a non-terminal orphaned session while
             preserving the interruption honestly.
           </p>
-          <dl>
-            <div>
-              <dt>TYPE</dt>
-              <dd>Recovery / test artifact</dd>
-            </div>
-            <div>
-              <dt>STATE</dt>
-              <dd>TEST ARTIFACT</dd>
-            </div>
-            <div>
-              <dt>LIMIT</dt>
-              <dd>Recovery does not imply every external hardware failure is recoverable.</dd>
-            </div>
-          </dl>
-          <span className="evidence-open">OPEN RECORD ↗</span>
         </Link>
+      </section>
+
+      <section className="home-conversion narrative-frame" aria-labelledby="home-conversion-heading">
+        <p className="technical-label">START / 07</p>
+        <h2 id="home-conversion-heading">
+          Have a system that is difficult to understand, build, or improve?
+        </h2>
+        <p>
+          Start with the situation. I can help turn the operating reality into a
+          software path we can inspect, build, and verify deliberately.
+        </p>
+        <div className="home-conversion-actions">
+          <Link href="/contact" className="home-conversion-primary">Start a conversation ↗</Link>
+          <Link href="/about">About the builder ↗</Link>
+        </div>
       </section>
     </main>
   );

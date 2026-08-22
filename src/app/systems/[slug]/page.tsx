@@ -4,6 +4,7 @@ import { AutoPulseCase } from "@/components/systems/autopulse/autopulse-case";
 import { CvEngineCase } from "@/components/systems/cv-engine/cv-engine-case";
 import { SiteHeader } from "@/components/shell/site-header";
 import { systems } from "@/content/systems";
+import { absoluteSiteUrl } from "@/lib/site-config";
 
 interface SystemPageProps {
   params: Promise<{ slug: string }>;
@@ -23,9 +24,41 @@ export async function generateMetadata({ params }: SystemPageProps): Promise<Met
 
   if (!system) return {};
 
+  const title = `${system.name} — ${system.label}`;
+  const routePath = `/systems/${system.slug}`;
+  const canonicalUrl = absoluteSiteUrl(routePath);
+  const socialImage = absoluteSiteUrl("/opengraph-image");
+  const imageAlt = `${system.name} — Eduardo Merino software system case study`;
+
   return {
-    title: system.name,
+    title,
     description: system.summary,
+    ...(canonicalUrl ? { alternates: { canonical: canonicalUrl } } : {}),
+    openGraph: {
+      type: "article",
+      siteName: "THE BUILD ROOM",
+      title,
+      description: system.summary,
+      ...(canonicalUrl ? { url: canonicalUrl } : {}),
+      ...(socialImage
+        ? {
+            images: [
+              {
+                url: socialImage,
+                width: 1200,
+                height: 630,
+                alt: imageAlt,
+              },
+            ],
+          }
+        : {}),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: system.summary,
+      ...(socialImage ? { images: [socialImage] } : {}),
+    },
   };
 }
 
