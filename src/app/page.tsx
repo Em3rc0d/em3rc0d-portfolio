@@ -207,12 +207,6 @@ export default function Home() {
         className="paper-stage paper-stage-v2 narrative-frame"
         aria-labelledby="evidence-heading"
       >
-        <div className="paper-registration" aria-hidden="true">
-          <span>+</span>
-          <span>+</span>
-          <span>+</span>
-          <span>+</span>
-        </div>
         <div className="paper-copy">
           <p className="technical-label ink-label">CARBON → PAPER / EVIDENCE</p>
           <h2 id="evidence-heading">Claims should be inspectable.</h2>
