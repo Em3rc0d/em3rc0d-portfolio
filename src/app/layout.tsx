@@ -27,11 +27,6 @@ import "./reputation-completeness.css";
 import "./reputation-completeness-fixes.css";
 import "./frame-discipline.css";
 import "./frame-discipline-fixes.css";
-import "./visual-acceptance-v2.css";
-import "./visual-acceptance-v2b.css";
-import "./visual-acceptance-v2c.css";
-import "./visual-acceptance-v2d.css";
-import "./visual-acceptance-v2e.css";
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
