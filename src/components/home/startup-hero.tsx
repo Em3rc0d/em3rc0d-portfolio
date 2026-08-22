@@ -31,9 +31,12 @@ export function StartupHero() {
     const hasSeenStartup = window.sessionStorage.getItem(STARTUP_SESSION_KEY) === "1";
 
     if (reduceMotion || hasSeenStartup) {
-      setReady(true);
-      setShowIntro(false);
-      return;
+      const settleTimer = window.setTimeout(() => {
+        setReady(true);
+        setShowIntro(false);
+      }, 0);
+
+      return () => window.clearTimeout(settleTimer);
     }
 
     window.sessionStorage.setItem(STARTUP_SESSION_KEY, "1");
