@@ -5,12 +5,15 @@ import { systems } from "@/content/systems";
 export const metadata = {
   title: "Systems",
   description:
-    "Inspectable software systems built by Eduardo Merino, organized by problem, architecture, implementation, constraints, verification, and evidence.",
+    "Inspectable software systems built by Eduardo Merino across personal building, professional infrastructure work, full-stack delivery, and current R&D.",
 };
 
 export default function SystemsPage() {
   const publicSystems = systems.filter(
-    (system) => system.publicability !== "PRIVATE" && system.role !== "RESERVED",
+    (system) =>
+      system.publicability !== "PRIVATE" &&
+      system.role !== "RESERVED" &&
+      Boolean(system.href),
   );
 
   return (
@@ -21,8 +24,9 @@ export default function SystemsPage() {
           <p className="technical-label">BUILD ROOM / SYSTEMS</p>
           <h1>Systems, not project tiles.</h1>
           <p>
-            Work is organized by what each system proves: problem understanding,
-            modeling, implementation, constraints, verification, and evidence.
+            Flagships prove personal building and current R&amp;D. Supporting records add
+            professional depth and end-to-end full-stack proof. A record is routed here
+            only after its public claim and evidence boundary are ready.
           </p>
         </header>
 
@@ -38,11 +42,7 @@ export default function SystemsPage() {
               <div className="internal-system-status">
                 <span>{system.role}</span>
                 <span>{system.state.replace("_", " ")}</span>
-                {system.href ? (
-                  <Link href={system.href}>Inspect →</Link>
-                ) : (
-                  <span>Record pending</span>
-                )}
+                <Link href={system.href!}>Inspect →</Link>
               </div>
             </article>
           ))}
