@@ -56,7 +56,7 @@ export function AutoPulseProductSpecimen() {
           Labels, states and metric surfaces are source-true; runtime values are intentionally
           omitted because this is not a captured field session.
         </p>
-        <Link href="/evidence/e-ap-04">E-AP-04 / inspect UI-state evidence →</Link>
+        <Link href="/evidence/e-ap-04" prefetch={false}>E-AP-04 / inspect UI-state evidence →</Link>
       </figcaption>
 
       <div className="ap-specimen-system-path" aria-label="AutoPulse system path, secondary to the product specimen">
