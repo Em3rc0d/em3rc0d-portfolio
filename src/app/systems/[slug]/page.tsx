@@ -23,9 +23,36 @@ export async function generateMetadata({ params }: SystemPageProps): Promise<Met
 
   if (!system) return {};
 
+  const title = `${system.name} — ${system.label}`;
+  const imageAlt = `${system.name} — Eduardo Merino software system case study`;
+
   return {
-    title: system.name,
+    title,
     description: system.summary,
+    alternates: {
+      canonical: `/systems/${system.slug}`,
+    },
+    openGraph: {
+      type: "article",
+      siteName: "THE BUILD ROOM",
+      title,
+      description: system.summary,
+      url: `/systems/${system.slug}`,
+      images: [
+        {
+          url: "/opengraph-image",
+          width: 1200,
+          height: 630,
+          alt: imageAlt,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: system.summary,
+      images: ["/opengraph-image"],
+    },
   };
 }
 
