@@ -7,6 +7,19 @@
   min-width: 0;
 }
 
+/* The portrait is a grid item. Reset the browser's default <figure> margin so
+   the declared grid width remains the real layout boundary at desktop widths. */
+.about-builder-portrait {
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+}
+
+.about-builder-portrait img {
+  display: block;
+  max-width: 100%;
+}
+
 @media (max-width: 620px) {
   .contact-hero h1 {
     max-width: 100%;
