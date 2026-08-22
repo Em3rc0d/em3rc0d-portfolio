@@ -2,7 +2,17 @@ name: Accessibility Quality
 
 on:
   push:
-    branches: [develop]
+    branches: [main, develop]
+    paths:
+      - "src/**"
+      - "scripts/accessibility-smoke.mjs"
+      - "scripts/keyboard-smoke.mjs"
+      - ".github/workflows/accessibility-quality.yml"
+      - "package.json"
+      - "package-lock.json"
+      - "tsconfig.json"
+  pull_request:
+    branches: [main, develop]
     paths:
       - "src/**"
       - "scripts/accessibility-smoke.mjs"
