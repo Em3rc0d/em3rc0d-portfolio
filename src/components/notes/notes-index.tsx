@@ -75,7 +75,6 @@ export function NotesIndex({ notes }: { notes: readonly NoteRecord[] }) {
             </div>
             <footer>
               <span>{note.systemName ?? "FIELD NOTE"}</span>
-              <b aria-hidden="true">Inspect note ↗</b>
             </footer>
           </Link>
         ))}
