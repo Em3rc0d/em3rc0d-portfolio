@@ -33,7 +33,11 @@ export function SupportingCase({ system, record }: SupportingCaseProps) {
           </dl>
         </div>
 
-        <div className="supporting-path" aria-label={`${system.name} system path`}>
+        <div
+          className="supporting-path"
+          data-count={system.path.length}
+          aria-label={`${system.name} system path`}
+        >
           {system.path.map((step, index) => (
             <div key={step}>
               <span>{String(index + 1).padStart(2, "0")}</span>
@@ -59,7 +63,7 @@ export function SupportingCase({ system, record }: SupportingCaseProps) {
           <p className="technical-label">ARCHITECTURE / MODEL</p>
           <h2 id="supporting-model">Keep the responsibilities visible.</h2>
         </header>
-        <div className="supporting-card-grid">
+        <div className="supporting-card-grid" data-count={record.architecture.length}>
           {record.architecture.map((item, index) => (
             <article key={item.title}>
               <span>{String(index + 1).padStart(2, "0")}</span>
