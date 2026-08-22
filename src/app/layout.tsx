@@ -86,7 +86,7 @@ const personJsonLd = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Eduardo Merino",
-  ...(siteOrigin ? { url: `${siteOrigin}/` } : {}),
+  ...(siteOrigin ? { url: siteOrigin.toString() } : {}),
   jobTitle: "Software Developer",
   sameAs: [
     "https://www.linkedin.com/in/emerinoc",
