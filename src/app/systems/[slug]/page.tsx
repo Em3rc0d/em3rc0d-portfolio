@@ -25,21 +25,21 @@ export async function generateMetadata({ params }: SystemPageProps): Promise<Met
   if (!system) return {};
 
   const title = `${system.name} — ${system.label}`;
-  const imageAlt = `${system.name} — Eduardo Merino software system case study`;
+  const routePath = `/systems/${system.slug}`;
+  const canonicalUrl = absoluteSiteUrl(routePath);
   const socialImage = absoluteSiteUrl("/opengraph-image");
+  const imageAlt = `${system.name} — Eduardo Merino software system case study`;
 
   return {
     title,
     description: system.summary,
-    alternates: {
-      canonical: `/systems/${system.slug}`,
-    },
+    ...(canonicalUrl ? { alternates: { canonical: canonicalUrl } } : {}),
     openGraph: {
       type: "article",
       siteName: "THE BUILD ROOM",
       title,
       description: system.summary,
-      url: `/systems/${system.slug}`,
+      ...(canonicalUrl ? { url: canonicalUrl } : {}),
       ...(socialImage
         ? {
             images: [
