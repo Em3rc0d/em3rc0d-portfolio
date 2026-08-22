@@ -27,21 +27,21 @@
       "maxJsEventListeners": 450
     },
     "/systems/infrastructure-site-mapper": {
-      "maxTransferBytes": 430000,
+      "maxTransferBytes": 400000,
       "maxResources": 38,
-      "maxDomElements": 500,
-      "maxJsEventListeners": 430
+      "maxDomElements": 240,
+      "maxJsEventListeners": 380
     },
     "/systems/gpets": {
-      "maxTransferBytes": 430000,
+      "maxTransferBytes": 400000,
       "maxResources": 38,
-      "maxDomElements": 500,
-      "maxJsEventListeners": 430
+      "maxDomElements": 260,
+      "maxJsEventListeners": 380
     },
     "/evidence": {
       "maxTransferBytes": 425000,
       "maxResources": 48,
-      "maxDomElements": 410,
+      "maxDomElements": 480,
       "maxJsEventListeners": 430
     },
     "/notes": {
