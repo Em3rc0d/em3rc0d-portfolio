@@ -64,8 +64,7 @@ export default function AboutPage() {
               alt="Eduardo Merino, the builder behind THE BUILD ROOM"
               width={480}
               height={594}
-              sizes="(max-width: 680px) 84vw, (max-width: 1100px) 70vw, 24rem"
-              quality={65}
+              sizes="(max-width: 680px) 21rem, (max-width: 1100px) 30rem, 24rem"
               priority
             />
             <figcaption>
