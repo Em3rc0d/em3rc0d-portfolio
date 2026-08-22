@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SiteHeader } from "@/components/shell/site-header";
-import "../visual-acceptance-v2b.css";
-import "../visual-acceptance-about-fixes.css";
+import "./visual-acceptance.css";
 
 export const metadata = {
   title: "About",
@@ -67,7 +66,6 @@ export default function AboutPage() {
               height={594}
               sizes="(max-width: 1100px) 100vw, 38vw"
               priority
-              unoptimized
             />
             <figcaption>
               <span>BUILDER / HUMAN CONTEXT</span>
