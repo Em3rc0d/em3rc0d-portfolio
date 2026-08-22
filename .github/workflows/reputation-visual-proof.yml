@@ -1,0 +1,112 @@
+name: Reputation Visual Proof
+
+on:
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - "src/components/systems/supporting-case.tsx"
+      - "src/content/supporting-cases.ts"
+      - "src/content/reputation-evidence.ts"
+      - "src/content/systems.ts"
+      - "src/app/systems/**"
+      - "src/app/evidence/**"
+      - "src/app/reputation-completeness.css"
+      - "scripts/capture-browser-section.mjs"
+      - ".github/workflows/reputation-visual-proof.yml"
+      - "package.json"
+      - "package-lock.json"
+  push:
+    branches: [main, develop]
+    paths:
+      - "src/components/systems/supporting-case.tsx"
+      - "src/content/supporting-cases.ts"
+      - "src/content/reputation-evidence.ts"
+      - "src/content/systems.ts"
+      - "src/app/systems/**"
+      - "src/app/evidence/**"
+      - "src/app/reputation-completeness.css"
+      - "scripts/capture-browser-section.mjs"
+      - ".github/workflows/reputation-visual-proof.yml"
+      - "package.json"
+      - "package-lock.json"
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Start production server
+        run: |
+          npm start > /tmp/build-room-next.log 2>&1 &
+          for i in {1..30}; do
+            curl --fail --silent http://127.0.0.1:3000/systems/infrastructure-site-mapper > /dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/build-room-next.log
+          exit 1
+
+      - name: Resolve and start Chrome CDP
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+            --remote-debugging-port=9222 --user-data-dir=/tmp/build-room-reputation-chrome \
+            about:blank > /tmp/reputation-chrome.log 2>&1 &
+          for i in {1..30}; do
+            curl --fail --silent http://127.0.0.1:9222/json/version > /dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/reputation-chrome.log
+          exit 1
+
+      - name: Capture professional case desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/infrastructure-site-mapper '.supporting-cover' professional-cover-desktop.png 1440 1000
+      - name: Capture professional evidence frame desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/infrastructure-site-mapper '.supporting-evidence' professional-evidence-desktop.png 1440 1000
+      - name: Capture GPets case desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/gpets '.supporting-cover' gpets-cover-desktop.png 1440 1000
+      - name: Capture GPets architecture desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/gpets '.supporting-model' gpets-model-desktop.png 1440 1000
+      - name: Capture withheld professional evidence desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/evidence/e-pro-01 '.evidence-inspector-sheet' professional-proof-desktop.png 1440 1000
+      - name: Capture public GPets evidence desktop
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/evidence/e-gp-04 '.evidence-inspector-sheet' gpets-proof-desktop.png 1440 1000
+
+      - name: Capture professional case mobile
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/infrastructure-site-mapper '.supporting-cover' professional-cover-mobile.png 390 844
+      - name: Capture GPets case mobile
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/systems/gpets '.supporting-cover' gpets-cover-mobile.png 390 844
+      - name: Capture professional evidence mobile
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/evidence/e-pro-01 '.evidence-inspector-sheet' professional-proof-mobile.png 390 844
+      - name: Capture GPets evidence mobile
+        run: node scripts/capture-browser-section.mjs http://127.0.0.1:3000/evidence/e-gp-04 '.evidence-inspector-sheet' gpets-proof-mobile.png 390 844
+
+      - name: Upload reputation visual proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: reputation-visual-proof
+          path: |
+            professional-cover-desktop.png
+            professional-evidence-desktop.png
+            gpets-cover-desktop.png
+            gpets-model-desktop.png
+            professional-proof-desktop.png
+            gpets-proof-desktop.png
+            professional-cover-mobile.png
+            gpets-cover-mobile.png
+            professional-proof-mobile.png
+            gpets-proof-mobile.png
+          retention-days: 30
