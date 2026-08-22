@@ -169,19 +169,25 @@ await test("Evidence filter activates from keyboard", async () => {
   const session = await createSession("/evidence");
   try {
     const found = await session.evaluate(`(() => {
-      const button = [...document.querySelectorAll('.evidence-filters button')].find((el) => el.textContent?.trim() === 'IMPLEMENTATION');
+      const button = [...document.querySelectorAll('.evidence-filters button')].find((el) => el.textContent?.trim() === 'Implementation');
       if (!button) return false;
       button.focus();
       return true;
     })()`);
-    assert(found, "IMPLEMENTATION filter not found");
+    assert(found, "Implementation filter not found");
     await session.key("Enter", "Enter", 13);
     const state = await session.evaluate(`(() => {
-      const button = [...document.querySelectorAll('.evidence-filters button')].find((el) => el.textContent?.trim() === 'IMPLEMENTATION');
-      return { pressed: button?.getAttribute('aria-pressed'), rows: document.querySelectorAll('.evidence-record-row').length };
+      const button = [...document.querySelectorAll('.evidence-filters button')].find((el) => el.textContent?.trim() === 'Implementation');
+      const rows = [...document.querySelectorAll('.evidence-record-row')];
+      return {
+        pressed: button?.getAttribute('aria-pressed'),
+        rows: rows.length,
+        nonImplementationRows: rows.filter((row) => !row.querySelector('.evidence-record-main p')?.textContent?.toLowerCase().includes('implementation')).length,
+      };
     })()`);
     assert(state.pressed === "true", `Evidence filter did not become pressed: ${JSON.stringify(state)}`);
     assert(state.rows > 0, `Evidence implementation filter produced no rows: ${JSON.stringify(state)}`);
+    assert(state.nonImplementationRows === 0, `Evidence implementation filter leaked other record types: ${JSON.stringify(state)}`);
   } finally {
     await session.close();
   }
