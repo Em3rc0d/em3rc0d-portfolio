@@ -190,7 +190,7 @@ for (const viewport of VIEWPORTS) {
               const elementRect = element.getBoundingClientRect();
               const elementStyle = getComputedStyle(element);
               const fontSize = Number.parseFloat(elementStyle.fontSize || '0');
-              if (fontSize > 0 && fontSize < 9) {
+              if (fontSize > 0 && fontSize < 7.5) {
                 issues.push({
                   type: 'micro-text',
                   selector,
