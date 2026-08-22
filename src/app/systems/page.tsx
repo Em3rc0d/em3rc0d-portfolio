@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SiteHeader } from "@/components/shell/site-header";
 import { systems } from "@/content/systems";
+import "../visual-acceptance-v2.css";
 
 export const metadata = {
   title: "Systems",
