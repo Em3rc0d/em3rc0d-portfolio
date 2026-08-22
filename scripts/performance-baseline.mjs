@@ -10,6 +10,8 @@ const routes = [
   "/",
   "/systems/autopulse",
   "/systems/cv-engine",
+  "/systems/infrastructure-site-mapper",
+  "/systems/gpets",
   "/evidence",
   "/notes",
   "/about",
@@ -224,7 +226,7 @@ for (const profile of profiles) {
       const result = await measure(route, profile);
       measurements.push(result);
       console.log(
-        `PASS ${profile.name.padEnd(7)} ${route.padEnd(24)} ` +
+        `PASS ${profile.name.padEnd(7)} ${route.padEnd(38)} ` +
           `FCP=${String(result.timingMs.firstContentfulPaint ?? 'n/a').padStart(7)}ms ` +
           `transfer=${String(result.network.transferBytes).padStart(8)}B ` +
           `nodes=${String(result.runtime.nodes).padStart(5)}`
@@ -265,7 +267,7 @@ const lines = [
   "",
   ...measurements.map(
     (item) =>
-      `${item.profile.padEnd(7)} ${item.route.padEnd(24)} ` +
+      `${item.profile.padEnd(7)} ${item.route.padEnd(38)} ` +
       `FCP=${String(item.timingMs.firstContentfulPaint ?? "n/a").padStart(7)}ms ` +
       `LOAD=${String(item.timingMs.load ?? "n/a").padStart(7)}ms ` +
       `TRANSFER=${String(item.network.transferBytes).padStart(9)}B ` +
