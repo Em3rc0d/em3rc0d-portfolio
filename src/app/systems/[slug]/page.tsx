@@ -4,6 +4,7 @@ import { AutoPulseCase } from "@/components/systems/autopulse/autopulse-case";
 import { CvEngineCase } from "@/components/systems/cv-engine/cv-engine-case";
 import { SiteHeader } from "@/components/shell/site-header";
 import { systems } from "@/content/systems";
+import { absoluteSiteUrl } from "@/lib/site-config";
 
 interface SystemPageProps {
   params: Promise<{ slug: string }>;
@@ -25,6 +26,7 @@ export async function generateMetadata({ params }: SystemPageProps): Promise<Met
 
   const title = `${system.name} — ${system.label}`;
   const imageAlt = `${system.name} — Eduardo Merino software system case study`;
+  const socialImage = absoluteSiteUrl("/opengraph-image");
 
   return {
     title,
@@ -38,20 +40,24 @@ export async function generateMetadata({ params }: SystemPageProps): Promise<Met
       title,
       description: system.summary,
       url: `/systems/${system.slug}`,
-      images: [
-        {
-          url: "/opengraph-image",
-          width: 1200,
-          height: 630,
-          alt: imageAlt,
-        },
-      ],
+      ...(socialImage
+        ? {
+            images: [
+              {
+                url: socialImage,
+                width: 1200,
+                height: 630,
+                alt: imageAlt,
+              },
+            ],
+          }
+        : {}),
     },
     twitter: {
       card: "summary_large_image",
       title,
       description: system.summary,
-      images: ["/opengraph-image"],
+      ...(socialImage ? { images: [socialImage] } : {}),
     },
   };
 }
