@@ -1,0 +1,5 @@
+/* STEP 1.1 visual-proof corrections. Keep supporting carbon frames materially dark. */
+
+.supporting-frame.carbon-stage {
+  background: var(--carbon);
+}
