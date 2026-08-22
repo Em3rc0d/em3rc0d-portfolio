@@ -1,6 +1,6 @@
 # Eduardo Merino — THE BUILD ROOM
 
-Public portfolio repository and project knowledge base for **Eduardo Merino**.
+Public portfolio repository and project knowledge base for  **Eduardo Merino**.
 
 > **Software Developer — Systems, Full Stack & Applied AI**  
 > **I turn messy operational problems into working software.**
