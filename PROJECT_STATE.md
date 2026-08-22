@@ -3,32 +3,33 @@
 **Project:** THE BUILD ROOM  
 **Repository:** `Em3rc0d/em3rc0d-portfolio`  
 **Stable production branch:** `main`  
-**Active work branch:** `develop`  
-**Current phase:** `STEP 1.1 — REPUTATION COMPLETENESS`
+**Integration branch:** `develop`  
+**Current phase:** `DISTRIBUTION / REPUTATION OPERATIONS`  
+**Portfolio construction state:** `FROZEN — reopen only for verified defect, new evidence, or scoped product requirement`
 
 ## Release state
 
-# `THE BUILD ROOM v1.0 — PRODUCTION RELEASED`
+# `THE BUILD ROOM — LIVE / REPUTATION COMPLETE`
 
 Public origin:
 
 `https://em3rc0d-portfolio.vercel.app`
 
-Final v1 production authority:
+Current production authority at STEP 1.1 closure:
 
 ```text
 GitHub production branch   main
-Production merge commit    3f92fdcb3adb423e2b4b04474e17bb2f51e3caf6
-Release PR                 #2
-Vercel deployment          dpl_3JCdaqsDSRMJn4Rnqq2n91XAqD5K
+Production merge commit    136abc0f074c4cb9f01e01dcaab621fd5bea903c
+Visual acceptance PR       #17
+Vercel deployment          dpl_CEBRKioK19pSftfR6x8BRw1icubv
 Deployment state           READY
-Node authority             22.x
-NEXT_PUBLIC_SITE_URL       ACTIVE
+Runtime error audit        no error/fatal logs found in verification window
 ```
 
-Production proof:
+Closure proof:
 
-`evidence/production-release-proof-v1.md`
+- `evidence/STEP-1.1-reputation-completeness-production-proof-v1.md`
+- `build/SLICE-12-reputation-completeness-closeout.md`
 
 ---
 
@@ -44,169 +45,93 @@ STEP 0.7  Visual & Interaction System            ✅ CLOSED
 STEP 0.8  Visual Direction / Prototype           ✅ CLOSED / browser-proven
 STEP 0.9  Build Contract                         ✅ CLOSED
 STEP 1.0  BUILD                                  ✅ CLOSED / production-proven
-STEP 1.1  Reputation Completeness                ◉ ACTIVE
+STEP 1.1  Reputation Completeness                ✅ CLOSED / production-proven
 ```
+
+The next phase is not another portfolio-build step. THE BUILD ROOM now acts as the source system for public distribution and reputation operations.
+
+---
 
 ## Build slice status
 
 ```text
-SLICE 01 — Foundation             ✅ CLOSED
-SLICE 02 — Startup → Home         ✅ CLOSED
-SLICE 03 — AutoPulse              ✅ CLOSED
-CORE VISUAL GATE                  ✅ PASS
-SLICE 04 — Evidence System        ✅ CLOSED
-SLICE 05 — CV Engine              ✅ CLOSED
-FLAGSHIP DIFFERENTIATION GATE     ✅ PASS
-SLICE 06 — Notes/About/Contact    ✅ CLOSED
-PUBLIC SURFACE GATE               ✅ PASS
-SLICE 07 — Mobile/Accessibility   ✅ CLOSED
-ACCESSIBILITY QUALITY GATE        ✅ PASS
-SLICE 08 — Performance/Launch     ✅ CLOSED
-PRODUCTION RELEASE GATE           ✅ PASS
+SLICE 01 — Foundation                         ✅ CLOSED
+SLICE 02 — Startup → Home                     ✅ CLOSED
+SLICE 03 — AutoPulse                          ✅ CLOSED
+SLICE 04 — Evidence System                    ✅ CLOSED
+SLICE 05 — CV Engine                          ✅ CLOSED
+SLICE 06 — Notes / About / Contact            ✅ CLOSED
+SLICE 07 — Mobile / Accessibility             ✅ CLOSED
+SLICE 08 — Performance / Launch               ✅ CLOSED
+SLICE 09 — Visual Material v2                 ✅ CLOSED / superseded by later acceptance
+SLICE 10 — Usability / Evidence / Photo       ✅ CLOSED
+SLICE 11 — Material Reality                   ✅ CLOSED through final visual acceptance
+SLICE 12 — Reputation Completeness Closeout   ✅ CLOSED / production verified
 ```
 
-SLICE 08 final state:
+Verified quality gates at final STEP 1.1 acceptance:
 
 ```text
-08A — Release Contract             ✅ CLOSED
-08B — Build Determinism            ✅ CLOSED
-08C — Performance Baseline/Budget  ✅ CLOSED
-08D — Search/Share/Route Gate      ✅ CLOSED
-08E — Production Deployment Proof  ✅ CLOSED
+Portfolio CI              ✅
+Release Quality            ✅
+Accessibility Quality      ✅
+Performance Baseline       ✅ 18 / 18 measurements
+Frame Discipline           ✅ 70 route/profile checks
+Reputation Visual Proof    ✅
+Frame Visual Proof         ✅ 51 screenshots + manual review
 ```
+
+No frozen performance budget was widened to authorize the final visual pass.
 
 ---
 
-## Verified build records
+## Public reputation model
 
-- `build/SLICE-01-foundation.md`
-- `build/SLICE-02-startup-to-home.md`
-- `build/SLICE-03-autopulse.md`
-- `build/SLICE-04-evidence-system.md`
-- `build/SLICE-05-cv-engine.md`
-- `build/SLICE-06-notes-about-contact.md`
-- `build/SLICE-07-mobile-accessibility.md`
-- `build/SLICE-08-performance-launch.md`
-- `evidence/production-release-proof-v1.md`
-- `evidence/production-website-soul-audit-v1.md`
+```text
+PERSONAL BUILDING
+        +
+PROFESSIONAL DEPTH
+        +
+CONCURRENT R&D
+        +
+FULL-STACK SUPPORTING PROOF
+```
+
+Public systems:
+
+```text
+01 / AUTOPULSE
+     FLAGSHIP / PERSONAL + R&D
+
+02 / CV ENGINE
+     FLAGSHIP / PERSONAL + R&D
+
+03 / INFRASTRUCTURE SITE MAPPER
+     PROFESSIONAL / ABSTRACTED
+
+04 / GPETS
+     FULL-STACK / ARCHIVED SUPPORT
+```
+
+No permanent `Record pending` placeholder remains in public Systems routing.
+
+Weak/evidence-incomplete supporting candidates remain hidden rather than being promoted into thin public cases.
 
 ---
-
-## Browser-proven public experience
-
-```text
-HOME                              ✅
-SYSTEMS INDEX                     ✅
-AUTOPULSE                         ✅
-CV ENGINE                         ✅
-EVIDENCE LIBRARY                  ✅
-EVIDENCE DOSSIERS                 ✅
-ENGINEERING NOTEBOOK              ✅
-BUILT / VERIFIED NOTE             ✅
-EXPLORING NOTE                    ✅
-ABOUT                             ✅
-CONTACT                           ✅
-CONTACT MOBILE INTAKE             ✅
-320PX NARROW-WIDTH EXPERIENCE     ✅
-REDUCED-MOTION EXPERIENCE         ✅
-KEYBOARD INTERACTION              ✅
-```
-
-Final accessibility matrix:
-
-```text
-60 / 60 route-width checks      ✅
-6 / 6 keyboard checks           ✅
-```
-
-The narrow-width gate discovered real 320/360px defects in Evidence, Notes, About and Contact. They were corrected at their min-content / responsive typography source rather than hidden with global overflow masking.
-
-The first keyboard harness also produced a test-driver false negative across native buttons. The CDP Enter driver was corrected before the application was judged.
-
-Reusable browser / quality harnesses:
-
-```text
-scripts/capture-browser-section.mjs
-scripts/accessibility-smoke.mjs
-scripts/keyboard-smoke.mjs
-scripts/performance-baseline.mjs
-scripts/performance-budget-check.mjs
-scripts/release-smoke.mjs
-```
-
----
-
-## Public systems / reputation chain
-
-```text
-HOME
-  ↓
-SYSTEMS
-  ├─ AUTOPULSE
-  └─ CV ENGINE
-        ↓
-EVIDENCE
-        ↓
-NOTES
-        ↓
-ABOUT
-        ↓
-CONTACT
-```
-
-Notes distinguish:
-
-```text
-BUILT / VERIFIED
-EXPLORING
-```
-
-Contact currently exposes only real public routes:
-
-```text
-LinkedIn  https://www.linkedin.com/in/emerinoc
-GitHub    https://github.com/Em3rc0d
-```
-
-No inferred company email, dead form, fake availability or response-time promise is published.
-
----
-
-## Flagship systems
-
-```text
-01 / AUTOPULSE   ✅ implemented + evidence-linked
-02 / CV ENGINE   ✅ implemented + evidence-linked
-```
-
-Flagship responsibilities remain distinct:
-
-```text
-AUTOPULSE
-messy physical/runtime signal
-→ durable state
-→ recovery
-→ integrity
-
-CV ENGINE
-multiple truth classes
-→ provenance
-→ comparison
-→ bounded recommendation
-→ controlled market ingress
-```
 
 ## Evidence system state
 
 Current public corpus:
 
 ```text
-AutoPulse   E-AP-01 → E-AP-09
-CV Engine   E-CV-01 → E-CV-14
-TOTAL       23 public evidence records
+AutoPulse                    E-AP-01 → E-AP-09
+CV Engine                    E-CV-01 → E-CV-14
+Infrastructure Site Mapper   E-PRO-01 → E-PRO-03
+GPets                        E-GP-01 → E-GP-04
+TOTAL                        30 public evidence records
 ```
 
-Relationship:
+Relationship remains:
 
 ```text
 CASE CLAIM
@@ -217,41 +142,52 @@ EVIDENCE ID
     ↓
 EVIDENCE DOSSIER
     ↓
-SOURCE PROVENANCE + LIMITATIONS
+SOURCE PROVENANCE + PUBLICABILITY + LIMITATION
 ```
 
-## Current R&D boundary kept visible
+Professional confidentiality rule:
 
-CV Engine is portfolio-authorized through:
+```text
+PRIVATE PROFESSIONAL SOURCE
+        ↓
+claim may be source-verified
+        ↓
+public repository/path/revision/client identifiers withheld
+        ↓
+limitation remains explicit
+```
 
-`M4B-06 — Market Assessment Integration`
+Public-source rule:
 
-Still next / not claimed complete:
-
-`M4B-07 — Opportunity Identity / Lifecycle`
+```text
+PUBLIC REPOSITORY
+        ↓
+exact path/ref/revision may be exposed
+        ↓
+source link inspectable
+        ↓
+claim still bounded by limitation
+```
 
 ---
 
-## Release proof state
+## Browser / composition authority
 
-Dependency/build authority:
+Final composition rule:
 
-```text
-package-lock.json             ✅ COMMITTED
-npm ci                        ✅ REQUIRED BY PERSISTENT GATES
-Node runtime                  ✅ 22.x repository-authoritative
-reproducibility gate          ✅ PASS
-```
+> **One frame = one complete visual thought.**
 
-Performance system:
+A frame may exceed `100dvh` when content requires it. `100dvh` is a composition target, never permission to clip or overlap content.
 
-```text
-7 routes × 2 profiles         ✅ 14 / 14 baseline measurements
-runtime failures              ✅ 0 in baseline
-structural performance budget ✅ ENFORCED
-```
+Final acceptance explicitly covered short desktop heights as well as normal desktop/mobile profiles.
 
-Hard-budget metrics remain intentionally limited to stable structural cost signals:
+Human screenshot review was performed after the final automated artifact was generated.
+
+---
+
+## Performance authority
+
+Structural performance remains enforced with stable cost signals:
 
 ```text
 transfer bytes
@@ -260,101 +196,60 @@ DOM element count
 JS event-listener count
 ```
 
-GitHub-runner FCP/load timing remains laboratory evidence only and is not promoted to a public performance claim.
-
-Production/search/share proof:
+Final representative corrections:
 
 ```text
-10 public routes / metadata   ✅
-Open Graph / Twitter          ✅
-app icon metadata             ✅
-robots.txt                    ✅ real Host + Sitemap
-sitemap.xml                   ✅ real production-origin routes
-404 boundary                  ✅
-HTTPS / HSTS                  ✅
-production runtime errors     ✅ none found in final audit window
+AutoPulse desktop resources   40 → 37
+Notes DOM                     202 → 194
+About transfer bytes          400124 → 381823
 ```
 
-Production-origin authority is configuration-driven through:
+The performance baseline now retains compact per-resource request detail so future regressions can be diagnosed from concrete network evidence.
 
-`NEXT_PUBLIC_SITE_URL=https://em3rc0d-portfolio.vercel.app`
-
-No origin is guessed when this variable is absent.
+FCP/load timing from CI remains laboratory evidence and is not promoted to a public performance claim.
 
 ---
 
-## Production closure
+## Production verification
 
-The final production deployment proves the full release boundary:
+Verified against the real public origin after PR #17 merge:
 
 ```text
-PROVEN PRODUCT
-      ↓
-DETERMINISTIC BUILD
-      ↓
-ACCESSIBILITY + RESPONSIVE GATES
-      ↓
-PERFORMANCE BASELINE + BUDGET
-      ↓
-SEARCH / SHARE / ROUTE INTEGRITY
-      ↓
-REAL VERCEL HOST
-      ↓
-REAL HTTPS ORIGIN
-      ↓
-PRODUCTION ENV AUTHORITY
-      ↓
-NODE 22 PARITY
-      ↓
-DEPLOYED PRODUCTION SMOKE
-      ↓
-THE BUILD ROOM v1.0 RELEASED
+/                                      ✅ 200
+/systems                               ✅ 200 / four evidence-ready systems
+/systems/infrastructure-site-mapper    ✅ 200 / canonical + OG correct
+/systems/gpets                         ✅ 200 / canonical + OG correct
+/evidence/e-pro-01                     ✅ 200 / private source withheld correctly
+/evidence/e-gp-04                      ✅ 200 / public GitHub provenance visible
+/sitemap.xml                           ✅ 200 / new systems + evidence included
+/about                                 ✅ 200 / corrected responsive portrait candidates
+production runtime errors              ✅ none found in verification window
 ```
 
-`STEP 1.0` is closed. Future product changes must not reopen BUILD without a concrete defect or new scoped product requirement.
+This is bounded production verification, not a claim that the application can never fail.
 
 ---
 
-## STEP 1.1 — Reputation Completeness
+## Conversion state
 
-The production soul audit identified the next representation boundary:
-
-```text
-PERSONAL BUILDING       ✅ VERY STRONG
-CONCURRENT R&D          ✅ VERY STRONG
-PROFESSIONAL DEPTH      ◉ UNDERREPRESENTED
-```
-
-Authority:
-
-`plan/STEP-1.1-reputation-completeness-plan-v1.md`
-
-Execution order:
+Verified public contact/work routes remain:
 
 ```text
-1. PROFESSIONAL DEPTH RECORD
-   real professional/client system
-   → PUBLIC / SANITIZED / ABSTRACTED publication contract
-   → operational context
-   → ownership / boundaries
-   → architecture / implementation responsibility
-   → public-safe evidence
-
-2. GPETS / FULL-STACK PROOF
-   recover Cineplanet challenge evidence
-   → decide whether it proves UI ↔ Application ↔ Domain ↔ Data/Backend
-
-3. SUPPORTING-SYSTEM TRIAGE
-   Graph / Infra Monitor / prodAgentic / GPets
-   → BUILD RECORD / HIDE UNTIL READY / RETIRE FROM PUBLIC
-
-4. CONVERSION COMPLETENESS
-   only verified public contact routes
-
-5. REPUTATION COMPLETENESS GATE
+LinkedIn  https://www.linkedin.com/in/emerinoc
+GitHub    https://github.com/Em3rc0d
 ```
 
-This is content/evidence expansion, **not Visual Direction v3**.
+No inferred account email, dead form, fake availability state, fake response-time promise or unverified delivery endpoint is published.
+
+A custom personal domain or verified direct email channel can be added later as an owner-controlled conversion enhancement. Neither is required for technical/reputation completion.
+
+---
+
+## Current R&D boundary
+
+Current product/R&D boundaries must continue to remain visible inside each case and evidence record.
+
+A successful portfolio release never upgrades an underlying project claim beyond the evidence available for that project.
 
 ---
 
@@ -362,14 +257,57 @@ This is content/evidence expansion, **not Visual Direction v3**.
 
 - no invented metrics;
 - no unsupported professional titles;
-- no company/private artifacts published for visual impact;
-- generated concept imagery is not identity evidence;
-- public claims must map to evidence and ownership;
-- deprecated work is preserved rather than silently erased;
-- historical README language never overrides newer domain/source truth;
-- current technical/R&D boundaries remain visible when relevant;
-- production success does not authorize stronger project/product claims than the underlying evidence.
+- no private/company artifacts published for visual impact;
+- no source coordinates exposed when confidentiality forbids publication;
+- public claims must map to evidence, provenance and ownership;
+- every supporting case must expose a claim ceiling;
+- generated/concept material must never masquerade as field/runtime evidence;
+- deprecated or superseded work is preserved rather than silently erased;
+- production success does not authorize stronger system claims than underlying evidence;
+- UNKNOWN is not PASS;
+- documented is not verified;
+- visual polish never outranks truth or usability.
+
+---
+
+## STEP 1.1 closure
+
+Authority:
+
+`plan/STEP-1.1-reputation-completeness-plan-v1.md`
+
+Result:
+
+```text
+PERSONAL BUILDING       ✅
+PROFESSIONAL DEPTH      ✅
+CONCURRENT R&D          ✅
+FULL STACK              ✅
+PUBLICABILITY           ✅
+CLAIM CEILINGS          ✅
+CONVERSION INTEGRITY    ✅
+VISUAL ACCEPTANCE       ✅
+PRODUCTION PROOF        ✅
+```
+
+# `STEP 1.1 — REPUTATION COMPLETENESS CLOSED`
+
+---
 
 ## Next action
 
-Begin **STEP 1.1A — Professional Depth Recovery & Publication Contract**.
+Begin **distribution / reputation operations** using THE BUILD ROOM as the source of truth:
+
+```text
+SYSTEM / EVIDENCE / NOTE
+        ↓
+LINKEDIN ENGINEERING NOTEBOOK
+        ↓
+TARGETED PORTFOLIO ROUTE
+        ↓
+INSPECTION
+        ↓
+CONTACT
+```
+
+Do not reopen portfolio construction simply to add more pages or visual polish.
