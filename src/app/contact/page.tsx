@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteHeader } from "@/components/shell/site-header";
 import { absoluteSiteUrl } from "@/lib/site-config";
+import "../visual-acceptance-v2b.css";
 
 const description =
   "Start a conversation with Eduardo Merino about building custom software, recovering an existing product, improving a workflow, or adding applied AI.";
