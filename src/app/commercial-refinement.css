@@ -1,0 +1,326 @@
+/* Commercial / UX / SEO refinement — client clarity first, forensic depth on demand. */
+
+/* -------------------------------------------------------------------------- */
+/* VIEWPORT CONTRACT                                                          */
+/* -------------------------------------------------------------------------- */
+
+.narrative-frame,
+.hero-v2,
+.client-paths,
+.system-encounter-record,
+.operating-model,
+.paper-stage-v2,
+.builder-bridge,
+.home-conversion,
+.contact-hero,
+.contact-entry-paths,
+.contact-intake,
+.contact-channels,
+.internal-stage,
+.ap-cover,
+.cv-cover,
+.cv-unknown {
+  min-height: 100svh;
+  min-height: 100dvh;
+}
+
+/* 100dvh is a composition minimum, never a clipping instruction. */
+.narrative-frame {
+  height: auto;
+}
+
+.hero-v2-content {
+  min-height: calc(100svh - 8.5rem);
+  min-height: calc(100dvh - 8.5rem);
+}
+
+/* Critical identity and navigation remain readable in the server-rendered frame.
+   The startup animation is decoration / brand ritual, not a content gate. */
+.hero-v2-content,
+.hero-v2-header nav {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* HOME / CLIENT PROBLEMS                                                     */
+/* -------------------------------------------------------------------------- */
+
+.client-paths {
+  display: grid;
+  align-content: center;
+  padding: var(--section-y) max(var(--page-pad), calc((100vw - var(--content-max)) / 2));
+  background:
+    radial-gradient(circle at 84% 18%, rgba(239,81,61,.065), transparent 26rem),
+    var(--carbon);
+  color: var(--paper);
+  border-top: 1px solid var(--line-dark);
+  border-bottom: 1px solid var(--line-dark);
+}
+
+.client-paths-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(20rem, .38fr);
+  gap: clamp(3rem, 9vw, 10rem);
+  align-items: end;
+}
+
+.client-paths-heading h2 {
+  max-width: 13ch;
+  margin: 0;
+  font-size: clamp(3.1rem, 6.4vw, 6.8rem);
+  font-weight: 510;
+  line-height: .9;
+  letter-spacing: -.06em;
+}
+
+.client-paths-heading > div:last-child > p {
+  margin: 0;
+  color: var(--alloy);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.client-paths-heading a {
+  display: inline-flex;
+  justify-content: space-between;
+  gap: 2rem;
+  min-width: 14rem;
+  margin-top: 1.7rem;
+  padding-bottom: .65rem;
+  border-bottom: 1px solid var(--redline);
+  font: 600 .66rem/1 var(--font-mono), monospace;
+  letter-spacing: .045em;
+  text-transform: uppercase;
+}
+
+.client-path-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: clamp(3.5rem, 7vw, 7rem);
+  border-top: 1px solid var(--line-dark);
+  border-bottom: 1px solid var(--line-dark);
+}
+
+.client-path-grid article {
+  display: grid;
+  align-content: start;
+  min-width: 0;
+  min-height: 18rem;
+  padding: 1.2rem;
+  border-right: 1px solid var(--line-dark);
+}
+
+.client-path-grid article:last-child {
+  border-right: 0;
+}
+
+.client-path-grid article > span {
+  color: var(--redline);
+  font: 600 .6rem/1 var(--font-mono), monospace;
+}
+
+.client-path-grid article > p {
+  margin: 1.2rem 0 0;
+  color: color-mix(in srgb, var(--alloy) 70%, transparent);
+  font: 500 .55rem/1.3 var(--font-mono), monospace;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.client-path-grid h3 {
+  margin: auto 0 .9rem;
+  padding-top: 4rem;
+  font-size: clamp(1.8rem, 2.8vw, 3rem);
+  font-weight: 520;
+  line-height: .95;
+  letter-spacing: -.045em;
+}
+
+.client-path-grid strong {
+  color: var(--alloy);
+  font-size: .92rem;
+  font-weight: 430;
+  line-height: 1.62;
+}
+
+/* -------------------------------------------------------------------------- */
+/* HOME / SYSTEMS + METHOD                                                    */
+/* -------------------------------------------------------------------------- */
+
+.systems-commercial-heading {
+  margin-bottom: clamp(2.5rem, 4vw, 4rem);
+}
+
+.system-encounter-record {
+  align-items: center;
+  min-height: 100svh;
+  min-height: 100dvh;
+  padding-block: clamp(3rem, 6vh, 5rem);
+}
+
+.operating-model,
+.builder-bridge {
+  align-content: center;
+}
+
+.paper-stage-v2 {
+  align-items: center;
+}
+
+/* -------------------------------------------------------------------------- */
+/* HOME / CONVERSION                                                          */
+/* -------------------------------------------------------------------------- */
+
+.home-conversion {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, .36fr);
+  gap: clamp(4rem, 10vw, 12rem);
+  align-items: end;
+  padding: var(--section-y) max(var(--page-pad), calc((100vw - var(--content-max)) / 2));
+  background:
+    radial-gradient(circle at 78% 42%, rgba(239,81,61,.1), transparent 28rem),
+    linear-gradient(120deg, rgba(255,255,255,.025), transparent 38%),
+    var(--carbon);
+  border-top: 1px solid var(--line-dark);
+}
+
+.home-conversion-copy h2 {
+  max-width: 13ch;
+  margin: 0;
+  font-size: clamp(3.2rem, 7vw, 7.4rem);
+  font-weight: 500;
+  line-height: .88;
+  letter-spacing: -.065em;
+}
+
+.home-conversion-copy > p:last-child {
+  max-width: 43rem;
+  margin: 2rem 0 0;
+  color: var(--alloy);
+  font-size: clamp(1rem, 1.4vw, 1.18rem);
+  line-height: 1.68;
+}
+
+.home-conversion-actions {
+  display: grid;
+  border-top: 1px solid var(--line-dark);
+}
+
+.home-conversion-actions a {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid var(--line-dark);
+  color: var(--alloy);
+  font: 600 .66rem/1.25 var(--font-mono), monospace;
+  letter-spacing: .045em;
+  text-transform: uppercase;
+}
+
+.home-conversion-actions a:hover,
+.home-conversion-actions .home-conversion-primary {
+  color: var(--paper);
+}
+
+.home-conversion-actions .home-conversion-primary {
+  border-bottom-color: var(--redline);
+}
+
+/* -------------------------------------------------------------------------- */
+/* CONTACT / FRAME DISCIPLINE                                                 */
+/* -------------------------------------------------------------------------- */
+
+.contact-entry-paths,
+.contact-intake,
+.contact-channels {
+  display: grid;
+  align-content: center;
+}
+
+/* -------------------------------------------------------------------------- */
+/* RESPONSIVE                                                                 */
+/* -------------------------------------------------------------------------- */
+
+@media (max-width: 980px) {
+  .client-paths-heading,
+  .home-conversion {
+    grid-template-columns: 1fr;
+  }
+
+  .client-path-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .client-path-grid article:nth-child(2) {
+    border-right: 0;
+  }
+
+  .client-path-grid article:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--line-dark);
+  }
+
+  .system-encounter-record {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero-v2-content {
+    min-height: calc(100svh - 6rem);
+    min-height: calc(100dvh - 6rem);
+  }
+
+  .client-paths,
+  .home-conversion {
+    min-height: auto;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .client-path-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .client-path-grid article,
+  .client-path-grid article:nth-child(2) {
+    min-height: 13rem;
+    border-right: 0;
+    border-bottom: 1px solid var(--line-dark);
+  }
+
+  .client-path-grid article:last-child {
+    border-bottom: 0;
+  }
+
+  .client-path-grid h3 {
+    padding-top: 2.5rem;
+  }
+
+  .home-conversion-copy h2 {
+    font-size: clamp(3.1rem, 14vw, 5.2rem);
+  }
+}
+
+@media (max-height: 720px) and (min-width: 721px) {
+  .client-paths,
+  .operating-model,
+  .builder-bridge,
+  .home-conversion {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .client-path-grid {
+    margin-top: 2.5rem;
+  }
+
+  .client-path-grid article {
+    min-height: 13rem;
+  }
+
+  .client-path-grid h3 {
+    padding-top: 2.5rem;
+  }
+}
