@@ -6,8 +6,15 @@ const routeChecks = [
   ["/systems", "Systems — Eduardo Merino"],
   ["/systems/autopulse", "AutoPulse — REAL-WORLD TELEMETRY — Eduardo Merino"],
   ["/systems/cv-engine", "CV Engine — APPLICATION INTELLIGENCE — Eduardo Merino"],
+  [
+    "/systems/infrastructure-site-mapper",
+    "Infrastructure Site Mapper — PROFESSIONAL / INFRASTRUCTURE OPERATIONS — Eduardo Merino",
+  ],
+  ["/systems/gpets", "GPets — FULL-STACK / REAL-TIME PRODUCT — Eduardo Merino"],
   ["/evidence", "Evidence — Eduardo Merino"],
   ["/evidence/e-cv-12", "E-CV-12 — Eduardo Merino"],
+  ["/evidence/e-pro-01", "E-PRO-01 — Eduardo Merino"],
+  ["/evidence/e-gp-04", "E-GP-04 — Eduardo Merino"],
   ["/notes", "Engineering Notebook — Eduardo Merino"],
   ["/notes/no-data-is-not-zero", "NO_DATA is not zero. — Eduardo Merino"],
   ["/about", "About — Eduardo Merino"],
@@ -116,6 +123,51 @@ try {
 }
 
 try {
+  const { response, text } = await fetchText("/systems");
+  if (response.status !== 200) {
+    fail("Systems reputation routing", `expected 200, received ${response.status}`);
+  } else if (text.includes("Record pending")) {
+    fail("Systems reputation routing", "public Systems still contains a pending record placeholder");
+  } else if (!text.includes("Infrastructure Site Mapper") || !text.includes("GPets")) {
+    fail("Systems reputation routing", "completed professional/full-stack supporting records are missing");
+  } else {
+    pass("Systems reputation routing");
+  }
+} catch (error) {
+  fail("Systems reputation routing", error instanceof Error ? error.message : String(error));
+}
+
+try {
+  const { response, text } = await fetchText("/evidence/e-pro-01");
+  if (response.status !== 200) {
+    fail("Professional confidentiality boundary", `expected 200, received ${response.status}`);
+  } else if (!text.includes("PRIVATE PROFESSIONAL SOURCE")) {
+    fail("Professional confidentiality boundary", "abstracted evidence does not disclose its withheld-source state");
+  } else if (text.includes("Open source on GitHub")) {
+    fail("Professional confidentiality boundary", "abstracted professional evidence unexpectedly exposes a GitHub source action");
+  } else if (!text.includes("confidentiality")) {
+    fail("Professional confidentiality boundary", "abstracted evidence does not explain the confidentiality boundary");
+  } else {
+    pass("Professional confidentiality boundary");
+  }
+} catch (error) {
+  fail("Professional confidentiality boundary", error instanceof Error ? error.message : String(error));
+}
+
+try {
+  const { response, text } = await fetchText("/evidence/e-gp-04");
+  if (response.status !== 200) {
+    fail("GPets public provenance", `expected 200, received ${response.status}`);
+  } else if (!text.includes("Open source on GitHub") || !text.includes("Em3rc0d/challenge-cineplanet")) {
+    fail("GPets public provenance", "public full-stack evidence is missing inspectable GitHub provenance");
+  } else {
+    pass("GPets public provenance");
+  }
+} catch (error) {
+  fail("GPets public provenance", error instanceof Error ? error.message : String(error));
+}
+
+try {
   const { response, text } = await fetchText("/robots.txt");
   if (response.status !== 200) fail("robots.txt status", `received ${response.status}`);
   else pass("robots.txt status");
@@ -145,7 +197,11 @@ try {
       `${origin}/`,
       `${origin}/systems/autopulse`,
       `${origin}/systems/cv-engine`,
+      `${origin}/systems/infrastructure-site-mapper`,
+      `${origin}/systems/gpets`,
       `${origin}/evidence/e-cv-12`,
+      `${origin}/evidence/e-pro-01`,
+      `${origin}/evidence/e-gp-04`,
       `${origin}/notes/no-data-is-not-zero`,
       `${origin}/contact`,
     ];
@@ -219,4 +275,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`\nRelease smoke passed: ${routeChecks.length} public routes + metadata/search/portrait/404 boundary.`);
+console.log(`\nRelease smoke passed: ${routeChecks.length} public routes + metadata/reputation/search/portrait/404 boundaries.`);
