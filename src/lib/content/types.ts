@@ -39,12 +39,16 @@ export type EvidenceType =
   | "PRODUCT"
   | "MODEL";
 
+export type EvidenceSourceAccess = "PUBLIC_GITHUB" | "PRIVATE_WITHHELD";
+
 export interface EvidenceSource {
   label: string;
-  repository: string;
-  path: string;
-  ref: string;
+  access?: EvidenceSourceAccess;
+  repository?: string;
+  path?: string;
+  ref?: string;
   reviewedBlobSha?: string;
+  note?: string;
 }
 
 export interface EvidenceRecord {
