@@ -65,7 +65,7 @@ export default function AboutPage() {
               width={480}
               height={594}
               sizes="(max-width: 680px) 84vw, (max-width: 1100px) 70vw, 24rem"
-              quality={70}
+              quality={65}
               priority
             />
             <figcaption>
