@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "methodology": "Derived from the first production-like baseline with deliberate regression margin. Structural laboratory guard only; not a public performance claim.",
+  "methodology": "Derived from production-like baselines with deliberate regression margin. Structural laboratory guard only; not a public performance claim.",
   "metrics": [
     "network.transferBytes",
     "network.resources",
@@ -25,6 +25,18 @@
       "maxResources": 38,
       "maxDomElements": 850,
       "maxJsEventListeners": 450
+    },
+    "/systems/infrastructure-site-mapper": {
+      "maxTransferBytes": 430000,
+      "maxResources": 38,
+      "maxDomElements": 500,
+      "maxJsEventListeners": 430
+    },
+    "/systems/gpets": {
+      "maxTransferBytes": 430000,
+      "maxResources": 38,
+      "maxDomElements": 500,
+      "maxJsEventListeners": 430
     },
     "/evidence": {
       "maxTransferBytes": 425000,
