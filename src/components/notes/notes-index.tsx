@@ -34,7 +34,6 @@ export function NotesIndex({ notes }: { notes: readonly NoteRecord[] }) {
         </div>
 
         <div className="notes-index-dashboard">
-          <div><strong>{String(notes.length).padStart(2, "0")}</strong><span>PUBLIC NOTES</span></div>
           <div><strong>{String(builtCount).padStart(2, "0")}</strong><span>BUILT / VERIFIED</span></div>
           <div><strong>{String(exploringCount).padStart(2, "0")}</strong><span>EXPLORING</span></div>
         </div>
