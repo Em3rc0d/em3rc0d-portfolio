@@ -1,15 +1,16 @@
 # STEP 1.1 — THE BUILD ROOM · Reputation Completeness Plan v1
 
 **Project:** Eduardo Merino Portfolio / THE BUILD ROOM  
-**State:** NEXT AFTER v1.0 PRODUCTION CLOSE  
-**Branch:** `develop`  
-**Nature:** content/evidence expansion, not visual redesign
+**State:** CLOSED — production verified 2026-08-22  
+**Original execution branch:** `develop`  
+**Closure authority:** `main` @ `136abc0f074c4cb9f01e01dcaab621fd5bea903c`  
+**Nature:** content/evidence expansion with defect-driven visual acceptance; not a new visual direction
 
 ---
 
-# 1. Why STEP 1.1 exists
+# 1. Why STEP 1.1 existed
 
-The v1 portfolio already proves two dimensions strongly:
+The v1 portfolio already proved two dimensions strongly:
 
 ```text
 PERSONAL BUILDING
@@ -23,7 +24,7 @@ The production soul audit identified the remaining representation gap:
 PROFESSIONAL DEPTH
 ```
 
-The target public identity remains:
+The target public identity was therefore:
 
 ```text
 PERSONAL BUILDING
@@ -33,233 +34,136 @@ PROFESSIONAL DEPTH
 CONCURRENT R&D
 ```
 
-STEP 1.1 exists to complete that public reputation model without weakening THE BUILD ROOM's evidence contract or redesigning the product.
+STEP 1.1 existed to complete that public reputation model without weakening THE BUILD ROOM's evidence contract.
 
 ---
 
-# 2. Non-goals
+# 2. Non-goals preserved through closure
 
-STEP 1.1 is **not**:
+STEP 1.1 did **not** become:
 
-- Visual Direction v3;
-- a new Home redesign;
 - a skills/logo wall;
 - employer-logo decoration;
-- fabrication of client metrics;
+- fabricated client metrics;
 - public disclosure of private repositories or operational material;
-- converting every repository into a case study;
-- adding features to look more complete.
+- conversion of every repository into a case study;
+- a fake contact channel;
+- a redesign performed merely to create novelty.
 
-The visual system, Carbon/Paper semantics, motion grammar and evidence architecture remain frozen unless a concrete defect justifies a change.
-
----
-
-# 3. Primary responsibility
-
-Complete the public proof that Eduardo can operate in all three contexts:
-
-```text
-01  BUILD SOMETHING OF HIS OWN
-02  WORK INSIDE REAL PROFESSIONAL / OPERATIONAL CONSTRAINTS
-03  CONTINUE RESEARCHING HARDER SYSTEM BOUNDARIES
-```
-
-A visitor should be able to distinguish these contexts explicitly.
+Visual changes made during final acceptance were defect-driven and preserved the Carbon/Paper language, motion grammar and evidence architecture.
 
 ---
 
-# 4. Workstream A — Professional Depth Record
+# 3. Primary responsibility — CLOSED
 
-## Goal
-
-Create at least one public-safe system record grounded in real professional/client work.
-
-Allowed publication modes:
+The portfolio now proves that Eduardo can operate in all three contexts:
 
 ```text
-PUBLIC
-SANITIZED
-ABSTRACTED
+01  BUILD SOMETHING OF HIS OWN                         ✅
+02  WORK INSIDE REAL PROFESSIONAL / OPERATIONAL LIMITS ✅
+03  CONTINUE RESEARCHING HARDER SYSTEM BOUNDARIES      ✅
 ```
 
-`PRIVATE` material may support the internal recovery but must never leak into the public surface.
-
-## Required recovery contract
-
-The professional record must recover:
-
-```text
-REAL OPERATIONAL CONTEXT
-        ↓
-CURRENT STATE / EXISTING SYSTEM
-        ↓
-ACTORS / OWNERSHIP
-        ↓
-CONSTRAINTS
-        ↓
-EDUARDO'S ACTUAL RESPONSIBILITY
-        ↓
-SYSTEM / ARCHITECTURE DECISIONS
-        ↓
-IMPLEMENTED OR DELIVERED WORK
-        ↓
-PUBLIC-SAFE EVIDENCE
-        ↓
-LIMITATIONS
-```
-
-## Minimum public object
-
-A professional system record does not need flagship depth.
-
-It must contain at minimum:
-
-- sanitized system name or domain label;
-- context;
-- operational problem;
-- role / ownership boundary;
-- recovered current-state boundary;
-- one meaningful model or architecture object;
-- one implementation/delivery object;
-- one constraint/failure/learning;
-- evidence/publicability state;
-- explicit limitation.
-
-## Gate
-
-A professional record is accepted only when a reader can answer:
-
-> What real operational complexity did Eduardo have to understand and what was he personally responsible for changing or delivering?
-
-without relying on private screenshots, employer prestige or invented metrics.
+A visitor can distinguish those contexts explicitly from public routes and evidence dossiers.
 
 ---
 
-# 5. Workstream B — Full-Stack Proof
+# 4. Workstream A — Professional Depth Record — CLOSED
 
-The public title includes:
+Public record:
 
-> **Software Developer — Systems, Full Stack & Applied AI**
+`Infrastructure Site Mapper`
 
-Systems and Applied AI are already strongly evidenced. Full Stack is present but comparatively under-proven in the public narrative.
+Publication mode:
 
-Primary candidate to recover:
+`ABSTRACTED`
 
-```text
-GPets / Cineplanet challenge
-```
+The record contains:
 
-The recovery should test whether GPets can prove a coherent path such as:
+- real professional infrastructure-operations context;
+- explicit hierarchy/spatial-system model;
+- bounded role: software development / implementation & hardening;
+- persistence, operational-view and security-hardening responsibilities;
+- public-safe source-verification records;
+- explicit limitation / claim ceiling.
+
+The professional gate is satisfied because a reader can answer what operational complexity existed and what Eduardo was personally responsible for changing or delivering without depending on employer prestige, private screenshots or invented outcomes.
+
+Confidentiality remains authoritative: private repository/path/revision/client identifiers are withheld from public evidence cards.
+
+---
+
+# 5. Workstream B — Full-Stack Proof — CLOSED
+
+Recovered candidate:
+
+`GPets / Cineplanet challenge`
+
+Decision:
+
+`SUPPORTING RECORD`
+
+Public proof path:
 
 ```text
 PRODUCT SURFACE
-      ↕
-APPLICATION
-      ↕
-DOMAIN
-      ↕
-DATA / BACKEND
+      ↓
+AUTHENTICATED HTTP BOUNDARY
+      ↓
+APPLICATION SERVICE
+      ↓
+PERSISTENCE
+      ↓
+REALTIME DELIVERY
+      ↓
+OFFLINE REPLAY / IDEMPOTENCY BOUNDARY
 ```
 
-The goal is not to force GPets into a flagship.
-
-Possible outcomes:
-
-```text
-SUPPORTING RECORD
-NOTE-LEVEL REFERENCE
-DO NOT PUBLISH
-```
-
-The decision must follow evidence, not portfolio symmetry.
+The public repository is inspectable and the case explicitly separates source-level implementation proof from production/adoption claims.
 
 ---
 
-# 6. Workstream C — Supporting-System Triage
+# 6. Workstream C — Supporting-System Triage — CLOSED
 
-Current supporting candidates:
-
-```text
-Graph
-Infra Monitor
-prodAgentic
-GPets
-```
-
-Current public placeholder state should not become permanent.
-
-Each system receives one of three decisions:
+Final public systems:
 
 ```text
-BUILD RECORD
-HIDE UNTIL READY
-RETIRE FROM PUBLIC ROUTING
+AutoPulse                    FLAGSHIP
+CV Engine                    FLAGSHIP
+Infrastructure Site Mapper   PROFESSIONAL / ABSTRACTED
+GPets                        FULL-STACK / SUPPORT
 ```
 
-Do not create weak mini-case studies merely to fill the Systems Index.
+Evidence-incomplete supporting candidates are hidden rather than left as weak mini-cases or permanent `Record pending` placeholders.
 
-## Supporting record contract
-
-If published, a supporting record should answer only:
-
-```text
-WHAT IS IT?
-WHY DID IT EXIST?
-WHAT DID EDUARDO BUILD / OWN?
-WHAT TECHNICAL IDEA IS WORTH INSPECTING?
-WHAT EVIDENCE IS PUBLIC?
-WHAT IS NOT CLAIMED?
-```
+Every published supporting record has a visible claim ceiling.
 
 ---
 
-# 7. Workstream D — Conversion Completeness
+# 7. Workstream D — Conversion Completeness — CLOSED FOR STEP 1.1
 
-Current direct conversation route:
+Verified public routes remain:
 
 ```text
 LinkedIn
-```
-
-Current public work route:
-
-```text
 GitHub
 ```
 
-Potential addition:
+No inferred email, dead form, fake response-time promise or artificial availability state was added.
 
-```text
-verified public email
-```
-
-A contact form remains forbidden until a real delivery/processing path exists.
-
-No inferred email, fake response-time promise or artificial availability state should be published.
+A verified public email may be added later only when a real receiving channel is deliberately chosen. That owner-controlled enhancement is not a STEP 1.1 blocker.
 
 ---
 
-# 8. Home responsibility after STEP 1.1
+# 8. Home responsibility — PRESERVED
 
-Home should not become longer merely because more records exist.
+Home did not become a catalog.
 
-Its job remains trust routing.
-
-The desired reputation model may become more explicit through a compact structure such as:
-
-```text
-PERSONAL BUILDING
-PROFESSIONAL SYSTEMS
-CURRENT R&D
-```
-
-but only after the professional record exists.
-
-Do not advertise a category before evidence supports it.
+It remains a trust router into the strongest proof surfaces while the Systems index carries the expanded reputation taxonomy.
 
 ---
 
-# 9. Evidence contract
+# 9. Evidence contract — PRESERVED
 
 Every new public record remains governed by:
 
@@ -275,62 +179,93 @@ PUBLICABILITY
 LIMITATION
 ```
 
-Confidence must never exceed proof.
+Confidence never exceeds proof.
 
 Professional confidentiality outranks portfolio completeness.
 
 ---
 
-# 10. Recommended execution order
+# 10. Final visual acceptance
+
+The final acceptance pass refined composition around:
+
+> **One frame = one complete visual thought.**
+
+It did not introduce Visual Direction v3.
+
+PR #17 reduced oversized page sequences, strengthened case materiality and added short-height stress coverage while preserving evidence semantics.
+
+Final automated proof on exact PR head `a81aff22edf2b7ae1abe8c72d019999666d3950f`:
 
 ```text
-1. CLOSE v1.0 PRODUCTION
-        ↓
-2. PROFESSIONAL EVIDENCE RECOVERY
-        ↓
-3. PROFESSIONAL DEPTH RECORD CONTRACT
-        ↓
-4. BUILD ONE SANITIZED / ABSTRACTED RECORD
-        ↓
-5. GPETS FULL-STACK RECOVERY
-        ↓
-6. SUPPORTING SYSTEM TRIAGE
-        ↓
-7. CONVERSION CHANNEL REVIEW
-        ↓
-8. REPUTATION COMPLETENESS GATE
+Portfolio CI              ✅
+Release Quality            ✅
+Accessibility Quality      ✅
+Performance Baseline       ✅ 18 / 18 measurements
+Frame Discipline           ✅ 70 route/profile checks
+Reputation Visual Proof    ✅
+Frame Visual Proof         ✅ 51 screenshots
 ```
 
-Do not work on all systems simultaneously.
+The visual artifact was manually inspected before merge.
 
-The professional-depth record has the highest reputation value and therefore goes first.
+No frozen performance budget was widened.
 
 ---
 
-# 11. STEP 1.1 gate
+# 11. STEP 1.1 gate — PASS
 
-STEP 1.1 may close when the public portfolio can defend all three dimensions:
+Closure conditions:
 
 ```text
 PERSONAL BUILDING       ✅ concrete flagship proof
 PROFESSIONAL DEPTH      ✅ public-safe real-work proof
 CONCURRENT R&D          ✅ current open-boundary proof
+FULL STACK              ✅ inspectable end-to-end supporting proof
+RECORD PENDING          ✅ none in public routing
+CLAIM CEILINGS          ✅ explicit on supporting records
+PRIVATE MATERIAL        ✅ publication-safe
+HOME                    ✅ remains trust router
+VISUAL MODEL            ✅ comprehensible without a new design direction
 ```
-
-Additional conditions:
-
-- Full Stack has at least one inspectable end-to-end proof path;
-- no permanent `Record pending` placeholders remain in public routing;
-- every published supporting system has an explicit claim ceiling;
-- private/professional material remains publication-safe;
-- Home still acts as a trust router rather than a catalog;
-- no visual redesign is required to understand the expanded reputation model.
 
 ---
 
-# 12. What follows STEP 1.1
+# 12. Production closure proof
 
-Only after reputation completeness should THE BUILD ROOM become the source system for a recurring public distribution loop:
+PR #17 merged as:
+
+`136abc0f074c4cb9f01e01dcaab621fd5bea903c`
+
+Vercel production deployment:
+
+`dpl_CEBRKioK19pSftfR6x8BRw1icubv`
+
+Public origin:
+
+`https://em3rc0d-portfolio.vercel.app`
+
+Post-deploy checks confirmed:
+
+- Home, Systems, professional case, GPets case and About return 200;
+- professional evidence correctly withholds private source coordinates;
+- GPets evidence exposes real public GitHub provenance;
+- sitemap includes the new supporting and evidence routes;
+- production error/fatal audit found no runtime errors in the verification window.
+
+Evidence authority:
+
+`evidence/STEP-1.1-reputation-completeness-production-proof-v1.md`
+
+Build authority:
+
+`build/SLICE-12-reputation-completeness-closeout.md`
+
+---
+
+# 13. What follows STEP 1.1
+
+THE BUILD ROOM is now frozen as the source system for a recurring public distribution loop:
 
 ```text
 SYSTEM / EVIDENCE / NOTE
@@ -344,16 +279,18 @@ INSPECTION
 CONTACT
 ```
 
-That later phase is distribution/reputation operations, not portfolio construction.
+The next phase is **distribution / reputation operations**, not more portfolio construction.
+
+Portfolio construction should reopen only for:
+
+- a concrete production defect;
+- materially new verified evidence;
+- a deliberately scoped new product requirement.
 
 ---
 
-# Decision
+# Closure decision
 
-THE BUILD ROOM v1 should be frozen after production closure.
+# `STEP 1.1 — REPUTATION COMPLETENESS ✅ CLOSED`
 
-The next meaningful improvement is not more visual polish.
-
-It is to complete the missing public reputation dimension:
-
-> **Professional depth, with the same evidence discipline already used for personal building and R&D.**
+The missing public reputation dimension is no longer missing. The portfolio now has defendable personal-building, professional-depth, full-stack and ongoing-R&D proof under the same evidence discipline.
