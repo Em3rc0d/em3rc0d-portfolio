@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteHeader } from "@/components/shell/site-header";
+import { absoluteSiteUrl } from "@/lib/site-config";
 
 const description =
   "Start a conversation with Eduardo Merino about building custom software, recovering an existing product, improving a workflow, or adding applied AI.";
+const socialImage = absoluteSiteUrl("/opengraph-image");
 
 export const metadata: Metadata = {
   title: "Contact — Build, Recover or Improve Software",
@@ -17,20 +19,24 @@ export const metadata: Metadata = {
     title: "Start a software conversation with Eduardo Merino",
     description,
     url: "/contact",
-    images: [
-      {
-        url: "/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: "Eduardo Merino — THE BUILD ROOM",
-      },
-    ],
+    ...(socialImage
+      ? {
+          images: [
+            {
+              url: socialImage,
+              width: 1200,
+              height: 630,
+              alt: "Eduardo Merino — THE BUILD ROOM",
+            },
+          ],
+        }
+      : {}),
   },
   twitter: {
     card: "summary_large_image",
     title: "Start a software conversation with Eduardo Merino",
     description,
-    images: ["/opengraph-image"],
+    ...(socialImage ? { images: [socialImage] } : {}),
   },
 };
 
