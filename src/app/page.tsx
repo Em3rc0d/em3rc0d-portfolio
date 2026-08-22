@@ -8,26 +8,22 @@ const clientPaths = [
   [
     "01",
     "BUILD",
-    "Custom software systems",
-    "Turn an operational problem, manual workflow, or product idea into working software with clear boundaries and ownership.",
+    "Build custom software systems from operational problems, manual workflows, or product ideas with clear boundaries and ownership.",
   ],
   [
     "02",
     "RECOVER",
-    "Existing products and codebases",
-    "Understand what is really there before changing it: behavior, architecture, dependencies, risks, and missing evidence.",
+    "Recover existing products and codebases before changing them: behavior, architecture, dependencies, risks, and missing evidence.",
   ],
   [
     "03",
     "IMPROVE",
-    "Workflows and integrations",
-    "Make fragmented or brittle software easier to operate, integrate, verify, and evolve without rewriting reality.",
+    "Improve fragmented workflows and integrations so software becomes easier to operate, verify, integrate, and evolve.",
   ],
   [
     "04",
     "APPLIED AI",
-    "AI inside real products",
-    "Add useful AI capabilities while keeping product truth, provenance, failure behavior, and human control explicit.",
+    "Add AI inside real products while keeping product truth, provenance, failure behavior, and human control explicit.",
   ],
 ] as const;
 
@@ -62,27 +58,21 @@ export default function Home() {
 
       <section className="client-paths narrative-frame" aria-labelledby="client-paths-heading">
         <header className="client-paths-heading">
-          <div>
-            <p className="technical-label">CLIENT PROBLEMS / 01</p>
-            <h2 id="client-paths-heading">What can I help you make work?</h2>
-          </div>
-          <div>
-            <p>
-              You do not need a perfect brief or a service package. Start with the
-              operational problem, the product that already exists, or the outcome
-              that needs to become reliable.
-            </p>
-            <Link href="/contact">Start with your situation <span aria-hidden="true">↗</span></Link>
-          </div>
+          <p className="technical-label">CLIENT PROBLEMS / 01</p>
+          <h2 id="client-paths-heading">What can I help you make work?</h2>
+          <p>
+            You do not need a perfect brief or a service package. Start with the
+            operational problem, the product that already exists, or the outcome
+            that needs to become reliable.
+          </p>
+          <Link href="/contact">Start with your situation ↗</Link>
         </header>
 
         <div className="client-path-grid">
-          {clientPaths.map(([id, title, label, detail]) => (
-            <article key={id}>
-              <span>{id}</span>
-              <p>{label}</p>
+          {clientPaths.map(([id, title, detail]) => (
+            <article key={id} data-index={id}>
               <h3>{title}</h3>
-              <strong>{detail}</strong>
+              <p>{detail}</p>
             </article>
           ))}
         </div>
@@ -232,74 +222,34 @@ export default function Home() {
             you can follow the route to the proof behind that statement.
           </p>
           <Link href="/evidence" className="paper-link">
-            Open evidence library <span aria-hidden="true">↗</span>
+            Open evidence library ↗
           </Link>
         </div>
         <Link
           href="/evidence/e-ap-06"
-          className="evidence-sample evidence-sample-v2"
+          className="evidence-sample evidence-sample-v2 evidence-sample-compact"
           aria-label="Open AutoPulse orphaned-session recovery evidence"
         >
-          <span className="evidence-id">E-AP-06</span>
-          <strong>Orphaned-session recovery</strong>
+          <strong>E-AP-06 · Orphaned-session recovery</strong>
           <p>
             Persisted telemetry can reconcile a non-terminal orphaned session while
             preserving the interruption honestly.
           </p>
-          <dl>
-            <div>
-              <dt>TYPE</dt>
-              <dd>Recovery / test artifact</dd>
-            </div>
-            <div>
-              <dt>STATE</dt>
-              <dd>TEST ARTIFACT</dd>
-            </div>
-            <div>
-              <dt>LIMIT</dt>
-              <dd>Recovery does not imply every external hardware failure is recoverable.</dd>
-            </div>
-          </dl>
-          <span className="evidence-open">OPEN RECORD ↗</span>
         </Link>
       </section>
 
-      <section className="builder-bridge narrative-frame" aria-labelledby="builder-bridge-heading">
-        <div>
-          <p className="technical-label">BUILDER / HUMAN CONTEXT</p>
-          <h2 id="builder-bridge-heading">The system has a builder behind it.</h2>
-        </div>
-        <div>
-          <p>
-            THE BUILD ROOM is technical because the work is technical, but the goal
-            is practical: understand difficult systems, make deliberate decisions,
-            and ship software that can be operated and explained.
-          </p>
-          <Link href="/about">Meet Eduardo <span aria-hidden="true">↗</span></Link>
-        </div>
-      </section>
-
       <section className="home-conversion narrative-frame" aria-labelledby="home-conversion-heading">
-        <div className="home-conversion-copy">
-          <p className="technical-label">START / 07</p>
-          <h2 id="home-conversion-heading">
-            Have a system that is difficult to understand, build, or improve?
-          </h2>
-          <p>
-            Start with the situation. I can help turn the operating reality into a
-            software path we can inspect, build, and verify deliberately.
-          </p>
-        </div>
+        <p className="technical-label">START / 07</p>
+        <h2 id="home-conversion-heading">
+          Have a system that is difficult to understand, build, or improve?
+        </h2>
+        <p>
+          Start with the situation. I can help turn the operating reality into a
+          software path we can inspect, build, and verify deliberately.
+        </p>
         <div className="home-conversion-actions">
-          <Link href="/contact" className="home-conversion-primary">
-            Start a conversation <span aria-hidden="true">↗</span>
-          </Link>
-          <a href="https://www.linkedin.com/in/emerinoc" target="_blank" rel="noreferrer">
-            LinkedIn <span aria-hidden="true">↗</span>
-          </a>
-          <a href="https://github.com/Em3rc0d" target="_blank" rel="noreferrer">
-            GitHub <span aria-hidden="true">↗</span>
-          </a>
+          <Link href="/contact" className="home-conversion-primary">Start a conversation ↗</Link>
+          <Link href="/about">About the builder ↗</Link>
         </div>
       </section>
     </main>
