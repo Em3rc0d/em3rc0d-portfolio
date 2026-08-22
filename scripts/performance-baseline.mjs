@@ -147,6 +147,13 @@ async function measure(route, profile) {
       const resourceTransfer = resources.reduce((sum, entry) => sum + (entry.transferSize || 0), 0);
       const resourceEncoded = resources.reduce((sum, entry) => sum + (entry.encodedBodySize || 0), 0);
       const resourceDecoded = resources.reduce((sum, entry) => sum + (entry.decodedBodySize || 0), 0);
+      const resourceDetails = resources.map((entry) => ({
+        name: entry.name,
+        initiatorType: entry.initiatorType || 'other',
+        transferSize: Math.round(entry.transferSize || 0),
+        encodedBodySize: Math.round(entry.encodedBodySize || 0),
+        decodedBodySize: Math.round(entry.decodedBodySize || 0),
+      }));
 
       return {
         title: document.title,
@@ -167,6 +174,7 @@ async function measure(route, profile) {
         resourceTransfer,
         resourceEncoded,
         resourceDecoded,
+        resourceDetails,
         domElements: document.getElementsByTagName('*').length,
       };
     })()`);
@@ -193,6 +201,7 @@ async function measure(route, profile) {
         transferBytes: bytes((browser.nav?.transferSize ?? 0) + browser.resourceTransfer),
         encodedBytes: bytes((browser.nav?.encodedBodySize ?? 0) + browser.resourceEncoded),
         decodedBytes: bytes((browser.nav?.decodedBodySize ?? 0) + browser.resourceDecoded),
+        resourceDetails: browser.resourceDetails,
       },
       runtime: {
         domElements: browser.domElements,
@@ -240,7 +249,7 @@ for (const profile of profiles) {
 }
 
 const report = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   capturedAt: new Date().toISOString(),
   baseUrl: BASE_URL,
   methodology: {
