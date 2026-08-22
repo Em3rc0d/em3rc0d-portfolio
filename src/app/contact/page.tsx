@@ -1,10 +1,37 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteHeader } from "@/components/shell/site-header";
 
-export const metadata = {
-  title: "Contact",
-  description:
-    "Start a conversation with Eduardo Merino about building, recovering, understanding, or improving a software system.",
+const description =
+  "Start a conversation with Eduardo Merino about building custom software, recovering an existing product, improving a workflow, or adding applied AI.";
+
+export const metadata: Metadata = {
+  title: "Contact — Build, Recover or Improve Software",
+  description,
+  alternates: {
+    canonical: "/contact",
+  },
+  openGraph: {
+    type: "website",
+    siteName: "THE BUILD ROOM",
+    title: "Start a software conversation with Eduardo Merino",
+    description,
+    url: "/contact",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Eduardo Merino — THE BUILD ROOM",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Start a software conversation with Eduardo Merino",
+    description,
+    images: ["/opengraph-image"],
+  },
 };
 
 const entryPaths = [
@@ -29,8 +56,8 @@ export default function ContactPage() {
         <SiteHeader />
         <div className="contact-hero-grid">
           <div>
-            <p className="public-kicker">CONTACT / CONTROLLED INTAKE</p>
-            <h1>Have a system worth understanding?</h1>
+            <p className="public-kicker">CONTACT / START WITH THE PROBLEM</p>
+            <h1>Have a system worth building, understanding, or improving?</h1>
           </div>
           <div className="contact-hero-copy">
             <p>Start with the situation, not a polished brief.</p>
@@ -44,7 +71,7 @@ export default function ContactPage() {
               target="_blank"
               rel="noreferrer"
             >
-              Start on LinkedIn →
+              Start a conversation on LinkedIn →
             </a>
           </div>
         </div>
@@ -54,7 +81,7 @@ export default function ContactPage() {
         <header>
           <p className="public-kicker">WHAT KIND OF PROBLEM IS IT?</p>
           <h2>You do not need to choose a service package.</h2>
-          <p>These are just useful ways to frame the system before we talk.</p>
+          <p>These are useful ways to frame the system before we talk.</p>
         </header>
         <div className="contact-path-grid">
           {entryPaths.map(([id, title, detail]) => (
@@ -90,18 +117,17 @@ export default function ContactPage() {
       <section className="contact-channels">
         <div>
           <p className="public-kicker">PUBLIC CHANNELS</p>
-          <h2>Use a channel that already exists.</h2>
+          <h2>Talk first. Inspect the work whenever you need to.</h2>
           <p>
-            I am not publishing an inferred work email or a contact form without a
-            real delivery path. For the current portfolio build, LinkedIn is the
-            direct conversation route and GitHub is the public work route.
+            LinkedIn is the direct conversation route. GitHub is the public work
+            route when you want to inspect repositories and engineering artifacts.
           </p>
         </div>
         <div className="contact-channel-list">
           <a href="https://www.linkedin.com/in/emerinoc" target="_blank" rel="noreferrer">
             <span>01 / CONVERSATION</span>
             <strong>LinkedIn</strong>
-            <p>Share the situation and context.</p>
+            <p>Share the situation and useful context.</p>
             <b aria-hidden="true">↗</b>
           </a>
           <a href="https://github.com/Em3rc0d" target="_blank" rel="noreferrer">
@@ -117,7 +143,7 @@ export default function ContactPage() {
         <p className="public-kicker">NEED MORE CONTEXT FIRST?</p>
         <div>
           <Link href="/systems">Inspect systems →</Link>
-          <Link href="/notes">Read engineering notes →</Link>
+          <Link href="/evidence">Inspect evidence →</Link>
           <Link href="/about">About the builder →</Link>
         </div>
       </section>
