@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SiteHeader } from "@/components/shell/site-header";
 import "../visual-acceptance-v2b.css";
+import "../visual-acceptance-about-fixes.css";
 
 export const metadata = {
   title: "About",
