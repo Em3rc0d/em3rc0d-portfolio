@@ -11,6 +11,8 @@ import {
 import { SignatureAssembly } from "@/components/home/signature-assembly";
 
 const PARAMETERS = ["IDENTITY", "SYSTEMS", "EVIDENCE", "INTERFACE"] as const;
+const STARTUP_SESSION_KEY = "build-room-startup-seen";
+const STARTUP_DURATION_MS = 1200;
 
 const NAV = [
   ["Systems", "/systems"],
@@ -23,18 +25,32 @@ const NAV = [
 export function StartupHero() {
   const reduceMotion = useReducedMotion();
   const [ready, setReady] = useState(false);
+  const [showIntro, setShowIntro] = useState(true);
 
   useEffect(() => {
-    const delay = reduceMotion ? 0 : 1850;
-    const timer = window.setTimeout(() => setReady(true), delay);
+    const hasSeenStartup = window.sessionStorage.getItem(STARTUP_SESSION_KEY) === "1";
+
+    if (reduceMotion || hasSeenStartup) {
+      const settleTimer = window.setTimeout(() => {
+        setReady(true);
+        setShowIntro(false);
+      }, 0);
+
+      return () => window.clearTimeout(settleTimer);
+    }
+
+    window.sessionStorage.setItem(STARTUP_SESSION_KEY, "1");
+    const timer = window.setTimeout(() => {
+      setReady(true);
+      setShowIntro(false);
+    }, STARTUP_DURATION_MS);
+
     return () => window.clearTimeout(timer);
   }, [reduceMotion]);
 
-  const introEnabled = !reduceMotion && !ready;
-
   return (
     <LayoutGroup id="build-room-entry">
-      <section className="carbon-stage hero-stage hero-v2" aria-labelledby="hero-title">
+      <section className="carbon-stage hero-stage hero-v2 narrative-frame" aria-labelledby="hero-title">
         <noscript>
           <style>{`.startup-overlay{display:none!important}.hero-v2-content{opacity:1!important}`}</style>
         </noscript>
@@ -49,12 +65,7 @@ export function StartupHero() {
             </Link>
           </motion.div>
 
-          <motion.nav
-            aria-label="Primary navigation"
-            initial={false}
-            animate={{ opacity: ready || reduceMotion ? 1 : 0, y: ready || reduceMotion ? 0 : -8 }}
-            transition={{ duration: 0.28, ease: [0.2, 0.8, 0.2, 1] }}
-          >
+          <nav aria-label="Primary navigation">
             <ul>
               {NAV.map(([label, href], index) => (
                 <li key={href}>
@@ -65,18 +76,10 @@ export function StartupHero() {
                 </li>
               ))}
             </ul>
-          </motion.nav>
+          </nav>
         </header>
 
-        <motion.div
-          className="hero-v2-content"
-          initial={false}
-          animate={{
-            opacity: ready || reduceMotion ? 1 : 0,
-            y: ready || reduceMotion ? 0 : 24,
-          }}
-          transition={{ duration: 0.48, ease: [0.16, 1, 0.3, 1] }}
-        >
+        <div className="hero-v2-content">
           <div className="hero-v2-copy">
             <div className="hero-v2-kicker">
               <span>EDUARDO MERINO / PORTFOLIO 001</span>
@@ -91,9 +94,7 @@ export function StartupHero() {
             </h1>
 
             <div className="hero-v2-lower-copy">
-              <p>
-                Software Developer — Systems, Full Stack &amp; Applied AI
-              </p>
+              <p>Software Developer — Systems, Full Stack &amp; Applied AI</p>
               <div className="hero-v2-actions">
                 <Link href="/systems">Explore systems <span aria-hidden="true">↗</span></Link>
                 <Link href="/contact">Start a conversation</Link>
@@ -102,7 +103,7 @@ export function StartupHero() {
           </div>
 
           <SignatureAssembly ready={ready || Boolean(reduceMotion)} />
-        </motion.div>
+        </div>
 
         {ready || reduceMotion ? (
           <motion.div
@@ -127,13 +128,13 @@ export function StartupHero() {
         ) : null}
 
         <AnimatePresence>
-          {introEnabled ? (
+          {showIntro && !reduceMotion ? (
             <motion.div
               key="startup"
               className="startup-overlay"
               initial={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.34, ease: [0.2, 0.8, 0.2, 1] }}
+              transition={{ duration: 0.24, ease: [0.2, 0.8, 0.2, 1] }}
               aria-hidden="true"
             >
               <div className="startup-crosshair">
@@ -145,13 +146,13 @@ export function StartupHero() {
                 <div className="startup-coordinate-row">
                   <span>ENTRY / 00</span>
                   <span>BUILD ROOM INITIALIZATION</span>
-                  <span>REV / 02</span>
+                  <span>REV / 03</span>
                 </div>
 
                 <motion.p
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.24 }}
+                  transition={{ duration: 0.2 }}
                 >
                   ALIGNING SYSTEM RESPONSIBILITIES
                 </motion.p>
@@ -162,14 +163,14 @@ export function StartupHero() {
                       key={parameter}
                       initial={{ opacity: 0.25 }}
                       animate={{ opacity: 1 }}
-                      transition={{ delay: 0.18 + index * 0.18, duration: 0.2 }}
+                      transition={{ delay: 0.1 + index * 0.12, duration: 0.16 }}
                     >
                       <span>{String(index + 1).padStart(2, "0")}</span>
                       <strong>{parameter}</strong>
                       <motion.em
                         initial={{ color: "#6f7478" }}
                         animate={{ color: "#d39d36" }}
-                        transition={{ delay: 0.28 + index * 0.18, duration: 0.18 }}
+                        transition={{ delay: 0.18 + index * 0.12, duration: 0.14 }}
                       >
                         LOCK
                       </motion.em>
@@ -195,8 +196,8 @@ export function StartupHero() {
                       initial={{ scaleX: 0.05, opacity: 0.2 }}
                       animate={{ scaleX: 1, opacity: 1 }}
                       transition={{
-                        delay: 0.15 + index * 0.075,
-                        duration: 0.15,
+                        delay: 0.08 + index * 0.04,
+                        duration: 0.12,
                         ease: [0.2, 0.8, 0.2, 1],
                       }}
                     />
@@ -207,7 +208,7 @@ export function StartupHero() {
                   className="parameter-ready"
                   initial={{ opacity: 0.25 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 1.42, duration: 0.18 }}
+                  transition={{ delay: 0.82, duration: 0.14 }}
                 >
                   SYSTEM READY
                 </motion.span>

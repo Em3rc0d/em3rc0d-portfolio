@@ -2,16 +2,16 @@ const BASE_URL = process.env.BASE_URL ?? "http://127.0.0.1:3000";
 const EXPECTED_SITE_ORIGIN = process.env.EXPECTED_SITE_ORIGIN ?? null;
 
 const routeChecks = [
-  ["/", "Eduardo Merino — The Build Room"],
+  ["/", "Eduardo Merino — Software Systems & Applied AI"],
   ["/systems", "Systems — Eduardo Merino"],
-  ["/systems/autopulse", "AutoPulse — Eduardo Merino"],
-  ["/systems/cv-engine", "CV Engine — Eduardo Merino"],
+  ["/systems/autopulse", "AutoPulse — REAL-WORLD TELEMETRY — Eduardo Merino"],
+  ["/systems/cv-engine", "CV Engine — APPLICATION INTELLIGENCE — Eduardo Merino"],
   ["/evidence", "Evidence — Eduardo Merino"],
   ["/evidence/e-cv-12", "E-CV-12 — Eduardo Merino"],
   ["/notes", "Engineering Notebook — Eduardo Merino"],
   ["/notes/no-data-is-not-zero", "NO_DATA is not zero. — Eduardo Merino"],
   ["/about", "About — Eduardo Merino"],
-  ["/contact", "Contact — Eduardo Merino"],
+  ["/contact", "Contact — Build, Recover or Improve Software — Eduardo Merino"],
 ];
 
 const failures = [];
@@ -100,7 +100,9 @@ try {
   const twitterCard = metaContent(text, "name", "twitter:card");
   const iconLink = /<link\s+[^>]*rel=["'][^"']*icon[^"']*["'][^>]*>/i.test(text);
 
-  if (!ogTitle) fail("Home Open Graph title", "missing og:title"); else pass("Home Open Graph title");
+  if (ogTitle !== "Eduardo Merino — Software Systems & Applied AI") {
+    fail("Home Open Graph title", `unexpected ${JSON.stringify(ogTitle)}`);
+  } else pass("Home Open Graph title");
   if (!ogDescription) fail("Home Open Graph description", "missing og:description"); else pass("Home Open Graph description");
   if (!ogImage) fail("Home Open Graph image", "missing og:image"); else pass("Home Open Graph image");
   if (twitterCard !== "summary_large_image") {
