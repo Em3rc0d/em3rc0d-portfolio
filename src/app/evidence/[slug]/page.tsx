@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { findEvidenceBySlug, publicEvidenceRecords } from "@/content/evidence-index";
+import { systems } from "@/content/systems";
 import type { EvidenceState } from "@/lib/content/types";
 
 interface EvidencePageProps {
@@ -12,7 +13,7 @@ const stateExplanation: Record<EvidenceState, string> = {
   IMPLEMENTED:
     "The behavior exists in the implementation. This state does not automatically mean it has been independently or field verified.",
   SOURCE_VERIFIED:
-    "The claim was checked against the cited source material. The exact reviewed revision is retained in technical provenance.",
+    "The claim was checked against the cited source material. Public source coordinates are shown when publication is safe; professional coordinates may be intentionally withheld.",
   TEST_ARTIFACT:
     "A test artifact supports the claim. The limitation below defines how far that evidence can be generalized.",
   FIELD_VALIDATED:
@@ -39,10 +40,8 @@ export default async function EvidenceRecordPage({ params }: EvidencePageProps) 
   const record = findEvidenceBySlug(slug);
   if (!record) notFound();
 
-  const systemHref = record.systemId === "02"
-    ? "/systems/cv-engine#evidence"
-    : "/systems/autopulse#evidence";
-
+  const relatedSystem = systems.find((system) => system.id === record.systemId && system.href);
+  const systemHref = relatedSystem?.href ?? "/systems";
   const stateLabel = record.state.replaceAll("_", " ");
 
   return (
@@ -97,13 +96,38 @@ export default async function EvidenceRecordPage({ params }: EvidencePageProps) 
           <header>
             <div>
               <p className="evidence-inspector-label">SOURCES USED</p>
-              <h2>Open the source if you want to inspect deeper.</h2>
+              <h2>Inspect deeper where publication is safe.</h2>
             </div>
             <span>{record.sources.length} source{record.sources.length === 1 ? "" : "s"}</span>
           </header>
 
           <div className="evidence-source-list">
             {record.sources.map((source) => {
+              const isPublicGithub =
+                source.access !== "PRIVATE_WITHHELD" &&
+                Boolean(source.repository && source.path && source.ref);
+
+              if (!isPublicGithub) {
+                return (
+                  <article className="evidence-source-card evidence-source-withheld" key={source.label}>
+                    <div className="evidence-source-card-main">
+                      <span>PRIVATE PROFESSIONAL SOURCE</span>
+                      <strong>{source.label}</strong>
+                      <p>{source.note ?? "Source coordinates withheld to preserve professional confidentiality."}</p>
+                    </div>
+                    <details className="evidence-provenance-detail">
+                      <summary>Why are source coordinates withheld?</summary>
+                      <p>
+                        Professional confidentiality outranks portfolio completeness. The public
+                        claim is therefore bounded by this record&apos;s context and limitation instead
+                        of exposing a private repository, operational path, client artifact, or
+                        security-sensitive revision.
+                      </p>
+                    </details>
+                  </article>
+                );
+              }
+
               const sourceHref = `https://github.com/${source.repository}/blob/${source.ref}/${source.path}`;
               return (
                 <article className="evidence-source-card" key={`${source.path}-${source.label}`}>

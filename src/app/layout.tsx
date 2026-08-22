@@ -23,6 +23,10 @@ import "./usability-v2.css";
 import "./evidence-library-usability.css";
 import "./material-reality-acceptance.css";
 import "./commercial-refinement.css";
+import "./reputation-completeness.css";
+import "./reputation-completeness-fixes.css";
+import "./frame-discipline.css";
+import "./frame-discipline-fixes.css";
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
@@ -78,11 +82,11 @@ export const metadata: Metadata = {
   },
 };
 
-const personJsonLd = {
+const personJsonLd = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Eduardo Merino",
-  ...(siteOrigin ? { url: siteOrigin.toString() } : {}),
+  ...(siteOrigin ? { url: `${siteOrigin}/` } : {}),
   jobTitle: "Software Developer",
   sameAs: [
     "https://www.linkedin.com/in/emerinoc",
@@ -96,7 +100,7 @@ const personJsonLd = {
     "Workflow automation",
     "Applied artificial intelligence",
   ],
-};
+});
 
 export default function RootLayout({
   children,
@@ -108,9 +112,7 @@ export default function RootLayout({
       <body>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c"),
-          }}
+          dangerouslySetInnerHTML={{ __html: personJsonLd }}
         />
         <SkipLink />
         <DynamicSemantics />
