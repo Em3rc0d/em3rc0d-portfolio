@@ -128,11 +128,14 @@
 .note-card-v2 header,
 .note-card-v2 footer {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
   gap: .8rem;
   align-items: center;
   color: color-mix(in srgb, var(--alloy) 70%, transparent);
   font: 600 .53rem/1.2 var(--font-mono), monospace;
+}
+
+.note-card-v2 header {
+  grid-template-columns: auto minmax(0, 1fr) auto;
 }
 
 .note-card-v2 header span:first-child { color: var(--redline); }
@@ -160,11 +163,13 @@
 }
 
 .note-card-v2 footer {
+  grid-template-columns: minmax(0, 1fr) auto;
   padding-top: 1rem;
   border-top: 1px solid var(--line-dark);
 }
 
-.note-card-v2 footer b {
+.note-card-v2 footer::after {
+  content: "Inspect note ↗";
   color: var(--paper);
   font-weight: 600;
 }
