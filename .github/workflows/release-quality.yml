@@ -6,6 +6,7 @@ on:
     paths:
       - "src/**"
       - "scripts/release-smoke.mjs"
+      - "scripts/structured-data-smoke.mjs"
       - ".github/workflows/release-quality.yml"
       - "package.json"
       - "package-lock.json"
@@ -14,6 +15,7 @@ on:
     paths:
       - "src/**"
       - "scripts/release-smoke.mjs"
+      - "scripts/structured-data-smoke.mjs"
       - ".github/workflows/release-quality.yml"
       - "package.json"
       - "package-lock.json"
@@ -64,11 +66,21 @@ jobs:
           status=${PIPESTATUS[0]}
           exit "$status"
 
+      - name: Run structured-data origin smoke
+        shell: bash
+        run: |
+          set +e
+          node scripts/structured-data-smoke.mjs 2>&1 | tee structured-data-smoke.log
+          status=${PIPESTATUS[0]}
+          exit "$status"
+
       - name: Persist release smoke report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: release-quality-report
-          path: release-smoke.log
+          path: |
+            release-smoke.log
+            structured-data-smoke.log
           if-no-files-found: error
           retention-days: 30
