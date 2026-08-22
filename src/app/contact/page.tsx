@@ -5,20 +5,19 @@ import { absoluteSiteUrl } from "@/lib/site-config";
 
 const description =
   "Start a conversation with Eduardo Merino about building custom software, recovering an existing product, improving a workflow, or adding applied AI.";
+const canonicalUrl = absoluteSiteUrl("/contact");
 const socialImage = absoluteSiteUrl("/opengraph-image");
 
 export const metadata: Metadata = {
   title: "Contact — Build, Recover or Improve Software",
   description,
-  alternates: {
-    canonical: "/contact",
-  },
+  ...(canonicalUrl ? { alternates: { canonical: canonicalUrl } } : {}),
   openGraph: {
     type: "website",
     siteName: "THE BUILD ROOM",
     title: "Start a software conversation with Eduardo Merino",
     description,
-    url: "/contact",
+    ...(canonicalUrl ? { url: canonicalUrl } : {}),
     ...(socialImage
       ? {
           images: [
