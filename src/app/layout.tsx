@@ -26,6 +26,7 @@ import "./commercial-refinement.css";
 import "./reputation-completeness.css";
 import "./reputation-completeness-fixes.css";
 import "./frame-discipline.css";
+import "./frame-discipline-fixes.css";
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
