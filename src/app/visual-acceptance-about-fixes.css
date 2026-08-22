@@ -1,0 +1,45 @@
+/* Visual Acceptance v2 — About narrow-width correction.
+   The inlined KEEP INSPECTING routes must not preserve the desktop two-column
+   mechanical composition below the desktop breakpoint. */
+
+@media (max-width: 1100px) {
+  .about-mechanical-note-v2 {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    gap: clamp(2rem, 7vw, 4rem);
+  }
+
+  .about-mechanical-mark,
+  .about-mechanical-copy,
+  .about-routes-inline {
+    grid-column: 1;
+    min-width: 0;
+  }
+
+  .about-mechanical-mark {
+    width: min(70vw, 18rem);
+  }
+
+  .about-routes-inline {
+    width: 100%;
+  }
+}
+
+@media (max-width: 680px) {
+  .about-mechanical-note-v2 {
+    padding-inline: var(--page-pad);
+  }
+
+  .about-mechanical-mark {
+    width: min(64vw, 15rem);
+  }
+
+  .about-routes-inline > div {
+    width: 100%;
+  }
+
+  .about-routes-inline a {
+    width: fit-content;
+    max-width: 100%;
+  }
+}

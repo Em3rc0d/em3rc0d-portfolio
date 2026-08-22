@@ -1,6 +1,7 @@
 import { NotesIndex } from "@/components/notes/notes-index";
 import { SiteHeader } from "@/components/shell/site-header";
 import { publicNotes } from "@/content/notes";
+import "../visual-acceptance-v2d.css";
 
 export const metadata = {
   title: "Engineering Notebook",

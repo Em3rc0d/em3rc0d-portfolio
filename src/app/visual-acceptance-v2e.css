@@ -1,0 +1,310 @@
+/* Visual Acceptance v2 — measured corrections from the first 70-profile frame run. */
+
+@media (min-width: 1101px) {
+  /* Supporting cases: keep the combined operating frame horizontal and compact. */
+  .supporting-operating {
+    gap: clamp(1.5rem, 4vw, 4rem);
+  }
+
+  .supporting-operating-copy h2 {
+    font-size: clamp(2.45rem, min(4.1vw, 6.6vh), 4.25rem);
+  }
+
+  .supporting-operating-copy > p:not(.technical-label) {
+    margin-top: .7rem;
+    font-size: clamp(.78rem, .85vw, .9rem);
+    line-height: 1.42;
+  }
+
+  .supporting-responsibility-note {
+    margin-top: 1rem;
+    padding-top: .7rem;
+  }
+
+  .supporting-responsibility-note strong {
+    font-size: .8rem;
+    line-height: 1.38;
+  }
+
+  .supporting-model-board,
+  .supporting-model-board[data-count="3"],
+  .supporting-model-board[data-count="4"] {
+    grid-template-columns: repeat(var(--supporting-model-columns, 3), minmax(0, 1fr));
+  }
+
+  .supporting-model-board[data-count="3"] { --supporting-model-columns: 3; }
+  .supporting-model-board[data-count="4"] { --supporting-model-columns: 4; }
+
+  .supporting-model-board article {
+    min-height: 0;
+    padding: .8rem;
+  }
+
+  .supporting-model-board h3 {
+    margin: clamp(1rem, 2.4vh, 1.7rem) 0 .5rem;
+    font-size: clamp(1.05rem, 1.45vw, 1.45rem);
+    line-height: 1.02;
+  }
+
+  .supporting-model-board p {
+    font-size: .7rem;
+    line-height: 1.34;
+  }
+
+  /* Combined implementation + proof frame: proof links are receipts, not cards. */
+  .supporting-build-proof {
+    gap: clamp(1.5rem, 3.5vw, 3.5rem);
+  }
+
+  .supporting-build-proof header {
+    padding-bottom: .7rem;
+  }
+
+  .supporting-build-proof h2 {
+    font-size: clamp(2.1rem, min(3.5vw, 5.6vh), 3.5rem);
+  }
+
+  .supporting-implementation-list-v2 article {
+    padding: .65rem 0;
+  }
+
+  .supporting-implementation-list-v2 h3 {
+    font-size: clamp(.9rem, 1.2vw, 1.1rem);
+  }
+
+  .supporting-implementation-list-v2 p {
+    margin-top: .25rem;
+    font-size: .7rem;
+    line-height: 1.32;
+  }
+
+  .supporting-evidence-grid-v2 a {
+    gap: .35rem;
+    padding: .65rem 0;
+  }
+
+  .supporting-evidence-grid-v2 a strong {
+    margin-top: .2rem;
+    font-size: clamp(.9rem, 1.25vw, 1.1rem);
+    line-height: 1.15;
+  }
+
+  .supporting-evidence-grid-v2 a em {
+    margin-top: .25rem;
+  }
+}
+
+/* Laptop-height compositions need a distinct density mode. */
+@media (min-width: 1101px) and (max-height: 820px) {
+  .ap-v2-reality,
+  .ap-v2-decisions,
+  .ap-v2-build,
+  .ap-v2-recovery,
+  .ap-v2-verification,
+  .ap-v2-boundary,
+  .cv-v2-problem,
+  .cv-v2-boundaries,
+  .cv-v2-match,
+  .cv-v2-grounding,
+  .cv-v2-decision,
+  .cv-v2-market,
+  .cv-v2-proof,
+  .supporting-operating,
+  .supporting-build-proof,
+  .supporting-limit-v2 {
+    padding-block: 1rem;
+  }
+
+  .ap-v2-heading,
+  .cv-v2-heading {
+    margin-top: .45rem;
+    padding-bottom: .65rem;
+  }
+
+  .ap-v2-heading h2,
+  .cv-v2-heading h2,
+  .ap-v2-boundary h2 {
+    font-size: clamp(2.15rem, min(3.7vw, 5.4vh), 3.35rem);
+  }
+
+  .ap-v2-heading p,
+  .cv-v2-heading p {
+    margin-top: .4rem;
+    font-size: .78rem;
+    line-height: 1.34;
+  }
+
+  .ap-v2-reality-grid,
+  .ap-v2-decision-architecture-grid,
+  .ap-v2-build-grid,
+  .ap-v2-verification-grid,
+  .cv-v2-problem-grid,
+  .cv-v2-match-grid,
+  .cv-v2-grounding-grid,
+  .cv-v2-decision-grid,
+  .cv-v2-market-grid,
+  .cv-v2-proof-grid {
+    margin-top: .65rem;
+    gap: 1rem;
+  }
+
+  .ap-v2-signal-board article,
+  .ap-v2-decision-board article,
+  .ap-v2-build-contract article {
+    padding: .58rem;
+  }
+
+  .ap-v2-signal-board h3,
+  .ap-v2-decision-board h3,
+  .ap-v2-build-contract h3 {
+    margin: .48rem 0 .3rem;
+    font-size: 1rem;
+  }
+
+  .ap-v2-signal-board p,
+  .ap-v2-model-board p,
+  .ap-v2-decision-board p,
+  .ap-v2-build-contract p {
+    font-size: .65rem;
+    line-height: 1.27;
+  }
+
+  .ap-v2-model-board > div {
+    min-height: 5.6rem;
+    padding: .55rem;
+  }
+
+  .ap-v2-model-board strong {
+    margin-top: .45rem;
+    font-size: .75rem;
+  }
+
+  .ap-v2-architecture-flow button {
+    min-height: 4.8rem;
+    padding: .55rem;
+  }
+
+  .ap-v2-architecture-flow button strong {
+    margin-top: .55rem;
+    font-size: .78rem;
+  }
+
+  .ap-v2-component-inspector {
+    padding: .75rem;
+  }
+
+  .ap-v2-component-inspector h3 {
+    margin: .65rem 0 .4rem;
+    font-size: 1.5rem;
+  }
+
+  .ap-v2-component-inspector p {
+    font-size: .68rem;
+    line-height: 1.3;
+  }
+
+  .ap-v2-component-inspector > a {
+    margin-top: .65rem;
+  }
+
+  .ap-v2-recovery-path > div {
+    min-height: 6.5rem;
+    padding: .6rem;
+  }
+
+  .ap-v2-recovery-path strong {
+    margin-top: .65rem;
+  }
+
+  .ap-v2-recovery-path p,
+  .ap-v2-recovery-claim p {
+    font-size: .68rem;
+    line-height: 1.3;
+  }
+
+  .ap-v2-verification-list > div,
+  .cv-v2-match-table > div,
+  .cv-v2-escalation-ledger > div,
+  .cv-v2-verification-list > div {
+    padding: .45rem 0;
+  }
+
+  .cv-v2-current-boundary {
+    padding: .8rem;
+  }
+
+  .cv-v2-current-boundary h3 {
+    margin: .6rem 0 .4rem;
+    font-size: 1.55rem;
+  }
+
+  .cv-v2-current-boundary > p,
+  .cv-v2-next-boundary p {
+    font-size: .68rem;
+    line-height: 1.3;
+  }
+
+  .cv-v2-proof-links {
+    margin-top: .6rem;
+  }
+
+  .cv-v2-next-boundary {
+    margin-top: .7rem;
+    padding-top: .65rem;
+  }
+
+  .cv-case-exit {
+    margin-top: .65rem;
+    padding-top: .6rem;
+  }
+
+  .supporting-operating-copy h2,
+  .supporting-build-proof h2,
+  .supporting-limit-v2 h2 {
+    font-size: clamp(2rem, min(3.4vw, 5vh), 3rem);
+  }
+
+  .supporting-operating-copy > p:not(.technical-label) {
+    margin-top: .5rem;
+    font-size: .7rem;
+    line-height: 1.3;
+  }
+
+  .supporting-responsibility-note {
+    margin-top: .65rem;
+    padding-top: .5rem;
+  }
+
+  .supporting-responsibility-note strong {
+    font-size: .7rem;
+    line-height: 1.28;
+  }
+
+  .supporting-model-board article {
+    padding: .55rem;
+  }
+
+  .supporting-model-board h3 {
+    margin: .65rem 0 .3rem;
+    font-size: .9rem;
+  }
+
+  .supporting-model-board p {
+    font-size: .62rem;
+    line-height: 1.25;
+  }
+
+  .supporting-implementation-list-v2 article,
+  .supporting-evidence-grid-v2 a {
+    padding: .48rem 0;
+  }
+
+  .supporting-implementation-list-v2 p {
+    font-size: .63rem;
+    line-height: 1.25;
+  }
+
+  .supporting-evidence-grid-v2 a strong {
+    font-size: .88rem;
+  }
+}

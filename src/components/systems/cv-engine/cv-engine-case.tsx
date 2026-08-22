@@ -15,6 +15,8 @@ function EvidenceRef({ id }: { id: string }) {
   return href ? <Link href={href}>{id}</Link> : <span>{id}</span>;
 }
 
+const selectedProofIds = ["E-CV-01", "E-CV-03", "E-CV-05", "E-CV-08", "E-CV-11", "E-CV-12", "E-CV-14"] as const;
+
 export function CvEngineCase() {
   const [activeTruth, setActiveTruth] = useState<string>(cvEngineCase.truthLayers[0].id);
   const selectedTruth =
@@ -22,7 +24,7 @@ export function CvEngineCase() {
     cvEngineCase.truthLayers[0];
 
   return (
-    <main className="cv-case">
+    <main className="cv-case cv-case-v2">
       <section className="cv-cover" id="cover">
         <SiteHeader />
 
@@ -80,336 +82,234 @@ export function CvEngineCase() {
         </div>
       </section>
 
-      <section className="cv-problem" id="problem">
-        <div className="cv-section-index"><span>01</span><p>PROBLEM / BOUNDARY FAILURE</p></div>
-        <div className="cv-problem-heading">
-          <h2>A job description can tell you what a company wants.</h2>
-          <p>It cannot tell you what you can prove.</p>
-        </div>
-        <div className="cv-problem-grid">
-          {cvEngineCase.problemSignals.map((signal, index) => (
-            <motion.article
-              key={signal.id}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.35 }}
-              transition={{ delay: index * 0.06, duration: 0.32 }}
-            >
-              <span>{signal.id}</span>
-              <h3>{signal.title}</h3>
-              <p>{signal.detail}</p>
-            </motion.article>
-          ))}
+      <section className="cv-v2-problem" id="problem">
+        <div className="cv-section-index"><span>01</span><p>PROBLEM / TRUTH MODEL</p></div>
+        <header className="cv-v2-heading">
+          <div>
+            <h2>A job description can tell you what a company wants.</h2>
+            <p>It cannot tell you what you can prove.</p>
+          </div>
+          <p>That boundary is the product. Candidate facts, market facts, derived analysis, and recommendations stay different objects.</p>
+        </header>
+
+        <div className="cv-v2-problem-grid">
+          <div className="cv-v2-signal-board">
+            {cvEngineCase.problemSignals.map((signal, index) => (
+              <motion.article
+                key={signal.id}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ delay: index * 0.05, duration: 0.28 }}
+              >
+                <span>{signal.id}</span>
+                <h3>{signal.title}</h3>
+                <p>{signal.detail}</p>
+              </motion.article>
+            ))}
+          </div>
+
+          <div className="cv-v2-truth-board">
+            {cvEngineCase.truthClasses.map(([type, rule, meaning], index) => (
+              <div key={type}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <strong>{type}</strong>
+                <p>{meaning}</p>
+                <small>{rule}</small>
+              </div>
+            ))}
+            <footer><EvidenceRef id="E-CV-01" /><EvidenceRef id="E-CV-05" /></footer>
+          </div>
         </div>
       </section>
 
-      <section className="cv-truth" id="truth">
-        <div className="cv-section-index paper"><span>02</span><p>TRUTH CLASSES</p></div>
-        <header className="cv-truth-heading">
-          <p>Not every statement has the same epistemic status.</p>
-          <h2>Truth needs a type.</h2>
+      <section className="cv-v2-boundaries" id="boundaries">
+        <div className="cv-section-index paper"><span>02</span><p>CANDIDATE TRUTH ≠ JOB TRUTH</p></div>
+        <header className="cv-v2-heading">
+          <div><h2>Two truth graphs meet only at comparison time.</h2></div>
+          <p>Source provenance remains visible on both sides. A JobRequirement can ask for a capability; it cannot create candidate evidence.</p>
         </header>
-        <div className="cv-truth-grammar">
-          {cvEngineCase.truthClasses.map(([type, rule, meaning], index) => (
-            <div key={type}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <strong>{type}</strong>
-              <p>{meaning}</p>
-              <small>{rule}</small>
+
+        <div className="cv-v2-boundary-board">
+          <article>
+            <span>CAREER / CANDIDATE SIDE</span>
+            <div className="cv-v2-flow">
+              <strong>CareerSource</strong><i>→</i><strong>CareerEvidence</strong><i>→</i><strong>CareerAssertion</strong>
             </div>
-          ))}
-        </div>
-        <div className="cv-truth-evidence"><EvidenceRef id="E-CV-01" /><EvidenceRef id="E-CV-05" /></div>
-      </section>
-
-      <section className="cv-source-graph" id="candidate-truth">
-        <div className="cv-section-index"><span>03</span><p>CAREER TRUTH / TRACE</p></div>
-        <header>
-          <h2>Source material is not the assertion.</h2>
-          <p>The candidate-side graph preserves where a statement came from and what class of truth it claims to be.</p>
-        </header>
-        <div className="cv-source-flow">
-          <div className="cv-source-node">
-            <span>01 / SOURCE</span><strong>CareerSource</strong><p>Candidate-supplied origin.</p>
-          </div>
-          <i aria-hidden="true" />
-          <div className="cv-source-node cv-source-evidence-node">
-            <span>02 / EVIDENCE</span><strong>CareerEvidence</strong>
             <dl>
-              <div><dt>excerpt</dt><dd>source fragment</dd></div>
-              <div><dt>locator</dt><dd>document / page / field</dd></div>
-              <div><dt>reviewState</dt><dd>candidate confirmation state</dd></div>
+              <div><dt>origin</dt><dd>candidate-supplied source</dd></div>
+              <div><dt>evidence</dt><dd>excerpt + locator + review state</dd></div>
+              <div><dt>assertion</dt><dd>typed claim + provenance links</dd></div>
             </dl>
-          </div>
-          <i aria-hidden="true" />
-          <div className="cv-source-node cv-source-assertion-node">
-            <span>03 / ASSERTION</span><strong>CareerAssertion</strong>
-            <dl>
-              <div><dt>truthClass</dt><dd>typed statement</dd></div>
-              <div><dt>evidenceIds</dt><dd>provenance</dd></div>
-              <div><dt>sourceIds</dt><dd>origin link</dd></div>
-            </dl>
-          </div>
-        </div>
-        <Link className="cv-proof-link" href="/evidence/e-cv-01">E-CV-01 / inspect boundary →</Link>
-      </section>
+          </article>
 
-      <section className="cv-job-truth" id="job-truth">
-        <div className="cv-section-index paper"><span>04</span><p>JOB TRUTH</p></div>
-        <div className="cv-job-truth-title">
-          <h2>Job truth lives on the other side.</h2>
-          <p>Requirements are extracted from the job source and remain job-side objects until comparison time.</p>
-        </div>
-        <div className="cv-job-truth-plate">
-          <div><span>01</span><strong>JOB DESCRIPTION</strong><p>source-side market text</p></div>
-          <i aria-hidden="true" />
-          <div className="cv-job-requirement-card">
-            <span>02</span><strong>JOB REQUIREMENT</strong>
-            <dl>
-              <div><dt>kind</dt><dd>SKILL / EXPERIENCE / ...</dd></div>
-              <div><dt>necessity</dt><dd>REQUIRED / PREFERRED / UNKNOWN</dd></div>
-              <div><dt>minimumYears</dt><dd>optional</dd></div>
-            </dl>
-          </div>
-          <i aria-hidden="true" />
-          <div><span>03</span><strong>JOB SNAPSHOT</strong><p>immutable analysis state</p></div>
-        </div>
-        <div className="cv-job-invariant"><span>INV-004</span><strong>JobRequirement != CandidateSkill</strong><EvidenceRef id="E-CV-02" /></div>
-      </section>
-
-      <section className="cv-match" id="match">
-        <div className="cv-section-index"><span>05</span><p>REQUIREMENT MATCH</p></div>
-        <header className="cv-match-heading">
-          <h2>Comparison should preserve the uncomfortable answer.</h2>
-          <p>Gaps and unknowns are valid outputs. They should not disappear just to make the score look better.</p>
-        </header>
-        <div className="cv-match-convergence">
-          <span>CareerAssertion</span><i /><strong>RequirementMatch</strong><i /><span>JobRequirement</span>
-        </div>
-        <div className="cv-match-table">
-          <div className="cv-match-table-head"><span>CANDIDATE EVIDENCE</span><span>JOB REQUIREMENT</span><span>RESULT</span></div>
-          {cvEngineCase.matchExamples.map(([candidate, requirement, result]) => (
-            <div key={`${candidate}-${requirement}`} className={`cv-match-row is-${result.toLowerCase()}`}>
-              <span>{candidate}</span><span>{requirement}</span><strong>{result}</strong>
+          <article>
+            <span>MARKET / JOB SIDE</span>
+            <div className="cv-v2-flow">
+              <strong>Job Description</strong><i>→</i><strong>JobRequirement</strong><i>→</i><strong>JobSnapshot</strong>
             </div>
-          ))}
+            <dl>
+              <div><dt>source</dt><dd>market-side text</dd></div>
+              <div><dt>requirement</dt><dd>kind + necessity + optional minimums</dd></div>
+              <div><dt>snapshot</dt><dd>immutable analysis state</dd></div>
+            </dl>
+          </article>
         </div>
-        <Link className="cv-proof-link" href="/evidence/e-cv-03">E-CV-03 / inspect matching evidence →</Link>
+
+        <div className="cv-v2-invariant"><span>INV-004</span><strong>JobRequirement != CandidateSkill</strong><EvidenceRef id="E-CV-01" /><EvidenceRef id="E-CV-02" /></div>
       </section>
 
-      <section className="cv-escalation" id="grounding">
-        <div className="cv-section-index"><span>06</span><p>GROUNDING / RESPONSIBILITY</p></div>
-        <header>
-          <p>AI can improve wording without receiving permission to improve history.</p>
-          <h2>Stronger verbs need stronger evidence.</h2>
+      <section className="cv-v2-match" id="match">
+        <div className="cv-section-index"><span>03</span><p>MATCH / UNKNOWN</p></div>
+        <header className="cv-v2-heading">
+          <div><h2>Comparison should preserve the uncomfortable answer.</h2></div>
+          <p>MATCH, GAP, BLOCKER, POTENTIAL_MATCH, and UNKNOWN are legitimate outcomes. Missing information is not silently converted into a negative or a guess.</p>
         </header>
-        <div className="cv-escalation-ledger">
-          <div><span>SOURCE</span><span>GENERATED</span><span>GUARD</span></div>
-          {cvEngineCase.escalationExamples.map(([source, generated, state]) => (
-            <div key={`${source}-${generated}`}>
-              <strong>{source}</strong><b>→</b><strong>{generated}</strong><span>{state}</span>
-            </div>
-          ))}
-        </div>
-        <Link className="cv-proof-link" href="/evidence/e-cv-04">E-CV-04 / inspect semantic guard →</Link>
-      </section>
 
-      <section className="cv-can-want" id="target">
-        <div className="cv-can-side">
-          <span>CAREER TRUTH / CAN</span>
-          <h2>CAN</h2>
-          <p>What the current evidence supports.</p>
-          <small>feeds Job Match</small>
-        </div>
-        <div className="cv-can-want-rule">
-          <b>≠</b>
-          <p>WANT cannot satisfy a JobRequirement.</p>
-          <EvidenceRef id="E-CV-09" />
-        </div>
-        <div className="cv-want-side">
-          <span>CAREER TARGET / WANT</span>
-          <h2>WANT</h2>
-          <p>Where the candidate wants to compete.</p>
-          <small>feeds Target Relevance</small>
-        </div>
-      </section>
-
-      <section className="cv-assessment" id="assessment">
-        <div className="cv-section-index paper"><span>07</span><p>OPPORTUNITY ASSESSMENT</p></div>
-        <header>
-          <div><p>QUESTION</p><h2>Should I apply?</h2></div>
-          <p>The output is a bounded decision object, not a fake probability of being hired.</p>
-        </header>
-        <div className="cv-assessment-object">
-          <aside>
-            <span>DERIVED OBJECT</span>
-            <strong>OpportunityAssessment</strong>
-            <p>policy / market-opportunity-assessment-v1</p>
-          </aside>
-          <div className="cv-assessment-states">
-            {cvEngineCase.assessmentStates.map(([recommendation, decision, action]) => (
-              <div key={recommendation}>
-                <strong>{recommendation}</strong><span>{decision}</span><small>{action}</small>
+        <div className="cv-v2-match-grid">
+          <div className="cv-v2-match-table">
+            <div><span>CANDIDATE EVIDENCE</span><span>JOB REQUIREMENT</span><span>RESULT</span></div>
+            {cvEngineCase.matchExamples.map(([candidate, requirement, result]) => (
+              <div key={`${candidate}-${requirement}`} data-result={result}>
+                <span>{candidate}</span><span>{requirement}</span><strong>{result}</strong>
               </div>
             ))}
           </div>
+
+          <div className="cv-v2-unknown-board">
+            <span>DERIVED MARKET FIELD</span>
+            <h3>UNKNOWN <b>≠</b> FALSE</h3>
+            <p>When the source is silent, the value stays absent with an explicit reason.</p>
+            <div>{cvEngineCase.unknownReasons.map((reason) => <span key={reason}>{reason}</span>)}</div>
+            <footer><EvidenceRef id="E-CV-03" /><EvidenceRef id="E-CV-12" /></footer>
+          </div>
         </div>
-        <div className="cv-not-probability"><span>NOT</span><strong>HIRING PROBABILITY</strong><strong>RECRUITER DECISION</strong><strong>COMMERCIAL ATS SCORE</strong><EvidenceRef id="E-CV-08" /></div>
       </section>
 
-      <section className="cv-resume" id="resume">
-        <div className="cv-section-index"><span>08</span><p>RESUME / PROVENANCE</p></div>
-        <header>
-          <h2>The resume appears late for a reason.</h2>
-          <p>It is a contextual versioned projection of candidate truth, not the database where truth starts.</p>
+      <section className="cv-v2-grounding" id="grounding">
+        <div className="cv-section-index"><span>04</span><p>GROUNDING / INTENT</p></div>
+        <header className="cv-v2-heading">
+          <div><h2>AI can improve wording without receiving permission to improve history.</h2></div>
+          <p>Capability truth and career intent also stay separate: CAN answers what evidence supports; WANT answers where the candidate wants to compete.</p>
         </header>
-        <div className="cv-resume-chain">
-          {[
-            ["01", "CareerAssertion", "candidate-side truth"],
-            ["02", "ResumeClaim", "traceable wording"],
-            ["03", "ClaimLedger", "claim ↔ assertion map"],
-            ["04", "ResumeVersion", "content-addressed artifact"],
-          ].map(([id, title, detail]) => (
-            <div key={title}><span>{id}</span><strong>{title}</strong><p>{detail}</p></div>
-          ))}
+
+        <div className="cv-v2-grounding-grid">
+          <div className="cv-v2-escalation-ledger">
+            <div><span>SOURCE</span><span>GENERATED</span><span>GUARD</span></div>
+            {cvEngineCase.escalationExamples.map(([source, generated, state]) => (
+              <div key={`${source}-${generated}`}>
+                <strong>{source}</strong><b>→</b><strong>{generated}</strong><span>{state}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="cv-v2-can-want">
+            <article><span>CAREER TRUTH</span><h3>CAN</h3><p>What current evidence supports.</p><small>feeds Job Match</small></article>
+            <div><b>≠</b><p>WANT cannot satisfy a JobRequirement.</p><EvidenceRef id="E-CV-09" /></div>
+            <article><span>CAREER TARGET</span><h3>WANT</h3><p>Where the candidate wants to compete.</p><small>feeds Target Relevance</small></article>
+          </div>
         </div>
-        <div className="cv-resume-version-specimen">
-          <div><span>ResumeVersion / specimen</span><EvidenceRef id="E-CV-06" /></div>
-          <code>candidateProfileId</code><code>targetedJobDescriptionId</code><code>targetJobDescriptionSha256</code><code>matchReportId</code><code>claimIds[]</code><code>contentSha256</code><code>generation.provider</code><code>generation.model</code><code>generation.contractVersion</code>
-        </div>
-        <div className="cv-resume-proof"><EvidenceRef id="E-CV-05" /><EvidenceRef id="E-CV-06" /><EvidenceRef id="E-CV-07" /></div>
+        <Link className="cv-proof-link" href="/evidence/e-cv-04">E-CV-04 / inspect responsibility guard →</Link>
       </section>
 
-      <section className="cv-market" id="market">
-        <div className="cv-section-index"><span>09</span><p>MARKET INGRESS</p></div>
-        <header>
-          <p>Career Opportunity Intelligence begins only after the external-source boundary is explicit.</p>
-          <h2>Provider access is controlled input, not open browsing.</h2>
+      <section className="cv-v2-decision" id="decision">
+        <div className="cv-section-index paper"><span>05</span><p>ASSESSMENT → RESUME</p></div>
+        <header className="cv-v2-heading">
+          <div><h2>Should I apply? The resume appears after the decision model.</h2></div>
+          <p>The product returns a bounded action recommendation, then generates a traceable resume projection from candidate truth. It does not claim employer probability.</p>
         </header>
-        <div className="cv-provider-flow">
-          <div className="cv-provider-list">
+
+        <div className="cv-v2-decision-grid">
+          <div className="cv-v2-assessment-board">
+            <span>OpportunityAssessment</span>
+            {cvEngineCase.assessmentStates.map(([recommendation, decision, action]) => (
+              <div key={recommendation}><strong>{recommendation}</strong><span>{decision}</span><small>{action}</small></div>
+            ))}
+            <footer>NOT: hiring probability · recruiter decision · commercial ATS score</footer>
+          </div>
+
+          <div className="cv-v2-resume-board">
+            <span>TRACEABLE PROJECTION</span>
+            <div className="cv-v2-resume-chain">
+              <strong>CareerAssertion</strong><i>→</i><strong>ResumeClaim</strong><i>→</i><strong>ClaimLedger</strong><i>→</i><strong>ResumeVersion</strong>
+            </div>
+            <div className="cv-v2-version-fields">
+              <code>candidateProfileId</code><code>jobSnapshotId</code><code>matchReportId</code><code>claimIds[]</code><code>contentSha256</code><code>generation.contractVersion</code>
+            </div>
+            <footer><EvidenceRef id="E-CV-05" /><EvidenceRef id="E-CV-06" /><EvidenceRef id="E-CV-07" /><EvidenceRef id="E-CV-08" /></footer>
+          </div>
+        </div>
+      </section>
+
+      <section className="cv-v2-market" id="market">
+        <div className="cv-section-index"><span>06</span><p>CONTROLLED MARKET INGRESS</p></div>
+        <header className="cv-v2-heading">
+          <div><h2>External market data enters through explicit boundaries.</h2></div>
+          <p>Provider-specific adapters create source-explicit observations. Only authorized source text crosses into Job Intelligence, and the exact durable JobSnapshot is consumed downstream rather than rebuilt.</p>
+        </header>
+
+        <div className="cv-v2-market-grid">
+          <div className="cv-v2-provider-board">
             {cvEngineCase.providers.map(([provider, locator]) => (
               <div key={provider}><strong>{provider}</strong><span>{locator}</span></div>
             ))}
+            <i>→</i><strong>CONTROLLED SOURCE ADAPTER</strong><i>→</i><strong>MarketObservation</strong>
           </div>
-          <i aria-hidden="true" />
-          <div className="cv-provider-adapter"><span>BOUNDARY</span><strong>CONTROLLED SOURCE ADAPTER</strong><p>provider-specific infrastructure</p></div>
-          <i aria-hidden="true" />
-          <div className="cv-market-observation"><span>MARKET FACT</span><strong>MarketObservation</strong><p>raw + source-explicit fields</p></div>
+
+          <div className="cv-v2-projection-board">
+            {[
+              ["01", "MarketObservation"],
+              ["02", "DerivedMarketInterpretation"],
+              ["03", "MarketJobProjection"],
+              ["04", "Job Intelligence"],
+              ["05", "JobSnapshot"],
+            ].map(([id, title], index) => (
+              <span key={title}><b>{id}</b><strong>{title}</strong>{index < 4 ? <i>→</i> : null}</span>
+            ))}
+          </div>
         </div>
-        <div className="cv-provider-rules">
-          {cvEngineCase.providerRules.map((rule) => <span key={rule}>{rule}</span>)}
+
+        <div className="cv-v2-snapshot-invariant">
+          <span>EXACT SNAPSHOT INVARIANT</span>
+          <strong>JobSnapshot → Job Match → OpportunityAssessment → OpportunityHistory</strong>
+          <small>same durable snapshot identity</small>
+          <div><EvidenceRef id="E-CV-10" /><EvidenceRef id="E-CV-11" /><EvidenceRef id="E-CV-13" /><EvidenceRef id="E-CV-14" /></div>
         </div>
-        <div className="cv-market-proof"><EvidenceRef id="E-CV-10" /><EvidenceRef id="E-CV-11" /></div>
       </section>
 
-      <section className="cv-unknown" id="unknown">
-        <div className="cv-unknown-statement">
-          <span>10 / DERIVED INTERPRETATION</span>
-          <h2>UNKNOWN <b>≠</b> FALSE</h2>
-          <h3>SOURCE_SILENT <b>≠</b> INFERRED_VALUE</h3>
-        </div>
-        <div className="cv-derived-objects">
-          <article className="cv-known-object">
-            <span>DerivedMarketField</span><strong>KNOWN</strong>
-            <dl><div><dt>value</dt><dd>REMOTE</dd></div><div><dt>derivation</dt><dd>CONTROLLED_CLASSIFICATION</dd></div><div><dt>sourceField</dt><dd>workModel</dd></div><div><dt>sourceValue</dt><dd>remote</dd></div></dl>
-          </article>
-          <article className="cv-unknown-object">
-            <span>DerivedMarketField</span><strong>UNKNOWN</strong>
-            <dl><div><dt>reason</dt><dd>SOURCE_SILENT</dd></div><div><dt>value</dt><dd>—</dd></div></dl>
-            <p>Missing structured data remains missing. Adjacent title/description text does not silently fill it.</p>
-          </article>
-        </div>
-        <div className="cv-unknown-reasons">{cvEngineCase.unknownReasons.map((reason) => <span key={reason}>{reason}</span>)}</div>
-        <Link className="cv-proof-link" href="/evidence/e-cv-12">E-CV-12 / inspect derived-state boundary →</Link>
-      </section>
-
-      <section className="cv-projection" id="projection">
-        <div className="cv-section-index paper"><span>11</span><p>MARKET → JOB INTELLIGENCE</p></div>
-        <header>
-          <h2>Only authorized source text crosses the parser boundary.</h2>
-          <p>Role title, seniority, work model and other metadata do not get concatenated into synthetic requirement text.</p>
+      <section className="cv-v2-proof" id="evidence">
+        <div className="cv-section-index paper"><span>07</span><p>VERIFICATION / CURRENT BOUNDARY</p></div>
+        <header className="cv-v2-heading">
+          <div><h2>Show what is proven. Show what is next.</h2></div>
+          <p>The full proof corpus lives in the Evidence Library. This case keeps only the release boundary and the strongest inspection routes in view.</p>
         </header>
-        <div className="cv-projection-flow">
-          {[
-            ["01", "MarketObservation", "what source said"],
-            ["02", "DerivedMarketInterpretation", "controlled normalization"],
-            ["03", "MarketJobProjection", "authorized parser text"],
-            ["04", "Job Intelligence", "existing deterministic parser"],
-            ["05", "JobSnapshot", "immutable job-side state"],
-          ].map(([id, title, detail], index) => (
-            <div key={title}>
-              <span>{id}</span><strong>{title}</strong><p>{detail}</p>
-              {index < 4 ? <i aria-hidden="true" /> : null}
-            </div>
-          ))}
-        </div>
-        <div className="cv-legal-inputs"><p>LEGAL PARSER INPUT</p><strong>RAW TEXT OBSERVATION</strong><b>OR</b><strong>SOURCE-EXPLICIT JSON DESCRIPTION</strong><EvidenceRef id="E-CV-13" /></div>
-      </section>
 
-      <section className="cv-snapshot" id="snapshot">
-        <div className="cv-section-index"><span>12</span><p>EXACT SNAPSHOT → DECISION</p></div>
-        <header>
-          <p>Central invariant</p>
-          <h2>THE JOB SNAPSHOT IS CONSUMED, NOT REBUILT.</h2>
-        </header>
-        <div className="cv-snapshot-flow">
-          <div className="cv-snapshot-id"><span>JOB SNAPSHOT ID</span><strong>job-snapshot:…</strong><small>same identity</small></div>
-          {[
-            ["Job Match", "compare exact requirement set"],
-            ["OpportunityAssessment", "derive bounded action"],
-            ["OpportunityHistory", "preserve exact snapshot link"],
-          ].map(([title, detail]) => (
-            <div key={title}><i aria-hidden="true" /><strong>{title}</strong><p>{detail}</p><small>job-snapshot:…</small></div>
-          ))}
-        </div>
-        <Link className="cv-proof-link" href="/evidence/e-cv-14">E-CV-14 / inspect exact-snapshot integration →</Link>
-      </section>
+        <div className="cv-v2-proof-grid">
+          <div className="cv-v2-verification-list">
+            {cvEngineCase.verification.map(([claim, state, evidence]) => (
+              <div key={claim} data-next={state.includes("NOT CLAIMED") ? "true" : "false"}>
+                <strong>{claim}</strong><span>{state}</span><EvidenceRef id={evidence} />
+              </div>
+            ))}
+          </div>
 
-      <section className="cv-verification" id="verification">
-        <div className="cv-section-index paper"><span>13</span><p>VERIFICATION / CLAIM CEILING</p></div>
-        <header><h2>Show what is proven. Show what is next.</h2><p>The final row is intentionally unfinished. Current market identity/lifecycle is the next architecture boundary, not a hidden claim.</p></header>
-        <div className="cv-verification-table">
-          {cvEngineCase.verification.map(([claim, state, evidence]) => (
-            <div key={claim} className={state.includes("NOT CLAIMED") ? "is-next" : undefined}>
-              <strong>{claim}</strong><span>{state}</span><EvidenceRef id={evidence} />
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="cv-evidence" id="evidence">
-        <div className="cv-evidence-copy">
-          <p>14 / EVIDENCE DOSSIER</p>
-          <h2>Every strong statement has somewhere to go.</h2>
-          <span>Source, test artifact, provenance and limitation travel together.</span>
-          <Link href="/evidence">Open Evidence Library →</Link>
-        </div>
-        <div className="cv-evidence-ledger">
-          {cvEngineCase.evidence.map(([id, label, state]) => (
-            <Link href={`/evidence/${id.toLowerCase()}`} key={id}>
-              <span>{id}</span><strong>{label}</strong><small>{state}</small>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="cv-boundary" id="boundary">
-        <div className="cv-section-index"><span>15</span><p>CURRENT BOUNDARY / NEXT</p></div>
-        <div className="cv-boundary-grid">
-          <div className="cv-proven-now">
+          <aside className="cv-v2-current-boundary">
             <span>CURRENTLY PROVEN</span>
-            <h2>Source → JobSnapshot → application decision.</h2>
+            <h3>Source → JobSnapshot → application decision.</h3>
             <p>With provenance boundaries preserved through the current M4B-06 architecture.</p>
-          </div>
-          <div className="cv-next-system">
-            <span>NEXT / M4B-07</span>
-            <h3>Opportunity identity & lifecycle.</h3>
-            <ul><li>cross-source logical identity</li><li>deduplication semantics</li><li>OPEN / CLOSED / STALE</li><li>freshness semantics</li></ul>
-            <strong>NOT CLAIMED COMPLETE</strong>
-          </div>
+            <div className="cv-v2-proof-links">
+              {selectedProofIds.map((id) => <EvidenceRef key={id} id={id} />)}
+            </div>
+            <div className="cv-v2-next-boundary">
+              <span>NEXT / M4B-07</span>
+              <strong>Opportunity identity &amp; lifecycle.</strong>
+              <p>Cross-source identity, deduplication, OPEN/CLOSED/STALE, and freshness semantics remain explicitly next.</p>
+              <b>NOT CLAIMED COMPLETE</b>
+            </div>
+          </aside>
         </div>
-        <div className="cv-case-exit"><Link href="/systems">← All systems</Link><Link href="/evidence">Evidence →</Link></div>
+
+        <div className="cv-case-exit"><Link href="/systems">← All systems</Link><Link href="/evidence">Open full Evidence Library →</Link></div>
       </section>
     </main>
   );

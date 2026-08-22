@@ -3,6 +3,9 @@ const CDP_URL = process.env.CDP_URL ?? "http://127.0.0.1:9222";
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const VIEWPORTS = [
+  { width: 1280, height: 640, label: "short-640" },
+  { width: 1366, height: 650, label: "short-650" },
+  { width: 1536, height: 720, label: "short-720" },
   { width: 1366, height: 768, label: "laptop" },
   { width: 1792, height: 854, label: "user-like" },
   { width: 1440, height: 900, label: "desktop" },
@@ -21,7 +24,7 @@ const ROUTES = [
       ".home-conversion",
     ],
   },
-  { path: "/systems", strict: [".internal-stage"] },
+  { path: "/systems", strict: [".systems-room-frame"] },
   { path: "/systems/autopulse", strict: [".autopulse-case > section"] },
   { path: "/systems/cv-engine", strict: [".cv-case > section"] },
   { path: "/systems/infrastructure-site-mapper", strict: [".supporting-case-shell > section"] },
@@ -175,6 +178,40 @@ for (const viewport of VIEWPORTS) {
             if (node.scrollHeight > node.clientHeight + epsilon) {
               issues.push({ type: 'content-overflow', ...frame, overBy: node.scrollHeight - node.clientHeight });
             }
+
+            const majorText = [...node.querySelectorAll('h1, h2, h3, p, a, button, strong')]
+              .filter((element) => {
+                const elementStyle = getComputedStyle(element);
+                const elementRect = element.getBoundingClientRect();
+                return elementRect.width > 0 && elementRect.height > 0 && elementStyle.visibility !== 'hidden';
+              });
+
+            for (const element of majorText) {
+              const elementRect = element.getBoundingClientRect();
+              const elementStyle = getComputedStyle(element);
+              const fontSize = Number.parseFloat(elementStyle.fontSize || '0');
+              if (fontSize > 0 && fontSize < 7.5) {
+                issues.push({
+                  type: 'micro-text',
+                  selector,
+                  index,
+                  tag: element.tagName,
+                  fontSize,
+                  text: (element.textContent || '').trim().slice(0, 80),
+                });
+                break;
+              }
+              if (elementRect.bottom > rect.bottom + epsilon || elementRect.top < rect.top - epsilon) {
+                issues.push({
+                  type: 'major-content-outside-frame',
+                  selector,
+                  index,
+                  tag: element.tagName,
+                  text: (element.textContent || '').trim().slice(0, 80),
+                });
+                break;
+              }
+            }
           });
         }
 
@@ -201,10 +238,10 @@ for (const viewport of VIEWPORTS) {
       measurements.push({ route: route.path, viewport: viewport.label, ...result });
       if (result.issues.length) {
         failures.push({ route: route.path, viewport, issues: result.issues });
-        console.error(`FAIL ${viewport.label.padEnd(9)} ${route.path}`);
+        console.error(`FAIL ${viewport.label.padEnd(10)} ${route.path}`);
         for (const issue of result.issues) console.error(`  ${JSON.stringify(issue)}`);
       } else {
-        console.log(`PASS ${viewport.label.padEnd(9)} ${route.path}`);
+        console.log(`PASS ${viewport.label.padEnd(10)} ${route.path}`);
       }
     } finally {
       await session.close();
@@ -219,4 +256,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("One-frame / one-section desktop contract passed.");
+console.log("One-frame / one-section desktop contract passed across normal and short desktop profiles.");

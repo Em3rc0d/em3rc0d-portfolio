@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SiteHeader } from "@/components/shell/site-header";
+import "./visual-acceptance.css";
 
 export const metadata = {
   title: "About",
@@ -37,7 +38,7 @@ const workingRules = [
 
 export default function AboutPage() {
   return (
-    <main className="about-page">
+    <main className="about-page about-page-v2">
       <section className="about-hero">
         <SiteHeader />
         <div className="about-hero-grid about-hero-grid-v2">
@@ -63,9 +64,9 @@ export default function AboutPage() {
               alt="Eduardo Merino, the builder behind THE BUILD ROOM"
               width={480}
               height={594}
-              sizes="(max-width: 1100px) 100vw, 38vw"
+              sizes="(max-width: 680px) 84vw, (max-width: 1100px) 70vw, 38vw"
+              quality={65}
               priority
-              unoptimized
             />
             <figcaption>
               <span>BUILDER / HUMAN CONTEXT</span>
@@ -128,11 +129,11 @@ export default function AboutPage() {
         </ol>
       </section>
 
-      <section className="about-mechanical-note">
+      <section className="about-mechanical-note about-mechanical-note-v2">
         <div className="about-mechanical-mark" aria-hidden="true">
           <i /><i /><span>EM</span>
         </div>
-        <div>
+        <div className="about-mechanical-copy">
           <p className="public-kicker">PERSONAL NOTE / MECHANICAL CURIOSITY</p>
           <h2>Machines make systems visible.</h2>
           <p>
@@ -143,15 +144,15 @@ export default function AboutPage() {
           </p>
           <Link href="/systems/autopulse">Inspect AutoPulse →</Link>
         </div>
-      </section>
 
-      <section className="about-routes">
-        <p className="public-kicker">KEEP INSPECTING</p>
-        <div>
-          <Link href="/systems">Systems <span>→</span></Link>
-          <Link href="/notes">Engineering Notebook <span>→</span></Link>
-          <Link href="/contact">Contact <span>→</span></Link>
-        </div>
+        <nav className="about-routes about-routes-inline" aria-label="Keep inspecting">
+          <span>KEEP INSPECTING</span>
+          <div>
+            <Link href="/systems">Systems →</Link>
+            <Link href="/notes">Notebook →</Link>
+            <Link href="/contact">Contact →</Link>
+          </div>
+        </nav>
       </section>
     </main>
   );
