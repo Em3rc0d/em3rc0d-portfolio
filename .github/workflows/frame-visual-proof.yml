@@ -1,0 +1,118 @@
+name: Frame Visual Proof
+
+on:
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - "src/**"
+      - "scripts/capture-browser-section.mjs"
+      - ".github/workflows/frame-visual-proof.yml"
+      - "package.json"
+      - "package-lock.json"
+  push:
+    branches: [develop]
+    paths:
+      - "src/**"
+      - "scripts/capture-browser-section.mjs"
+      - ".github/workflows/frame-visual-proof.yml"
+      - "package.json"
+      - "package-lock.json"
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+
+      - name: Start production server
+        run: |
+          npm start > /tmp/build-room-next.log 2>&1 &
+          for i in {1..30}; do
+            curl --fail --silent http://127.0.0.1:3000/ > /dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/build-room-next.log
+          exit 1
+
+      - name: Resolve and start Chrome CDP
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+            --remote-debugging-port=9222 --user-data-dir=/tmp/build-room-frame-proof \
+            about:blank > /tmp/frame-proof-chrome.log 2>&1 &
+          for i in {1..30}; do
+            curl --fail --silent http://127.0.0.1:9222/json/version > /dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/frame-proof-chrome.log
+          exit 1
+
+      - name: Capture 1792x854 desktop frame matrix
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/frame-visual
+          BASE="http://127.0.0.1:3000"
+          W=1792
+          H=854
+
+          capture() {
+            local route="$1"
+            local selector="$2"
+            local file="$3"
+            node scripts/capture-browser-section.mjs "$BASE$route" "$selector" "artifacts/frame-visual/$file.png" "$W" "$H"
+          }
+
+          capture / '.hero-v2' 'home-01-hero'
+          capture / '.client-paths' 'home-02-client-paths'
+          capture / '.system-records-v2 > .system-encounter-record:nth-child(1)' 'home-03-autopulse'
+          capture / '.system-records-v2 > .system-encounter-record:nth-child(2)' 'home-04-cv-engine'
+          capture / '.operating-model' 'home-05-operating-model'
+          capture / '.paper-stage-v2' 'home-06-evidence'
+          capture / '.home-conversion' 'home-07-conversion'
+
+          capture /systems '.internal-stage' 'systems-01-index'
+
+          for i in $(seq 1 10); do
+            capture /systems/autopulse ".autopulse-case > section:nth-of-type($i)" "autopulse-$(printf '%02d' "$i")"
+          done
+
+          for i in $(seq 1 17); do
+            capture /systems/cv-engine ".cv-case > section:nth-of-type($i)" "cv-engine-$(printf '%02d' "$i")"
+          done
+
+          for i in $(seq 1 7); do
+            capture /systems/infrastructure-site-mapper ".supporting-case-shell > section:nth-of-type($i)" "professional-$(printf '%02d' "$i")"
+            capture /systems/gpets ".supporting-case-shell > section:nth-of-type($i)" "gpets-$(printf '%02d' "$i")"
+          done
+
+          for i in $(seq 1 6); do
+            capture /about ".about-page > section:nth-of-type($i)" "about-$(printf '%02d' "$i")"
+          done
+
+          for i in $(seq 1 5); do
+            capture /contact ".contact-page > section:nth-of-type($i)" "contact-$(printf '%02d' "$i")"
+          done
+
+          capture /evidence '.evidence-library-intro' 'evidence-utility-intro'
+          capture /notes '.notes-index-intro' 'notes-utility-intro'
+
+      - name: Upload frame visual proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: frame-visual-proof-1792x854
+          path: artifacts/frame-visual/
+          if-no-files-found: error
+          retention-days: 30
