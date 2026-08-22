@@ -142,6 +142,8 @@ export function AutoPulseCase() {
             <motion.aside
               key={selectedNode.id}
               className="ap-v2-component-inspector"
+              aria-live="polite"
+              aria-atomic="true"
               initial={{ opacity: 0, x: 10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.2 }}
