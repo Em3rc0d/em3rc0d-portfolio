@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { motion } from "motion/react";
 import { SiteHeader } from "@/components/shell/site-header";
 import { AutoPulseProductSpecimen } from "@/components/systems/autopulse/autopulse-product-specimen";
 import { autopulseCase } from "@/content/autopulse";
@@ -74,16 +73,10 @@ export function AutoPulseCase() {
 
         <div className="ap-v2-reality-grid">
           <div className="ap-v2-signal-board">
-            {autopulseCase.problemSignals.map((signal, index) => (
-              <motion.article
-                key={signal.id}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ delay: index * 0.05, duration: 0.28 }}
-              >
+            {autopulseCase.problemSignals.map((signal) => (
+              <article key={signal.id}>
                 <span>{signal.id}</span><h3>{signal.title}</h3><p>{signal.detail}</p>
-              </motion.article>
+              </article>
             ))}
           </div>
 
@@ -139,20 +132,17 @@ export function AutoPulseCase() {
               })}
             </div>
 
-            <motion.aside
+            <aside
               key={selectedNode.id}
               className="ap-v2-component-inspector"
               aria-live="polite"
               aria-atomic="true"
-              initial={{ opacity: 0, x: 10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.2 }}
             >
               <div><span>COMPONENT / {selectedNode.number}</span><EvidenceReference id={selectedNode.evidence} /></div>
               <h3>{selectedNode.title}</h3>
               <p>{selectedNode.detail}</p>
               <Link href={`/evidence/${selectedNode.evidence.toLowerCase()}`}>Inspect evidence →</Link>
-            </motion.aside>
+            </aside>
           </div>
         </div>
       </section>
