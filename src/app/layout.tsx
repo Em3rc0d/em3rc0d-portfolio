@@ -27,6 +27,7 @@ import "./reputation-completeness.css";
 import "./reputation-completeness-fixes.css";
 import "./frame-discipline.css";
 import "./frame-discipline-fixes.css";
+import "./visual-acceptance-v2.css";
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
@@ -86,7 +87,7 @@ const personJsonLd = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Eduardo Merino",
-  ...(siteOrigin ? { url: `${siteOrigin}/` } : {}),
+  ...(siteOrigin ? { url: siteOrigin.toString() } : {}),
   jobTitle: "Software Developer",
   sameAs: [
     "https://www.linkedin.com/in/emerinoc",
