@@ -1,0 +1,110 @@
+/* Final measured corrections from the desktop frame-discipline browser gate. */
+
+@media (min-width: 1101px) {
+  /* Shared public hero math: the SiteHeader is taller than the old 4.9rem estimate. */
+  .about-hero-grid,
+  .contact-hero-grid {
+    height: calc(100dvh - 7rem);
+  }
+
+  /* AutoPulse verification was only over budget on the 768px-tall laptop profile. */
+  .ap-verification-table [role="cell"] {
+    padding: .68rem .8rem;
+  }
+
+  .ap-verification-table [role="cell"] > span,
+  .ap-verification-table [role="cell"] > a {
+    margin-bottom: .42rem;
+  }
+
+  .ap-verification-table [role="cell"] > strong {
+    font-size: .86rem;
+    line-height: 1.28;
+  }
+
+  .ap-verification-table [role="cell"] > p {
+    font-size: .79rem;
+    line-height: 1.38;
+  }
+}
+
+@media (min-width: 1101px) and (max-height: 880px) {
+  /* AutoPulse cover uses a faithful LiveSessionScreen specimen. On short desktop
+     viewports the specimen, not the headline, was the remaining height floor. */
+  .ap-cover-grid {
+    padding-top: .65rem;
+    padding-bottom: 3.25rem;
+  }
+
+  .ap-cover-copy h1 {
+    font-size: clamp(4.6rem, min(7vw, 10.2vh), 6.2rem);
+  }
+
+  .ap-thesis {
+    margin-top: .9rem;
+    font-size: .92rem;
+    line-height: 1.42;
+  }
+
+  .ap-cover-meta {
+    margin-top: .85rem;
+  }
+
+  .ap-cover-meta > div {
+    padding: .65rem .75rem;
+  }
+
+  .ap-specimen-sourcebar {
+    padding: .4rem 0;
+  }
+
+  .ap-specimen-header {
+    padding: .72rem .9rem;
+  }
+
+  .ap-specimen-metrics {
+    gap: .45rem;
+    padding: .6rem;
+  }
+
+  .ap-specimen-metrics > div {
+    min-height: 4.6rem;
+    padding: .55rem;
+  }
+
+  .ap-specimen-metrics strong {
+    font-size: clamp(1.05rem, 1.7vw, 1.45rem);
+  }
+
+  .ap-specimen-chart {
+    margin: 0 .6rem .6rem;
+    padding: .58rem;
+  }
+
+  .ap-specimen-chart-field {
+    min-height: 4.25rem;
+    margin-top: .45rem;
+  }
+
+  .ap-specimen-stop {
+    margin: 0 .6rem .6rem;
+    padding: .5rem .75rem;
+  }
+
+  .ap-product-specimen figcaption {
+    padding: .5rem 0 .55rem;
+  }
+
+  .ap-product-specimen figcaption p {
+    font-size: .62rem;
+    line-height: 1.38;
+  }
+
+  .ap-specimen-system-path {
+    margin-top: .4rem;
+  }
+
+  .ap-specimen-system-path span {
+    padding: .42rem .45rem;
+  }
+}
