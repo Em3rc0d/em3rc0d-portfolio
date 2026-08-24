@@ -1,21 +1,20 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import {Link} from "@/i18n/navigation";
 import { useState } from "react";
 import { motion } from "motion/react";
 import { SiteHeader } from "@/components/shell/site-header";
-import { getLocalizedCvEngineCase } from "@/content/localized";
-import { localeFromPathname, localizedHref, type Locale } from "@/lib/i18n";
+import type { getLocalizedCvEngineCase } from "@/content/localized";
+import type {AppLocale} from "@/i18n/routing";
 
-function evidenceHref(id: string, locale: Locale) {
+function evidenceHref(id: string) {
   return id.startsWith("E-CV-")
-    ? localizedHref(`/evidence/${id.toLowerCase()}`, locale)
+    ? `/evidence/${id.toLowerCase()}`
     : null;
 }
 
-function EvidenceRef({ id, locale }: { id: string; locale: Locale }) {
-  const href = evidenceHref(id, locale);
+function EvidenceRef({ id }: { id: string }) {
+  const href = evidenceHref(id);
   return href ? <Link href={href}>{id}</Link> : <span>{id}</span>;
 }
 
@@ -168,10 +167,9 @@ const ui = {
   },
 } as const;
 
-export function CvEngineCase() {
-  const pathname = usePathname();
-  const locale = localeFromPathname(pathname);
-  const cvEngineCase = getLocalizedCvEngineCase(locale);
+type CvEngineCaseRecord = ReturnType<typeof getLocalizedCvEngineCase>;
+
+export function CvEngineCase({locale, cvEngineCase}: {locale: AppLocale; cvEngineCase: CvEngineCaseRecord}) {
   const text = ui[locale];
   const [activeTruth, setActiveTruth] = useState<string>(cvEngineCase.truthLayers[0].id);
   const selectedTruth =
@@ -266,7 +264,7 @@ export function CvEngineCase() {
                 <strong>{type}</strong><p>{meaning}</p><small>{rule}</small>
               </div>
             ))}
-            <footer><EvidenceRef id="E-CV-01" locale={locale} /><EvidenceRef id="E-CV-05" locale={locale} /></footer>
+            <footer><EvidenceRef id="E-CV-01" /><EvidenceRef id="E-CV-05" /></footer>
           </div>
         </div>
       </section>
@@ -299,7 +297,7 @@ export function CvEngineCase() {
           </article>
         </div>
 
-        <div className="cv-v2-invariant"><span>INV-004</span><strong>JobRequirement != CandidateSkill</strong><EvidenceRef id="E-CV-01" locale={locale} /><EvidenceRef id="E-CV-02" locale={locale} /></div>
+        <div className="cv-v2-invariant"><span>INV-004</span><strong>JobRequirement != CandidateSkill</strong><EvidenceRef id="E-CV-01" /><EvidenceRef id="E-CV-02" /></div>
       </section>
 
       <section className="cv-v2-match" id="match">
@@ -323,7 +321,7 @@ export function CvEngineCase() {
             <h3>{text.unknownFalse}</h3>
             <p>{text.unknownBody}</p>
             <div>{cvEngineCase.unknownReasons.map((reason) => <span key={reason}>{reason}</span>)}</div>
-            <footer><EvidenceRef id="E-CV-03" locale={locale} /><EvidenceRef id="E-CV-12" locale={locale} /></footer>
+            <footer><EvidenceRef id="E-CV-03" /><EvidenceRef id="E-CV-12" /></footer>
           </div>
         </div>
       </section>
@@ -344,11 +342,11 @@ export function CvEngineCase() {
 
           <div className="cv-v2-can-want">
             <article><span>{text.careerTruth}</span><h3>CAN</h3><p>{text.canBody}</p><small>{text.feedsMatch}</small></article>
-            <div><b>≠</b><p>{text.wantLimit}</p><EvidenceRef id="E-CV-09" locale={locale} /></div>
+            <div><b>≠</b><p>{text.wantLimit}</p><EvidenceRef id="E-CV-09" /></div>
             <article><span>{text.careerTarget}</span><h3>WANT</h3><p>{text.wantBody}</p><small>{text.feedsTarget}</small></article>
           </div>
         </div>
-        <Link className="cv-proof-link" href={localizedHref("/evidence/e-cv-04", locale)}>{text.inspectGuard}</Link>
+        <Link className="cv-proof-link" href={"/evidence/e-cv-04"}>{text.inspectGuard}</Link>
       </section>
 
       <section className="cv-v2-decision" id="decision">
@@ -370,7 +368,7 @@ export function CvEngineCase() {
             <span>{text.traceable}</span>
             <div className="cv-v2-resume-chain"><strong>CareerAssertion</strong><i>→</i><strong>ResumeClaim</strong><i>→</i><strong>ClaimLedger</strong><i>→</i><strong>ResumeVersion</strong></div>
             <div className="cv-v2-version-fields"><code>candidateProfileId</code><code>jobSnapshotId</code><code>matchReportId</code><code>claimIds[]</code><code>contentSha256</code><code>generation.contractVersion</code></div>
-            <footer><EvidenceRef id="E-CV-05" locale={locale} /><EvidenceRef id="E-CV-06" locale={locale} /><EvidenceRef id="E-CV-07" locale={locale} /><EvidenceRef id="E-CV-08" locale={locale} /></footer>
+            <footer><EvidenceRef id="E-CV-05" /><EvidenceRef id="E-CV-06" /><EvidenceRef id="E-CV-07" /><EvidenceRef id="E-CV-08" /></footer>
           </div>
         </div>
       </section>
@@ -398,7 +396,7 @@ export function CvEngineCase() {
           <span>{text.exactInvariant}</span>
           <strong>JobSnapshot → Job Match → OpportunityAssessment → OpportunityHistory</strong>
           <small>{text.sameSnapshot}</small>
-          <div><EvidenceRef id="E-CV-10" locale={locale} /><EvidenceRef id="E-CV-11" locale={locale} /><EvidenceRef id="E-CV-13" locale={locale} /><EvidenceRef id="E-CV-14" locale={locale} /></div>
+          <div><EvidenceRef id="E-CV-10" /><EvidenceRef id="E-CV-11" /><EvidenceRef id="E-CV-13" /><EvidenceRef id="E-CV-14" /></div>
         </div>
       </section>
 
@@ -412,7 +410,7 @@ export function CvEngineCase() {
           <div className="cv-v2-verification-list">
             {cvEngineCase.verification.map(([claim, state, evidence]) => (
               <div key={claim} data-next={state.includes("NOT CLAIMED") || state.includes("NO DECLARADO") ? "true" : "false"}>
-                <strong>{claim}</strong><span>{state}</span><EvidenceRef id={evidence} locale={locale} />
+                <strong>{claim}</strong><span>{state}</span><EvidenceRef id={evidence} />
               </div>
             ))}
           </div>
@@ -421,14 +419,14 @@ export function CvEngineCase() {
             <span>{text.proven}</span>
             <h3>{text.provenTitle}</h3>
             <p>{text.provenBody}</p>
-            <div className="cv-v2-proof-links">{selectedProofIds.map((id) => <EvidenceRef key={id} id={id} locale={locale} />)}</div>
+            <div className="cv-v2-proof-links">{selectedProofIds.map((id) => <EvidenceRef key={id} id={id} />)}</div>
             <div className="cv-v2-next-boundary">
               <span>{text.next}</span><strong>{text.nextTitle}</strong><p>{text.nextBody}</p><b>{text.nextWarning}</b>
             </div>
           </aside>
         </div>
 
-        <div className="cv-case-exit"><Link href={localizedHref("/systems", locale)}>{text.allSystems}</Link><Link href={localizedHref("/evidence", locale)}>{text.openEvidence}</Link></div>
+        <div className="cv-case-exit"><Link href={"/systems"}>{text.allSystems}</Link><Link href={"/evidence"}>{text.openEvidence}</Link></div>
       </section>
     </main>
   );

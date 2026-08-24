@@ -14,7 +14,7 @@ import {
 import { noteTranslationsEs } from "@/content/es/notes";
 import { supportingCaseTranslationsEs } from "@/content/es/supporting-cases";
 import { systemTranslationsEs } from "@/content/es/systems";
-import { localizedHref, type Locale } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
 import type { EvidenceRecord, NoteRecord, SystemRecord } from "@/lib/content/types";
 
 function requiresPublicTranslation(system: SystemRecord) {
@@ -39,7 +39,7 @@ export function getLocalizedSystems(locale: Locale): readonly SystemRecord[] {
     return {
       ...system,
       ...translation,
-      href: system.href ? localizedHref(system.href, locale) : undefined,
+      href: system.href,
     };
   });
 }
@@ -107,7 +107,7 @@ export function getLocalizedNotes(locale: Locale): readonly NoteRecord[] {
     return {
       ...note,
       ...translation,
-      systemHref: note.systemHref ? localizedHref(note.systemHref, locale) : undefined,
+      systemHref: note.systemHref,
     };
   });
 }

@@ -1,21 +1,20 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import {Link} from "@/i18n/navigation";
 import { useState } from "react";
 import { SiteHeader } from "@/components/shell/site-header";
 import { AutoPulseProductSpecimen } from "@/components/systems/autopulse/autopulse-product-specimen";
-import { getLocalizedAutoPulseCase } from "@/content/localized";
-import { localeFromPathname, localizedHref, type Locale } from "@/lib/i18n";
+import type { getLocalizedAutoPulseCase } from "@/content/localized";
+import type {AppLocale} from "@/i18n/routing";
 
-function evidenceHref(id: string, locale: Locale) {
+function evidenceHref(id: string) {
   return id.startsWith("E-AP-")
-    ? localizedHref(`/evidence/${id.toLowerCase()}`, locale)
+    ? `/evidence/${id.toLowerCase()}`
     : null;
 }
 
-function EvidenceReference({ id, locale }: { id: string; locale: Locale }) {
-  const href = evidenceHref(id, locale);
+function EvidenceReference({ id }: { id: string }) {
+  const href = evidenceHref(id);
   if (!href) return <span>{id}</span>;
   return <Link href={href}>{id}</Link>;
 }
@@ -177,10 +176,9 @@ const ui = {
   },
 } as const;
 
-export function AutoPulseCase() {
-  const pathname = usePathname();
-  const locale = localeFromPathname(pathname);
-  const autopulseCase = getLocalizedAutoPulseCase(locale);
+type AutoPulseCaseRecord = ReturnType<typeof getLocalizedAutoPulseCase>;
+
+export function AutoPulseCase({locale, autopulseCase}: {locale: AppLocale; autopulseCase: AutoPulseCaseRecord}) {
   const text = ui[locale];
   const [activeNode, setActiveNode] = useState<string>(autopulseCase.architecture[0].id);
   const selectedNode =
@@ -210,7 +208,7 @@ export function AutoPulseCase() {
             </div>
           </div>
 
-          <AutoPulseProductSpecimen />
+          <AutoPulseProductSpecimen path={autopulseCase.path} />
         </div>
 
         <nav className="ap-case-nav" aria-label={text.chaptersAria}>
@@ -265,7 +263,7 @@ export function AutoPulseCase() {
                 <span>{decision.id}</span>
                 <h3>{decision.title}</h3>
                 <p>{decision.why}</p>
-                <footer>{decision.evidence.map((id) => <EvidenceReference key={id} id={id} locale={locale} />)}</footer>
+                <footer>{decision.evidence.map((id) => <EvidenceReference key={id} id={id} />)}</footer>
               </article>
             ))}
           </div>
@@ -294,10 +292,10 @@ export function AutoPulseCase() {
               aria-live="polite"
               aria-atomic="true"
             >
-              <div><span>{text.component} / {selectedNode.number}</span><EvidenceReference id={selectedNode.evidence} locale={locale} /></div>
+              <div><span>{text.component} / {selectedNode.number}</span><EvidenceReference id={selectedNode.evidence} /></div>
               <h3>{selectedNode.title}</h3>
               <p>{selectedNode.detail}</p>
-              <Link href={localizedHref(`/evidence/${selectedNode.evidence.toLowerCase()}`, locale)}>{text.inspectEvidence}</Link>
+              <Link href={`/evidence/${selectedNode.evidence.toLowerCase()}`}>{text.inspectEvidence}</Link>
             </aside>
           </div>
         </div>
@@ -312,7 +310,7 @@ export function AutoPulseCase() {
 
         <div className="ap-v2-build-grid">
           <div className="ap-code-specimen ap-code-specimen-v2">
-            <div className="ap-code-title"><span>TelemetryBlockRepository.ts</span><Link href={localizedHref("/evidence/e-ap-03", locale)}>E-AP-03</Link></div>
+            <div className="ap-code-title"><span>TelemetryBlockRepository.ts</span><Link href={"/evidence/e-ap-03"}>E-AP-03</Link></div>
             <pre aria-label={text.codeAria}><code>{`if (calculatedCrc !== encodedBlock.payloadCrc)
   return INVALID_BLOCK_CRC
 
@@ -348,7 +346,7 @@ same sequence / different payload → CONFLICT`}</code></pre>
         </div>
 
         <div className="ap-v2-recovery-claim">
-          <Link href={localizedHref("/evidence/e-ap-06", locale)}>E-AP-06</Link>
+          <Link href={"/evidence/e-ap-06"}>E-AP-06</Link>
           <p>{text.recoveryClaim}</p>
         </div>
       </section>
@@ -357,21 +355,21 @@ same sequence / different payload → CONFLICT`}</code></pre>
         <div className="ap-section-label light"><span>05</span><p>{text.verificationLabel}</p></div>
         <header className="ap-v2-heading">
           <div><h2>{text.verificationTitle}</h2><p>{text.verificationBody}</p></div>
-          <Link href={localizedHref("/evidence", locale)}>{text.openEvidence}</Link>
+          <Link href={"/evidence"}>{text.openEvidence}</Link>
         </header>
 
         <div className="ap-v2-verification-grid">
           <div className="ap-v2-verification-list">
             {autopulseCase.verification.map((item) => (
               <div key={item.claim} data-unclaimed={item.state === "NOT CLAIMED" || item.state === "NO DECLARADO" ? "true" : "false"}>
-                <strong>{item.claim}</strong><span>{item.state}</span><EvidenceReference id={item.evidence} locale={locale} />
+                <strong>{item.claim}</strong><span>{item.state}</span><EvidenceReference id={item.evidence} />
               </div>
             ))}
           </div>
 
           <aside className="ap-v2-proof-board">
             <span>{text.selectedProof}</span>
-            <div>{selectedProofIds.map((id) => <EvidenceReference key={id} id={id} locale={locale} />)}</div>
+            <div>{selectedProofIds.map((id) => <EvidenceReference key={id} id={id} />)}</div>
             <p>{text.selectedProofBody}</p>
           </aside>
         </div>
@@ -392,7 +390,7 @@ same sequence / different payload → CONFLICT`}</code></pre>
             <strong>{text.fieldWarning}</strong>
           </div>
         </div>
-        <div className="ap-v2-case-exit"><Link href={localizedHref("/systems", locale)}>{text.allSystems}</Link><Link href={localizedHref("/evidence", locale)}>{text.evidenceExit}</Link></div>
+        <div className="ap-v2-case-exit"><Link href={"/systems"}>{text.allSystems}</Link><Link href={"/evidence"}>{text.evidenceExit}</Link></div>
       </section>
     </main>
   );

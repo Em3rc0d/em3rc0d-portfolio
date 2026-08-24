@@ -1,17 +1,15 @@
-"use client";
-
-import {useLocale} from "next-intl";
 import {SiteHeader} from "@/components/shell/site-header";
-import {getLocalizedEvidenceRecords} from "@/content/localized";
 import type {SupportingCaseRecord} from "@/content/supporting-cases";
 import {Link} from "@/i18n/navigation";
 import type {AppLocale} from "@/i18n/routing";
-import type {SystemRecord} from "@/lib/content/types";
+import type {EvidenceRecord, SystemRecord} from "@/lib/content/types";
 import {publicabilityLabel, systemStateLabel} from "@/lib/i18n";
 
 interface SupportingCaseProps {
   system: SystemRecord;
   record: SupportingCaseRecord;
+  locale: AppLocale;
+  evidence: readonly EvidenceRecord[];
 }
 
 const ui = {
@@ -57,13 +55,8 @@ const ui = {
   },
 } as const;
 
-export function SupportingCase({system, record}: SupportingCaseProps) {
-  const locale = useLocale() as AppLocale;
+export function SupportingCase({system, record, locale, evidence}: SupportingCaseProps) {
   const text = ui[locale];
-  const publicEvidenceRecords = getLocalizedEvidenceRecords(locale);
-  const evidence = record.evidenceIds
-    .map((id) => publicEvidenceRecords.find((candidate) => candidate.id === id))
-    .filter((candidate) => candidate !== undefined);
 
   return (
     <main className={`build-room-shell supporting-case-shell supporting-case-${system.slug}`}>

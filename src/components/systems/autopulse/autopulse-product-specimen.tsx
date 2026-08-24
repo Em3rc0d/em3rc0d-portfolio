@@ -1,7 +1,6 @@
 "use client";
 
 import {useLocale} from "next-intl";
-import {getLocalizedAutoPulseCase} from "@/content/localized";
 import {Link} from "@/i18n/navigation";
 import type {AppLocale} from "@/i18n/routing";
 
@@ -46,10 +45,9 @@ const copy = {
   },
 } as const;
 
-export function AutoPulseProductSpecimen() {
+export function AutoPulseProductSpecimen({path}: {path: readonly string[]}) {
   const locale = useLocale() as AppLocale;
   const text = copy[locale];
-  const autopulseCase = getLocalizedAutoPulseCase(locale);
 
   return (
     <figure className="ap-product-specimen" aria-labelledby="ap-product-specimen-caption">
@@ -98,7 +96,7 @@ export function AutoPulseProductSpecimen() {
       </figcaption>
 
       <div className="ap-specimen-system-path" aria-label={text.pathAria}>
-        {autopulseCase.path.map((step, index) => (
+        {path.map((step, index) => (
           <span key={step}>
             <b>{String(index + 1).padStart(2, "0")}</b>
             {step}

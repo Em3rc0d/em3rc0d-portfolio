@@ -7,7 +7,7 @@ import {DynamicSemantics} from "@/components/accessibility/dynamic-semantics";
 import {MotionPolicy} from "@/components/accessibility/motion-policy";
 import {SkipLink} from "@/components/accessibility/skip-link";
 import {routing, type AppLocale} from "@/i18n/routing";
-import {getSiteOrigin} from "@/lib/site-config";
+import {absoluteSiteUrl, getSiteOrigin} from "@/lib/site-config";
 import "../globals.css";
 import "../internal.css";
 import "../foundation.css";
@@ -99,6 +99,7 @@ export async function generateMetadata({
   const {locale} = await params;
   if (!hasLocale(routing.locales, locale)) return {};
   const copy = localeMetadata[locale];
+  const socialImage = absoluteSiteUrl("/opengraph-image");
 
   return {
     metadataBase,
@@ -117,11 +118,13 @@ export async function generateMetadata({
       title: copy.title,
       description: copy.description,
       locale: copy.openGraphLocale,
+      ...(socialImage ? {images: [{url: socialImage, width: 1200, height: 630, alt: copy.title}]} : {}),
     },
     twitter: {
       card: "summary_large_image",
       title: copy.title,
       description: copy.description,
+      ...(socialImage ? {images: [socialImage]} : {}),
     },
     robots: {
       index: true,

@@ -6,6 +6,9 @@ import {AutoPulseCase} from "@/components/systems/autopulse/autopulse-case";
 import {CvEngineCase} from "@/components/systems/cv-engine/cv-engine-case";
 import {SupportingCase} from "@/components/systems/supporting-case";
 import {
+  getLocalizedAutoPulseCase,
+  getLocalizedCvEngineCase,
+  getLocalizedEvidenceRecords,
   getLocalizedPublicSystems,
   getLocalizedSupportingCase,
   getLocalizedSystemBySlug,
@@ -71,11 +74,21 @@ export default async function SystemPage({params}: SystemPageProps) {
   const system = getLocalizedSystemBySlug(slug, locale);
   if (!system || !system.href) notFound();
 
-  if (system.slug === "autopulse") return <AutoPulseCase />;
-  if (system.slug === "cv-engine") return <CvEngineCase />;
+  if (system.slug === "autopulse") {
+    return <AutoPulseCase locale={locale} autopulseCase={getLocalizedAutoPulseCase(locale)} />;
+  }
+  if (system.slug === "cv-engine") {
+    return <CvEngineCase locale={locale} cvEngineCase={getLocalizedCvEngineCase(locale)} />;
+  }
 
   const supportingCase = getLocalizedSupportingCase(system.slug, locale);
-  if (supportingCase) return <SupportingCase system={system} record={supportingCase} />;
+  if (supportingCase) {
+    const evidenceRecords = getLocalizedEvidenceRecords(locale);
+    const evidence = supportingCase.evidenceIds
+      .map((id) => evidenceRecords.find((candidate) => candidate.id === id))
+      .filter((candidate) => candidate !== undefined);
+    return <SupportingCase system={system} record={supportingCase} locale={locale} evidence={evidence} />;
+  }
 
   notFound();
 }
