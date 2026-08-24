@@ -1,32 +1,30 @@
-import Link from "next/link";
-import {
-  localizedHref,
-  navigationLabels,
-  type Locale,
-} from "@/lib/i18n";
+import {useTranslations} from "next-intl";
+import {Link} from "@/i18n/navigation";
+import type {AppLocale} from "@/i18n/routing";
 
 export function LanguageToggle({
   locale,
   pathname,
   className,
 }: {
-  locale: Locale;
+  locale: AppLocale;
   pathname: string;
   className?: string;
 }) {
-  const targetLocale: Locale = locale === "en" ? "es" : "en";
-  const labels = navigationLabels[locale];
+  const targetLocale: AppLocale = locale === "en" ? "es" : "en";
+  const t = useTranslations("Navigation");
 
   return (
     <Link
       className={className}
-      href={localizedHref(pathname, targetLocale)}
+      href={pathname}
+      locale={targetLocale}
       prefetch={false}
       hrefLang={targetLocale}
       aria-label={
         targetLocale === "es"
-          ? labels.switchToSpanish
-          : labels.switchToEnglish
+          ? t("switchToSpanish")
+          : t("switchToEnglish")
       }
     >
       {locale.toUpperCase()} → {targetLocale.toUpperCase()}
