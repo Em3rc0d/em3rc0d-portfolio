@@ -2,43 +2,72 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {
+  localeFromPathname,
+  localizedHref,
+  navigationLabels,
+} from "@/lib/i18n";
 
 const navItems = [
-  ["Systems", "/systems"],
-  ["Notes", "/notes"],
-  ["Evidence", "/evidence"],
-  ["About", "/about"],
-  ["Contact", "/contact"],
+  ["systems", "/systems"],
+  ["notes", "/notes"],
+  ["evidence", "/evidence"],
+  ["about", "/about"],
+  ["contact", "/contact"],
 ] as const;
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const locale = localeFromPathname(pathname);
+  const labels = navigationLabels[locale];
 
   return (
     <>
       <header className="site-header">
-        <Link className="site-identity" href="/" aria-label="Eduardo Merino — Home">
+        <Link
+          className="site-identity"
+          href={localizedHref("/", locale)}
+          aria-label={labels.home}
+        >
           <span>EM</span>
           <span aria-hidden="true">/</span>
           <span>BUILD ROOM</span>
           <span className="signal-dot" aria-hidden="true" />
         </Link>
 
-        <nav aria-label="Primary navigation">
+        <nav aria-label={labels.primaryNavigation}>
           <ul className="primary-nav">
-            {navItems.map(([label, href], index) => {
+            {navItems.map(([key, baseHref], index) => {
+              const href = localizedHref(baseHref, locale);
               const isCurrent = pathname === href || pathname.startsWith(`${href}/`);
               return (
-                <li key={href}>
+                <li key={baseHref}>
                   <Link href={href} aria-current={isCurrent ? "page" : undefined}>
                     <span className="nav-index" aria-hidden="true">
                       0{index + 1}
                     </span>
-                    {label}
+                    {labels[key]}
                   </Link>
                 </li>
               );
             })}
+            <li className="language-switch" aria-label={labels.switchLanguage}>
+              <Link
+                href={localizedHref(pathname, "en")}
+                aria-current={locale === "en" ? "true" : undefined}
+                aria-label={labels.switchToEnglish}
+              >
+                EN
+              </Link>
+              <span aria-hidden="true">/</span>
+              <Link
+                href={localizedHref(pathname, "es")}
+                aria-current={locale === "es" ? "true" : undefined}
+                aria-label={labels.switchToSpanish}
+              >
+                ES
+              </Link>
+            </li>
           </ul>
         </nav>
       </header>
