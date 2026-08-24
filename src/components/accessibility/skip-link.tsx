@@ -1,22 +1,20 @@
 "use client";
 
-import { useEffect } from "react";
-import { usePathname } from "next/navigation";
-import { localeFromPathname, stripLocalePrefix } from "@/lib/i18n";
+import {useLocale, useTranslations} from "next-intl";
+import {useEffect} from "react";
+import {usePathname} from "@/i18n/navigation";
 
 function routeFallbackTarget(pathname: string) {
-  const route = stripLocalePrefix(pathname);
-
-  if (route === "/") {
+  if (pathname === "/") {
     const heading = document.querySelector<HTMLElement>("#systems-heading");
     return heading?.closest<HTMLElement>("section") ?? heading;
   }
 
-  if (route.startsWith("/evidence/")) {
+  if (pathname.startsWith("/evidence/")) {
     return document.querySelector<HTMLElement>(".evidence-inspector-sheet");
   }
 
-  if (route.startsWith("/notes/")) {
+  if (pathname.startsWith("/notes/")) {
     return document.querySelector<HTMLElement>(".note-sheet");
   }
 
@@ -25,7 +23,8 @@ function routeFallbackTarget(pathname: string) {
 
 export function SkipLink() {
   const pathname = usePathname();
-  const locale = localeFromPathname(pathname);
+  const locale = useLocale();
+  const t = useTranslations("Accessibility");
 
   useEffect(() => {
     if (document.getElementById("main-content")) return;
@@ -55,8 +54,8 @@ export function SkipLink() {
     if (!target) return;
 
     event.preventDefault();
-    target.focus({ preventScroll: true });
-    target.scrollIntoView({ block: "start", behavior: "auto" });
+    target.focus({preventScroll: true});
+    target.scrollIntoView({block: "start", behavior: "auto"});
   }
 
   return (
@@ -66,7 +65,7 @@ export function SkipLink() {
       onClick={focusContent}
       lang={locale}
     >
-      {locale === "es" ? "Saltar al contenido" : "Skip to content"}
+      {t("skipToContent")}
     </a>
   );
 }
