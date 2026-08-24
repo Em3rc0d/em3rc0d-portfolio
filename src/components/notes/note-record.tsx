@@ -1,11 +1,7 @@
-import Link from "next/link";
-import type { NoteRecord } from "@/lib/content/types";
-import {
-  localizedHref,
-  noteStateLabel,
-  noteTerritoryLabel,
-  type Locale,
-} from "@/lib/i18n";
+import {Link} from "@/i18n/navigation";
+import type {AppLocale} from "@/i18n/routing";
+import type {NoteRecord} from "@/lib/content/types";
+import {noteStateLabel, noteTerritoryLabel} from "@/lib/i18n";
 
 const copy = {
   en: {
@@ -36,7 +32,7 @@ const copy = {
   },
 } as const;
 
-export function NoteRecordView({ note, locale }: { note: NoteRecord; locale: Locale }) {
+export function NoteRecordView({note, locale}: {note: NoteRecord; locale: AppLocale}) {
   const text = copy[locale];
   const state = noteStateLabel(note.state, locale);
   const territory = noteTerritoryLabel(note.territory, locale);
@@ -44,7 +40,7 @@ export function NoteRecordView({ note, locale }: { note: NoteRecord; locale: Loc
   return (
     <main className={note.state === "EXPLORING" ? "note-page is-exploring" : "note-page"}>
       <header className="note-topbar">
-        <Link href={localizedHref("/notes", locale)}>{text.back}</Link>
+        <Link href="/notes">{text.back}</Link>
         <span>{note.id} / {territory}</span>
       </header>
 
@@ -87,11 +83,11 @@ export function NoteRecordView({ note, locale }: { note: NoteRecord; locale: Loc
             <p>{text.relatedEvidence}</p>
             <div>
               {note.relatedEvidenceIds.length ? note.relatedEvidenceIds.map((id) => (
-                <Link key={id} href={localizedHref(`/evidence/${id.toLowerCase()}`, locale)}>{id}</Link>
+                <Link key={id} href={`/evidence/${id.toLowerCase()}`}>{id}</Link>
               )) : <span>{text.portfolioRecord}</span>}
             </div>
           </div>
-          <Link className="note-next-link" href={localizedHref("/notes", locale)}>{text.allNotes}</Link>
+          <Link className="note-next-link" href="/notes">{text.allNotes}</Link>
         </footer>
       </article>
     </main>
