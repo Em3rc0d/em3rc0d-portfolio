@@ -52,6 +52,7 @@ distribution/
   README.md
   launch-queue-v1.md
   metrics-ledger-template.md
+  visual-system-v1.md
 ```
 
 Future cycles may add:
@@ -123,6 +124,35 @@ STATE / FLOW / PROOF DIAGRAMS
 Primary social canvas: `1080 × 1350`.
 
 A graphic should explain the engineering thought even if the caption is not visible.
+
+Visual contract:
+
+`visual-system-v1.md`
+
+Editable Figma launch authority:
+
+`https://www.figma.com/design/3UGAtVONTzNphfIusCUDVN`
+
+Current launch frames:
+
+```text
+D-001   1:2
+D-002   1:28
+D-003   1:52
+D-004   1:78
+D-005   1:99
+D-006   1:128
+```
+
+These are editable explanatory diagrams. They are not screenshots or runtime/field evidence.
+
+## Measurement
+
+The manual launch-cycle measurement contract is:
+
+`metrics-ledger-template.md`
+
+No unavailable metric is inferred or fabricated. A post does not become successful merely because it was published or received impressions.
 
 ## Review rule
 
