@@ -3,8 +3,12 @@ import { notFound } from "next/navigation";
 import { AutoPulseCase } from "@/components/systems/autopulse/autopulse-case";
 import { CvEngineCase } from "@/components/systems/cv-engine/cv-engine-case";
 import { SupportingCase } from "@/components/systems/supporting-case";
-import { findSupportingCase } from "@/content/supporting-cases";
-import { systems } from "@/content/systems";
+import {
+  getLocalizedPublicSystems,
+  getLocalizedSupportingCase,
+  getLocalizedSystemBySlug,
+} from "@/content/localized";
+import { bilingualAlternates } from "@/lib/i18n-metadata";
 import { absoluteSiteUrl } from "@/lib/site-config";
 import "../../visual-acceptance-v2b.css";
 import "../../visual-acceptance-v2c.css";
@@ -15,17 +19,12 @@ interface SystemPageProps {
 }
 
 export function generateStaticParams() {
-  return systems
-    .filter((system) => system.href && system.publicability !== "PRIVATE")
-    .map((system) => ({ slug: system.slug }));
+  return getLocalizedPublicSystems("en").map((system) => ({ slug: system.slug }));
 }
 
 export async function generateMetadata({ params }: SystemPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const system = systems.find(
-    (candidate) => candidate.slug === slug && candidate.publicability !== "PRIVATE",
-  );
-
+  const system = getLocalizedSystemBySlug(slug, "en");
   if (!system) return {};
 
   const title = `${system.name} — ${system.label}`;
@@ -37,25 +36,14 @@ export async function generateMetadata({ params }: SystemPageProps): Promise<Met
   return {
     title,
     description: system.summary,
-    ...(canonicalUrl ? { alternates: { canonical: canonicalUrl } } : {}),
+    alternates: bilingualAlternates(routePath, "en"),
     openGraph: {
       type: "article",
       siteName: "THE BUILD ROOM",
       title,
       description: system.summary,
       ...(canonicalUrl ? { url: canonicalUrl } : {}),
-      ...(socialImage
-        ? {
-            images: [
-              {
-                url: socialImage,
-                width: 1200,
-                height: 630,
-                alt: imageAlt,
-              },
-            ],
-          }
-        : {}),
+      ...(socialImage ? { images: [{ url: socialImage, width: 1200, height: 630, alt: imageAlt }] } : {}),
     },
     twitter: {
       card: "summary_large_image",
@@ -68,26 +56,14 @@ export async function generateMetadata({ params }: SystemPageProps): Promise<Met
 
 export default async function SystemPage({ params }: SystemPageProps) {
   const { slug } = await params;
-  const system = systems.find(
-    (candidate) => candidate.slug === slug && candidate.publicability !== "PRIVATE",
-  );
+  const system = getLocalizedSystemBySlug(slug, "en");
+  if (!system || !system.href) notFound();
 
-  if (!system || !system.href) {
-    notFound();
-  }
+  if (system.slug === "autopulse") return <AutoPulseCase />;
+  if (system.slug === "cv-engine") return <CvEngineCase />;
 
-  if (system.slug === "autopulse") {
-    return <AutoPulseCase />;
-  }
-
-  if (system.slug === "cv-engine") {
-    return <CvEngineCase />;
-  }
-
-  const supportingCase = findSupportingCase(system.slug);
-  if (supportingCase) {
-    return <SupportingCase system={system} record={supportingCase} />;
-  }
+  const supportingCase = getLocalizedSupportingCase(system.slug, "en");
+  if (supportingCase) return <SupportingCase system={system} record={supportingCase} />;
 
   notFound();
 }
