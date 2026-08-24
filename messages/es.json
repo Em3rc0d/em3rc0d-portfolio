@@ -1,0 +1,31 @@
+{
+  "Navigation": {
+    "systems": "Sistemas",
+    "notes": "Notas",
+    "evidence": "Evidencia",
+    "about": "Acerca de",
+    "contact": "Contacto",
+    "primary": "Navegación principal",
+    "home": "Eduardo Merino — Inicio",
+    "language": "Idioma",
+    "switchToEnglish": "Cambiar a inglés",
+    "switchToSpanish": "Cambiar a español"
+  },
+  "Accessibility": {
+    "skipToContent": "Saltar al contenido"
+  },
+  "Metadata": {
+    "homeTitle": "Eduardo Merino — Sistemas de Software e IA Aplicada",
+    "homeDescription": "Desarrollador de software que convierte problemas operativos complejos en sistemas funcionales, productos full stack e IA aplicada con evidencia inspeccionable.",
+    "systemsTitle": "Sistemas",
+    "systemsDescription": "Sistemas de software inspeccionables construidos por Eduardo Merino en trabajo personal, infraestructura profesional, entrega full stack e I+D actual.",
+    "evidenceTitle": "Evidencia",
+    "evidenceDescription": "Evidencia pública inspeccionable de los sistemas de Eduardo Merino: afirmaciones, procedencia, estado de verificación, contexto y limitaciones.",
+    "notesTitle": "Cuaderno de Ingeniería",
+    "notesDescription": "Registros públicos breves de ingeniería de Eduardo Merino: pensamiento de sistemas, recuperación, evidencia, IA aplicada y límites actuales de exploración.",
+    "aboutTitle": "Acerca de",
+    "aboutDescription": "Acerca de Eduardo Merino — Desarrollador de Software que trabaja en sistemas, productos full stack e IA aplicada con un proceso de ingeniería basado en evidencia.",
+    "contactTitle": "Contacto — Construir, Recuperar o Mejorar Software",
+    "contactDescription": "Inicia una conversación con Eduardo Merino sobre construir software a medida, recuperar un producto existente, mejorar un flujo o añadir IA aplicada."
+  }
+}
