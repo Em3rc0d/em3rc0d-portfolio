@@ -32,12 +32,35 @@ A technical post must point back to one or more public-authorized objects:
 
 The post may simplify language. It may not strengthen the claim.
 
+## Language contract
+
+Primary distribution mode:
+
+```text
+ENGLISH
+   +
+SPANISH
+   ↓
+ONE BILINGUAL LINKEDIN POST
+```
+
+Rules:
+
+- English and Spanish versions must carry the same engineering claim and the same claim ceiling.
+- Translation may adapt natural phrasing; it may not invent stronger certainty, outcomes, metrics or ownership.
+- Technical identifiers and state names such as `NO_DATA`, `UNKNOWN`, `INTERRUPTED`, API names, evidence IDs and source object names remain unchanged when translation would reduce precision.
+- Prefer a compact bilingual post over duplicating two long essays in one publication.
+- Use one shared portfolio/source bridge unless a future localized portfolio route exists.
+- Visuals should remain language-neutral when technical notation already communicates the idea. When prose is necessary in the visual, provide EN/ES labels or separate language variants.
+- A distribution object is not `APPROVED` until both language versions pass the claim-ceiling and voice check.
+
 ## Object state
 
 ```text
 CANDIDATE
 SOURCE_LOCKED
 DRAFTED
+BILINGUAL_READY
 VISUAL_READY
 APPROVED
 PUBLISHED
@@ -74,11 +97,13 @@ Every queue item should contain:
 ```text
 ID
 STATUS
+LANGUAGES
 TERRITORY
 SOURCE OBJECTS
 SUPPORTED CLAIM
 CLAIM CEILING
-DRAFT
+ENGLISH DRAFT
+SPANISH DRAFT
 PORTFOLIO / SOURCE BRIDGE
 VISUAL BRIEF
 PUBLISHING SLOT
@@ -153,6 +178,8 @@ The manual launch-cycle measurement contract is:
 `metrics-ledger-template.md`
 
 No unavailable metric is inferred or fabricated. A post does not become successful merely because it was published or received impressions.
+
+Language mode should be recorded with each published receipt so later cycles can compare whether bilingual publishing improves qualified response quality without pretending attribution is exact.
 
 ## Review rule
 
