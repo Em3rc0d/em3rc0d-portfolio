@@ -120,7 +120,7 @@ const markerChecks = [
   ["/es/systems/autopulse", "La telemetría no es un flujo limpio."],
   ["/es/systems/cv-engine", "Una descripción de puesto puede decirte lo que una empresa quiere."],
   ["/es/evidence", "Mira qué respalda el trabajo."],
-  ["/es/evidence/e-ap-07", "NO_DATA se conserva como un resultado de adquisición distinto"],
+  ["/es/evidence/e-ap-07", "NO_DATA se preserva como un resultado de adquisición distinto"],
   ["/es/notes", "Pequeños registros de cómo pienso mientras construyo."],
   ["/es/notes/no-data-is-not-zero", "NO_DATA no es cero."],
   ["/es/about", "Entiende el sistema primero."],
