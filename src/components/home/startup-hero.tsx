@@ -1,21 +1,17 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import {useLocale, useTranslations} from "next-intl";
+import {useEffect, useState} from "react";
 import {
   AnimatePresence,
   LayoutGroup,
   motion,
   useReducedMotion,
 } from "motion/react";
-import { SignatureAssembly } from "@/components/home/signature-assembly";
-import { LanguageToggle } from "@/components/i18n/language-toggle";
-import {
-  localeFromPathname,
-  localizedHref,
-  navigationLabels,
-} from "@/lib/i18n";
+import {SignatureAssembly} from "@/components/home/signature-assembly";
+import {LanguageToggle} from "@/components/i18n/language-toggle";
+import {Link, usePathname} from "@/i18n/navigation";
+import type {AppLocale} from "@/i18n/routing";
 
 const STARTUP_SESSION_KEY = "build-room-startup-seen";
 const STARTUP_DURATION_MS = 1200;
@@ -63,8 +59,8 @@ const copy = {
 
 export function StartupHero() {
   const pathname = usePathname();
-  const locale = localeFromPathname(pathname);
-  const labels = navigationLabels[locale];
+  const locale = useLocale() as AppLocale;
+  const nav = useTranslations("Navigation");
   const text = copy[locale];
   const reduceMotion = useReducedMotion();
   const [ready, setReady] = useState(false);
@@ -100,7 +96,7 @@ export function StartupHero() {
 
         <header className="hero-v2-header">
           <motion.div layoutId="build-room-identity" className="hero-v2-identity">
-            <Link href={localizedHref("/", locale)} aria-label={labels.home}>
+            <Link href="/" aria-label={nav("home")}>
               <span>EM</span>
               <span aria-hidden="true">/</span>
               <span>BUILD ROOM</span>
@@ -108,17 +104,17 @@ export function StartupHero() {
             </Link>
           </motion.div>
 
-          <nav aria-label={labels.primaryNavigation}>
+          <nav aria-label={nav("primary")}>
             <ul>
-              {NAV.map(([key, baseHref], index) => (
-                <li key={baseHref}>
-                  <Link href={localizedHref(baseHref, locale)}>
+              {NAV.map(([key, href], index) => (
+                <li key={href}>
+                  <Link href={href}>
                     <span aria-hidden="true">0{index + 1}</span>
-                    {labels[key]}
+                    {nav(key)}
                   </Link>
                 </li>
               ))}
-              <li className="language-switch" aria-label={labels.switchLanguage}>
+              <li className="language-switch" aria-label={nav("language")}>
                 <LanguageToggle locale={locale} pathname={pathname} />
               </li>
             </ul>
@@ -142,10 +138,10 @@ export function StartupHero() {
             <div className="hero-v2-lower-copy">
               <p>{text.role}</p>
               <div className="hero-v2-actions">
-                <Link href={localizedHref("/systems", locale)}>
+                <Link href="/systems">
                   {text.explore} <span aria-hidden="true">↗</span>
                 </Link>
-                <Link href={localizedHref("/contact", locale)}>{text.conversation}</Link>
+                <Link href="/contact">{text.conversation}</Link>
               </div>
             </div>
           </div>
@@ -157,7 +153,7 @@ export function StartupHero() {
           <motion.div
             layoutId="parameter-rail"
             className="parameter-rail parameter-rail-final"
-            transition={{ type: "spring", stiffness: 180, damping: 27, mass: 0.8 }}
+            transition={{type: "spring", stiffness: 180, damping: 27, mass: 0.8}}
           >
             <div className="parameter-rail-labels">
               {text.parameters.map((parameter) => (
@@ -165,7 +161,7 @@ export function StartupHero() {
               ))}
             </div>
             <div className="parameter-rail-track" aria-hidden="true">
-              {Array.from({ length: 16 }, (_, index) => (
+              {Array.from({length: 16}, (_, index) => (
                 <i key={index} />
               ))}
             </div>
@@ -180,9 +176,9 @@ export function StartupHero() {
             <motion.div
               key="startup"
               className="startup-overlay"
-              initial={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.24, ease: [0.2, 0.8, 0.2, 1] }}
+              initial={{opacity: 1}}
+              exit={{opacity: 0}}
+              transition={{duration: 0.24, ease: [0.2, 0.8, 0.2, 1]}}
               aria-hidden="true"
             >
               <div className="startup-crosshair">
@@ -198,9 +194,9 @@ export function StartupHero() {
                 </div>
 
                 <motion.p
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.2 }}
+                  initial={{opacity: 0, y: 10}}
+                  animate={{opacity: 1, y: 0}}
+                  transition={{duration: 0.2}}
                 >
                   {text.aligning}
                 </motion.p>
@@ -209,16 +205,16 @@ export function StartupHero() {
                   {text.parameters.map((parameter, index) => (
                     <motion.div
                       key={parameter}
-                      initial={{ opacity: 0.25 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.1 + index * 0.12, duration: 0.16 }}
+                      initial={{opacity: 0.25}}
+                      animate={{opacity: 1}}
+                      transition={{delay: 0.1 + index * 0.12, duration: 0.16}}
                     >
                       <span>{String(index + 1).padStart(2, "0")}</span>
                       <strong>{parameter}</strong>
                       <motion.em
-                        initial={{ color: "#6f7478" }}
-                        animate={{ color: "#d39d36" }}
-                        transition={{ delay: 0.18 + index * 0.12, duration: 0.14 }}
+                        initial={{color: "#6f7478"}}
+                        animate={{color: "#d39d36"}}
+                        transition={{delay: 0.18 + index * 0.12, duration: 0.14}}
                       >
                         {text.lock}
                       </motion.em>
@@ -230,7 +226,7 @@ export function StartupHero() {
               <motion.div
                 layoutId="parameter-rail"
                 className="parameter-rail parameter-rail-startup"
-                transition={{ type: "spring", stiffness: 180, damping: 27, mass: 0.8 }}
+                transition={{type: "spring", stiffness: 180, damping: 27, mass: 0.8}}
               >
                 <div className="parameter-rail-labels">
                   {text.parameters.map((parameter) => (
@@ -238,11 +234,11 @@ export function StartupHero() {
                   ))}
                 </div>
                 <div className="parameter-rail-track" aria-hidden="true">
-                  {Array.from({ length: 16 }, (_, index) => (
+                  {Array.from({length: 16}, (_, index) => (
                     <motion.i
                       key={index}
-                      initial={{ scaleX: 0.05, opacity: 0.2 }}
-                      animate={{ scaleX: 1, opacity: 1 }}
+                      initial={{scaleX: 0.05, opacity: 0.2}}
+                      animate={{scaleX: 1, opacity: 1}}
                       transition={{
                         delay: 0.08 + index * 0.04,
                         duration: 0.12,
@@ -254,9 +250,9 @@ export function StartupHero() {
                 <motion.span
                   layoutId="system-ready-state"
                   className="parameter-ready"
-                  initial={{ opacity: 0.25 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.82, duration: 0.14 }}
+                  initial={{opacity: 0.25}}
+                  animate={{opacity: 1}}
+                  transition={{delay: 0.82, duration: 0.14}}
                 >
                   {text.systemReady}
                 </motion.span>
