@@ -6,6 +6,7 @@ on:
     paths:
       - "src/**"
       - "scripts/frame-discipline-smoke.mjs"
+      - "scripts/i18n-frame-smoke.mjs"
       - ".github/workflows/frame-discipline.yml"
       - "package.json"
       - "package-lock.json"
@@ -14,6 +15,7 @@ on:
     paths:
       - "src/**"
       - "scripts/frame-discipline-smoke.mjs"
+      - "scripts/i18n-frame-smoke.mjs"
       - ".github/workflows/frame-discipline.yml"
       - "package.json"
       - "package-lock.json"
@@ -65,10 +67,18 @@ jobs:
           set -o pipefail
           node scripts/frame-discipline-smoke.mjs 2>&1 | tee frame-discipline.log
 
+      - name: Enforce Spanish frame and mobile overflow contract
+        shell: bash
+        run: |
+          set -o pipefail
+          node scripts/i18n-frame-smoke.mjs 2>&1 | tee i18n-frame-discipline.log
+
       - name: Upload frame discipline report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: frame-discipline-report
-          path: frame-discipline.log
+          path: |
+            frame-discipline.log
+            i18n-frame-discipline.log
           retention-days: 30
