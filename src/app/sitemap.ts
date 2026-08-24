@@ -1,9 +1,10 @@
-import type { MetadataRoute } from "next";
-import { publicEvidenceRecords } from "@/content/evidence-index";
-import { publicNotes } from "@/content/notes";
-import { systems } from "@/content/systems";
-import { localizedHref } from "@/lib/i18n";
-import { getSiteOrigin } from "@/lib/site-config";
+import type {MetadataRoute} from "next";
+import {publicEvidenceRecords} from "@/content/evidence-index";
+import {publicNotes} from "@/content/notes";
+import {systems} from "@/content/systems";
+import {getPathname} from "@/i18n/navigation";
+import {routing} from "@/i18n/routing";
+import {getSiteOrigin} from "@/lib/site-config";
 
 const staticRoutes = [
   "/",
@@ -30,12 +31,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const evidenceRoutes = publicEvidenceRecords.map(
     (record) => `/evidence/${record.slug}`,
   );
-
   const noteRoutes = publicNotes.map((note) => `/notes/${note.slug}`);
-  const englishRoutes = [...staticRoutes, ...systemRoutes, ...evidenceRoutes, ...noteRoutes];
-  const spanishRoutes = englishRoutes.map((route) => localizedHref(route, "es"));
+  const routes = [...staticRoutes, ...systemRoutes, ...evidenceRoutes, ...noteRoutes];
 
-  return [...englishRoutes, ...spanishRoutes].map((route) => ({
-    url: new URL(route, origin).toString(),
-  }));
+  return routing.locales.flatMap((locale) =>
+    routes.map((href) => ({
+      url: new URL(getPathname({locale, href}), origin).toString(),
+    })),
+  );
 }
