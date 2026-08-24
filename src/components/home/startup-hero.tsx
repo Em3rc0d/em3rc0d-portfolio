@@ -10,6 +10,7 @@ import {
   useReducedMotion,
 } from "motion/react";
 import { SignatureAssembly } from "@/components/home/signature-assembly";
+import { LanguageToggle } from "@/components/i18n/language-toggle";
 import {
   localeFromPathname,
   localizedHref,
@@ -118,21 +119,7 @@ export function StartupHero() {
                 </li>
               ))}
               <li className="language-switch" aria-label={labels.switchLanguage}>
-                <Link
-                  href={localizedHref(pathname, "en")}
-                  aria-current={locale === "en" ? "true" : undefined}
-                  aria-label={labels.switchToEnglish}
-                >
-                  EN
-                </Link>
-                <span aria-hidden="true">/</span>
-                <Link
-                  href={localizedHref(pathname, "es")}
-                  aria-current={locale === "es" ? "true" : undefined}
-                  aria-label={labels.switchToSpanish}
-                >
-                  ES
-                </Link>
+                <LanguageToggle locale={locale} pathname={pathname} />
               </li>
             </ul>
           </nav>
