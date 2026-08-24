@@ -1,14 +1,13 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useMemo, useState } from "react";
-import type { EvidenceRecord, EvidenceType } from "@/lib/content/types";
+import {useLocale} from "next-intl";
+import {useMemo, useState} from "react";
+import {Link} from "@/i18n/navigation";
+import type {AppLocale} from "@/i18n/routing";
+import type {EvidenceRecord, EvidenceType} from "@/lib/content/types";
 import {
   evidenceStateLabel,
   evidenceTypeLabel,
-  localeFromPathname,
-  localizedHref,
   publicabilityLabel,
 } from "@/lib/i18n";
 
@@ -65,9 +64,8 @@ const ui = {
   },
 } as const;
 
-export function EvidenceLibrary({ records }: EvidenceLibraryProps) {
-  const pathname = usePathname();
-  const locale = localeFromPathname(pathname);
+export function EvidenceLibrary({records}: EvidenceLibraryProps) {
+  const locale = useLocale() as AppLocale;
   const text = ui[locale];
   const [activeFilter, setActiveFilter] = useState<(typeof FILTERS)[number]>("ALL");
 
@@ -163,7 +161,7 @@ export function EvidenceLibrary({ records }: EvidenceLibraryProps) {
               {systemRecords.map((record) => (
                 <Link
                   key={record.id}
-                  href={localizedHref(`/evidence/${record.slug}`, locale)}
+                  href={`/evidence/${record.slug}`}
                   className="evidence-record-row evidence-record-row-v2"
                 >
                   <span className="evidence-record-id">{record.id}</span>
