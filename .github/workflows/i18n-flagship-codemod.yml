@@ -1,0 +1,78 @@
+name: I18N Flagship Codemod
+
+on:
+  push:
+    branches: [feat/bilingual-portfolio-en-es]
+    paths:
+      - ".github/workflows/i18n-flagship-codemod.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/bilingual-portfolio-en-es
+      - name: Migrate flagship locale plumbing only
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          specs = [
+            (Path('src/components/systems/autopulse/autopulse-case.tsx'), 'E-AP-', 'EvidenceReference'),
+            (Path('src/components/systems/cv-engine/cv-engine-case.tsx'), 'E-CV-', 'EvidenceRef'),
+          ]
+
+          for path, prefix, ref_name in specs:
+              text = path.read_text()
+
+              text = text.replace('import Link from "next/link";\n', 'import { useLocale } from "next-intl";\n')
+              text = text.replace('import { usePathname } from "next/navigation";\n', '')
+              text = text.replace(
+                  'import { localeFromPathname, localizedHref, type Locale } from "@/lib/i18n";\n',
+                  'import { Link } from "@/i18n/navigation";\nimport type { AppLocale } from "@/i18n/routing";\n'
+              )
+
+              pattern = re.compile(
+                  rf'function evidenceHref\(id: string, locale: Locale\) \{{\n  return id\.startsWith\("{re.escape(prefix)}"\)\n    \? localizedHref\(`/evidence/\$\{{id\.toLowerCase\(\)\}}`, locale\)\n    : null;\n\}}\n\nfunction {ref_name}\(\{{ id, locale \}}: \{{ id: string; locale: Locale \}}\) \{{\n  const href = evidenceHref\(id, locale\);'
+              )
+              replacement = (
+                  f'function evidenceHref(id: string) {{\n'
+                  f'  return id.startsWith("{prefix}")\n'
+                  f'    ? `/evidence/${{id.toLowerCase()}}`\n'
+                  f'    : null;\n'
+                  f'}}\n\n'
+                  f'function {ref_name}({{ id }}: {{ id: string }}) {{\n'
+                  f'  const href = evidenceHref(id);'
+              )
+              text, count = pattern.subn(replacement, text)
+              if count != 1:
+                  raise SystemExit(f'{path}: evidence helper replacement count={count}')
+
+              text = text.replace(
+                  '  const pathname = usePathname();\n  const locale = localeFromPathname(pathname);',
+                  '  const locale = useLocale() as AppLocale;'
+              )
+              text = re.sub(r'\s+locale=\{locale\}', '', text)
+              text = re.sub(r'localizedHref\(([^,\n]+), locale\)', r'\1', text)
+
+              forbidden = ['localeFromPathname', 'localizedHref', 'usePathname', 'from "next/link"', 'type Locale']
+              leftovers = [token for token in forbidden if token in text]
+              if leftovers:
+                  raise SystemExit(f'{path}: legacy locale plumbing remains: {leftovers}')
+
+              path.write_text(text)
+          PY
+
+      - name: Commit flagship migration
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/components/systems/autopulse/autopulse-case.tsx src/components/systems/cv-engine/cv-engine-case.tsx
+          git diff --cached --check
+          git commit -m "refactor(i18n): move flagship cases to next-intl routing"
+          git push origin HEAD:feat/bilingual-portfolio-en-es
