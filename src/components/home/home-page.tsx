@@ -1,15 +1,14 @@
-import Link from "next/link";
-import { StartupHero } from "@/components/home/startup-hero";
+import {StartupHero} from "@/components/home/startup-hero";
 import {
   getLocalizedEvidenceRecords,
   getLocalizedPublicSystems,
 } from "@/content/localized";
+import {Link} from "@/i18n/navigation";
+import type {AppLocale} from "@/i18n/routing";
 import {
   evidenceStateLabel,
-  localizedHref,
   publicabilityLabel,
   systemStateLabel,
-  type Locale,
 } from "@/lib/i18n";
 
 const copy = {
@@ -118,7 +117,7 @@ const proofIds = {
   "cv-engine": ["E-CV-01", "E-CV-03", "E-CV-05"],
 } as const;
 
-export function HomePage({ locale }: { locale: Locale }) {
+export function HomePage({locale}: {locale: AppLocale}) {
   const text = copy[locale];
   const systems = getLocalizedPublicSystems(locale).filter((system) => system.role === "FLAGSHIP");
   const evidenceRecords = getLocalizedEvidenceRecords(locale);
@@ -136,7 +135,7 @@ export function HomePage({ locale }: { locale: Locale }) {
           <p className="technical-label">{text.clientKicker}</p>
           <h2 id="client-paths-heading">{text.clientTitle}</h2>
           <p>{text.clientBody}</p>
-          <Link href={localizedHref("/contact", locale)}>{text.clientCta}</Link>
+          <Link href="/contact">{text.clientCta}</Link>
         </header>
         <div className="client-path-grid">
           {text.paths.map(([id, title, detail]) => (
@@ -173,7 +172,7 @@ export function HomePage({ locale }: { locale: Locale }) {
                     <div className="artifact-evidence-ledger">
                       <p>{text.artifactLabel}</p>
                       {evidence.map((item) => (
-                        <Link href={localizedHref(`/evidence/${item.slug}`, locale)} key={item.id} data-id={item.id} data-state={evidenceStateLabel(item.state, locale)} aria-label={`${item.id}: ${item.title}. ${evidenceStateLabel(item.state, locale)}`}>{item.title}</Link>
+                        <Link href={`/evidence/${item.slug}`} key={item.id} data-id={item.id} data-state={evidenceStateLabel(item.state, locale)} aria-label={`${item.id}: ${item.title}. ${evidenceStateLabel(item.state, locale)}`}>{item.title}</Link>
                       ))}
                     </div>
                   </div>
@@ -200,10 +199,10 @@ export function HomePage({ locale }: { locale: Locale }) {
       </section>
 
       <section className="paper-stage paper-stage-v2 narrative-frame" aria-labelledby="evidence-heading">
-        <div className="paper-copy"><p className="technical-label ink-label">{text.evidenceKicker}</p><h2 id="evidence-heading">{text.evidenceTitle}</h2><p>{text.evidenceBody}</p><Link href={localizedHref("/evidence", locale)} className="paper-link">{text.evidenceCta}</Link></div>
+        <div className="paper-copy"><p className="technical-label ink-label">{text.evidenceKicker}</p><h2 id="evidence-heading">{text.evidenceTitle}</h2><p>{text.evidenceBody}</p><Link href="/evidence" className="paper-link">{text.evidenceCta}</Link></div>
         {(() => {
           const sample = evidenceRecords.find((record) => record.id === "E-AP-06");
-          return sample ? <Link href={localizedHref(`/evidence/${sample.slug}`, locale)} className="evidence-sample evidence-sample-v2 evidence-sample-compact" aria-label={text.sampleAria}><strong>{sample.id} · {sample.title}</strong><p>{sample.claim}</p></Link> : null;
+          return sample ? <Link href={`/evidence/${sample.slug}`} className="evidence-sample evidence-sample-v2 evidence-sample-compact" aria-label={text.sampleAria}><strong>{sample.id} · {sample.title}</strong><p>{sample.claim}</p></Link> : null;
         })()}
       </section>
 
@@ -211,7 +210,7 @@ export function HomePage({ locale }: { locale: Locale }) {
         <p className="technical-label">{text.startKicker}</p>
         <h2 id="home-conversion-heading">{text.startTitle}</h2>
         <p>{text.startBody}</p>
-        <div className="home-conversion-actions"><Link href={localizedHref("/contact", locale)} className="home-conversion-primary">{text.startCta}</Link><Link href={localizedHref("/about", locale)}>{text.aboutCta}</Link></div>
+        <div className="home-conversion-actions"><Link href="/contact" className="home-conversion-primary">{text.startCta}</Link><Link href="/about">{text.aboutCta}</Link></div>
       </section>
     </main>
   );
