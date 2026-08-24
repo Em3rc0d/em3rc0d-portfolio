@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { getLocalizedAutoPulseCase } from "@/content/localized";
-import { localeFromPathname, localizedHref } from "@/lib/i18n";
+import {useLocale} from "next-intl";
+import {getLocalizedAutoPulseCase} from "@/content/localized";
+import {Link} from "@/i18n/navigation";
+import type {AppLocale} from "@/i18n/routing";
 
 const copy = {
   en: {
@@ -47,8 +47,7 @@ const copy = {
 } as const;
 
 export function AutoPulseProductSpecimen() {
-  const pathname = usePathname();
-  const locale = localeFromPathname(pathname);
+  const locale = useLocale() as AppLocale;
   const text = copy[locale];
   const autopulseCase = getLocalizedAutoPulseCase(locale);
 
@@ -95,7 +94,7 @@ export function AutoPulseProductSpecimen() {
 
       <figcaption id="ap-product-specimen-caption">
         <p>{text.caption}</p>
-        <Link href={localizedHref("/evidence/e-ap-04", locale)} prefetch={false}>{text.inspect}</Link>
+        <Link href="/evidence/e-ap-04" prefetch={false}>{text.inspect}</Link>
       </figcaption>
 
       <div className="ap-specimen-system-path" aria-label={text.pathAria}>
