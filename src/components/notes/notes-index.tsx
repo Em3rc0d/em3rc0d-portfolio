@@ -1,15 +1,11 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useMemo, useState } from "react";
-import type { NoteRecord, NoteState } from "@/lib/content/types";
-import {
-  localeFromPathname,
-  localizedHref,
-  noteStateLabel,
-  noteTerritoryLabel,
-} from "@/lib/i18n";
+import {useLocale} from "next-intl";
+import {useMemo, useState} from "react";
+import {Link} from "@/i18n/navigation";
+import type {AppLocale} from "@/i18n/routing";
+import type {NoteRecord, NoteState} from "@/lib/content/types";
+import {noteStateLabel, noteTerritoryLabel} from "@/lib/i18n";
 
 const FILTERS: readonly ("ALL" | NoteState)[] = ["ALL", "BUILT_VERIFIED", "EXPLORING"];
 
@@ -36,9 +32,8 @@ const ui = {
   },
 } as const;
 
-export function NotesIndex({ notes }: { notes: readonly NoteRecord[] }) {
-  const pathname = usePathname();
-  const locale = localeFromPathname(pathname);
+export function NotesIndex({notes}: {notes: readonly NoteRecord[]}) {
+  const locale = useLocale() as AppLocale;
   const text = ui[locale];
   const [filter, setFilter] = useState<(typeof FILTERS)[number]>("ALL");
 
@@ -87,7 +82,7 @@ export function NotesIndex({ notes }: { notes: readonly NoteRecord[] }) {
         {visibleNotes.map((note) => (
           <Link
             key={note.id}
-            href={localizedHref(`/notes/${note.slug}`, locale)}
+            href={`/notes/${note.slug}`}
             className={note.state === "EXPLORING" ? "note-card-v2 is-exploring" : "note-card-v2"}
           >
             <header>
