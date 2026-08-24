@@ -2,18 +2,21 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { localeFromPathname, stripLocalePrefix } from "@/lib/i18n";
 
 function routeFallbackTarget(pathname: string) {
-  if (pathname === "/") {
+  const route = stripLocalePrefix(pathname);
+
+  if (route === "/") {
     const heading = document.querySelector<HTMLElement>("#systems-heading");
     return heading?.closest<HTMLElement>("section") ?? heading;
   }
 
-  if (pathname.startsWith("/evidence/")) {
+  if (route.startsWith("/evidence/")) {
     return document.querySelector<HTMLElement>(".evidence-inspector-sheet");
   }
 
-  if (pathname.startsWith("/notes/")) {
+  if (route.startsWith("/notes/")) {
     return document.querySelector<HTMLElement>(".note-sheet");
   }
 
@@ -22,6 +25,7 @@ function routeFallbackTarget(pathname: string) {
 
 export function SkipLink() {
   const pathname = usePathname();
+  const locale = localeFromPathname(pathname);
 
   useEffect(() => {
     if (document.getElementById("main-content")) return;
@@ -56,8 +60,13 @@ export function SkipLink() {
   }
 
   return (
-    <a className="skip-link" href="#main-content" onClick={focusContent}>
-      Skip to content
+    <a
+      className="skip-link"
+      href="#main-content"
+      onClick={focusContent}
+      lang={locale}
+    >
+      {locale === "es" ? "Saltar al contenido" : "Skip to content"}
     </a>
   );
 }
