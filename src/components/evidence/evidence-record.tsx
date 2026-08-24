@@ -1,13 +1,9 @@
-import Link from "next/link";
-import type { EvidenceRecord, EvidenceState } from "@/lib/content/types";
-import {
-  evidenceStateLabel,
-  evidenceTypeLabel,
-  localizedHref,
-  type Locale,
-} from "@/lib/i18n";
+import {Link} from "@/i18n/navigation";
+import type {AppLocale} from "@/i18n/routing";
+import type {EvidenceRecord, EvidenceState} from "@/lib/content/types";
+import {evidenceStateLabel, evidenceTypeLabel} from "@/lib/i18n";
 
-const stateExplanation: Record<Locale, Record<EvidenceState, string>> = {
+const stateExplanation: Record<AppLocale, Record<EvidenceState, string>> = {
   en: {
     IMPLEMENTED: "The behavior exists in the implementation. This state does not automatically mean it has been independently or field verified.",
     SOURCE_VERIFIED: "The claim was checked against the cited source material. Public source coordinates are shown when publication is safe; professional coordinates may be intentionally withheld.",
@@ -106,7 +102,7 @@ export function EvidenceRecordView({
 }: {
   record: EvidenceRecord;
   systemHref: string;
-  locale: Locale;
+  locale: AppLocale;
 }) {
   const text = copy[locale];
   const stateLabel = evidenceStateLabel(record.state, locale);
@@ -114,7 +110,7 @@ export function EvidenceRecordView({
   return (
     <main className="evidence-inspector">
       <header className="evidence-inspector-topbar">
-        <Link href={localizedHref("/evidence", locale)}>{text.back}</Link>
+        <Link href="/evidence">{text.back}</Link>
         <span>{record.systemName} / {record.id}</span>
       </header>
 
@@ -198,7 +194,7 @@ export function EvidenceRecordView({
 
         <footer className="evidence-readable-footer">
           <Link href={systemHref}>{text.returnTo} {record.systemName} →</Link>
-          <Link href={localizedHref("/evidence", locale)}>{text.browse}</Link>
+          <Link href="/evidence">{text.browse}</Link>
         </footer>
       </article>
     </main>
