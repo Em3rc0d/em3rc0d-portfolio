@@ -1,24 +1,24 @@
 "use client";
 
-import type { CSSProperties } from "react";
-import { usePathname } from "next/navigation";
-import { motion, useReducedMotion } from "motion/react";
-import { localeFromPathname } from "@/lib/i18n";
+import {useLocale} from "next-intl";
+import type {CSSProperties} from "react";
+import {motion, useReducedMotion} from "motion/react";
+import type {AppLocale} from "@/i18n/routing";
 
 const layers = {
   en: [
-    { id: "01", kind: "interface", label: "INTERFACE", detail: "INPUT → UI → OUTPUT" },
-    { id: "02", kind: "logic", label: "LOGIC", detail: "CAPTURE → VALIDATE → PERSIST" },
-    { id: "03", kind: "data", label: "DATA", detail: "SESSION_ID · TIME · STATE" },
-    { id: "04", kind: "infrastructure", label: "INFRASTRUCTURE", detail: "CLIENT → API → SERVICE → STORE" },
-    { id: "05", kind: "evidence", label: "EVIDENCE", detail: "CLAIM → SOURCE → LIMIT" },
+    {id: "01", kind: "interface", label: "INTERFACE", detail: "INPUT → UI → OUTPUT"},
+    {id: "02", kind: "logic", label: "LOGIC", detail: "CAPTURE → VALIDATE → PERSIST"},
+    {id: "03", kind: "data", label: "DATA", detail: "SESSION_ID · TIME · STATE"},
+    {id: "04", kind: "infrastructure", label: "INFRASTRUCTURE", detail: "CLIENT → API → SERVICE → STORE"},
+    {id: "05", kind: "evidence", label: "EVIDENCE", detail: "CLAIM → SOURCE → LIMIT"},
   ],
   es: [
-    { id: "01", kind: "interface", label: "INTERFAZ", detail: "ENTRADA → UI → SALIDA" },
-    { id: "02", kind: "logic", label: "LÓGICA", detail: "CAPTURAR → VALIDAR → PERSISTIR" },
-    { id: "03", kind: "data", label: "DATOS", detail: "SESSION_ID · TIEMPO · ESTADO" },
-    { id: "04", kind: "infrastructure", label: "INFRAESTRUCTURA", detail: "CLIENTE → API → SERVICIO → STORE" },
-    { id: "05", kind: "evidence", label: "EVIDENCIA", detail: "AFIRMACIÓN → FUENTE → LÍMITE" },
+    {id: "01", kind: "interface", label: "INTERFAZ", detail: "ENTRADA → UI → SALIDA"},
+    {id: "02", kind: "logic", label: "LÓGICA", detail: "CAPTURAR → VALIDAR → PERSISTIR"},
+    {id: "03", kind: "data", label: "DATOS", detail: "SESSION_ID · TIEMPO · ESTADO"},
+    {id: "04", kind: "infrastructure", label: "INFRAESTRUCTURA", detail: "CLIENTE → API → SERVICIO → STORE"},
+    {id: "05", kind: "evidence", label: "EVIDENCIA", detail: "AFIRMACIÓN → FUENTE → LÍMITE"},
   ],
 } as const;
 
@@ -39,9 +39,8 @@ const copy = {
   },
 } as const;
 
-export function SignatureAssembly({ ready }: { ready: boolean }) {
-  const pathname = usePathname();
-  const locale = localeFromPathname(pathname);
+export function SignatureAssembly({ready}: {ready: boolean}) {
+  const locale = useLocale() as AppLocale;
   const visibleLayers = layers[locale];
   const text = copy[locale];
   const reduceMotion = useReducedMotion();
@@ -68,7 +67,7 @@ export function SignatureAssembly({ ready }: { ready: boolean }) {
                 data-label={layer.label}
                 data-detail={layer.detail}
                 initial={false}
-                animate={{ opacity: settled ? 1 : 0.14 }}
+                animate={{opacity: settled ? 1 : 0.14}}
                 transition={{
                   delay: reduceMotion ? 0 : index * 0.055,
                   duration: reduceMotion ? 0 : 0.45,
@@ -84,8 +83,8 @@ export function SignatureAssembly({ ready }: { ready: boolean }) {
           data-label="SYSTEM"
           data-detail={text.core}
           initial={false}
-          animate={{ opacity: settled ? 1 : 0.12 }}
-          transition={{ duration: reduceMotion ? 0 : 0.45, ease: [0.16, 1, 0.3, 1] }}
+          animate={{opacity: settled ? 1 : 0.12}}
+          transition={{duration: reduceMotion ? 0 : 0.45, ease: [0.16, 1, 0.3, 1]}}
         />
       </div>
 
