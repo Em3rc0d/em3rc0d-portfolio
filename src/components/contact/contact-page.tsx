@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { SiteHeader } from "@/components/shell/site-header";
-import { localizedHref, type Locale } from "@/lib/i18n";
+import {SiteHeader} from "@/components/shell/site-header";
+import {Link} from "@/i18n/navigation";
+import type {AppLocale} from "@/i18n/routing";
 
 const copy = {
   en: {
@@ -79,7 +79,7 @@ const copy = {
   },
 } as const;
 
-export function ContactPageView({ locale }: { locale: Locale }) {
+export function ContactPageView({locale}: {locale: AppLocale}) {
   const text = copy[locale];
 
   return (
@@ -116,7 +116,7 @@ export function ContactPageView({ locale }: { locale: Locale }) {
           <a href="https://www.linkedin.com/in/emerinoc" target="_blank" rel="noreferrer"><span>{text.conversation}</span><strong>LinkedIn</strong><p>{text.conversationBody}</p><b aria-hidden="true">↗</b></a>
           <a href="https://github.com/Em3rc0d" target="_blank" rel="noreferrer"><span>{text.work}</span><strong>GitHub</strong><p>{text.workBody}</p><b aria-hidden="true">↗</b></a>
         </div>
-        <nav className="contact-secondary-routes" aria-label={text.moreAria}><span>{text.more}</span><div><Link href={localizedHref("/systems", locale)}>{text.systems}</Link><Link href={localizedHref("/evidence", locale)}>{text.evidence}</Link><Link href={localizedHref("/about", locale)}>{text.about}</Link></div></nav>
+        <nav className="contact-secondary-routes" aria-label={text.moreAria}><span>{text.more}</span><div><Link href="/systems">{text.systems}</Link><Link href="/evidence">{text.evidence}</Link><Link href="/about">{text.about}</Link></div></nav>
       </section>
     </main>
   );
