@@ -1,0 +1,31 @@
+{
+  "Navigation": {
+    "systems": "Systems",
+    "notes": "Notes",
+    "evidence": "Evidence",
+    "about": "About",
+    "contact": "Contact",
+    "primary": "Primary navigation",
+    "home": "Eduardo Merino — Home",
+    "language": "Language",
+    "switchToEnglish": "Switch to English",
+    "switchToSpanish": "Cambiar a español"
+  },
+  "Accessibility": {
+    "skipToContent": "Skip to content"
+  },
+  "Metadata": {
+    "homeTitle": "Eduardo Merino — Software Systems & Applied AI",
+    "homeDescription": "Software developer building, recovering and improving custom software systems, full-stack products and applied AI for messy operational problems.",
+    "systemsTitle": "Systems",
+    "systemsDescription": "Inspectable software systems built by Eduardo Merino across personal building, professional infrastructure work, full-stack delivery, and current R&D.",
+    "evidenceTitle": "Evidence",
+    "evidenceDescription": "Inspectable public evidence for Eduardo Merino's systems: claims, source provenance, verification state, context, and limitations.",
+    "notesTitle": "Engineering Notebook",
+    "notesDescription": "Short public engineering records from Eduardo Merino: systems thinking, recovery, evidence, applied AI, and current exploration boundaries.",
+    "aboutTitle": "About",
+    "aboutDescription": "About Eduardo Merino — Software Developer working across systems, full stack products, and applied AI with an evidence-first engineering process.",
+    "contactTitle": "Contact — Build, Recover or Improve Software",
+    "contactDescription": "Start a conversation with Eduardo Merino about building custom software, recovering an existing product, improving a workflow, or adding applied AI."
+  }
+}
