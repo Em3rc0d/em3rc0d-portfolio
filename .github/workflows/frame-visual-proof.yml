@@ -63,7 +63,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p artifacts/frame-visual/user-like artifacts/frame-visual/short
+          mkdir -p artifacts/frame-visual/user-like artifacts/frame-visual/short artifacts/frame-visual/spanish
           BASE="http://127.0.0.1:3000"
 
           capture() {
@@ -127,6 +127,25 @@ jobs:
           capture /systems/gpets '.supporting-case-shell > section:nth-of-type(2)' "$SHORT/gpets-model-1280x640.png" "$SW" "$SH"
           capture /contact '.contact-page > section:nth-of-type(2)' "$SHORT/contact-briefing-1280x640.png" "$SW" "$SH"
           capture /about '.about-page > section:nth-of-type(1)' "$SHORT/about-hero-1280x640.png" "$SW" "$SH"
+
+          # Spanish representative matrix. Geometry is enforced exhaustively in i18n-frame-smoke;
+          # these images exist for human visual acceptance of longer translated copy.
+          ES="artifacts/frame-visual/spanish"
+          capture /es '.hero-v2' "$ES/home-hero.png" "$W" "$H"
+          capture /es '.client-paths' "$ES/home-client-paths.png" "$W" "$H"
+          capture /es/systems '.systems-room-frame' "$ES/systems-control-room.png" "$W" "$H"
+          capture /es/systems/autopulse '.autopulse-case > section:nth-of-type(1)' "$ES/autopulse-cover.png" "$W" "$H"
+          capture /es/systems/autopulse '.autopulse-case > section:nth-of-type(4)' "$ES/autopulse-recovery.png" "$W" "$H"
+          capture /es/systems/cv-engine '.cv-case > section:nth-of-type(1)' "$ES/cv-cover.png" "$W" "$H"
+          capture /es/systems/cv-engine '.cv-case > section:nth-of-type(4)' "$ES/cv-grounding.png" "$W" "$H"
+          capture /es/systems/infrastructure-site-mapper '.supporting-case-shell > section:nth-of-type(2)' "$ES/professional-model.png" "$W" "$H"
+          capture /es/systems/gpets '.supporting-case-shell > section:nth-of-type(2)' "$ES/gpets-model.png" "$W" "$H"
+          capture /es/evidence '.evidence-library-intro' "$ES/evidence-intro.png" "$W" "$H"
+          capture /es/notes '.notes-index-intro' "$ES/notes-intro.png" "$W" "$H"
+          capture /es/about '.about-page > section:nth-of-type(1)' "$ES/about-hero.png" "$W" "$H"
+          capture /es/contact '.contact-page > section:nth-of-type(2)' "$ES/contact-briefing.png" "$W" "$H"
+          capture /es/evidence/e-pro-01 '.evidence-inspector-sheet' "$ES/evidence-professional-dossier.png" "$W" "$H"
+          capture /es/notes/no-data-is-not-zero '.note-sheet' "$ES/note-no-data.png" "$W" "$H"
 
       - name: Upload frame visual proof
         uses: actions/upload-artifact@v4
