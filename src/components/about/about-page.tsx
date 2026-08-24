@@ -1,7 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
-import { SiteHeader } from "@/components/shell/site-header";
-import { localizedHref, type Locale } from "@/lib/i18n";
+import {SiteHeader} from "@/components/shell/site-header";
+import {Link} from "@/i18n/navigation";
+import type {AppLocale} from "@/i18n/routing";
 
 const copy = {
   en: {
@@ -106,7 +106,7 @@ const copy = {
   },
 } as const;
 
-export function AboutPageView({ locale }: { locale: Locale }) {
+export function AboutPageView({locale}: {locale: AppLocale}) {
   const text = copy[locale];
 
   return (
@@ -146,8 +146,8 @@ export function AboutPageView({ locale }: { locale: Locale }) {
 
       <section className="about-mechanical-note about-mechanical-note-v2">
         <div className="about-mechanical-mark" aria-hidden="true"><i /><i /><span>EM</span></div>
-        <div className="about-mechanical-copy"><p className="public-kicker">{text.mechanicalKicker}</p><h2>{text.mechanicalTitle}</h2><p>{text.mechanicalBody}</p><Link href={localizedHref("/systems/autopulse", locale)}>{text.inspectAutoPulse}</Link></div>
-        <nav className="about-routes about-routes-inline" aria-label={text.routesAria}><span>{text.routesTitle}</span><div><Link href={localizedHref("/systems", locale)}>{text.systems}</Link><Link href={localizedHref("/notes", locale)}>{text.notebook}</Link><Link href={localizedHref("/contact", locale)}>{text.contact}</Link></div></nav>
+        <div className="about-mechanical-copy"><p className="public-kicker">{text.mechanicalKicker}</p><h2>{text.mechanicalTitle}</h2><p>{text.mechanicalBody}</p><Link href="/systems/autopulse">{text.inspectAutoPulse}</Link></div>
+        <nav className="about-routes about-routes-inline" aria-label={text.routesAria}><span>{text.routesTitle}</span><div><Link href="/systems">{text.systems}</Link><Link href="/notes">{text.notebook}</Link><Link href="/contact">{text.contact}</Link></div></nav>
       </section>
     </main>
   );
