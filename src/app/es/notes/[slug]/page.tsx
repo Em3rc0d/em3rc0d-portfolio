@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { LanguageToggle } from "@/components/i18n/language-toggle";
 import { NoteRecordView } from "@/components/notes/note-record";
 import { findLocalizedNoteBySlug, getLocalizedNotes } from "@/content/localized";
 import { bilingualAlternates } from "@/lib/i18n-metadata";
@@ -27,5 +28,12 @@ export default async function SpanishNotePage({ params }: NotePageProps) {
   const { slug } = await params;
   const note = findLocalizedNoteBySlug(slug, "es");
   if (!note) notFound();
-  return <NoteRecordView note={note} locale="es" />;
+  const pathname = `/es/notes/${note.slug}`;
+
+  return (
+    <>
+      <LanguageToggle locale="es" pathname={pathname} className="dossier-language-switch" />
+      <NoteRecordView note={note} locale="es" />
+    </>
+  );
 }
