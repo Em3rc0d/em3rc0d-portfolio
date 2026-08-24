@@ -59,7 +59,7 @@
   }
 }
 
-@media (min-width: 1101px) and (max-height: 820px) {
+@media (min-width: 1101px) and (max-height: 870px) {
   html[lang="es"] .supporting-build-proof {
     gap: 1rem;
     padding-block: .7rem;
