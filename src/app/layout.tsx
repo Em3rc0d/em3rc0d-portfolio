@@ -3,6 +3,7 @@ import { IBM_Plex_Mono, Instrument_Sans } from "next/font/google";
 import { DynamicSemantics } from "@/components/accessibility/dynamic-semantics";
 import { MotionPolicy } from "@/components/accessibility/motion-policy";
 import { SkipLink } from "@/components/accessibility/skip-link";
+import { DocumentLanguage } from "@/components/i18n/document-language";
 import { getSiteOrigin } from "@/lib/site-config";
 import "./globals.css";
 import "./internal.css";
@@ -27,6 +28,7 @@ import "./reputation-completeness.css";
 import "./reputation-completeness-fixes.css";
 import "./frame-discipline.css";
 import "./frame-discipline-fixes.css";
+import "./i18n.css";
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
@@ -108,12 +110,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${instrumentSans.variable} ${ibmPlexMono.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${instrumentSans.variable} ${ibmPlexMono.variable}`}
+    >
       <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: personJsonLd }}
         />
+        <DocumentLanguage />
         <SkipLink />
         <DynamicSemantics />
         <MotionPolicy>{children}</MotionPolicy>
