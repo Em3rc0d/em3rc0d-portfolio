@@ -19,6 +19,7 @@ SLICE 09 — Visual Material v2                 ✅ CLOSED / superseded by later
 SLICE 10 — Usability / Evidence / Photo       ✅ CLOSED
 SLICE 11 — Material Reality                   ✅ CLOSED through final visual acceptance
 SLICE 12 — Reputation Completeness Closeout   ✅ CLOSED / production verified
+SLICE 13 — Distribution Foundation            ◉ FOUNDATION BUILT / OWNER ACCEPTANCE NEXT
 ```
 
 `PROJECT_STATE.md` at repository root is the current cross-slice authority.
@@ -37,24 +38,37 @@ SLICE 12 — Reputation Completeness Closeout   ✅ CLOSED / production verified
 - `SLICE-10-usability-evidence-photo.md`
 - `SLICE-11-material-reality.md`
 - `SLICE-12-reputation-completeness-closeout.md`
+- `SLICE-13-distribution-foundation.md`
 
 Historical slice state is preserved inside each record. A slice whose own file says it was pending at the time of writing may be closed later by a subsequent acceptance/production slice; the current authority is `PROJECT_STATE.md` plus the later proof record, not retroactive rewriting of the historical record.
 
+## Portfolio construction rule
+
+Portfolio construction is frozen after STEP 1.1 closure.
+
+Distribution work is **not** permission to add new portfolio pages or redesign existing surfaces. Reopen the product only for:
+
+```text
+VERIFIED DEFECT
+NEW EVIDENCE
+SCOPED PRODUCT REQUIREMENT
+```
+
 ## Critical visual rule
-
-The original core gate remains valid:
-
-> **If Home + AutoPulse do not already feel exceptional in the browser, stop expanding surface area and iterate the design system.**
-
-The final visual-acceptance pass refined that rule into:
 
 > **One frame = one complete visual thought.**
 
-This does **not** mean every section must be exactly one viewport high. `100dvh` is a composition target; content may grow naturally when readability or responsive constraints require it. Clipping and overlap are never accepted merely to preserve an exact height.
+This does **not** mean every web section must be exactly one viewport high. `100dvh` is a composition target; content may grow naturally when readability or responsive constraints require it. Clipping and overlap are never accepted merely to preserve an exact height.
+
+Distribution inherits the equivalent rule:
+
+> **One graphic = one technical thought.**
+
+A social asset should explain a state, model, proof boundary or implementation path. Decoration alone is not a reason to create a graphic.
 
 ## Evidence rule
 
-The public product is governed by:
+The public product and its downstream distribution are governed by:
 
 ```text
 CLAIM
@@ -68,13 +82,13 @@ PUBLICABILITY
 LIMITATION
 ```
 
-Professional confidentiality outranks portfolio completeness. Private coordinates may support source verification without becoming public links.
+Professional confidentiality outranks portfolio or distribution completeness. Private coordinates may support source verification without becoming public links, screenshots or social assets.
 
 ## Release / reputation closure
 
 SLICE 08 closed the original production release gate.
 
-SLICE 12 closes the expanded reputation-completeness gate after:
+SLICE 12 closed the expanded reputation-completeness gate after:
 
 ```text
 PERSONAL BUILDING
@@ -94,11 +108,11 @@ REAL PRODUCTION DEPLOYMENT
 PUBLIC ROUTE / PROVENANCE / SITEMAP / RUNTIME PROOF
 ```
 
-Production authority for STEP 1.1 closure:
+Final repository authority before distribution work:
 
 ```text
-main merge commit   136abc0f074c4cb9f01e01dcaab621fd5bea903c
-Vercel deployment   dpl_CEBRKioK19pSftfR6x8BRw1icubv
+main merge commit   a784fd074658863bce06360fe6a63db56c4bcdc5
+Vercel deployment   dpl_3RAffRraNfPZGeeJYfbdgTocpDjr
 Public origin       https://em3rc0d-portfolio.vercel.app
 ```
 
@@ -106,6 +120,38 @@ Evidence:
 
 - `../evidence/production-release-proof-v1.md`
 - `../evidence/STEP-1.1-reputation-completeness-production-proof-v1.md`
+
+## Distribution handoff
+
+SLICE 13 begins STEP 1.2 without modifying application source.
+
+Distribution authority:
+
+- `../plan/STEP-1.2-distribution-reputation-operations-v1.md`
+- `../distribution/README.md`
+- `../distribution/launch-queue-v1.md`
+- `../distribution/visual-system-v1.md`
+- `../distribution/metrics-ledger-template.md`
+
+Editable visual workspace:
+
+`https://www.figma.com/design/3UGAtVONTzNphfIusCUDVN`
+
+First launch cycle:
+
+```text
+6 source-locked drafts       ✅
+6 claim ceilings             ✅
+6 portfolio/source bridges   ✅
+6 visual briefs              ✅
+6 editable Figma frames      ✅
+metrics ledger               ✅
+owner visual/voice approval  ◉ NEXT
+real LinkedIn publish        ⛔
+measurement loop             ⛔
+```
+
+No distribution object becomes `PUBLISHED` without its real platform URL.
 
 ## Build record template
 
@@ -127,16 +173,24 @@ GATE STATUS
 NEXT
 ```
 
+Distribution slices may replace irrelevant product-only fields with:
+
+```text
+SOURCE OBJECTS
+SUPPORTED CLAIMS
+CLAIM CEILINGS
+PUBLICABILITY
+DRAFTS
+VISUAL ASSETS
+PUBLISHING STATE
+MEASUREMENT
+LEARNING
+```
+
 ## Branch rule
 
-- `main` — stable public baseline.
+- `main` — stable public/reputation authority.
 - `develop` — integration branch when active portfolio development is intentionally reopened.
-- feature branches — scoped implementation/documentation slices.
+- feature branches — scoped implementation/documentation/distribution slices.
 
 No destructive rewriting of project history for convenience.
-
-## Current handoff
-
-Portfolio construction is frozen after STEP 1.1 closure.
-
-The next operating phase is **distribution / reputation operations**: use Systems, Evidence and Notes as the source material for recurring public engineering communication and route interested readers back to inspectable proof.
