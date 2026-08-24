@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { EvidenceRecordView } from "@/components/evidence/evidence-record";
+import { LanguageToggle } from "@/components/i18n/language-toggle";
 import {
   findLocalizedEvidenceBySlug,
   getLocalizedEvidenceRecords,
@@ -35,12 +36,16 @@ export default async function EvidenceRecordPage({ params }: EvidencePageProps) 
   const relatedSystem = getLocalizedSystems("en").find(
     (system) => system.id === record.systemId && system.href,
   );
+  const pathname = `/evidence/${record.slug}`;
 
   return (
-    <EvidenceRecordView
-      record={record}
-      systemHref={relatedSystem?.href ?? "/systems"}
-      locale="en"
-    />
+    <>
+      <LanguageToggle locale="en" pathname={pathname} className="dossier-language-switch" />
+      <EvidenceRecordView
+        record={record}
+        systemHref={relatedSystem?.href ?? "/systems"}
+        locale="en"
+      />
+    </>
   );
 }
