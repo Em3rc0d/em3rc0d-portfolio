@@ -17,6 +17,10 @@ import { systemTranslationsEs } from "@/content/es/systems";
 import { localizedHref, type Locale } from "@/lib/i18n";
 import type { EvidenceRecord, NoteRecord, SystemRecord } from "@/lib/content/types";
 
+function requiresPublicTranslation(system: SystemRecord) {
+  return Boolean(system.href) && system.publicability !== "PRIVATE" && system.role !== "RESERVED";
+}
+
 export function getLocalizedSystems(locale: Locale): readonly SystemRecord[] {
   if (locale === "en") return systems;
 
@@ -25,7 +29,12 @@ export function getLocalizedSystems(locale: Locale): readonly SystemRecord[] {
       system.slug as keyof typeof systemTranslationsEs
     ];
 
-    if (!translation) return system;
+    if (!translation) {
+      if (requiresPublicTranslation(system)) {
+        throw new Error(`Missing Spanish system translation for ${system.slug}`);
+      }
+      return system;
+    }
 
     return {
       ...system,
@@ -37,10 +46,7 @@ export function getLocalizedSystems(locale: Locale): readonly SystemRecord[] {
 
 export function getLocalizedPublicSystems(locale: Locale) {
   return getLocalizedSystems(locale).filter(
-    (system) =>
-      system.publicability !== "PRIVATE" &&
-      system.role !== "RESERVED" &&
-      Boolean(system.href),
+    (system) => requiresPublicTranslation(system),
   );
 }
 
@@ -117,7 +123,10 @@ export function getLocalizedSupportingCase(slug: string, locale: Locale) {
   const translation = supportingCaseTranslationsEs[
     slug as keyof typeof supportingCaseTranslationsEs
   ];
-  if (!translation) return base;
+
+  if (!translation) {
+    throw new Error(`Missing Spanish supporting-case translation for ${slug}`);
+  }
 
   return {
     ...base,
