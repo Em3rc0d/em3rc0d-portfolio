@@ -1,13 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { LanguageToggle } from "@/components/i18n/language-toggle";
-import {
-  localeFromPathname,
-  localizedHref,
-  navigationLabels,
-} from "@/lib/i18n";
+import {useLocale, useTranslations} from "next-intl";
+import {LanguageToggle} from "@/components/i18n/language-toggle";
+import {Link, usePathname} from "@/i18n/navigation";
+import type {AppLocale} from "@/i18n/routing";
 
 const navItems = [
   ["systems", "/systems"],
@@ -19,40 +15,35 @@ const navItems = [
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const locale = localeFromPathname(pathname);
-  const labels = navigationLabels[locale];
+  const locale = useLocale() as AppLocale;
+  const t = useTranslations("Navigation");
 
   return (
     <>
       <header className="site-header">
-        <Link
-          className="site-identity"
-          href={localizedHref("/", locale)}
-          aria-label={labels.home}
-        >
+        <Link className="site-identity" href="/" aria-label={t("home")}>
           <span>EM</span>
           <span aria-hidden="true">/</span>
           <span>BUILD ROOM</span>
           <span className="signal-dot" aria-hidden="true" />
         </Link>
 
-        <nav aria-label={labels.primaryNavigation}>
+        <nav aria-label={t("primary")}>
           <ul className="primary-nav">
-            {navItems.map(([key, baseHref], index) => {
-              const href = localizedHref(baseHref, locale);
+            {navItems.map(([key, href], index) => {
               const isCurrent = pathname === href || pathname.startsWith(`${href}/`);
               return (
-                <li key={baseHref}>
+                <li key={href}>
                   <Link href={href} aria-current={isCurrent ? "page" : undefined}>
                     <span className="nav-index" aria-hidden="true">
                       0{index + 1}
                     </span>
-                    {labels[key]}
+                    {t(key)}
                   </Link>
                 </li>
               );
             })}
-            <li className="language-switch" aria-label={labels.switchLanguage}>
+            <li className="language-switch" aria-label={t("language")}>
               <LanguageToggle locale={locale} pathname={pathname} />
             </li>
           </ul>
