@@ -1,17 +1,13 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { SiteHeader } from "@/components/shell/site-header";
-import { getLocalizedEvidenceRecords } from "@/content/localized";
-import type { SupportingCaseRecord } from "@/content/supporting-cases";
-import type { SystemRecord } from "@/lib/content/types";
-import {
-  localeFromPathname,
-  localizedHref,
-  publicabilityLabel,
-  systemStateLabel,
-} from "@/lib/i18n";
+import {useLocale} from "next-intl";
+import {SiteHeader} from "@/components/shell/site-header";
+import {getLocalizedEvidenceRecords} from "@/content/localized";
+import type {SupportingCaseRecord} from "@/content/supporting-cases";
+import {Link} from "@/i18n/navigation";
+import type {AppLocale} from "@/i18n/routing";
+import type {SystemRecord} from "@/lib/content/types";
+import {publicabilityLabel, systemStateLabel} from "@/lib/i18n";
 
 interface SupportingCaseProps {
   system: SystemRecord;
@@ -61,9 +57,8 @@ const ui = {
   },
 } as const;
 
-export function SupportingCase({ system, record }: SupportingCaseProps) {
-  const pathname = usePathname();
-  const locale = localeFromPathname(pathname);
+export function SupportingCase({system, record}: SupportingCaseProps) {
+  const locale = useLocale() as AppLocale;
   const text = ui[locale];
   const publicEvidenceRecords = getLocalizedEvidenceRecords(locale);
   const evidence = record.evidenceIds
@@ -126,7 +121,7 @@ export function SupportingCase({ system, record }: SupportingCaseProps) {
           <header><p className="technical-label">{text.evidence}</p><h2>{text.evidenceTitle}</h2></header>
           <div className="supporting-evidence-grid supporting-evidence-grid-v2">
             {evidence.map((item) => (
-              <Link key={item.id} href={localizedHref(`/evidence/${item.slug}`, locale)}>
+              <Link key={item.id} href={`/evidence/${item.slug}`}>
                 <span>{item.id} · {item.state.replaceAll("_", " ")}</span><strong>{item.title}</strong><em>{text.inspectEvidence}</em>
               </Link>
             ))}
@@ -149,8 +144,8 @@ export function SupportingCase({ system, record }: SupportingCaseProps) {
 
         <div className="supporting-next-actions supporting-next-actions-v2">
           {record.sourceLink ? <a href={record.sourceLink.href} target="_blank" rel="noreferrer">{record.sourceLink.label} ↗</a> : null}
-          <Link href={localizedHref("/systems", locale)}>{text.browse}</Link>
-          <Link href={localizedHref("/contact", locale)}>{text.conversation}</Link>
+          <Link href="/systems">{text.browse}</Link>
+          <Link href="/contact">{text.conversation}</Link>
         </div>
       </section>
     </main>
