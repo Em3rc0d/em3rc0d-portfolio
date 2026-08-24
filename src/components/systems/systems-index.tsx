@@ -1,11 +1,8 @@
-import Link from "next/link";
-import { SiteHeader } from "@/components/shell/site-header";
-import { getLocalizedPublicSystems } from "@/content/localized";
-import {
-  publicabilityLabel,
-  systemStateLabel,
-  type Locale,
-} from "@/lib/i18n";
+import {SiteHeader} from "@/components/shell/site-header";
+import {getLocalizedPublicSystems} from "@/content/localized";
+import {Link} from "@/i18n/navigation";
+import type {AppLocale} from "@/i18n/routing";
+import {publicabilityLabel, systemStateLabel} from "@/lib/i18n";
 
 const copy = {
   en: {
@@ -32,7 +29,7 @@ const copy = {
   },
 } as const;
 
-export function SystemsIndex({ locale }: { locale: Locale }) {
+export function SystemsIndex({locale}: {locale: AppLocale}) {
   const text = copy[locale];
   const publicSystems = getLocalizedPublicSystems(locale);
 
