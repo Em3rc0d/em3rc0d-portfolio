@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
-import { usePathname } from "next/navigation";
+import {useLocale, useTranslations} from "next-intl";
+import {useEffect} from "react";
+import {usePathname} from "@/i18n/navigation";
 
 function routeFallbackTarget(pathname: string) {
   if (pathname === "/") {
@@ -22,6 +23,8 @@ function routeFallbackTarget(pathname: string) {
 
 export function SkipLink() {
   const pathname = usePathname();
+  const locale = useLocale();
+  const t = useTranslations("Accessibility");
 
   useEffect(() => {
     if (document.getElementById("main-content")) return;
@@ -51,13 +54,18 @@ export function SkipLink() {
     if (!target) return;
 
     event.preventDefault();
-    target.focus({ preventScroll: true });
-    target.scrollIntoView({ block: "start", behavior: "auto" });
+    target.focus({preventScroll: true});
+    target.scrollIntoView({block: "start", behavior: "auto"});
   }
 
   return (
-    <a className="skip-link" href="#main-content" onClick={focusContent}>
-      Skip to content
+    <a
+      className="skip-link"
+      href="#main-content"
+      onClick={focusContent}
+      lang={locale}
+    >
+      {t("skipToContent")}
     </a>
   );
 }

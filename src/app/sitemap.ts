@@ -1,8 +1,10 @@
-import type { MetadataRoute } from "next";
-import { publicEvidenceRecords } from "@/content/evidence-index";
-import { publicNotes } from "@/content/notes";
-import { systems } from "@/content/systems";
-import { getSiteOrigin } from "@/lib/site-config";
+import type {MetadataRoute} from "next";
+import {publicEvidenceRecords} from "@/content/evidence-index";
+import {publicNotes} from "@/content/notes";
+import {systems} from "@/content/systems";
+import {getPathname} from "@/i18n/navigation";
+import {routing} from "@/i18n/routing";
+import {getSiteOrigin} from "@/lib/site-config";
 
 const staticRoutes = [
   "/",
@@ -15,9 +17,6 @@ const staticRoutes = [
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const origin = getSiteOrigin();
-
-  // CI / local builds are allowed to omit the public origin. We do not publish
-  // invented canonical URLs. The public launch gate requires this to be configured.
   if (!origin) return [];
 
   const systemRoutes = systems
@@ -32,10 +31,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const evidenceRoutes = publicEvidenceRecords.map(
     (record) => `/evidence/${record.slug}`,
   );
-
   const noteRoutes = publicNotes.map((note) => `/notes/${note.slug}`);
+  const routes = [...staticRoutes, ...systemRoutes, ...evidenceRoutes, ...noteRoutes];
 
-  return [...staticRoutes, ...systemRoutes, ...evidenceRoutes, ...noteRoutes].map(
-    (route) => ({ url: new URL(route, origin).toString() }),
+  return routing.locales.flatMap((locale) =>
+    routes.map((href) => ({
+      url: new URL(getPathname({locale, href}), origin).toString(),
+    })),
   );
 }

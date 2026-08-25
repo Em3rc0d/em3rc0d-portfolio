@@ -1,32 +1,36 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import {useLocale, useTranslations} from "next-intl";
+import {LanguageToggle} from "@/components/i18n/language-toggle";
+import {Link, usePathname} from "@/i18n/navigation";
+import type {AppLocale} from "@/i18n/routing";
 
 const navItems = [
-  ["Systems", "/systems"],
-  ["Notes", "/notes"],
-  ["Evidence", "/evidence"],
-  ["About", "/about"],
-  ["Contact", "/contact"],
+  ["systems", "/systems"],
+  ["notes", "/notes"],
+  ["evidence", "/evidence"],
+  ["about", "/about"],
+  ["contact", "/contact"],
 ] as const;
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const locale = useLocale() as AppLocale;
+  const t = useTranslations("Navigation");
 
   return (
     <>
       <header className="site-header">
-        <Link className="site-identity" href="/" aria-label="Eduardo Merino — Home">
+        <Link className="site-identity" href="/" aria-label={t("home")}>
           <span>EM</span>
           <span aria-hidden="true">/</span>
           <span>BUILD ROOM</span>
           <span className="signal-dot" aria-hidden="true" />
         </Link>
 
-        <nav aria-label="Primary navigation">
+        <nav aria-label={t("primary")}>
           <ul className="primary-nav">
-            {navItems.map(([label, href], index) => {
+            {navItems.map(([key, href], index) => {
               const isCurrent = pathname === href || pathname.startsWith(`${href}/`);
               return (
                 <li key={href}>
@@ -34,11 +38,14 @@ export function SiteHeader() {
                     <span className="nav-index" aria-hidden="true">
                       0{index + 1}
                     </span>
-                    {label}
+                    {t(key)}
                   </Link>
                 </li>
               );
             })}
+            <li className="language-switch" aria-label={t("language")}>
+              <LanguageToggle locale={locale} pathname={pathname} />
+            </li>
           </ul>
         </nav>
       </header>

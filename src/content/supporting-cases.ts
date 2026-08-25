@@ -5,7 +5,7 @@ export interface SupportingCaseSection {
 
 export interface SupportingCaseRecord {
   slug: "infrastructure-site-mapper" | "gpets";
-  reputationLabel: "PROFESSIONAL DEPTH" | "FULL-STACK PROOF";
+  reputationLabel: string;
   context: string;
   problem: string;
   responsibility: string;

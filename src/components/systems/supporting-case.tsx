@@ -1,18 +1,62 @@
-import Link from "next/link";
-import { SiteHeader } from "@/components/shell/site-header";
-import { publicEvidenceRecords } from "@/content/evidence-index";
-import type { SupportingCaseRecord } from "@/content/supporting-cases";
-import type { SystemRecord } from "@/lib/content/types";
+import {SiteHeader} from "@/components/shell/site-header";
+import type {SupportingCaseRecord} from "@/content/supporting-cases";
+import {Link} from "@/i18n/navigation";
+import type {AppLocale} from "@/i18n/routing";
+import type {EvidenceRecord, SystemRecord} from "@/lib/content/types";
+import {publicabilityLabel, systemStateLabel} from "@/lib/i18n";
 
 interface SupportingCaseProps {
   system: SystemRecord;
   record: SupportingCaseRecord;
+  locale: AppLocale;
+  evidence: readonly EvidenceRecord[];
 }
 
-export function SupportingCase({ system, record }: SupportingCaseProps) {
-  const evidence = record.evidenceIds
-    .map((id) => publicEvidenceRecords.find((candidate) => candidate.id === id))
-    .filter((candidate) => candidate !== undefined);
+const ui = {
+  en: {
+    summaryAria: "case summary",
+    context: "CONTEXT",
+    role: "ROLE",
+    state: "STATE",
+    publicability: "PUBLICABILITY",
+    pathAria: "system path",
+    operating: "OPERATING REALITY / MODEL",
+    operatingTitle: "Understand the system before showing the implementation.",
+    responsibility: "RESPONSIBILITY",
+    implementation: "IMPLEMENTATION",
+    implementationTitle: "What was actually built or contributed.",
+    evidence: "EVIDENCE / INSPECT",
+    evidenceTitle: "Claims stay connected to proof.",
+    inspectEvidence: "Inspect evidence ↗",
+    constraints: "CONSTRAINTS / CLAIM CEILING",
+    constraintsTitle: "What this case proves — and what it does not.",
+    browse: "Browse systems →",
+    conversation: "Start a conversation →",
+  },
+  es: {
+    summaryAria: "resumen del caso",
+    context: "CONTEXTO",
+    role: "ROL",
+    state: "ESTADO",
+    publicability: "PUBLICABILIDAD",
+    pathAria: "ruta del sistema",
+    operating: "REALIDAD OPERATIVA / MODELO",
+    operatingTitle: "Comprender el sistema antes de mostrar la implementación.",
+    responsibility: "RESPONSABILIDAD",
+    implementation: "IMPLEMENTACIÓN",
+    implementationTitle: "Lo que realmente se construyó o contribuyó.",
+    evidence: "EVIDENCIA / INSPECCIONAR",
+    evidenceTitle: "Las afirmaciones permanecen conectadas a evidencia.",
+    inspectEvidence: "Inspeccionar evidencia ↗",
+    constraints: "RESTRICCIONES / TECHO DE AFIRMACIÓN",
+    constraintsTitle: "Lo que este caso demuestra — y lo que no.",
+    browse: "Ver sistemas →",
+    conversation: "Iniciar una conversación →",
+  },
+} as const;
+
+export function SupportingCase({system, record, locale, evidence}: SupportingCaseProps) {
+  const text = ui[locale];
 
   return (
     <main className={`build-room-shell supporting-case-shell supporting-case-${system.slug}`}>
@@ -25,78 +69,53 @@ export function SupportingCase({ system, record }: SupportingCaseProps) {
             <p className="supporting-lede">{system.summary}</p>
           </div>
 
-          <dl className="supporting-meta" aria-label={`${system.name} case summary`}>
-            <div><dt>CONTEXT</dt><dd>{record.reputationLabel}</dd></div>
-            <div><dt>ROLE</dt><dd>{system.ownership}</dd></div>
-            <div><dt>STATE</dt><dd>{system.state.replaceAll("_", " ")}</dd></div>
-            <div><dt>PUBLICABILITY</dt><dd>{system.publicability}</dd></div>
+          <dl className="supporting-meta" aria-label={`${system.name} ${text.summaryAria}`}>
+            <div><dt>{text.context}</dt><dd>{record.reputationLabel}</dd></div>
+            <div><dt>{text.role}</dt><dd>{system.ownership}</dd></div>
+            <div><dt>{text.state}</dt><dd>{systemStateLabel(system.state, locale)}</dd></div>
+            <div><dt>{text.publicability}</dt><dd>{publicabilityLabel(system.publicability, locale)}</dd></div>
           </dl>
         </div>
 
-        <div
-          className="supporting-path"
-          data-count={system.path.length}
-          aria-label={`${system.name} system path`}
-        >
+        <div className="supporting-path" data-count={system.path.length} aria-label={`${system.name} ${text.pathAria}`}>
           {system.path.map((step, index) => (
-            <div key={step}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <strong>{step}</strong>
-            </div>
+            <div key={step}><span>{String(index + 1).padStart(2, "0")}</span><strong>{step}</strong></div>
           ))}
         </div>
       </section>
 
       <section className="supporting-frame supporting-operating" aria-labelledby="supporting-operating-title">
         <div className="supporting-operating-copy">
-          <p className="technical-label">OPERATING REALITY / MODEL</p>
-          <h2 id="supporting-operating-title">Understand the system before showing the implementation.</h2>
+          <p className="technical-label">{text.operating}</p>
+          <h2 id="supporting-operating-title">{text.operatingTitle}</h2>
           <p>{record.context}</p>
           <p>{record.problem}</p>
-          <div className="supporting-responsibility-note">
-            <span>RESPONSIBILITY</span>
-            <strong>{record.responsibility}</strong>
-          </div>
+          <div className="supporting-responsibility-note"><span>{text.responsibility}</span><strong>{record.responsibility}</strong></div>
         </div>
 
         <div className="supporting-model-board" data-count={record.architecture.length}>
           {record.architecture.map((item, index) => (
-            <article key={item.title}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </article>
+            <article key={item.title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{item.title}</h3><p>{item.body}</p></article>
           ))}
         </div>
       </section>
 
       <section className="supporting-frame supporting-build-proof carbon-stage" aria-labelledby="supporting-build-title">
         <div className="supporting-build-column">
-          <header>
-            <p className="technical-label">IMPLEMENTATION</p>
-            <h2 id="supporting-build-title">What was actually built or contributed.</h2>
-          </header>
+          <header><p className="technical-label">{text.implementation}</p><h2 id="supporting-build-title">{text.implementationTitle}</h2></header>
           <div className="supporting-implementation-list supporting-implementation-list-v2">
             {record.implementation.map((item, index) => (
-              <article key={item.title}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <div><h3>{item.title}</h3><p>{item.body}</p></div>
-              </article>
+              <article key={item.title}><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{item.title}</h3><p>{item.body}</p></div></article>
             ))}
           </div>
         </div>
 
         <div className="supporting-proof-column">
-          <header>
-            <p className="technical-label">EVIDENCE / INSPECT</p>
-            <h2>Claims stay connected to proof.</h2>
-          </header>
+          <header><p className="technical-label">{text.evidence}</p><h2>{text.evidenceTitle}</h2></header>
           <div className="supporting-evidence-grid supporting-evidence-grid-v2">
             {evidence.map((item) => (
               <Link key={item.id} href={`/evidence/${item.slug}`}>
-                <span>{item.id} · {item.state.replaceAll("_", " ")}</span>
-                <strong>{item.title}</strong>
-                <em>Inspect evidence ↗</em>
+                <span>{item.id} · {item.state.replaceAll("_", " ")}</span><strong>{item.title}</strong><em>{text.inspectEvidence}</em>
               </Link>
             ))}
           </div>
@@ -105,28 +124,21 @@ export function SupportingCase({ system, record }: SupportingCaseProps) {
 
       <section className="supporting-frame supporting-limit supporting-limit-v2" aria-labelledby="supporting-limit-title">
         <div className="supporting-limit-copy">
-          <p className="technical-label">CONSTRAINTS / CLAIM CEILING</p>
-          <h2 id="supporting-limit-title">What this case proves — and what it does not.</h2>
+          <p className="technical-label">{text.constraints}</p>
+          <h2 id="supporting-limit-title">{text.constraintsTitle}</h2>
           <p>{record.limitation}</p>
         </div>
 
         <ol className="supporting-constraint-ledger">
           {record.constraints.map((constraint, index) => (
-            <li key={constraint}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <p>{constraint}</p>
-            </li>
+            <li key={constraint}><span>{String(index + 1).padStart(2, "0")}</span><p>{constraint}</p></li>
           ))}
         </ol>
 
         <div className="supporting-next-actions supporting-next-actions-v2">
-          {record.sourceLink ? (
-            <a href={record.sourceLink.href} target="_blank" rel="noreferrer">
-              {record.sourceLink.label} ↗
-            </a>
-          ) : null}
-          <Link href="/systems">Browse systems →</Link>
-          <Link href="/contact">Start a conversation →</Link>
+          {record.sourceLink ? <a href={record.sourceLink.href} target="_blank" rel="noreferrer">{record.sourceLink.label} ↗</a> : null}
+          <Link href="/systems">{text.browse}</Link>
+          <Link href="/contact">{text.conversation}</Link>
         </div>
       </section>
     </main>
