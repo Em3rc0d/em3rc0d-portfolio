@@ -8,7 +8,7 @@
 .page-intro .lead { max-width: 54ch; }
 .split { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-9); }
 .rule-top { border-top: 1px solid var(--border); }
-.paper { background: var(--paper); color: var(--ink); }
+.paper { --muted: #505e55; --subtle: #536157; --accent: #75401d; background: var(--paper); color: var(--ink); color-scheme: light; }
 .paper .muted, .paper .eyebrow, .paper .lead { color: #505e55; }
 .paper :focus-visible { outline-color: var(--ink); }
 .paper a { text-decoration-color: #67766a; }

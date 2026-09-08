@@ -3,7 +3,8 @@ import AxeBuilder from '@axe-core/playwright';
 
 const surfaces = ['/', '/systems', '/systems/autopulse', '/systems/vigia', '/systems/prodagentic', '/notes', '/notes/no-data-is-not-zero', '/about', '/contact', '/evidence', '/evidence/e-pa-01'];
 async function noOverflow(page: Page) {
-  expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
+  const overflow = await page.evaluate(() => ({ delta: document.documentElement.scrollWidth - innerWidth, nodes: [...document.querySelectorAll('main *, header *')].filter(el => el.getBoundingClientRect().right > innerWidth + 1).slice(0,12).map(el => ({ tag: el.tagName, className: el.className, text: el.textContent?.slice(0,80) })) }));
+  expect(overflow.delta, JSON.stringify(overflow.nodes)).toBeLessThanOrEqual(1);
 }
 
 test('identity, keyboard navigation, depth and contact form a complete visitor path', async ({ page }) => {
@@ -85,7 +86,7 @@ for (const width of [390, 1440]) {
       if (path === '/systems/autopulse') await page.locator('#how-it-works > summary').click();
       const result = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
       await info.attach(`axe-${path.replaceAll('/', '_')}`, { body: JSON.stringify(result.violations, null, 2), contentType: 'application/json' });
-      expect(result.violations, path).toEqual([]);
+      expect.soft(result.violations, path).toEqual([]);
     }
   });
 }
