@@ -1,81 +1,9 @@
-import Link from "next/link";
-import { SiteHeader } from "@/components/shell/site-header";
-import { systems } from "@/content/systems";
-import "../visual-acceptance-v2.css";
-
-export const metadata = {
-  title: "Systems",
-  description:
-    "Inspectable software systems built by Eduardo Merino across personal building, professional infrastructure work, full-stack delivery, and current R&D.",
-};
-
+import Link from 'next/link';
+import { systemCases, featuredSystems } from '@/content/systems/index';
+import { SystemArtifact } from '@/components/systems/system-artifact';
+import { Conversation } from '@/components/content/conversation';
+import { pageMetadata } from '@/lib/metadata';
+export const metadata = pageMetadata('Systems', 'Selected software systems, professional contributions and active research by Eduardo Merino.', '/systems');
 export default function SystemsPage() {
-  const publicSystems = systems.filter(
-    (system) =>
-      system.publicability !== "PRIVATE" &&
-      system.role !== "RESERVED" &&
-      Boolean(system.href),
-  );
-
-  return (
-    <main className="build-room-shell systems-room-page">
-      <section className="carbon-stage systems-room-frame narrative-frame" aria-labelledby="systems-room-title">
-        <SiteHeader />
-
-        <div className="systems-room-shell">
-          <header className="systems-room-intro">
-            <div>
-              <p className="technical-label">BUILD ROOM / SYSTEMS</p>
-              <h1 id="systems-room-title">Systems, not project tiles.</h1>
-            </div>
-            <div className="systems-room-intro-copy">
-              <p>
-                Four records. Four different engineering contexts. Inspect the system model,
-                the responsibility I owned, and the evidence boundary behind each claim.
-              </p>
-              <div className="systems-room-legend" aria-label="System record roles">
-                <span><i /> FLAGSHIP / PERSONAL + R&amp;D</span>
-                <span><i /> PROFESSIONAL / ABSTRACTED</span>
-                <span><i /> FULL-STACK / SUPPORT</span>
-              </div>
-            </div>
-          </header>
-
-          <div className="systems-room-grid">
-            {publicSystems.map((system) => (
-              <Link
-                key={system.id}
-                href={system.href!}
-                className={`systems-room-card systems-room-card-${system.slug}`}
-                aria-label={`Inspect ${system.name}`}
-              >
-                <div className="systems-room-card-topline">
-                  <span>{system.id}</span>
-                  <span>{system.label}</span>
-                  <span>{system.role}</span>
-                </div>
-
-                <div className="systems-room-card-main">
-                  <h2>{system.name}</h2>
-                  <p>{system.summary}</p>
-                </div>
-
-                <div className="systems-room-path" aria-label={`${system.name} system path`}>
-                  {system.path.map((step, index) => (
-                    <span key={step} data-id={String(index + 1).padStart(2, "0")}>{step}</span>
-                  ))}
-                </div>
-
-                <footer>
-                  <span>{system.state.replaceAll("_", " ")}</span>
-                  <span>{system.publicability}</span>
-                  <strong>Inspect system ↗</strong>
-                </footer>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-    </main>
-  );
+  return <main id="main-content" tabIndex={-1}><header className="page-intro container"><p className="eyebrow accent">The work</p><h1>Systems with a reason to exist.</h1><p className="lead">Real problems, deliberate decisions and an honest view of what has been built.</p></header><section className="container" aria-label="Selected systems">{featuredSystems.map((system,i)=><article className={`system-encounter encounter-${i}`} key={system.slug} data-accent={system.accent}><div className="encounter-copy"><p className="eyebrow accent">{system.category}</p><h2>{system.name}</h2><p className="encounter-summary">{system.summary}</p><p className="encounter-built">{system.built}</p><p className="encounter-state">{system.state.label}</p><Link className="text-link" href={`/systems/${system.slug}`}>Explore {system.name}<span aria-hidden="true">↗</span></Link></div><SystemArtifact system={system}/></article>)}</section><section className="section container"><div className="section-head"><div><p className="eyebrow accent">Further inside the room</p><h2>More ways of<br/>making things work.</h2></div><p>Professional contributions, new product directions and earlier full-stack work. Their stage and evidence boundaries stay visible.</p></div><div className="supporting-systems">{systemCases.filter(s=>s.placement!=='FLAGSHIP').map(system=><Link href={`/systems/${system.slug}`} key={system.slug}><span className="eyebrow">{system.placement === 'R&D' ? 'In development' : system.placement.toLowerCase()}</span><div><h3>{system.name}</h3><p>{system.summary}</p><span className="support-state">{system.state.label}</span></div><span className="row-arrow" aria-hidden="true">↗</span></Link>)}</div></section><div className="rule-top"><Conversation/></div></main>;
 }

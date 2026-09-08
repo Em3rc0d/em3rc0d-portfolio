@@ -1,21 +1,5 @@
-import { EvidenceLibrary } from "@/components/evidence/evidence-library";
-import { SiteHeader } from "@/components/shell/site-header";
-import { publicEvidenceRecords } from "@/content/evidence-index";
-import "../visual-acceptance-v2.css";
-
-export const metadata = {
-  title: "Evidence",
-  description:
-    "Inspectable public evidence for Eduardo Merino's systems: claims, source provenance, verification state, context, and limitations.",
-};
-
-export default function EvidencePage() {
-  return (
-    <main className="evidence-page">
-      <div className="evidence-page-header">
-        <SiteHeader />
-      </div>
-      <EvidenceLibrary records={publicEvidenceRecords} />
-    </main>
-  );
-}
+import { publicEvidenceRecords } from '@/content/evidence-index';
+import { Catalog } from '@/components/content/catalog';
+import { pageMetadata } from '@/lib/metadata';
+export const metadata = pageMetadata('Evidence','Inspect the source, tests, provenance and limitations behind Eduardo Merino’s software systems.','/evidence');
+export default function EvidencePage(){return <main id="main-content" className="paper reading-main" tabIndex={-1}><header className="page-intro container"><p className="eyebrow">The evidence library</p><h1>A claim is a<br/>starting point.</h1><p className="lead">Follow it to the source. Every record explains what was checked, what it supports and where its limits are.</p><details className="evidence-explainer"><summary>What does “verified” mean here?</summary><p>Source verification, test artifacts and field observations support different claims. An implemented behavior is not automatically field-tested, and historical evidence does not certify a later revision. Private professional sources remain withheld.</p></details></header><section className="container section catalog-section" aria-label="Evidence records"><Catalog kind="evidence" items={publicEvidenceRecords.map(record=>({href:`/evidence/${record.slug}`,title:record.title,summary:record.claim,category:record.systemName,meta:`${record.id} · ${record.state.toLowerCase().replaceAll('_',' ')}`}))}/></section></main>}

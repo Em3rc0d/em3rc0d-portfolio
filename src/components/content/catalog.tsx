@@ -1,0 +1,10 @@
+"use client";
+import Link from "next/link";
+import { useState } from "react";
+export interface CatalogItem { href: string; title: string; summary: string; category: string; meta: string; }
+export function Catalog({items, kind}: {items: readonly CatalogItem[]; kind: "notes" | "evidence"}) {
+  const [query,setQuery]=useState("");const [category,setCategory]=useState("all");
+  const categories=[...new Set(items.map(item=>item.category))];
+  const filtered=items.filter(item=>(category==="all"||item.category===category)&&`${item.title} ${item.summary} ${item.category} ${item.meta}`.toLowerCase().includes(query.trim().toLowerCase()));
+  return <div className="catalog"><div className="catalog-controls"><label htmlFor={`${kind}-search`}>Search {kind}<input id={`${kind}-search`} type="search" value={query} placeholder={kind==="evidence" ? "A claim, system or evidence ID" : "A topic or idea"} onChange={event=>setQuery(event.target.value)}/></label><label htmlFor={`${kind}-category`}>{kind==="evidence"?"System":"Topic"}<select id={`${kind}-category`} value={category} onChange={event=>setCategory(event.target.value)}><option value="all">All {kind==="evidence"?"systems":"topics"}</option>{categories.map(item=><option key={item}>{item}</option>)}</select></label></div><p className="catalog-count" role="status">{filtered.length} {filtered.length===1?"record":"records"}{query||category!=="all"?" matching your selection":""}</p><div className="catalog-list">{filtered.map(item=><article key={item.href}><div className="catalog-meta"><span className="eyebrow">{item.category}</span><span>{item.meta}</span></div><div><h2><Link href={item.href}>{item.title}</Link></h2><p>{item.summary}</p><Link className="text-link" href={item.href} aria-label={`${kind==="notes"?"Read":"Inspect"} ${item.title}`}>{kind==="notes"?"Read note":"Inspect proof"} <span aria-hidden="true">↗</span></Link></div></article>)}</div>{filtered.length===0&&<div className="empty-state"><h2>No matching {kind}.</h2><p>Try a broader term or clear the filters.</p><button className="button" onClick={()=>{setQuery("");setCategory("all");}}>Clear filters</button></div>}</div>;
+}
