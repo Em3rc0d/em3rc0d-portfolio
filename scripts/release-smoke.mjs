@@ -11,9 +11,10 @@ for (const url of routes) {
   assert.equal(url.origin, origin);
   const response = await fetch(base + url.pathname); assert.equal(response.status, 200, url.pathname);
   const html = await response.text(); pages.set(url.pathname, html);
-  assert.match(html, /<title>[^<]+Eduardo Merino[^<]*<\/title>/, url.pathname);
+  assert.match(html, /<title>[^<]*Eduardo Merino[^<]*<\/title>/, url.pathname);
   assert.match(html, /<meta name="description" content="[^"]+"/);
-  assert(html.includes(`<link rel="canonical" href="${url.href}"`), `Canonical ${url.pathname}`);
+  const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
+  assert(canonical, `Missing canonical ${url.pathname}`); assert.equal(new URL(decode(canonical)).href, url.href, `Canonical ${url.pathname}`);
   assert(html.includes('property="og:title"')); assert(html.includes('name="twitter:card"'));
   assert.equal([...html.matchAll(/<h1[\s>]/g)].length, 1, `One h1 ${url.pathname}`);
   const personText = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];

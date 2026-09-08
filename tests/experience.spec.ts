@@ -53,6 +53,11 @@ for (const width of [320, 390, 430, 768, 1024, 1280, 1440, 1920]) {
       await expect(page.locator('h1')).toHaveCount(1);
       if (path === '/' || path === '/systems/vigia') {
         await page.screenshot({ path: info.outputPath(`${path === '/' ? 'home' : 'vigia'}-${width}.png`), fullPage: true });
+        if (path === '/') {
+          await page.locator('.human-section').scrollIntoViewIfNeeded();
+          await expect.poll(() => page.locator('.human-portrait img').evaluate(el => (el as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+          await page.screenshot({ path: info.outputPath(`human-${width}.png`) });
+        }
       }
     }
     if (width < 768) {

@@ -54,6 +54,11 @@ test('WebGL unavailable keeps the designed fallback and functional CTAs', async 
 });
 
 test('lab performance records resource and rendering cost without claiming field CWV', async ({ page }, info) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const cdp = await page.context().newCDPSession(page);
+  await cdp.send('Network.enable');
+  await cdp.send('Network.emulateNetworkConditions', { offline: false, latency: 150, downloadThroughput: 200_000, uploadThroughput: 93_750 });
+  await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
   await page.addInitScript(() => {
     const samples = { lcp: 0, cls: 0, longTasks: [] as number[] };
     Object.assign(window, { __labSamples: samples });
@@ -68,7 +73,8 @@ test('lab performance records resource and rendering cost without claiming field
     resources: performance.getEntriesByType('resource').map(e => { const r = e as PerformanceResourceTiming; return { name: r.name, transfer: r.transferSize, encoded: r.encodedBodySize }; }),
     domElements: document.querySelectorAll('*').length,
   }));
-  await info.attach('lab-performance', { body: JSON.stringify(report, null, 2), contentType: 'application/json' });
+  await info.attach('lab-performance', { body: JSON.stringify({ conditions: 'Chromium software renderer; 390x844; 150ms latency; 1.6Mbps download; 4x CPU slowdown; lab only', ...report }, null, 2), contentType: 'application/json' });
   expect((report as typeof report & { cls: number }).cls).toBeLessThanOrEqual(.1);
+  expect((report as typeof report & { lcp: number }).lcp).toBeLessThanOrEqual(2500);
   expect(report.domElements).toBeLessThan(1800);
 });
