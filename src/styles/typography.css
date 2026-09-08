@@ -1,0 +1,14 @@
+body { font-family: var(--font-interface), Arial, sans-serif; font-size: var(--type-body); line-height: var(--leading-body); -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4, p { margin: 0; }
+h1, h2, h3, h4 { font-weight: 500; line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); text-wrap: balance; }
+h1 { font-size: var(--type-h1); } h2 { font-size: var(--type-h2); } h3 { font-size: var(--type-h3); }
+p { text-wrap: pretty; }
+.eyebrow { font-family: var(--font-mono), monospace; font-size: var(--type-xs); letter-spacing: var(--tracking-label); text-transform: uppercase; line-height: 1.5; color: var(--muted); }
+.eyebrow.accent { color: var(--accent); }
+.lead { font-size: var(--type-lead); line-height: 1.55; color: var(--muted); max-width: 58ch; }
+.muted { color: var(--muted); }
+.mono, code { font-family: var(--font-mono), monospace; font-size: var(--type-label); overflow-wrap: anywhere; }
+.prose { max-width: var(--reading); }
+.prose p + p { margin-top: var(--space-5); }
+.prose h2 { margin-bottom: var(--space-5); font-size: clamp(1.65rem, 2.8vw, 2.6rem); }
+.prose section + section { margin-top: var(--space-8); }

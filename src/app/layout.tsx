@@ -1,121 +1,58 @@
-import type { Metadata } from "next";
-import { IBM_Plex_Mono, Instrument_Sans } from "next/font/google";
-import { DynamicSemantics } from "@/components/accessibility/dynamic-semantics";
-import { MotionPolicy } from "@/components/accessibility/motion-policy";
-import { SkipLink } from "@/components/accessibility/skip-link";
-import { getSiteOrigin } from "@/lib/site-config";
-import "./globals.css";
-import "./internal.css";
-import "./foundation.css";
-import "./startup.css";
-import "./autopulse.css";
-import "./autopulse-fixes.css";
-import "./evidence.css";
-import "./cv-engine.css";
-import "./cv-engine-fixes.css";
-import "./public-surfaces.css";
-import "./public-surfaces-fixes.css";
-import "./accessibility.css";
-import "./accessibility-fixes.css";
-import "./visual-material-v2.css";
-import "./visual-material-v2-fixes.css";
-import "./usability-v2.css";
-import "./evidence-library-usability.css";
-import "./material-reality-acceptance.css";
-import "./commercial-refinement.css";
+import type { Metadata } from 'next';
+import localFont from 'next/font/local';
+import { SiteHeader } from '@/components/shell/site-header';
+import { SiteFooter } from '@/components/shell/site-footer';
+import { PortfolioScene } from '@/components/scene/portfolio-scene';
+import { getSiteOrigin } from '@/lib/site-config';
+import { profile } from '@/content/profile';
+import '@/styles/index.css';
 
-const instrumentSans = Instrument_Sans({
-  subsets: ["latin"],
-  variable: "--font-interface",
-  display: "swap",
+// `optional` prevents a late font swap from reflowing the reputation-critical
+// first frame on constrained connections. The fonts remain self-hosted and
+// preloaded where appropriate; when they miss the short optional window, the
+// metric-adjusted fallback is kept for that navigation instead of shifting
+// already-readable content.
+const sans = localFont({
+  src: '../assets/fonts/instrument-sans-latin-wght-normal.woff2',
+  variable: '--font-interface',
+  display: 'optional',
+  weight: '400 700',
+});
+const mono = localFont({
+  src: [
+    { path: '../assets/fonts/ibm-plex-mono-latin-400-normal.woff2', weight: '400' },
+    { path: '../assets/fonts/ibm-plex-mono-latin-500-normal.woff2', weight: '500' },
+  ],
+  variable: '--font-mono',
+  display: 'optional',
+  preload: false,
 });
 
-const ibmPlexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  display: "swap",
-  weight: ["400", "500", "600"],
-});
-
-const description =
-  "Software developer building, recovering and improving custom software systems, full-stack products and applied AI for messy operational problems.";
-const siteOrigin = getSiteOrigin();
-const metadataBase = siteOrigin ?? undefined;
-
+const origin = getSiteOrigin();
 export const metadata: Metadata = {
-  metadataBase,
-  title: {
-    default: "Eduardo Merino — Software Systems & Applied AI",
-    template: "%s — Eduardo Merino",
-  },
-  description,
-  applicationName: "THE BUILD ROOM",
-  authors: [{ name: "Eduardo Merino" }],
-  creator: "Eduardo Merino",
-  keywords: [
-    "software developer",
-    "custom software systems",
-    "full stack development",
-    "applied AI",
-    "workflow automation",
-    "software recovery",
-    "systems integration",
-  ],
-  openGraph: {
-    type: "website",
-    siteName: "THE BUILD ROOM",
-    title: "Eduardo Merino — Software Systems & Applied AI",
-    description,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Eduardo Merino — Software Systems & Applied AI",
-    description,
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  metadataBase: origin ?? undefined,
+  title: { default: 'Eduardo Merino — Software Systems & Applied AI', template: '%s — Eduardo Merino' },
+  description: profile.proposition + ' ' + profile.scope,
+  applicationName: 'THE BUILD ROOM',
+  authors: [{ name: profile.name }],
+  creator: profile.name,
+  robots: { index: true, follow: true },
 };
-
-const personJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Eduardo Merino",
-  ...(siteOrigin ? { url: siteOrigin.toString() } : {}),
-  jobTitle: "Software Developer",
-  sameAs: [
-    "https://www.linkedin.com/in/emerinoc",
-    "https://github.com/Em3rc0d",
-  ],
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.name,
+  ...(origin ? { url: origin.toString() } : {}),
+  jobTitle: 'Software Developer',
+  sameAs: [profile.linkedin, profile.github],
   knowsAbout: [
-    "Custom software systems",
-    "Full-stack software development",
-    "Systems integration",
-    "Software recovery and modernization",
-    "Workflow automation",
-    "Applied artificial intelligence",
+    'Full-stack software development',
+    'Systems integration',
+    'Applied artificial intelligence',
+    'Workflow automation',
+    'Decision systems',
   ],
 };
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en" className={`${instrumentSans.variable} ${ibmPlexMono.variable}`}>
-      <body>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c"),
-          }}
-        />
-        <SkipLink />
-        <DynamicSemantics />
-        <MotionPolicy>{children}</MotionPolicy>
-      </body>
-    </html>
-  );
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return <html lang="en" className={`${sans.variable} ${mono.variable}`}><body id="top"><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(person).replace(/</g, '\\u003c') }}/><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader/>{children}<SiteFooter/><PortfolioScene/></body></html>;
 }

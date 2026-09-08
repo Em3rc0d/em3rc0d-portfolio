@@ -1,0 +1,18 @@
+:root {
+  color-scheme: dark;
+  --carbon: #111515; --carbon-deep: #0b0f0f; --metal: #1b2221; --metal-raised: #232b2a;
+  --paper: #eeeee8; --paper-muted: #d6d8d0; --ink: #202725;
+  --text: #f0f0e9; --muted: #a6b0ab; --subtle: #899791;
+  --copper: #edaa79; --blue: #a7c8dc; --green: #bfd2ad; --accent: var(--copper);
+  --border: #35403c; --border-soft: #29332f; --ink-border: #b9c1b6;
+  --space-1: .25rem; --space-2: .5rem; --space-3: .75rem; --space-4: 1rem; --space-5: 1.5rem; --space-6: 2rem; --space-7: 3rem; --space-8: 4rem; --space-9: 6rem; --space-10: 8rem;
+  --radius: 3px; --radius-round: 100px; --shadow: 0 24px 70px #0005; --depth-shadow: 0 60px 100px #0006;
+  --type-xs: .8125rem; --type-label: .875rem; --type-body: 1rem; --type-lead: clamp(1.15rem, 1.5vw, 1.4rem);
+  --type-display: clamp(3.1rem, 5.9vw, 6.5rem); --type-h1: clamp(2.8rem, 5.3vw, 6rem); --type-h2: clamp(2.2rem, 3.7vw, 4rem); --type-h3: clamp(1.5rem, 2vw, 2rem);
+  --leading-body: 1.65; --leading-heading: 1.07; --tracking-heading: -.052em; --tracking-label: .1em;
+  --container: 1480px; --reading: 66ch; --gutter: clamp(1.25rem, 5vw, 6rem);
+  --motion-fast: 160ms; --motion-ui: 220ms; --motion-layout: 400ms; --motion-scene: 1200ms;
+  --ease: cubic-bezier(.22, 1, .36, 1); --z-scene: 1; --z-content: 2; --z-header: 20; --z-skip: 30;
+}
+[data-accent="blue"] { --accent: var(--blue); }
+[data-accent="green"] { --accent: var(--green); }

@@ -1,88 +1,9 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import { findNoteBySlug, publicNotes } from "@/content/notes";
-
-interface NotePageProps {
-  params: Promise<{ slug: string }>;
-}
-
-function stateLabel(state: "BUILT_VERIFIED" | "EXPLORING") {
-  return state === "BUILT_VERIFIED" ? "BUILT / VERIFIED" : "EXPLORING";
-}
-
-export function generateStaticParams() {
-  return publicNotes.map((note) => ({ slug: note.slug }));
-}
-
-export async function generateMetadata({ params }: NotePageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const note = findNoteBySlug(slug);
-  if (!note) return {};
-  return { title: note.title, description: note.thesis };
-}
-
-export default async function NotePage({ params }: NotePageProps) {
-  const { slug } = await params;
-  const note = findNoteBySlug(slug);
-  if (!note) notFound();
-
-  return (
-    <main className={note.state === "EXPLORING" ? "note-page is-exploring" : "note-page"}>
-      <header className="note-topbar">
-        <Link href="/notes">← ENGINEERING NOTEBOOK</Link>
-        <span>{note.id} / {note.territory}</span>
-      </header>
-
-      <article className="note-sheet">
-        <header className="note-heading">
-          <div>
-            <p>{note.id} / {stateLabel(note.state)}</p>
-            <h1>{note.title}</h1>
-            <span>{note.thesis}</span>
-          </div>
-          <dl>
-            <div><dt>STATE</dt><dd>{stateLabel(note.state)}</dd></div>
-            <div><dt>TERRITORY</dt><dd>{note.territory}</dd></div>
-            <div><dt>SYSTEM</dt><dd>{note.systemName ?? "FIELD NOTE"}</dd></div>
-          </dl>
-        </header>
-
-        <div className="note-sections">
-          {note.sections.map((section, index) => (
-            <section key={section.heading}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <div>
-                <h2>{section.heading}</h2>
-                <p>{section.body}</p>
-              </div>
-            </section>
-          ))}
-        </div>
-
-        {note.currentBoundary ? (
-          <section className="note-boundary">
-            <p>{note.state === "EXPLORING" ? "CURRENT QUESTION / LIMIT" : "CLAIM CEILING"}</p>
-            <h2>{note.currentBoundary}</h2>
-          </section>
-        ) : null}
-
-        <footer className="note-relations">
-          <div>
-            <p>RELATED SYSTEM</p>
-            {note.systemHref ? <Link href={note.systemHref}>{note.systemName} →</Link> : <span>—</span>}
-          </div>
-          <div>
-            <p>RELATED EVIDENCE</p>
-            <div>
-              {note.relatedEvidenceIds.length ? note.relatedEvidenceIds.map((id) => (
-                <Link key={id} href={`/evidence/${id.toLowerCase()}`}>{id}</Link>
-              )) : <span>Portfolio system record</span>}
-            </div>
-          </div>
-          <Link className="note-next-link" href="/notes">All notes →</Link>
-        </footer>
-      </article>
-    </main>
-  );
-}
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { findNoteBySlug, publicNotes } from '@/content/notes';
+import { findEvidenceBySlug } from '@/content/evidence-index';
+import { pageMetadata } from '@/lib/metadata';
+type Props={params:Promise<{slug:string}>};
+export function generateStaticParams(){return publicNotes.map(note=>({slug:note.slug}));}
+export async function generateMetadata({params}:Props){const {slug}=await params;const note=findNoteBySlug(slug);return note?pageMetadata(note.title,note.thesis,`/notes/${slug}`):{};}
+export default async function NotePage({params}:Props){const {slug}=await params;const note=findNoteBySlug(slug);if(!note)notFound();const records=note.relatedEvidenceIds.map(id=>findEvidenceBySlug(id.toLowerCase())).filter(x=>x!==undefined);return <main id="main-content" className="paper reading-main" tabIndex={-1}><article className="container reading-article"><Link href="/notes" className="back-link">← Engineering notebook</Link><header className="reading-heading"><p className="eyebrow">{note.territory} / {note.state==='EXPLORING'?'Exploring':'Implementation note'}</p><h1>{note.title}</h1><p className="lead">{note.thesis}</p><p className="note-byline">Eduardo Merino{note.systemName?` · ${note.systemName}`:''}</p></header><div className="prose note-body">{note.systemName==='CV Engine'&&<aside className="reading-notice">This note describes the previously reviewed CV Engine lineage. The current product is being rebuilt; the historical evidence does not certify the new runtime.</aside>}{note.sections.map(section=><section key={section.heading}><h2>{section.heading}</h2><p>{section.body}</p></section>)}{note.currentBoundary&&<aside className="reading-notice"><h2>Scope of this note</h2><p>{note.currentBoundary}</p></aside>}</div><footer className="reading-relations"><h2>Follow the reasoning</h2>{note.systemHref&&<Link className="text-link" href={note.systemHref.split('#')[0]}>Explore {note.systemName} <span aria-hidden="true">↗</span></Link>}{records.map(record=><Link className="relation-link" key={record.slug} href={`/evidence/${record.slug}`}>{record.title} <span aria-hidden="true">↗</span></Link>)}<Link className="text-link" href="/contact">Start a conversation <span aria-hidden="true">↗</span></Link></footer></article></main>}

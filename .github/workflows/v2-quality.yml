@@ -1,0 +1,49 @@
+name: V2 Experience Quality
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main, develop]
+  workflow_dispatch:
+permissions:
+  contents: read
+env:
+  NEXT_PUBLIC_SITE_URL: https://em3rc0d-portfolio.vercel.app
+  EXPECTED_SITE_ORIGIN: https://em3rc0d-portfolio.vercel.app
+jobs:
+  browser-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Lockfile remains reproducible
+        run: git diff --exit-code -- package-lock.json
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - run: npm run test:budget
+      - name: Responsive, accessibility, interaction and scene contracts
+        run: npm test
+      - name: Routes, links, metadata, structured data and share images
+        run: |
+          npm start > /tmp/build-room-v2.log 2>&1 &
+          for i in {1..30}; do
+            curl --fail --silent http://127.0.0.1:3000/ > /dev/null && break
+            sleep 1
+          done
+          npm run test:release
+      - name: Preserve exact-run proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-room-v2-quality
+          path: |
+            playwright-report/
+            test-results/
+            verification-output/
+          if-no-files-found: error
+          retention-days: 30

@@ -30,3 +30,8 @@ pnpm-debug.log*
 
 # Vercel
 .vercel
+
+# Generated verification output
+/playwright-report/
+/test-results/
+/verification-output/
