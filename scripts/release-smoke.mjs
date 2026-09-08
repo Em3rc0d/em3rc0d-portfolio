@@ -1,222 +1,46 @@
-const BASE_URL = process.env.BASE_URL ?? "http://127.0.0.1:3000";
-const EXPECTED_SITE_ORIGIN = process.env.EXPECTED_SITE_ORIGIN ?? null;
-
-const routeChecks = [
-  ["/", "Eduardo Merino — Software Systems & Applied AI"],
-  ["/systems", "Systems — Eduardo Merino"],
-  ["/systems/autopulse", "AutoPulse — REAL-WORLD TELEMETRY — Eduardo Merino"],
-  ["/systems/cv-engine", "CV Engine — APPLICATION INTELLIGENCE — Eduardo Merino"],
-  ["/evidence", "Evidence — Eduardo Merino"],
-  ["/evidence/e-cv-12", "E-CV-12 — Eduardo Merino"],
-  ["/notes", "Engineering Notebook — Eduardo Merino"],
-  ["/notes/no-data-is-not-zero", "NO_DATA is not zero. — Eduardo Merino"],
-  ["/about", "About — Eduardo Merino"],
-  ["/contact", "Contact — Build, Recover or Improve Software — Eduardo Merino"],
-];
-
-const failures = [];
-
-function pass(label) {
-  console.log(`PASS ${label}`);
-}
-
-function fail(label, detail) {
-  failures.push({ label, detail });
-  console.error(`FAIL ${label}`);
-  console.error(`  - ${detail}`);
-}
-
-function htmlDecode(value) {
-  return value
-    .replaceAll("&amp;", "&")
-    .replaceAll("&quot;", '"')
-    .replaceAll("&#x27;", "'")
-    .replaceAll("&#39;", "'")
-    .replaceAll("&lt;", "<")
-    .replaceAll("&gt;", ">");
-}
-
-function titleFromHtml(html) {
-  const match = html.match(/<title>([^<]*)<\/title>/i);
-  return match ? htmlDecode(match[1].trim()) : null;
-}
-
-function metaContent(html, key, value) {
-  const tags = html.match(/<meta\s+[^>]*>/gi) ?? [];
-  for (const tag of tags) {
-    const keyMatch = tag.match(new RegExp(`${key}=["']${value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}["']`, "i"));
-    if (!keyMatch) continue;
-    const contentMatch = tag.match(/content=["']([^"']*)["']/i);
-    if (contentMatch) return htmlDecode(contentMatch[1]);
-  }
-  return null;
-}
-
-async function fetchText(pathname) {
-  const response = await fetch(`${BASE_URL}${pathname}`, { redirect: "manual" });
-  return { response, text: await response.text() };
-}
-
-async function fetchBytes(pathname) {
-  const response = await fetch(`${BASE_URL}${pathname}`, { redirect: "manual" });
-  return { response, bytes: new Uint8Array(await response.arrayBuffer()) };
-}
-
-for (const [pathname, expectedTitle] of routeChecks) {
-  try {
-    const { response, text } = await fetchText(pathname);
-    if (response.status !== 200) {
-      fail(`${pathname} status`, `expected 200, received ${response.status}`);
-      continue;
-    }
-
-    const title = titleFromHtml(text);
-    if (title !== expectedTitle) {
-      fail(`${pathname} title`, `expected ${JSON.stringify(expectedTitle)}, received ${JSON.stringify(title)}`);
-    } else {
-      pass(`${pathname} title`);
-    }
-
-    const description = metaContent(text, "name", "description");
-    if (!description?.trim()) fail(`${pathname} description`, "missing meta description");
-    else pass(`${pathname} description`);
-
-    const robots = metaContent(text, "name", "robots");
-    if (robots && /noindex/i.test(robots)) {
-      fail(`${pathname} robots`, `public route unexpectedly contains ${robots}`);
-    } else {
-      pass(`${pathname} indexability`);
-    }
-  } catch (error) {
-    fail(pathname, error instanceof Error ? error.message : String(error));
+import assert from 'node:assert/strict';
+import { mkdir, writeFile } from 'node:fs/promises';
+const base = process.env.BASE_URL ?? 'http://127.0.0.1:3000';
+const origin = process.env.EXPECTED_SITE_ORIGIN ?? 'https://em3rc0d-portfolio.vercel.app';
+const decode = s => s.replaceAll('&amp;', '&').replaceAll('&quot;', '"').replaceAll('&#x27;', "'");
+const sitemap = await fetch(`${base}/sitemap.xml`).then(r => r.text());
+const routes = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => new URL(decode(m[1])));
+assert(routes.length >= 50, 'Sitemap must retain the existing evidence and notes');
+const pages = new Map(); const links = new Set(); const external = new Set();
+for (const url of routes) {
+  assert.equal(url.origin, origin);
+  const response = await fetch(base + url.pathname); assert.equal(response.status, 200, url.pathname);
+  const html = await response.text(); pages.set(url.pathname, html);
+  assert.match(html, /<title>[^<]+Eduardo Merino[^<]*<\/title>/, url.pathname);
+  assert.match(html, /<meta name="description" content="[^"]+"/);
+  assert(html.includes(`<link rel="canonical" href="${url.href}"`), `Canonical ${url.pathname}`);
+  assert(html.includes('property="og:title"')); assert(html.includes('name="twitter:card"'));
+  assert.equal([...html.matchAll(/<h1[\s>]/g)].length, 1, `One h1 ${url.pathname}`);
+  const personText = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];
+  assert(personText, `JSON-LD ${url.pathname}`); const person = JSON.parse(personText);
+  assert.equal(person['@type'], 'Person'); assert.equal(person.url, `${origin}/`);
+  for (const match of html.matchAll(/<a\b[^>]*href="([^"]+)"/g)) {
+    const href = decode(match[1]); const link = new URL(href, url);
+    if (link.origin === origin) links.add(link.pathname + link.hash); else external.add(link.href);
   }
 }
-
-try {
-  const { response, text } = await fetchText("/");
-  const ogTitle = metaContent(text, "property", "og:title");
-  const ogDescription = metaContent(text, "property", "og:description");
-  const ogImage = metaContent(text, "property", "og:image");
-  const twitterCard = metaContent(text, "name", "twitter:card");
-  const iconLink = /<link\s+[^>]*rel=["'][^"']*icon[^"']*["'][^>]*>/i.test(text);
-
-  if (ogTitle !== "Eduardo Merino — Software Systems & Applied AI") {
-    fail("Home Open Graph title", `unexpected ${JSON.stringify(ogTitle)}`);
-  } else pass("Home Open Graph title");
-  if (!ogDescription) fail("Home Open Graph description", "missing og:description"); else pass("Home Open Graph description");
-  if (!ogImage) fail("Home Open Graph image", "missing og:image"); else pass("Home Open Graph image");
-  if (twitterCard !== "summary_large_image") {
-    fail("Home Twitter card", `expected summary_large_image, received ${JSON.stringify(twitterCard)}`);
-  } else pass("Home Twitter card");
-  if (!iconLink) fail("Home icon metadata", "missing icon link"); else pass("Home icon metadata");
-
-  if (response.status !== 200) fail("Home metadata response", `received ${response.status}`);
-} catch (error) {
-  fail("Home social metadata", error instanceof Error ? error.message : String(error));
+for (const link of links) {
+  const url = new URL(link, origin); let html = pages.get(url.pathname);
+  if (!html) { const response = await fetch(base + url.pathname); assert.equal(response.status, 200, link); html = await response.text(); }
+  if (url.hash) assert(html.includes(`id="${decodeURIComponent(url.hash.slice(1))}"`), `Broken anchor ${link}`);
 }
-
-try {
-  const { response, text } = await fetchText("/robots.txt");
-  if (response.status !== 200) fail("robots.txt status", `received ${response.status}`);
-  else pass("robots.txt status");
-
-  if (!/User-Agent:\s*\*/i.test(text) || !/Allow:\s*\//i.test(text)) {
-    fail("robots.txt public rule", "expected User-Agent * with Allow /");
-  } else pass("robots.txt public rule");
-
-  if (EXPECTED_SITE_ORIGIN) {
-    const expectedSitemap = `${EXPECTED_SITE_ORIGIN.replace(/\/$/, "")}/sitemap.xml`;
-    if (!text.includes(expectedSitemap)) {
-      fail("robots.txt sitemap", `missing ${expectedSitemap}`);
-    } else pass("robots.txt sitemap");
-  }
-} catch (error) {
-  fail("robots.txt", error instanceof Error ? error.message : String(error));
+const og = [];
+for (const path of ['/opengraph-image', '/systems/autopulse/opengraph-image', '/systems/vigia/opengraph-image', '/systems/prodagentic/opengraph-image']) {
+  const response = await fetch(base + path); assert.equal(response.status, 200, path);
+  assert.match(response.headers.get('content-type'), /image\/png/);
+  const bytes = Buffer.from(await response.arrayBuffer()); assert.equal(bytes.readUInt32BE(16), 1200); assert.equal(bytes.readUInt32BE(20), 630);
+  og.push({ path, bytes: bytes.length });
+  await mkdir('verification-output', { recursive: true });
+  await writeFile(`verification-output/${path.replaceAll('/', '_')}.png`, bytes);
 }
-
-try {
-  const { response, text } = await fetchText("/sitemap.xml");
-  if (response.status !== 200) fail("sitemap.xml status", `received ${response.status}`);
-  else pass("sitemap.xml status");
-
-  if (EXPECTED_SITE_ORIGIN) {
-    const origin = EXPECTED_SITE_ORIGIN.replace(/\/$/, "");
-    const required = [
-      `${origin}/`,
-      `${origin}/systems/autopulse`,
-      `${origin}/systems/cv-engine`,
-      `${origin}/evidence/e-cv-12`,
-      `${origin}/notes/no-data-is-not-zero`,
-      `${origin}/contact`,
-    ];
-    for (const url of required) {
-      if (!text.includes(url)) fail(`sitemap entry ${url}`, "missing expected public route");
-      else pass(`sitemap entry ${url}`);
-    }
-  }
-} catch (error) {
-  fail("sitemap.xml", error instanceof Error ? error.message : String(error));
-}
-
-try {
-  const { response, bytes } = await fetchBytes("/portrait/eduardo.webp");
-  if (response.status !== 200) {
-    fail("portrait asset status", `expected 200, received ${response.status}`);
-  } else {
-    pass("portrait asset status");
-  }
-
-  const contentType = response.headers.get("content-type") ?? "";
-  if (!contentType.toLowerCase().includes("image/webp")) {
-    fail("portrait asset content type", `expected image/webp, received ${JSON.stringify(contentType)}`);
-  } else {
-    pass("portrait asset content type");
-  }
-
-  const riff = String.fromCharCode(...bytes.slice(0, 4));
-  const webp = String.fromCharCode(...bytes.slice(8, 12));
-  if (riff !== "RIFF" || webp !== "WEBP") {
-    fail("portrait asset WebP signature", `expected RIFF/WEBP, received ${JSON.stringify(riff)}/${JSON.stringify(webp)}`);
-  } else {
-    pass("portrait asset WebP signature");
-  }
-
-  if (bytes.byteLength < 30000) {
-    fail("portrait asset payload", `expected a non-trivial portrait payload, received ${bytes.byteLength} bytes`);
-  } else {
-    pass("portrait asset payload");
-  }
-} catch (error) {
-  fail("portrait asset", error instanceof Error ? error.message : String(error));
-}
-
-try {
-  const { response, text } = await fetchText("/about");
-  if (response.status !== 200) {
-    fail("About portrait wiring", `expected 200, received ${response.status}`);
-  } else if (!text.includes("/portrait/eduardo.webp")) {
-    fail("About portrait wiring", "About does not reference the repaired portrait route");
-  } else if (text.includes("/_next/image?url=%2Fmedia%2Feduardo-authentic.webp")) {
-    fail("About portrait wiring", "About still requests the corrupted optimized media path");
-  } else {
-    pass("About portrait wiring");
-  }
-} catch (error) {
-  fail("About portrait wiring", error instanceof Error ? error.message : String(error));
-}
-
-try {
-  const { response } = await fetchText("/this-route-must-not-exist-build-room-release-smoke");
-  if (response.status !== 404) fail("unknown route 404", `expected 404, received ${response.status}`);
-  else pass("unknown route 404");
-} catch (error) {
-  fail("unknown route 404", error instanceof Error ? error.message : String(error));
-}
-
-if (failures.length) {
-  console.error(`\nRelease smoke failed: ${failures.length} check(s).`);
-  for (const failure of failures) console.error(JSON.stringify(failure));
-  process.exit(1);
-}
-
-console.log(`\nRelease smoke passed: ${routeChecks.length} public routes + metadata/search/portrait/404 boundary.`);
+const robots = await fetch(base + '/robots.txt').then(r => r.text()); assert(robots.includes(`${origin}/sitemap.xml`));
+assert.equal((await fetch(base + '/systems/missing-system')).status, 404);
+assert.equal((await fetch(base + '/evidence/missing-proof')).status, 404);
+const report = { routes: routes.length, internalLinks: links.size, og, externalLinks: [...external], externalStatus: 'Inventory only; authenticated/public source revisions reviewed separately. LinkedIn may block automated clients.' };
+await mkdir('verification-output', { recursive: true }); await writeFile('verification-output/release.json', JSON.stringify(report, null, 2));
+console.log(`PASS ${routes.length} routes, ${links.size} internal targets, metadata, JSON-LD, robots, 404s and ${og.length} PNG share images`);

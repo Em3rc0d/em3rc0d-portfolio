@@ -1,251 +1,29 @@
-import Link from "next/link";
-import { StartupHero } from "@/components/home/startup-hero";
-import { flagshipSystems } from "@/content/systems";
-import { evidenceRecords } from "@/content/evidence";
-import { cvEngineEvidenceRecords } from "@/content/cv-engine-evidence";
-
-const clientPaths = [
-  [
-    "01",
-    "BUILD",
-    "Build custom software systems from operational problems, manual workflows, or product ideas with clear boundaries and ownership.",
-  ],
-  [
-    "02",
-    "RECOVER",
-    "Recover existing products and codebases before changing them: behavior, architecture, dependencies, risks, and missing evidence.",
-  ],
-  [
-    "03",
-    "IMPROVE",
-    "Improve fragmented workflows and integrations so software becomes easier to operate, verify, integrate, and evolve.",
-  ],
-  [
-    "04",
-    "APPLIED AI",
-    "Add AI inside real products while keeping product truth, provenance, failure behavior, and human control explicit.",
-  ],
-] as const;
-
-const operatingSequence = [
-  ["01", "RECOVER", "Understand what actually exists before proposing what should exist."],
-  ["02", "BOUND", "Separate actors, ownership, state, source truth and responsibility."],
-  ["03", "MODEL", "Turn operational reality into explicit system objects and relationships."],
-  ["04", "BUILD", "Implement the smallest coherent path with one visible responsibility."],
-  ["05", "VERIFY", "Use source, tests, browser proof or field evidence appropriate to the claim."],
-  ["06", "EVOLVE", "Keep the system honest as new evidence changes what should happen next."],
-] as const;
-
-const homeEvidence = {
-  autopulse: evidenceRecords.filter((item) =>
-    ["E-AP-03", "E-AP-06", "E-AP-08"].includes(item.id),
-  ),
-  "cv-engine": cvEngineEvidenceRecords.filter((item) =>
-    ["E-CV-01", "E-CV-03", "E-CV-05"].includes(item.id),
-  ),
-} as const;
-
+import Image from 'next/image';
+import Link from 'next/link';
+import { CoreFallback } from '@/components/scene/core-fallback';
+import { SystemArtifact } from '@/components/systems/system-artifact';
+import { Conversation } from '@/components/content/conversation';
+import { featuredSystems } from '@/content/systems/index';
+import { publicNotes } from '@/content/notes';
+import { profile } from '@/content/profile';
+import { problemPaths, capabilities, workingModel } from '@/content/capabilities';
+import { professional } from '@/content/professional';
+import { pageMetadata } from '@/lib/metadata';
+export const metadata = pageMetadata('Eduardo Merino — Software Systems & Applied AI', profile.proposition, '/');
+const featuredNotes = [publicNotes[0], publicNotes[2], publicNotes[3]];
 export default function Home() {
-  return (
-    <main className="build-room-shell">
-      <div className="calibration-rail" aria-hidden="true">
-        <span>00</span>
-        <i />
-        <span>100</span>
-      </div>
-
-      <StartupHero />
-
-      <section className="client-paths narrative-frame" aria-labelledby="client-paths-heading">
-        <header className="client-paths-heading">
-          <p className="technical-label">CLIENT PROBLEMS / 01</p>
-          <h2 id="client-paths-heading">What can I help you make work?</h2>
-          <p>
-            You do not need a perfect brief or a service package. Start with the
-            operational problem, the product that already exists, or the outcome
-            that needs to become reliable.
-          </p>
-          <Link href="/contact">Start with your situation ↗</Link>
-        </header>
-
-        <div className="client-path-grid">
-          {clientPaths.map(([id, title, detail]) => (
-            <article key={id} data-index={id}>
-              <h3>{title}</h3>
-              <p>{detail}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="systems-runway systems-runway-v2" aria-labelledby="systems-heading">
-        <div className="section-heading-row systems-commercial-heading">
-          <div>
-            <p className="technical-label">SELECTED SYSTEMS / 02</p>
-            <h2 id="systems-heading">See the engineering in working systems.</h2>
-          </div>
-          <p>
-            These are not technology lists. Each system exposes the problem, the
-            operating model, engineering decisions, failure behavior, and evidence
-            behind what I claim.
-          </p>
-        </div>
-
-        <div className="system-records system-records-v2">
-          {flagshipSystems.map((system) => {
-            const evidence = homeEvidence[system.slug as keyof typeof homeEvidence] ?? [];
-
-            return (
-              <article
-                className={`system-record system-encounter-record narrative-frame is-${system.slug}`}
-                key={system.id}
-              >
-                <div className="system-record-index">
-                  <span>{system.id}</span>
-                  <span>{system.label}</span>
-                </div>
-
-                <div className="system-record-main">
-                  <div className="system-title-row">
-                    <div>
-                      <p className="system-encounter-kicker">SYSTEM / {system.id}</p>
-                      <h3>{system.name}</h3>
-                    </div>
-                    <span className="system-role-state">{system.state.replace("_", " ")}</span>
-                  </div>
-
-                  <p>{system.summary}</p>
-
-                  <div
-                    className={`system-artifact-stage artifact-${system.slug}`}
-                    aria-label={`${system.name} engineering artifact preview`}
-                  >
-                    <div className="artifact-system-path">
-                      {system.path.map((step, index) => (
-                        <span
-                          className="artifact-path-step"
-                          key={step}
-                          data-id={String(index + 1).padStart(2, "0")}
-                          data-label={step}
-                          data-terminal={index === system.path.length - 1 ? "true" : "false"}
-                          aria-label={`${String(index + 1).padStart(2, "0")} ${step}`}
-                        />
-                      ))}
-                    </div>
-
-                    <div className="artifact-evidence-ledger">
-                      <p>INSPECTABLE ARTIFACTS</p>
-                      {evidence.map((item) => (
-                        <Link
-                          href={`/evidence/${item.slug}`}
-                          key={item.id}
-                          data-id={item.id}
-                          data-state={item.state.replace("_", " ")}
-                          aria-label={`${item.id}: ${item.title}. ${item.state.replace("_", " ")}`}
-                        >
-                          {item.title}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="system-record-meta">
-                  <dl>
-                    <div>
-                      <dt>ROLE</dt>
-                      <dd>{system.ownership}</dd>
-                    </div>
-                    <div>
-                      <dt>PUBLICABILITY</dt>
-                      <dd>{system.publicability}</dd>
-                    </div>
-                    <div>
-                      <dt>PROOF ROUTE</dt>
-                      <dd>{evidence.length} selected records</dd>
-                    </div>
-                  </dl>
-
-                  {system.href ? (
-                    <Link href={system.href} className="inspect-link">
-                      Inspect system <span aria-hidden="true">↗</span>
-                    </Link>
-                  ) : null}
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="operating-model narrative-frame" aria-labelledby="operating-model-heading">
-        <div className="operating-model-intro">
-          <p className="technical-label">WORKING MODEL / 03</p>
-          <h2 id="operating-model-heading">From messy reality to inspectable software.</h2>
-          <p>
-            Once the problem is clear, the method becomes useful. I recover what is
-            real, define boundaries, model the system, build the smallest coherent
-            path, verify the claims, and evolve from new evidence.
-          </p>
-        </div>
-
-        <ol className="operating-model-sequence">
-          {operatingSequence.map(([id, title, detail]) => (
-            <li
-              key={id}
-              data-id={id}
-              data-title={title}
-              aria-label={`${id} ${title}. ${detail}`}
-            >
-              {detail}
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section
-        className="paper-stage paper-stage-v2 narrative-frame"
-        aria-labelledby="evidence-heading"
-      >
-        <div className="paper-copy">
-          <p className="technical-label ink-label">CARBON → PAPER / EVIDENCE</p>
-          <h2 id="evidence-heading">Claims should be inspectable.</h2>
-          <p>
-            Decisions, source artifacts, tests, recovery behavior and limitations are
-            first-class portfolio objects. If I say a system behaves a certain way,
-            you can follow the route to the proof behind that statement.
-          </p>
-          <Link href="/evidence" className="paper-link">
-            Open evidence library ↗
-          </Link>
-        </div>
-        <Link
-          href="/evidence/e-ap-06"
-          className="evidence-sample evidence-sample-v2 evidence-sample-compact"
-          aria-label="Open AutoPulse orphaned-session recovery evidence"
-        >
-          <strong>E-AP-06 · Orphaned-session recovery</strong>
-          <p>
-            Persisted telemetry can reconcile a non-terminal orphaned session while
-            preserving the interruption honestly.
-          </p>
-        </Link>
-      </section>
-
-      <section className="home-conversion narrative-frame" aria-labelledby="home-conversion-heading">
-        <p className="technical-label">START / 07</p>
-        <h2 id="home-conversion-heading">
-          Have a system that is difficult to understand, build, or improve?
-        </h2>
-        <p>
-          Start with the situation. I can help turn the operating reality into a
-          software path we can inspect, build, and verify deliberately.
-        </p>
-        <div className="home-conversion-actions">
-          <Link href="/contact" className="home-conversion-primary">Start a conversation ↗</Link>
-          <Link href="/about">About the builder ↗</Link>
-        </div>
-      </section>
-    </main>
-  );
+  return <main id="main-content" tabIndex={-1}>
+    <section className="hero container">
+      <div className="hero-copy enter"><p className="eyebrow hero-identity"><span className="identity-line" aria-hidden="true"/>Eduardo Merino <span>/</span> Software systems builder</p><h1>Complex problems.<br/><span>Working systems.</span></h1><p className="hero-statement">{profile.proposition}</p><p className="hero-scope">{profile.scope}</p><div className="actions"><Link href="/systems" className="button primary">Explore systems <span aria-hidden="true">↗</span></Link><Link href="/contact" className="hero-secondary">Start a conversation <span aria-hidden="true">↗</span></Link></div></div>
+      <div className="hero-art"><div className="core-stage" data-scene-slot="HOME"><CoreFallback/></div><div className="core-caption"><span className="eyebrow">Structure from complexity</span><span className="core-caption-index" aria-hidden="true">01 — 03</span></div></div>
+      <div className="hero-bottom"><span>Full-stack engineering · Applied AI · Real-world systems</span><a href="#problems">A closer look <span aria-hidden="true">↓</span></a></div>
+    </section>
+    <section className="problem-section section rule-top" id="problems"><div className="container"><div className="section-head"><div><p className="eyebrow accent">01 / Start with your situation</p><h2>What needs to<br/>work better?</h2></div><p>You don’t need a technical brief to start. A problem, an idea or a workflow that keeps getting in the way is enough.</p></div><div className="problem-paths">{problemPaths.map((path,i)=><details key={path.id} className="problem-path"><summary><span className="eyebrow">0{i+1}</span><h3>{path.title}</h3><span className="expand-symbol" aria-hidden="true">+</span><span className="path-teaser">{path.summary}</span></summary><div className="problem-detail"><p>{path.detail}</p><Link href={`/contact?intent=${path.id}`} className="text-link">Talk about this <span aria-hidden="true">↗</span></Link></div></details>)}</div><details className="capabilities-disclosure"><summary>Where I can contribute <span aria-hidden="true">+</span></summary><div className="capability-list">{capabilities.map(item=><Link href={item.href} key={item.title}><h3>{item.title}</h3><p>{item.description}</p><span aria-hidden="true">↗</span></Link>)}</div></details></div></section>
+    <section className="selected-section section container" id="selected-systems"><div className="section-head"><div><p className="eyebrow accent">02 / Selected systems</p><h2>Different problems.<br/>A builder’s approach.</h2></div><p>From a vehicle’s signals to a territory’s constraints to an editorial workflow. See the problem, the system and the reasoning underneath.</p></div>{featuredSystems.map((system,i)=><article key={system.slug} className={`system-encounter encounter-${i}`} data-accent={system.accent}><div className="encounter-copy"><p className="eyebrow accent"><span className="encounter-number">0{i+1}</span>{system.category}</p><h3><Link href={`/systems/${system.slug}`}>{system.name}</Link></h3><p className="encounter-summary">{system.summary}</p><p className="encounter-built">{system.built}</p><div className="encounter-state"><span className="state-line" aria-hidden="true"/>{system.state.label}</div><Link href={`/systems/${system.slug}`} className="text-link">Explore {system.name}<span aria-hidden="true">↗</span></Link></div><SystemArtifact system={system}/></article>)}<div className="all-systems-row"><p>More product work, professional contributions and experiments.</p><Link href="/systems" className="text-link">All systems <span aria-hidden="true">↗</span></Link></div></section>
+    <section className="professional-section section"><div className="container split"><div><p className="eyebrow accent">03 / Professional reality</p><h2>{professional.title}</h2></div><div className="professional-copy"><p className="lead">{professional.summary}</p><ul className="proof-areas">{professional.areas.map(area=><li key={area}>{area}</li>)}</ul><Link href={professional.href} className="text-link">Explore the professional record <span aria-hidden="true">↗</span></Link><p className="boundary-caption">{professional.boundary}</p></div></div></section>
+    <section className="method-section section container"><div className="section-head"><div><p className="eyebrow accent">04 / How I work</p><h2>Make the problem clear.<br/>Then make it work.</h2></div><p>A connected path from understanding the situation to checking what the software actually does.</p></div><ol className="working-model">{workingModel.map((step,i)=><li key={step.title}><span className="eyebrow">0{i+1}</span><h3>{step.title}</h3><p>{step.detail}</p></li>)}</ol><div className="method-proof"><p>There is evidence underneath the presentation.</p><Link href="/evidence" className="text-link">Inspect the proof <span aria-hidden="true">↗</span></Link></div></section>
+    <section className="paper section"><div className="container"><div className="section-head"><div><p className="eyebrow">05 / Engineering notes</p><h2>Ideas from<br/>inside the work.</h2></div><p>Short, enduring lessons about data, decisions and the boundaries that make software dependable.</p></div><div className="featured-notes">{featuredNotes.map((note,i)=><article key={note.slug}><span className="eyebrow">0{i+1} / {note.territory}</span><h3><Link href={`/notes/${note.slug}`}>{note.title}</Link></h3><p>{note.thesis}</p><Link href={`/notes/${note.slug}`} className="text-link" aria-label={`Read ${note.title}`}>Read note <span aria-hidden="true">↗</span></Link></article>)}</div><Link href="/notes" className="text-link notes-more">Open the notebook <span aria-hidden="true">↗</span></Link></div></section>
+    <section className="human-section section container"><div className="human-portrait"><Image src={profile.portrait} alt="Eduardo Merino" width={480} height={594} sizes="(max-width: 767px) 50vw, 300px"/></div><div className="human-copy"><p className="eyebrow accent">06 / The person behind the work</p><h2>Hi, I’m Eduardo.</h2><p className="lead">I like the part where a difficult, real-world problem starts to become understandable — and the work of turning that understanding into software people can use.</p><Link href="/about" className="text-link">Meet the builder <span aria-hidden="true">↗</span></Link></div></section>
+    <div className="rule-top"><Conversation/></div>
+  </main>;
 }

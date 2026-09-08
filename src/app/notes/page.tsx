@@ -1,20 +1,6 @@
-import { NotesIndex } from "@/components/notes/notes-index";
-import { SiteHeader } from "@/components/shell/site-header";
-import { publicNotes } from "@/content/notes";
-
-export const metadata = {
-  title: "Engineering Notebook",
-  description:
-    "Short public engineering records from Eduardo Merino: systems thinking, recovery, evidence, applied AI, and current exploration boundaries.",
-};
-
-export default function NotesPage() {
-  return (
-    <main className="notes-page">
-      <div className="public-carbon-header">
-        <SiteHeader />
-      </div>
-      <NotesIndex notes={publicNotes} />
-    </main>
-  );
-}
+import { publicNotes } from '@/content/notes';
+import { Catalog } from '@/components/content/catalog';
+import { profile } from '@/content/profile';
+import { pageMetadata } from '@/lib/metadata';
+export const metadata = pageMetadata('Engineering Notebook','Selected notes on software, evidence, recovery and applied AI by Eduardo Merino.','/notes');
+export default function NotesPage(){return <main id="main-content" className="paper reading-main" tabIndex={-1}><header className="page-intro container"><p className="eyebrow">Engineering notebook</p><h1>What the work<br/>teaches you.</h1><p className="lead">Selected ideas about systems, decisions and the details that change how software behaves.</p><p className="editorial-boundary">These are native engineering notes, with links to the implementation lineage behind them. Short-form updates live on <a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a>.</p></header><section className="container section catalog-section" aria-label="Engineering notes"><Catalog kind="notes" items={publicNotes.map(note=>({href:`/notes/${note.slug}`,title:note.title,summary:note.thesis,category:note.territory.toLowerCase(),meta:note.state==='EXPLORING'?'Exploring':'Implementation note'}))}/></section></main>}

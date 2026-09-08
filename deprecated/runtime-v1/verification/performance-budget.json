@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "methodology": "Derived from production-like baselines with deliberate regression margin. Structural laboratory guard only; not a public performance claim.",
+  "metrics": [
+    "network.transferBytes",
+    "network.resources",
+    "runtime.domElements",
+    "runtime.jsEventListeners"
+  ],
+  "routes": {
+    "/": {
+      "maxTransferBytes": 390000,
+      "maxResources": 38,
+      "maxDomElements": 320,
+      "maxJsEventListeners": 430
+    },
+    "/systems/autopulse": {
+      "maxTransferBytes": 410000,
+      "maxResources": 38,
+      "maxDomElements": 560,
+      "maxJsEventListeners": 430
+    },
+    "/systems/cv-engine": {
+      "maxTransferBytes": 415000,
+      "maxResources": 38,
+      "maxDomElements": 850,
+      "maxJsEventListeners": 450
+    },
+    "/systems/infrastructure-site-mapper": {
+      "maxTransferBytes": 400000,
+      "maxResources": 38,
+      "maxDomElements": 240,
+      "maxJsEventListeners": 380
+    },
+    "/systems/gpets": {
+      "maxTransferBytes": 400000,
+      "maxResources": 38,
+      "maxDomElements": 260,
+      "maxJsEventListeners": 380
+    },
+    "/evidence": {
+      "maxTransferBytes": 425000,
+      "maxResources": 48,
+      "maxDomElements": 480,
+      "maxJsEventListeners": 430
+    },
+    "/notes": {
+      "maxTransferBytes": 420000,
+      "maxResources": 48,
+      "maxDomElements": 200,
+      "maxJsEventListeners": 410
+    },
+    "/about": {
+      "maxTransferBytes": 395000,
+      "maxResources": 38,
+      "maxDomElements": 215,
+      "maxJsEventListeners": 400
+    },
+    "/contact": {
+      "maxTransferBytes": 395000,
+      "maxResources": 38,
+      "maxDomElements": 180,
+      "maxJsEventListeners": 400
+    }
+  }
+}

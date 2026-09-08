@@ -1,0 +1,137 @@
+name: Frame Visual Proof
+
+on:
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - "src/**"
+      - "scripts/capture-browser-section.mjs"
+      - ".github/workflows/frame-visual-proof.yml"
+      - "package.json"
+      - "package-lock.json"
+  push:
+    branches: [develop]
+    paths:
+      - "src/**"
+      - "scripts/capture-browser-section.mjs"
+      - ".github/workflows/frame-visual-proof.yml"
+      - "package.json"
+      - "package-lock.json"
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+
+      - name: Start production server
+        run: |
+          npm start > /tmp/build-room-next.log 2>&1 &
+          for i in {1..30}; do
+            curl --fail --silent http://127.0.0.1:3000/ > /dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/build-room-next.log
+          exit 1
+
+      - name: Resolve and start Chrome CDP
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          "$CHROME_BIN" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+            --remote-debugging-port=9222 --user-data-dir=/tmp/build-room-frame-proof \
+            about:blank > /tmp/frame-proof-chrome.log 2>&1 &
+          for i in {1..30}; do
+            curl --fail --silent http://127.0.0.1:9222/json/version > /dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/frame-proof-chrome.log
+          exit 1
+
+      - name: Capture visual acceptance matrices
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/frame-visual/user-like artifacts/frame-visual/short
+          BASE="http://127.0.0.1:3000"
+
+          capture() {
+            local route="$1"
+            local selector="$2"
+            local file="$3"
+            local width="$4"
+            local height="$5"
+            node scripts/capture-browser-section.mjs "$BASE$route" "$selector" "$file" "$width" "$height"
+          }
+
+          W=1792
+          H=854
+          OUT="artifacts/frame-visual/user-like"
+
+          capture / '.hero-v2' "$OUT/home-01-hero.png" "$W" "$H"
+          capture / '.client-paths' "$OUT/home-02-client-paths.png" "$W" "$H"
+          capture / '.system-records-v2 > .system-encounter-record:nth-child(1)' "$OUT/home-03-autopulse.png" "$W" "$H"
+          capture / '.system-records-v2 > .system-encounter-record:nth-child(2)' "$OUT/home-04-cv-engine.png" "$W" "$H"
+          capture / '.operating-model' "$OUT/home-05-operating-model.png" "$W" "$H"
+          capture / '.paper-stage-v2' "$OUT/home-06-evidence.png" "$W" "$H"
+          capture / '.home-conversion' "$OUT/home-07-conversion.png" "$W" "$H"
+
+          capture /systems '.systems-room-frame' "$OUT/systems-01-control-room.png" "$W" "$H"
+
+          for i in $(seq 1 7); do
+            capture /systems/autopulse ".autopulse-case > section:nth-of-type($i)" "$OUT/autopulse-$(printf '%02d' "$i").png" "$W" "$H"
+          done
+
+          for i in $(seq 1 8); do
+            capture /systems/cv-engine ".cv-case > section:nth-of-type($i)" "$OUT/cv-engine-$(printf '%02d' "$i").png" "$W" "$H"
+          done
+
+          for i in $(seq 1 4); do
+            capture /systems/infrastructure-site-mapper ".supporting-case-shell > section:nth-of-type($i)" "$OUT/professional-$(printf '%02d' "$i").png" "$W" "$H"
+            capture /systems/gpets ".supporting-case-shell > section:nth-of-type($i)" "$OUT/gpets-$(printf '%02d' "$i").png" "$W" "$H"
+          done
+
+          for i in $(seq 1 5); do
+            capture /about ".about-page > section:nth-of-type($i)" "$OUT/about-$(printf '%02d' "$i").png" "$W" "$H"
+          done
+
+          for i in $(seq 1 3); do
+            capture /contact ".contact-page > section:nth-of-type($i)" "$OUT/contact-$(printf '%02d' "$i").png" "$W" "$H"
+          done
+
+          capture /evidence '.evidence-library-intro' "$OUT/evidence-utility-intro.png" "$W" "$H"
+          capture /notes '.notes-index-intro' "$OUT/notes-utility-intro.png" "$W" "$H"
+
+          # Short effective desktop proof approximates browser zoom / OS scaling conditions.
+          SW=1280
+          SH=640
+          SHORT="artifacts/frame-visual/short"
+          capture / '.hero-v2' "$SHORT/home-hero-1280x640.png" "$SW" "$SH"
+          capture /systems '.systems-room-frame' "$SHORT/systems-1280x640.png" "$SW" "$SH"
+          capture /systems/autopulse '.autopulse-case > section:nth-of-type(1)' "$SHORT/autopulse-cover-1280x640.png" "$SW" "$SH"
+          capture /systems/autopulse '.autopulse-case > section:nth-of-type(2)' "$SHORT/autopulse-reality-1280x640.png" "$SW" "$SH"
+          capture /systems/cv-engine '.cv-case > section:nth-of-type(1)' "$SHORT/cv-cover-1280x640.png" "$SW" "$SH"
+          capture /systems/cv-engine '.cv-case > section:nth-of-type(2)' "$SHORT/cv-problem-1280x640.png" "$SW" "$SH"
+          capture /systems/infrastructure-site-mapper '.supporting-case-shell > section:nth-of-type(2)' "$SHORT/professional-model-1280x640.png" "$SW" "$SH"
+          capture /systems/gpets '.supporting-case-shell > section:nth-of-type(2)' "$SHORT/gpets-model-1280x640.png" "$SW" "$SH"
+          capture /contact '.contact-page > section:nth-of-type(2)' "$SHORT/contact-briefing-1280x640.png" "$SW" "$SH"
+          capture /about '.about-page > section:nth-of-type(1)' "$SHORT/about-hero-1280x640.png" "$SW" "$SH"
+
+      - name: Upload frame visual proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: frame-visual-acceptance-v2
+          path: artifacts/frame-visual/
+          if-no-files-found: error
+          retention-days: 30
