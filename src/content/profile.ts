@@ -11,6 +11,6 @@ export const profile = {
   education: "Systems & Informatics Engineering · final stage",
   linkedin: "https://www.linkedin.com/in/emerinoc",
   github: "https://github.com/Em3rc0d",
-  cv: "/cv/Eduardo_Farid_Merino_Cordova_CV.pdf",
+  cv: "/resume",
   portrait: "/portrait/eduardo.webp",
 } as const;
