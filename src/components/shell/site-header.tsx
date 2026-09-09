@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { profile } from "@/content/profile";
 import { localeFromPathname, localizedPath, locales, localeNames } from "@/i18n/config";
 import { getMessages } from "@/i18n/messages";
 import { getReputationPolish } from "@/i18n/polish";
@@ -37,7 +38,7 @@ export function SiteHeader() {
     <div className="container header-inner">
       <Link href={localizedPath(locale, "/")} className="brand" aria-label={polish.shell.brandHome} onClick={() => setOpen(false)}>
         <svg width="27" height="30" viewBox="0 0 27 30" aria-hidden="true"><path d="M2 7 13.5 1 25 7v16l-11.5 6L2 23Z M2 7l11.5 6L25 7M13.5 13v16M2 15l11.5 6L25 15" fill="none" stroke="currentColor" strokeWidth="1.5"/></svg>
-        <span className="brand-copy"><strong>EDUARDO MERINO</strong><span className="brand-role">{t.identity.role} · {polish.shell.roleSuffix}</span></span>
+        <span className="brand-copy"><strong>EDUARDO MERINO</strong><span className="brand-role">{profile.role} · Full Stack</span></span>
       </Link>
       <button className="menu-toggle" type="button" ref={toggle} aria-controls="primary-navigation" aria-expanded={open} onClick={() => setOpen(!open)}>{open ? t.nav.close : t.nav.menu}<span aria-hidden="true">{open ? "−" : "+"}</span></button>
       <nav id="primary-navigation" className={open ? "primary-nav is-open" : "primary-nav"} aria-label={polish.shell.primaryNavigation}>
