@@ -21,7 +21,7 @@ export const prodagentic: SystemCase = {
   ],
   limitations: ["The published evidence on this portfolio proves its specified S0–S2 planning scope; current product surfaces have separate verification lineage.", "The inspected batch surface does not imply a complete batch-history browser.", "Published CI proves the tested revision and scope, not commercial readiness or observed customer outcomes."],
   media: [
-    { kind: "image", src: "/media/systems/prodagentic-studio.webp", alt: "prodAgentic Content Studio showing a governed content workflow, visual stage, preview and workflow health", width: 1400, height: 686, label: "product" },
+    { kind: "image", src: "https://drive.google.com/thumbnail?id=1JWZiXUXIjq_16JpbC5ftfW8gjUqMLZ8S&sz=w1600", href: "https://drive.google.com/file/d/1JWZiXUXIjq_16JpbC5ftfW8gjUqMLZ8S/view", alt: "prodAgentic Content Studio showing a governed content workflow, visual stage, preview and workflow health", width: 1400, height: 686, label: "product" },
   ],
   evidence: ["E-PA-01", "E-PA-02"], source: { label: "prodAgentic source & implementation ledger", href: "https://github.com/Em3rc0d/prodAgentic" },
 };
