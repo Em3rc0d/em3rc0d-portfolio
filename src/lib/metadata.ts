@@ -25,7 +25,7 @@ export function pageMetadata(
     ...(canonical ? { alternates: { canonical, ...(Object.keys(languages).length ? { languages } : {}) } } : {}),
     openGraph: {
       type: path.startsWith("/systems/") || path.startsWith("/notes/") ? "article" : "website",
-      siteName: "THE BUILD ROOM",
+      siteName: "Eduardo Merino — Engineering Portfolio",
       title: socialTitle,
       description,
       locale: locale === "es" ? "es_PE" : locale === "pt" ? "pt_BR" : "en_US",
