@@ -21,8 +21,8 @@ export const autopulse: SystemCase = {
   ],
   limitations: ["The supported envelope grows through physical tests; no every-car/every-reader promise.", "Foreground recording and Android lifecycle constraints remain explicit.", "Automated recovery tests do not prove all physical interruption scenarios.", "Phone-origin sensors and adapter voltage are not interchangeable with ECU observations."],
   media: [
-    { kind: "video", src: "/media/systems/autopulse-live-loop.mp4", poster: "/media/systems/autopulse-live-poster.webp", alt: "AutoPulse live vehicle telemetry changing during a physical OBD-II session", width: 480, height: 1074, label: "live" },
-    { kind: "image", src: "/media/systems/autopulse-report.webp", alt: "AutoPulse vehicle check report showing session integrity, persisted readings and signal evidence", width: 720, height: 1608, label: "report" },
+    { kind: "image", src: "https://drive.google.com/thumbnail?id=1MU1279pjCSZIttkvi5I5Qk1MS2DAnbqQ&sz=w1200", href: "https://drive.google.com/file/d/12kA1fjich4w5cjleGzJ3twuFfz8blHxh/view", alt: "AutoPulse live screen during a physical Renault Logan OBD-II session showing RPM, speed, coolant and engine load", width: 832, height: 1856, label: "live" },
+    { kind: "image", src: "https://drive.google.com/thumbnail?id=1u22Jo3rWra-z8xmEbDeibp5qPwmJ5kT9&sz=w1200", alt: "AutoPulse vehicle check report showing complete session integrity, persisted readings and observed signal coverage", width: 832, height: 1856, label: "report" },
   ],
   evidence: ["E-AP-02", "E-AP-03", "E-AP-06", "E-AP-07", "E-AP-08"],
   source: { label: "AutoPulse source & field-test boundaries", href: "https://github.com/Em3rc0d/autoPulse" },
