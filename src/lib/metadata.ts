@@ -12,12 +12,11 @@ export function pageMetadata(
   const localized = localePath(locale, path);
   const canonical = absoluteSiteUrl(localized);
   const image = absoluteSiteUrl(imagePath);
-  const languagePaths = languageAlternates(path);
-  const languages = Object.fromEntries(
-    Object.entries(languagePaths)
-      .map(([key, value]) => [key, absoluteSiteUrl(value)])
-      .filter((entry): entry is [string, URL] => entry[1] instanceof URL),
-  );
+  const languages: Record<string, string> = {};
+  for (const [key, value] of Object.entries(languageAlternates(path))) {
+    const url = absoluteSiteUrl(value);
+    if (url) languages[key] = url;
+  }
   const socialTitle = path === "/" ? title : `${title} — Eduardo Merino`;
 
   return {
