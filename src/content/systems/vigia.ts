@@ -20,7 +20,7 @@ export const vigia: SystemCase = {
   ],
   limitations: ["Planning and simulation only; no live dispatch or observed response-time claim.", "Territorial context is not a prediction of individual events or a probability of crime.", "The product capture shows the planning interface and simulated results; it is not evidence of an operational deployment.", "Private source and internal proof are not exposed through this portfolio."],
   media: [
-    { kind: "image", src: "/media/systems/vigia-planning.webp", alt: "VIGIA planning interface showing Villa Maria del Triunfo, territorial routes, resources and scenario metrics", width: 1400, height: 694, label: "product" },
+    { kind: "image", src: "https://drive.google.com/thumbnail?id=1kZ_oM-fvJz0-wf-z1aSEAcaadp7OjRGE&sz=w1600", href: "https://drive.google.com/file/d/1kZ_oM-fvJz0-wf-z1aSEAcaadp7OjRGE/view", alt: "VIGIA planning interface showing Villa Maria del Triunfo, territorial routes, resources and scenario metrics", width: 1400, height: 694, label: "product" },
   ],
   evidence: [], sourceBoundary: "Private source · abstracted case. The public explanation establishes the problem and design boundaries; independent source inspection is unavailable here.",
 };
