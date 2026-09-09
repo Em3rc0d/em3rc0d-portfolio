@@ -17,10 +17,10 @@ export function pageMetadata(
     const url = absoluteSiteUrl(value);
     if (url) languages[key] = url;
   }
-  const socialTitle = path === "/" ? title : `${title} — Eduardo Merino`;
+  const socialTitle = title.includes("Eduardo Merino") ? title : `${title} — Eduardo Merino`;
 
   return {
-    title,
+    title: path === "/" ? { absolute: title } : title,
     description,
     ...(canonical ? { alternates: { canonical, ...(Object.keys(languages).length ? { languages } : {}) } } : {}),
     openGraph: {
