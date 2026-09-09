@@ -7,10 +7,10 @@ import { localePath, type Locale } from "@/i18n/config";
 import { getMessages } from "@/i18n/messages";
 import { Lines, LocalizedConversation } from "./shared";
 
-const channelCopy: Record<Locale, { direct: string; linkedin: string; github: string }> = {
-  en: { direct: "Write directly", linkedin: "Start a professional conversation", github: "Inspect the public source" },
-  es: { direct: "Escribir directamente", linkedin: "Iniciar una conversación profesional", github: "Inspeccionar el código público" },
-  pt: { direct: "Escrever diretamente", linkedin: "Iniciar uma conversa profissional", github: "Inspecionar o código público" },
+const channelCopy: Record<Locale, { direct: string; email: string; linkedin: string; github: string }> = {
+  en: { direct: "Write directly", email: "Email", linkedin: "Start a professional conversation", github: "Inspect the public source" },
+  es: { direct: "Escribir directamente", email: "Correo", linkedin: "Iniciar una conversación profesional", github: "Inspeccionar el código público" },
+  pt: { direct: "Escrever diretamente", email: "E-mail", linkedin: "Iniciar uma conversa profissional", github: "Inspecionar o código público" },
 };
 
 export function LocalizedAbout({ locale }: { locale: Locale }) {
@@ -32,6 +32,6 @@ export function LocalizedContact({ locale }: { locale: Locale }) {
     <section className="container contact-intro"><p className="eyebrow accent">{t.contact.eyebrow}</p><h1><Lines value={t.contact.title}/></h1><div className="contact-opening"><p className="lead">{t.contact.opening}</p><EmailActions locale={locale}/></div></section>
     <section className="container section rule-top contact-context"><div><p className="eyebrow accent">{t.contact.useful}</p><h2><Lines value={t.contact.usefulTitle}/></h2></div><ol>{t.contact.prompts.map((item)=><li key={item.title}><h3>{item.title}</h3><p>{item.body}</p></li>)}</ol></section>
     <section className="paper section"><div className="container"><p className="eyebrow">{t.contact.ways}</p><div className="contact-paths">{Object.values(t.problemPaths).map((path)=><div key={path.title}><h2>{path.title}</h2><p>{path.detail}</p></div>)}</div></div></section>
-    <section className="container section contact-channels"><div><h2><Lines value={t.contact.channelsTitle}/></h2><p className="muted">{t.contact.channelsLead}</p></div><nav aria-label="Contact channels"><a href={`mailto:${profile.email}`}><span>{channels.direct}</span><strong>{profile.email} ↗</strong></a><a href={profile.linkedin} target="_blank" rel="noreferrer"><span>{channels.linkedin}</span><strong>LinkedIn ↗</strong></a><a href={profile.github} target="_blank" rel="noreferrer"><span>{channels.github}</span><strong>GitHub ↗</strong></a></nav></section>
+    <section className="container section contact-channels"><div><h2><Lines value={t.contact.channelsTitle}/></h2><p className="muted">{t.contact.channelsLead}</p></div><nav aria-label="Contact channels"><a href={`mailto:${profile.email}`}><span>{channels.direct}</span><strong>{channels.email} ↗</strong></a><a href={profile.linkedin} target="_blank" rel="noreferrer"><span>{channels.linkedin}</span><strong>LinkedIn ↗</strong></a><a href={profile.github} target="_blank" rel="noreferrer"><span>{channels.github}</span><strong>GitHub ↗</strong></a></nav></section>
   </main>;
 }
