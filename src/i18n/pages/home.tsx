@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CoreFallback } from "@/components/scene/core-fallback";
 import { SystemArtifact } from "@/components/systems/system-artifact";
+import { ProfessionalSnapshot } from "@/components/profile/professional-snapshot";
 import { profile } from "@/content/profile";
 import { professional } from "@/content/professional";
 import { localePath, type Locale } from "@/i18n/config";
@@ -46,6 +47,7 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
       <div className="hero-art"><div className="core-stage" data-scene-slot="HOME"><CoreFallback/></div><div className="core-caption"><span className="eyebrow">{t.home.core}</span><span className="core-caption-index" aria-hidden="true">01 — 03</span></div></div>
       <div className="hero-bottom"><span>{polish.home.bottom}</span><a href="#problems">{t.home.closer} <span aria-hidden="true">↓</span></a></div>
     </section>
+    <section className="container recruiter-strip"><ProfessionalSnapshot locale={locale}/></section>
 
     <section className="problem-section section rule-top" id="problems"><div className="container">
       <div className="section-head"><div><p className="eyebrow accent">{t.home.problemsEyebrow}</p><h2><Lines value={t.home.problemsTitle}/></h2></div><p>{t.home.problemsIntro}</p></div>
