@@ -10,6 +10,7 @@ export type SystemMedia = {
   height: number;
   label: "live" | "report" | "product";
   poster?: string;
+  href?: string;
 };
 export interface SystemCase {
   id: string;
