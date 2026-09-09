@@ -1,41 +1,31 @@
 import type { MetadataRoute } from "next";
 import { publicEvidenceRecords } from "@/content/evidence-index";
 import { publicNotes } from "@/content/notes";
-import { systems } from "@/content/systems";
+import { systemCases } from "@/content/systems/index";
 import { getSiteOrigin } from "@/lib/site-config";
+import { languageAlternates, localePath, locales } from "@/i18n/config";
 
-const staticRoutes = [
-  "/",
-  "/systems",
-  "/evidence",
-  "/notes",
-  "/about",
-  "/contact",
-] as const;
+const staticRoutes = ["/", "/systems", "/evidence", "/notes", "/about", "/contact"] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const origin = getSiteOrigin();
-
-  // CI / local builds are allowed to omit the public origin. We do not publish
-  // invented canonical URLs. The public launch gate requires this to be configured.
   if (!origin) return [];
 
-  const systemRoutes = systems
-    .filter(
-      (system) =>
-        Boolean(system.href) &&
-        system.publicability !== "PRIVATE" &&
-        system.role !== "RESERVED",
-    )
-    .map((system) => system.href as string);
-
-  const evidenceRoutes = publicEvidenceRecords.map(
-    (record) => `/evidence/${record.slug}`,
-  );
-
+  const systemRoutes = systemCases
+    .filter((system) => system.publicability !== "PRIVATE")
+    .map((system) => `/systems/${system.slug}`);
+  const evidenceRoutes = publicEvidenceRecords.map((record) => `/evidence/${record.slug}`);
   const noteRoutes = publicNotes.map((note) => `/notes/${note.slug}`);
+  const canonicalRoutes = [...staticRoutes, ...systemRoutes, ...evidenceRoutes, ...noteRoutes];
 
-  return [...staticRoutes, ...systemRoutes, ...evidenceRoutes, ...noteRoutes].map(
-    (route) => ({ url: new URL(route, origin).toString() }),
-  );
+  return canonicalRoutes.flatMap((route) => {
+    const alternatePaths = languageAlternates(route);
+    const languages = Object.fromEntries(
+      Object.entries(alternatePaths).map(([key, path]) => [key, new URL(path, origin).toString()]),
+    );
+    return locales.map((locale) => ({
+      url: new URL(localePath(locale, route), origin).toString(),
+      alternates: { languages },
+    }));
+  });
 }

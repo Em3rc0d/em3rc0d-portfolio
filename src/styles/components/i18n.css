@@ -1,0 +1,31 @@
+.system-count-signal {
+  margin-top: var(--space-4);
+  color: var(--copper);
+  font-family: var(--font-mono), monospace;
+  font-size: var(--type-label);
+  letter-spacing: .045em;
+  text-transform: uppercase;
+}
+
+[lang="es"] .hero-identity,
+[lang="pt"] .hero-identity {
+  max-width: 58ch;
+}
+
+[lang="es"] .hero h1,
+[lang="pt"] .hero h1 {
+  text-wrap: balance;
+}
+
+[lang="es"] .encounter-copy,
+[lang="pt"] .encounter-copy,
+[lang="es"] .case-body,
+[lang="pt"] .case-body {
+  text-wrap: pretty;
+}
+
+@media (max-width: 767px) {
+  .system-count-signal { font-size: .68rem; line-height: 1.55; }
+  [lang="es"] .hero-identity,
+  [lang="pt"] .hero-identity { font-size: .65rem; }
+}

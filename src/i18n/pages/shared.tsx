@@ -2,7 +2,11 @@ import Link from "next/link";
 import { localePath, type Locale } from "@/i18n/config";
 import { getMessages } from "@/i18n/messages";
 
-export function Conversation({ locale = "en" }: { locale?: Locale }) {
+export function Lines({ value }: { value: string }) {
+  return <>{value.split("\n").map((part, index) => <span key={`${part}-${index}`}>{index > 0 && <br/>}{part}</span>)}</>;
+}
+
+export function LocalizedConversation({ locale }: { locale: Locale }) {
   const t = getMessages(locale);
   return <section className="conversation container section">
     <p className="eyebrow accent">{t.conversation.eyebrow}</p>
