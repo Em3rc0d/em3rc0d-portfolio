@@ -1,2 +1,0 @@
-import Link from 'next/link';
-export default function NotFound(){return <main id="main-content" className="container section" tabIndex={-1}><p className="eyebrow accent">404 / Page not found</p><h1 className="not-found-title">This path<br/>ends here.</h1><p className="lead">The system or record you’re looking for isn’t available at this address.</p><div className="actions not-found-actions"><Link href="/systems" className="button primary">Explore systems ↗</Link><Link href="/contact" className="text-link">Contact Eduardo ↗</Link></div></main>}
