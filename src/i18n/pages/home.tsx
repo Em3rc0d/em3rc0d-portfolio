@@ -25,6 +25,39 @@ const localizedProfessional: Record<Locale, { title: string; summary: string; ar
   },
 };
 
+const localizedOpportunity: Record<Locale, string> = {
+  en: profile.opportunity,
+  es: "Abierto a oportunidades de product engineering, colaboraciones técnicas y equipos donde importe el ownership end-to-end.",
+  pt: "Aberto a oportunidades de product engineering, colaborações técnicas e equipes onde ownership end-to-end faça diferença.",
+};
+
+const localizedTechnicalRange: Record<Locale, readonly { label: string; detail: string }[]> = {
+  en: [
+    { label: "Product & interfaces", detail: "Next.js · React · Android · end-to-end product delivery" },
+    { label: "Backend & data", detail: "FastAPI · MongoDB · SQLite · durable persistence" },
+    { label: "Applied AI", detail: "Bounded workflows · editorial memory · explainable checks · human review" },
+    { label: "Systems", detail: "Integrations · recovery · geospatial decision support · explicit constraints" },
+  ],
+  es: [
+    { label: "Producto e interfaces", detail: "Next.js · React · Android · entrega de producto end-to-end" },
+    { label: "Backend y datos", detail: "FastAPI · MongoDB · SQLite · persistencia durable" },
+    { label: "IA aplicada", detail: "Workflows acotados · memoria editorial · verificaciones explicables · revisión humana" },
+    { label: "Sistemas", detail: "Integraciones · recuperación · soporte de decisión geoespacial · restricciones explícitas" },
+  ],
+  pt: [
+    { label: "Produto e interfaces", detail: "Next.js · React · Android · entrega de produto end-to-end" },
+    { label: "Backend e dados", detail: "FastAPI · MongoDB · SQLite · persistência durável" },
+    { label: "IA aplicada", detail: "Workflows limitados · memória editorial · verificações explicáveis · revisão humana" },
+    { label: "Sistemas", detail: "Integrações · recuperação · suporte à decisão geoespacial · restrições explícitas" },
+  ],
+};
+
+const technicalRangeCopy: Record<Locale, { title: string; intro: string }> = {
+  en: { title: "Technical range", intro: "Concrete tools and system concerns visible across the work." },
+  es: { title: "Rango técnico", intro: "Herramientas y preocupaciones de sistema concretas, visibles a través del trabajo." },
+  pt: { title: "Amplitude técnica", intro: "Ferramentas e preocupações de sistema concretas, visíveis ao longo do trabalho." },
+};
+
 export function LocalizedHome({ locale }: { locale: Locale }) {
   const t = getMessages(locale);
   const polish = getReputationPolish(locale);
@@ -33,7 +66,8 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
   const notes = localizedNotes(locale);
   const featuredNotes = [notes[0], notes[2], notes[3]];
   const pro = localizedProfessional[locale];
-  const capabilityHrefs = ["/systems/prodagentic", "/systems/vigia", "/systems/autopulse", "/systems/gpets"];
+  const range = localizedTechnicalRange[locale];
+  const rangeCopy = technicalRangeCopy[locale];
 
   return <main id="main-content" lang={locale} tabIndex={-1}>
     <section className="hero container">
@@ -42,6 +76,7 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
         <h1><span className="hero-line">{t.home.hero1}</span><span className="hero-line hero-line-accent">{t.home.hero2}</span></h1>
         <p className="hero-statement">{t.home.proposition}</p><p className="hero-scope">{polish.home.scope}</p>
         <div className="actions"><Link href={localePath(locale,"/systems")} className="button primary">{polish.home.heroCta} <span aria-hidden="true">↗</span></Link><Link href={localePath(locale,"/contact")} className="hero-secondary">{t.common.contact} <span aria-hidden="true">↗</span></Link></div>
+        <p className="hero-opportunity"><span className="opportunity-mark" aria-hidden="true"/> {localizedOpportunity[locale]}</p>
       </div>
       <div className="hero-art"><div className="core-stage" data-scene-slot="HOME"><CoreFallback/></div><div className="core-caption"><span className="eyebrow">{t.home.core}</span><span className="core-caption-index" aria-hidden="true">01 — 03</span></div></div>
       <div className="hero-bottom"><span>{polish.home.bottom}</span><a href="#problems">{t.home.closer} <span aria-hidden="true">↓</span></a></div>
@@ -50,7 +85,7 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
     <section className="problem-section section rule-top" id="problems"><div className="container">
       <div className="section-head"><div><p className="eyebrow accent">{t.home.problemsEyebrow}</p><h2><Lines value={t.home.problemsTitle}/></h2></div><p>{t.home.problemsIntro}</p></div>
       <div className="problem-paths">{Object.entries(t.problemPaths).map(([id,path],i)=><details key={id} className="problem-path"><summary><span className="eyebrow">0{i+1}</span><h3>{path.title}</h3><span className="expand-symbol" aria-hidden="true">+</span><span className="path-teaser">{path.summary}</span></summary><div className="problem-detail"><p>{path.detail}</p><Link href={`${localePath(locale,"/contact")}?intent=${id}`} className="text-link">{t.home.talkAbout} <span aria-hidden="true">↗</span></Link></div></details>)}</div>
-      <details className="capabilities-disclosure"><summary>{t.home.contribute} <span aria-hidden="true">+</span></summary><div className="capability-list">{polish.capabilities.map((item,i)=><Link href={localePath(locale,capabilityHrefs[i])} key={item.title}><h3>{item.title}</h3><p>{item.description}</p><span aria-hidden="true">↗</span></Link>)}</div></details>
+      <div className="technical-range" aria-labelledby={`technical-range-title-${locale}`}><div className="technical-range-heading"><p className="eyebrow accent" id={`technical-range-title-${locale}`}>{rangeCopy.title}</p><p>{rangeCopy.intro}</p></div><dl>{range.map(item=><div key={item.label}><dt>{item.label}</dt><dd>{item.detail}</dd></div>)}</dl></div>
     </div></section>
 
     <section className="selected-section section container" id="selected-systems">

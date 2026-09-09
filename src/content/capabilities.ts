@@ -12,6 +12,13 @@ export const capabilities = [
   { title: "Build products end to end", description: "Connect interface, application behavior, data and delivery into one coherent product.", href: "/systems/gpets" },
 ] as const;
 
+export const technicalRange = [
+  { label: "Product & interfaces", detail: "Next.js · React · Android · end-to-end product delivery" },
+  { label: "Backend & data", detail: "FastAPI · MongoDB · SQLite · durable persistence" },
+  { label: "Applied AI", detail: "Bounded workflows · editorial memory · explainable checks · human review" },
+  { label: "Systems", detail: "Integrations · recovery · geospatial decision support · explicit constraints" },
+] as const;
+
 export const workingModel = [
   { title: "Understand", detail: "Start with the people, the problem and what already exists." },
   { title: "Structure", detail: "Make the scope, decisions and success criteria explicit." },
