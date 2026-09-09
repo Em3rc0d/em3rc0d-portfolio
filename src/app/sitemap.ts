@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { publicEvidenceRecords } from "@/content/evidence-index";
 import { publicNotes } from "@/content/notes";
-import { systemCases } from "@/content/systems";
+import { systemCases } from "@/content/systems/index";
 import { getSiteOrigin } from "@/lib/site-config";
 import { languageAlternates, localePath, locales } from "@/i18n/config";
 
