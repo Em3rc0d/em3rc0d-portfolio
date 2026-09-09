@@ -20,6 +20,10 @@ export const autopulse: SystemCase = {
     { title: "Recover without rewriting history", body: "Reconciliation repairs consistency; it does not turn unexpected termination into a successful stop." },
   ],
   limitations: ["The supported envelope grows through physical tests; no every-car/every-reader promise.", "Foreground recording and Android lifecycle constraints remain explicit.", "Automated recovery tests do not prove all physical interruption scenarios.", "Phone-origin sensors and adapter voltage are not interchangeable with ECU observations."],
+  media: [
+    { kind: "video", src: "/media/systems/autopulse-live-loop.mp4", poster: "/media/systems/autopulse-live-poster.webp", alt: "AutoPulse live vehicle telemetry changing during a physical OBD-II session", width: 480, height: 1074, label: "live" },
+    { kind: "image", src: "/media/systems/autopulse-report.webp", alt: "AutoPulse vehicle check report showing session integrity, persisted readings and signal evidence", width: 720, height: 1608, label: "report" },
+  ],
   evidence: ["E-AP-02", "E-AP-03", "E-AP-06", "E-AP-07", "E-AP-08"],
   source: { label: "AutoPulse source & field-test boundaries", href: "https://github.com/Em3rc0d/autoPulse" },
 };
