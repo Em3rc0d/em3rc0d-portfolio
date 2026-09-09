@@ -4,7 +4,7 @@ export const vigia: SystemCase = {
   summary: "See how limited resources can cover a territory — and what changes when the plan changes.",
   built: "A planning and simulation system for comparing territorial coverage under explicit resource and operating constraints.",
   placement: "FLAGSHIP", publicability: "ABSTRACTED", ownership: "Primary builder · problem model, software and comparison experience",
-  state: { label: "Planning prototype · active R&D", detail: "The system separates equal-budget comparisons, full-service planning and evaluated capacity scenarios.", boundary: "This public case is an abstracted explanation. The source and internal validation records are private; this page is not an independent public certification." },
+  state: { label: "Planning prototype · active R&D", detail: "The system separates equal-budget comparisons, full-service planning and evaluated capacity scenarios.", boundary: "This public case is an abstracted explanation. The source and internal validation records are private; the product capture demonstrates the interface, not an independent operational certification." },
   problem: "When resources are limited, a map is not enough. A planner needs to understand what can be covered, what remains outside the plan and which constraints shape the answer.",
   importance: "Two plans are only meaningfully comparable when the comparison is fair. A plan that uses more time or resources should not quietly appear better than one with less.",
   capabilities: ["Compare coverage scenarios under the same declared budget.", "Keep resource limits and required coverage visible.", "Separate a fixed-budget comparison from a full-service planning question.", "Explain gaps, feasibility and the limits of the simulation."],
@@ -18,6 +18,9 @@ export const vigia: SystemCase = {
     { title: "Separate the planning questions", body: "Covering more within one budget and estimating the time needed for full service are different problems. Keeping them separate prevents misleading comparisons." },
     { title: "Preserve infeasibility", body: "Required obligations cannot disappear just to improve the presentation of a result. An impossible plan must remain visibly impossible." },
   ],
-  limitations: ["Planning and simulation only; no live dispatch or observed response-time claim.", "Territorial context is not a prediction of individual events or a probability of crime.", "Conceptual graphics here are not an actual map, coverage result or runtime screenshot.", "Private source and internal proof are not exposed through this portfolio."],
+  limitations: ["Planning and simulation only; no live dispatch or observed response-time claim.", "Territorial context is not a prediction of individual events or a probability of crime.", "The product capture shows the planning interface and simulated results; it is not evidence of an operational deployment.", "Private source and internal proof are not exposed through this portfolio."],
+  media: [
+    { kind: "image", src: "https://drive.google.com/thumbnail?id=1kZ_oM-fvJz0-wf-z1aSEAcaadp7OjRGE&sz=w1600", href: "https://drive.google.com/file/d/1kZ_oM-fvJz0-wf-z1aSEAcaadp7OjRGE/view", alt: "VIGIA planning interface showing Villa Maria del Triunfo, territorial routes, resources and scenario metrics", width: 1400, height: 694, label: "product" },
+  ],
   evidence: [], sourceBoundary: "Private source · abstracted case. The public explanation establishes the problem and design boundaries; independent source inspection is unavailable here.",
 };

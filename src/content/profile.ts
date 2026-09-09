@@ -1,10 +1,16 @@
 export const profile = {
   name: "Eduardo Merino",
-  role: "Full Stack Developer",
-  specialty: "Software Systems & Applied AI",
+  fullName: "Eduardo Farid Merino Cordova",
+  role: "Software Engineer",
+  specialty: "Full Stack · Applied AI · Systems",
   proposition: "I turn complex real-world problems into software systems that work.",
   scope: "I design and build end-to-end software, automation and applied AI for real operational problems — from defining the problem to shipping a working system.",
+  email: "farid.merino1673@gmail.com",
+  location: "Lima, Peru",
+  experience: "Professional software development since Feb 2025",
+  education: "Systems & Informatics Engineering · final stage",
   linkedin: "https://www.linkedin.com/in/emerinoc",
   github: "https://github.com/Em3rc0d",
+  cv: "/resume",
   portrait: "/portrait/eduardo.webp",
 } as const;
