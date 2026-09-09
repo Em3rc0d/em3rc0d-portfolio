@@ -2,6 +2,15 @@ import type { Publicability } from "@/lib/content/types";
 
 export type Placement = "FLAGSHIP" | "SUPPORT" | "PROFESSIONAL" | "R&D" | "ARCHIVED";
 export type ArtifactKind = "signal" | "territory" | "workflow" | "ledger" | "evidence" | "structure";
+export type SystemMedia = {
+  kind: "image" | "video";
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  label: "live" | "report" | "product";
+  poster?: string;
+};
 export interface SystemCase {
   id: string;
   slug: string;
@@ -23,6 +32,7 @@ export interface SystemCase {
   decisions: readonly { title: string; body: string }[];
   limitations: readonly string[];
   evidence: readonly string[];
+  media?: readonly SystemMedia[];
   source?: { label: string; href: string };
   sourceBoundary?: string;
 }
