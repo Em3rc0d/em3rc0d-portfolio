@@ -6,10 +6,10 @@ export const problemPaths = [
 ] as const;
 
 export const capabilities = [
-  { title: "AI & automation", description: "Workflows that use context, preserve decisions and keep people in control.", href: "/systems/prodagentic" },
-  { title: "Decision systems", description: "Turn fragmented evidence and real constraints into options people can compare.", href: "/systems/vigia" },
-  { title: "Connected software", description: "Bring physical signals into products that handle missing data and interruptions.", href: "/systems/autopulse" },
-  { title: "Full-stack products", description: "Connect the interface, application behavior and durable data into one coherent product.", href: "/systems/gpets" },
+  { title: "Automate work with AI", description: "Use AI inside bounded workflows that preserve context, verification and human control.", href: "/systems/prodagentic" },
+  { title: "Compare options under real constraints", description: "Turn fragmented evidence and constraints into choices people can inspect and compare.", href: "/systems/vigia" },
+  { title: "Connect real-world signals to software", description: "Capture physical signals, preserve history and handle missing data or interrupted connections.", href: "/systems/autopulse" },
+  { title: "Build products end to end", description: "Connect interface, application behavior, data and delivery into one coherent product.", href: "/systems/gpets" },
 ] as const;
 
 export const workingModel = [

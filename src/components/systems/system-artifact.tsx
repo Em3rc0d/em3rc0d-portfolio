@@ -1,9 +1,12 @@
 import type { SystemCase } from "@/content/systems/types";
+import type { Locale } from "@/i18n/config";
+import { getReputationPolish } from "@/i18n/polish";
 
-export function SystemArtifact({ system }: { system: SystemCase }) {
+export function SystemArtifact({ system, locale = "en" }: { system: SystemCase; locale?: Locale }) {
   const id = `artifact-${system.slug}`;
+  const copy = getReputationPolish(locale).artifact;
   return <figure className={`system-artifact artifact-${system.artifact}`} data-accent={system.accent}>
-    <div className="artifact-topline"><span>{system.category}</span><span aria-hidden="true">{String(system.id).padStart(2,"0")} / MODEL</span></div>
+    <div className="artifact-topline"><span>{system.category}</span><span aria-hidden="true">{String(system.id).padStart(2,"0")} / {copy.model}</span></div>
     <svg viewBox="0 0 600 340" aria-hidden="true">
       <defs><pattern id={`${id}-grid`} width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0V30" fill="none" stroke="currentColor" opacity=".08"/></pattern></defs>
       <rect width="600" height="340" fill={`url(#${id}-grid)`}/>
@@ -18,6 +21,6 @@ export function SystemArtifact({ system }: { system: SystemCase }) {
         {[65,205,355,495].map((x,i)=><g key={x}><rect x={x} y="130" width={i===0||i===3?40:80} height="80" rx="3" fill="currentColor" fillOpacity={i===1?.15:.04}/><path d={`M${x+12} 160h${i===0||i===3?16:54}M${x+12} 175h${i===0||i===3?16:35}`} opacity=".6"/></g>)}<circle cx="245" cy="70" r="5" fill="currentColor"/><circle cx="395" cy="270" r="5" fill="currentColor"/>
       </g> : <g fill="none" stroke="currentColor">{[0,1,2,3].map(i=><g key={i} transform={`translate(${90+i*22},${70+i*38})`}><path d="M0 0 200-30 355 30 155 60Z" fill="currentColor" fillOpacity=".07"/><path d="M0 0v14l155 60 200-30V30M155 60v14" opacity=".45"/></g>)}</g>}
     </svg>
-    <figcaption><ol>{system.path.map(step => <li key={step}>{step}</li>)}</ol><p>Conceptual model · {system.artifact === "territory" ? "not a coverage result" : "not runtime data"}</p></figcaption>
+    <figcaption><ol>{system.path.map(step => <li key={step}>{step}</li>)}</ol><p>{copy.conceptual} · {system.artifact === "territory" ? copy.coverageBoundary : copy.runtimeBoundary}</p></figcaption>
   </figure>;
 }
