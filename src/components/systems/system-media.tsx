@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element -- shared Drive proof uses provider-hosted captures, not the Next image pipeline */
 import type { SystemCase } from "@/content/systems/types";
 import type { Locale } from "@/i18n/config";
 
