@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { profile } from "@/content/profile";
 import type { Locale } from "@/i18n/config";
 
@@ -17,47 +16,46 @@ type SnapshotCopy = {
 const copy: Record<Locale, SnapshotCopy> = {
   en: {
     role: "Role",
-    experience: "Professional",
+    experience: "Experience",
     experienceValue: profile.experience,
-    location: "Based in",
+    location: "Location",
     locationValue: profile.location,
     education: "Education",
     educationValue: profile.education,
-    resume: "Résumé",
-    open: "View résumé",
+    resume: "CV",
+    open: "Download PDF",
   },
   es: {
     role: "Rol",
     experience: "Experiencia",
     experienceValue: "Desarrollo profesional de software desde feb. 2025",
-    location: "Base",
+    location: "Ubicación",
     locationValue: "Lima, Perú",
     education: "Educación",
     educationValue: "Ing. de Sistemas e Informática · etapa final",
     resume: "CV",
-    open: "Ver CV",
+    open: "Descargar PDF",
   },
   pt: {
     role: "Função",
     experience: "Experiência",
     experienceValue: "Desenvolvimento profissional de software desde fev. 2025",
-    location: "Base",
+    location: "Localização",
     locationValue: "Lima, Peru",
     education: "Formação",
     educationValue: "Eng. de Sistemas e Informática · etapa final",
     resume: "CV",
-    open: "Ver CV",
+    open: "Baixar PDF",
   },
 };
 
 export function ProfessionalSnapshot({ locale = "en", education = false }: { locale?: Locale; education?: boolean }) {
   const t = copy[locale];
-  const href = locale === "en" ? profile.cv : `/${locale}${profile.cv}`;
   return <div className="professional-snapshot" aria-label={locale === "es" ? "Resumen profesional" : locale === "pt" ? "Resumo profissional" : "Professional snapshot"}>
     <div><span>{t.role}</span><strong>{profile.role} · Full Stack</strong></div>
     <div><span>{t.experience}</span><strong>{t.experienceValue}</strong></div>
     <div><span>{t.location}</span><strong>{t.locationValue}</strong></div>
     {education && <div><span>{t.education}</span><strong>{t.educationValue}</strong></div>}
-    <Link href={href}><span>{t.resume}</span><strong>{t.open} ↗</strong></Link>
+    <a href={profile.cvDownload}><span>{t.resume}</span><strong>{t.open} ↓</strong></a>
   </div>;
 }
