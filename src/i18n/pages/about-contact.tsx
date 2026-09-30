@@ -26,12 +26,51 @@ export function LocalizedAbout({ locale }: { locale: Locale }) {
 }
 
 export function LocalizedContact({ locale }: { locale: Locale }) {
-  const t=getMessages(locale);
-  const channels=channelCopy[locale];
+  const copy: Record<Locale, {
+    eyebrow: string; title: string; lead: string; email: string; linkedin: string; github: string;
+    note: string; cv: string;
+  }> = {
+    en: {
+      eyebrow: "Contact", title: "Let’s talk.", lead: "A role, a project, a collaboration or a product idea — send me the context and we can start from there.",
+      email: "Email", linkedin: "LinkedIn", github: "GitHub",
+      note: "You do not need a polished brief. A few lines about what you are working on, what you need and what a useful result would look like are enough.",
+      cv: "Download CV",
+    },
+    es: {
+      eyebrow: "Contacto", title: "Hablemos.", lead: "Una oportunidad laboral, un proyecto, una colaboración o una idea de producto — cuéntame el contexto y empezamos desde ahí.",
+      email: "Correo", linkedin: "LinkedIn", github: "GitHub",
+      note: "No necesitas un brief perfecto. Bastan unas líneas sobre qué estás haciendo, qué necesitas y cómo se vería un buen resultado.",
+      cv: "Descargar CV",
+    },
+    pt: {
+      eyebrow: "Contato", title: "Vamos conversar.", lead: "Uma vaga, um projeto, uma colaboração ou uma ideia de produto — envie o contexto e podemos começar por aí.",
+      email: "E-mail", linkedin: "LinkedIn", github: "GitHub",
+      note: "Você não precisa de um briefing perfeito. Algumas linhas sobre o que está fazendo, o que precisa e como seria um bom resultado já bastam.",
+      cv: "Baixar CV",
+    },
+  };
+  const t = copy[locale];
+
   return <main id="main-content" lang={locale} tabIndex={-1}>
-    <section className="container contact-intro"><p className="eyebrow accent">{t.contact.eyebrow}</p><h1><Lines value={t.contact.title}/></h1><div className="contact-opening"><p className="lead">{t.contact.opening}</p><EmailActions locale={locale}/></div></section>
-    <section className="container section rule-top contact-context"><div><p className="eyebrow accent">{t.contact.useful}</p><h2><Lines value={t.contact.usefulTitle}/></h2></div><ol>{t.contact.prompts.map((item)=><li key={item.title}><h3>{item.title}</h3><p>{item.body}</p></li>)}</ol></section>
-    <section className="paper section"><div className="container"><p className="eyebrow">{t.contact.ways}</p><div className="contact-paths">{Object.values(t.problemPaths).map((path)=><div key={path.title}><h2>{path.title}</h2><p>{path.detail}</p></div>)}</div></div></section>
-    <section className="container section contact-channels"><div><h2><Lines value={t.contact.channelsTitle}/></h2><p className="muted">{t.contact.channelsLead}</p></div><nav aria-label="Contact channels"><a href={`mailto:${profile.email}`}><span>{channels.direct}</span><strong>{channels.email} ↗</strong></a><a href={profile.linkedin} target="_blank" rel="noreferrer"><span>{channels.linkedin}</span><strong>LinkedIn ↗</strong></a><a href={profile.github} target="_blank" rel="noreferrer"><span>{channels.github}</span><strong>GitHub ↗</strong></a></nav></section>
+    <section className="simple-contact-page container">
+      <div className="simple-contact-grid">
+        <div className="simple-contact-main">
+          <p className="eyebrow accent">{t.eyebrow}</p>
+          <h1>{t.title}</h1>
+          <p className="lead">{t.lead}</p>
+          <EmailActions locale={locale}/>
+          <p className="simple-contact-note">{t.note}</p>
+        </div>
+        <div>
+          <p className="eyebrow">{locale === "es" ? "Canales" : locale === "pt" ? "Canais" : "Channels"}</p>
+          <nav className="simple-contact-options" aria-label="Contact channels">
+            <a href={`mailto:${profile.email}`}><span>{t.email}</span><strong>↗</strong></a>
+            <a href={profile.linkedin} target="_blank" rel="noreferrer"><span>{t.linkedin}</span><strong>↗</strong></a>
+            <a href={profile.github} target="_blank" rel="noreferrer"><span>{t.github}</span><strong>↗</strong></a>
+            <a href={profile.cvDownload}><span>{t.cv}</span><strong>↓</strong></a>
+          </nav>
+        </div>
+      </div>
+    </section>
   </main>;
 }
