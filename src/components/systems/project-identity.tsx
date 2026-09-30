@@ -101,7 +101,7 @@ function MatchMatrix() {
     {cells.flatMap((row, y) => row.map((state, x) => <g key={`${x}-${y}`}>
       <rect x={207 + x * 48} y={102 + y * 45} width="39" height="36" className={`identity-cell identity-cell-${state}`}/>
       {state === 2 ? <path d={`M${219 + x * 48} ${120 + y * 45}l5 5 9-11`} className="identity-route"/> : state === 1 ? <path d={`M${219 + x * 48} ${120 + y * 45}h13`} className="identity-route"/> : <circle cx={226 + x * 48} cy={120 + y * 45} r="2" className="identity-muted-dot"/>}
-    </g>)))}
+    </g>))}
     <Label x={300} y={307} anchor="middle" small>✓ ALIGNED   /   − PARTIAL   /   · MISSING</Label>
     <Route d="M300 318V349"/>
     <path d="M191 349H409L426 374L409 399H191L174 374Z" className="identity-surface"/>
