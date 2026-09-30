@@ -42,6 +42,53 @@ function visibleLimitations(system: SystemCase) {
 
 export function LocalizedSystems({ locale }: { locale: Locale }) {
   const t = getMessages(locale);
+  const systems = localizedSystemCases(locale);
+  const featured = systems.filter((system) => system.placement === "FLAGSHIP");
+  const labels = locale === "es"
+    ? { view: "Ver proyecto", project: "Proyecto", contact: "Contactarme", contactTitle: "¿Quieres saber más?", contactText: "Cada proyecto tiene detalles técnicos para quien quiera profundizar." }
+    : locale === "pt"
+      ? { view: "Ver projeto", project: "Projeto", contact: "Falar comigo", contactTitle: "Quer saber mais?", contactText: "Cada projeto tem detalhes técnicos para quem quiser aprofundar." }
+      : { view: "View project", project: "Project", contact: "Contact me", contactTitle: "Want to know more?", contactText: "Each project page has deeper engineering details for people who want them." };
+
+  return <main id="main-content" lang={locale} tabIndex={-1}>
+    <header className="page-intro container">
+      <p className="eyebrow accent">{t.systems.eyebrow}</p>
+      <h1>{t.systems.title}</h1>
+      <p className="lead">{t.systems.lead}</p>
+    </header>
+
+    <section className="container" aria-label={t.systems.selectedLabel}>
+      {featured.map((system,i)=><article className={`system-encounter encounter-${i}`} key={system.slug} data-accent={system.accent}>
+        <div className="encounter-copy">
+          <p className="eyebrow accent">{system.category}</p>
+          <h2>{system.name}</h2>
+          <p className="encounter-summary">{system.summary}</p>
+          <p className="encounter-built">{system.built}</p>
+          <Link className="text-link" href={localePath(locale,`/systems/${system.slug}`)}>{labels.view} <span aria-hidden="true">↗</span></Link>
+        </div>
+        <SystemArtifact system={system} locale={locale}/>
+      </article>)}
+    </section>
+
+    <section className="section container">
+      <div className="section-head"><div><p className="eyebrow accent">{t.systems.further}</p><h2><Lines value={t.systems.furtherTitle}/></h2></div><p>{t.systems.furtherText}</p></div>
+      <div className="supporting-systems">
+        {systems.filter((system)=>system.placement!=="FLAGSHIP").map((system)=><Link href={localePath(locale,`/systems/${system.slug}`)} key={system.slug}>
+          <span className="eyebrow">{labels.project}</span>
+          <div><h3>{system.name}</h3><p>{system.summary}</p></div>
+          <span className="row-arrow" aria-hidden="true">↗</span>
+        </Link>)}
+      </div>
+    </section>
+
+    <section className="conversation section rule-top">
+      <div className="container split"><div><p className="eyebrow accent">{labels.contactTitle}</p><h2>{labels.contactTitle}</h2></div><div className="professional-copy"><p className="lead">{labels.contactText}</p><Link href={localePath(locale,"/contact")} className="button primary">{labels.contact} <span aria-hidden="true">↗</span></Link></div></div>
+    </section>
+  </main>;
+}
+
+export function LocalizedSystems({ locale }: { locale: Locale }) {
+  const t = getMessages(locale);
   const polish = getReputationPolish(locale);
   const systems = localizedSystemCases(locale);
   const featured = systems.filter((system) => system.placement === "FLAGSHIP");
