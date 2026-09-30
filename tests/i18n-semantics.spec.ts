@@ -33,7 +33,7 @@ test("language switch preserves the current system route", async ({ page }) => {
 
 test("localized project and evidence pages do not leak internal enum labels", async ({ page }) => {
   await page.goto("/es/systems");
-  await expect(page.locator(".simple-system-card")).toHaveCount(8);
+  await expect(page.locator(".simple-system-card")).toHaveCount(11);
   await expect(page.locator("main")).not.toContainText("PROFESSIONAL");
   await expect(page.locator("main")).not.toContainText("FLAGSHIP");
   await page.goto("/es/evidence/e-pa-01");
