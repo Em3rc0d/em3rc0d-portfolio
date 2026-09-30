@@ -1,0 +1,30 @@
+{
+  "generator": "Built-in image_gen",
+  "created": "2026-09-30",
+  "assets": [
+    {
+      "path": "public/media/portfolio/builder.webp",
+      "classification": "GENERATED",
+      "purpose": "Decorative editorial atmosphere; not product or field evidence",
+      "prompt": "Use case: photorealistic-natural. Create a cinematic wide 16:9 background photograph for a premium software engineer portfolio. A young male engineer seen strictly from behind, face not visible, black hoodie, seated at a real workstation on the RIGHT HALF, three monitors with subtle code and network visualization, warm copper desk lamp, blue black shadows, nocturnal study, tasteful lived-in textures, realistic cables and keyboard. LEFT 45 percent very dark quiet negative space for HTML heading, continuous naturally dark room, not a black rectangle. Composition like a sophisticated architectural photograph, subtle film grain, crisp detailed right half. No typography, no labels, no branding, no interface outside monitors, no watermark. This is an atmospheric illustration, not a portrait of a specific person."
+    },
+    {
+      "path": "public/media/portfolio/placaclara.webp",
+      "classification": "GENERATED",
+      "purpose": "Decorative editorial atmosphere; not product or field evidence",
+      "prompt": "Use case: product-mockup. Create a cinematic 16:9 landscape background for a portfolio case study about researching used cars in Peru. On RIGHT TWO THIRDS: elegant silver sedan in softly out of focus dark garage background, open laptop in foreground angled slightly, laptop screen luminous pale blue-white but entirely EMPTY ready for later real interface integration. One unmarked white report sheet beside laptop, blank, no lettering or icons. Objects all in right half; left 40 percent quiet near-black garage shadows for HTML text. Fine realistic photography, graphite, silver, restrained warm copper highlights, no people. No invented logos, no typography, no claims, no license plate text, no watermarks. Match premium night-workshop mood."
+    },
+    {
+      "path": "public/media/portfolio/autopulse.webp",
+      "classification": "GENERATED",
+      "purpose": "Decorative editorial atmosphere; not product or field evidence",
+      "prompt": "Use case: product-mockup. Cinematic wide 16:9 photo for an Android vehicle telemetry project's portfolio banner. Interior of a real compact car at night, phone angled in a mount on the RIGHT THIRD, screen black unlit and blank ready for HTML overlay, a small OBD-II adapter subtly visible on console, real tactile steering wheel and instrument cluster softly blurred. LEFT HALF very dark navy-charcoal empty space for text. Warm copper ambient glints, moody engineering fieldwork documentary photography, high detail, realistic proportions. No people, no typography, no logos, no watermark, no invented instrument measurements."
+    },
+    {
+      "path": "public/media/portfolio/echo.webp",
+      "classification": "GENERATED",
+      "purpose": "Decorative editorial atmosphere; not product or field evidence",
+      "prompt": "Use case: photorealistic-natural. Cinematic wide 16:9 background for an environmental acoustic event detection AI research portfolio card. A small high-quality dark field microphone at far RIGHT foreground on desk near open window, distant urban street at blue hour with soft copper streetlamp bokeh, quiet technical acoustic research atmosphere. Deep black navy and subtle amber palette matching premium software engineering portfolio. LEFT HALF is near-black quiet negative space for real HTML content, right upper quarter open dark navy space for a later semantic waveform overlay. No people, no words, no labels, no logos, no embedded diagrams or scores, no watermark."
+    }
+  ]
+}

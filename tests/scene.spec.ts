@@ -5,7 +5,7 @@ test('public homepage stays intentionally simple without a WebGL runtime', async
   await expect(page.locator('.scene-runtime')).toHaveCount(0);
   await expect(page.locator('canvas')).toHaveCount(0);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('I build systems for messy real-world problems.');
-  await expect(page.locator('.simple-project-card')).toHaveCount(3);
+  await expect(page.locator('.cinema-project')).toHaveCount(3);
   await page.screenshot({ path: info.outputPath('simple-home.png'), fullPage: true });
 });
 
@@ -23,8 +23,8 @@ test('reduced motion does not hide content or create alternate scene behavior', 
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
   await expect(page.locator('canvas')).toHaveCount(0);
-  await expect(page.locator('.simple-hero-person')).toBeVisible();
-  await expect(page.locator('.simple-project-grid')).toBeVisible();
+  await expect(page.locator('.cinema-hero')).toBeVisible();
+  await expect(page.locator('.cinema-projects')).toBeVisible();
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await expect(page.locator('canvas')).toHaveCount(0);
 });

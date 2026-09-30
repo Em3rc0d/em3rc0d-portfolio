@@ -69,9 +69,9 @@ for (const width of [320, 390, 430, 768, 1024, 1280, 1440, 1920]) {
         await page.screenshot({ path: info.outputPath(`${path === '/' ? 'home' : 'vigia'}-${width}.png`), fullPage: true });
       }
       if (path === '/') {
-        await expect(page.locator('.simple-hero-person img')).toBeVisible();
-        await expect.poll(() => page.locator('.simple-hero-person img').evaluate(el => (el as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
-        await expect(page.locator('.simple-project-card')).toHaveCount(3);
+        await expect(page.locator('.cinema-hero .hero-background')).toBeVisible();
+        await expect.poll(() => page.locator('.cinema-hero .hero-background').evaluate(el => (el as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+        await expect(page.locator('.cinema-project')).toHaveCount(3);
       }
     }
     if (width < 768) {
@@ -135,7 +135,7 @@ test('no JavaScript still exposes identity, projects, CV and contact', async ({ 
   const page = await context.newPage();
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('I build systems for messy real-world problems.');
-  await expect(page.locator('.simple-hero-person img')).toBeVisible();
+  await expect(page.locator('.cinema-hero .hero-background')).toBeVisible();
   await expect(page.getByRole('link', { name: 'Download CV', exact: true }).first()).toBeVisible();
   await page.getByRole('link', { name: 'PlacaClara', exact: true }).first().click();
   await expect(page).toHaveURL(/\/systems\/placaclara$/);
