@@ -1,6 +1,32 @@
 import { profile } from '@/content/profile';
-import { problemPaths } from '@/content/capabilities';
 import { EmailActions } from '@/components/contact/email-actions';
 import { pageMetadata } from '@/lib/metadata';
-export const metadata = pageMetadata('Contact','Talk with Eduardo Merino about building software, improving a product, automating a workflow or applying AI.','/contact');
-export default function ContactPage(){return <main id="main-content" tabIndex={-1}><section className="container contact-intro"><p className="eyebrow accent">Start a conversation</p><h1>A difficult problem<br/>is a good place<br/><span>to start.</span></h1><div className="contact-opening"><p className="lead">A new product, an existing system, a workflow that needs to improve — or a team you think I could contribute to.</p><EmailActions/></div></section><section className="container section rule-top contact-context"><div><p className="eyebrow accent">A useful first message</p><h2>Bring the context.<br/>It doesn’t need<br/>to be polished.</h2></div><ol><li><h3>What are you working on?</h3><p>A product, a team, an idea or a situation that needs attention.</p></li><li><h3>What needs to change?</h3><p>What is missing, difficult, repetitive or no longer working well?</p></li><li><h3>What would a useful result look like?</h3><p>The outcome you want and any constraints you already know.</p></li></ol></section><section className="paper section"><div className="container"><p className="eyebrow">Ways I can contribute</p><div className="contact-paths">{problemPaths.map(path=><div key={path.id}><h2>{path.title}</h2><p>{path.detail}</p></div>)}</div></div></section><section className="container section contact-channels"><div><h2>Talk. Explore.<br/>Go a little deeper.</h2><p className="muted">Choose the route that fits where you are.</p></div><nav aria-label="Contact channels"><a href={`mailto:${profile.email}`}><span>Write directly</span><strong>Email ↗</strong></a><a href={profile.linkedin} target="_blank" rel="noreferrer"><span>Start a professional conversation</span><strong>LinkedIn ↗</strong></a><a href={profile.github} target="_blank" rel="noreferrer"><span>Inspect the public source</span><strong>GitHub ↗</strong></a></nav></section></main>}
+
+export const metadata = pageMetadata(
+  'Contact — Eduardo Merino',
+  'Contact Eduardo Merino about software engineering, full-stack products, automation and applied AI.',
+  '/contact'
+);
+
+export default function ContactPage(){
+  return <main id="main-content" tabIndex={-1}>
+    <section className="container contact-intro">
+      <p className="eyebrow accent">Contact</p>
+      <h1>Let’s talk.</h1>
+      <div className="contact-opening">
+        <p className="lead">A role, a project, a collaboration or simply an interesting software problem — send me a message.</p>
+        <EmailActions/>
+      </div>
+    </section>
+
+    <section className="container section contact-channels">
+      <div><h2>Choose the easiest way.</h2><p className="muted">No form. No long process.</p></div>
+      <nav aria-label="Contact channels">
+        <a href={`mailto:${profile.email}`}><span>Direct</span><strong>Email ↗</strong></a>
+        <a href={profile.linkedin} target="_blank" rel="noreferrer"><span>Professional</span><strong>LinkedIn ↗</strong></a>
+        <a href={profile.github} target="_blank" rel="noreferrer"><span>Code</span><strong>GitHub ↗</strong></a>
+        <a href={profile.cvDownload}><span>Résumé</span><strong>Download CV ↓</strong></a>
+      </nav>
+    </section>
+  </main>;
+}
