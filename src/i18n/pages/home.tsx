@@ -171,11 +171,11 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
       <div className="container cinema-hero-inner">
         <div className="cinema-hero-copy">
           <p className="cinema-eyebrow">{v.builder}</p>
-          <h1 id="cinema-title"><span>{t.titleA}</span><em>{t.titleB}</em></h1>
+          <h1 id="cinema-title"><span>{t.titleA}</span>{" "}<em>{t.titleB}</em></h1>
           <p className="cinema-lead">{t.lead}</p>
           <div className="cinema-actions">
             <Link href="#projects" className="button primary">{t.viewProjects}<span aria-hidden="true">↓</span></Link>
-            <a href={profile.cvDownload} className="button">{v.viewCv}<span aria-hidden="true">↓</span></a>
+            <a href={profile.cvDownload} className="button">{t.download}<span aria-hidden="true">↓</span></a>
             <Link href="#contact" className="button">{t.contact}<span aria-hidden="true">→</span></Link>
           </div>
         </div>
