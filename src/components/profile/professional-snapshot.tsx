@@ -52,12 +52,12 @@ const copy: Record<Locale, SnapshotCopy> = {
 
 export function ProfessionalSnapshot({ locale = "en", education = false }: { locale?: Locale; education?: boolean }) {
   const t = copy[locale];
-  const href = locale === "en" ? profile.cv : `/${locale}${profile.cv}`;
+  const href = profile.cvDownload;
   return <div className="professional-snapshot" aria-label={locale === "es" ? "Resumen profesional" : locale === "pt" ? "Resumo profissional" : "Professional snapshot"}>
     <div><span>{t.role}</span><strong>{profile.role} · Full Stack</strong></div>
     <div><span>{t.experience}</span><strong>{t.experienceValue}</strong></div>
     <div><span>{t.location}</span><strong>{t.locationValue}</strong></div>
     {education && <div><span>{t.education}</span><strong>{t.educationValue}</strong></div>}
-    <Link href={href}><span>{t.resume}</span><strong>{t.open} ↗</strong></Link>
+    <Link href={href}><span>{t.resume}</span><strong>{t.open} ↓</strong></Link>
   </div>;
 }

@@ -12,5 +12,6 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/emerinoc",
   github: "https://github.com/Em3rc0d",
   cv: "/resume",
+  cvDownload: "/api/cv",
   portrait: "/portrait/eduardo.webp",
 } as const;

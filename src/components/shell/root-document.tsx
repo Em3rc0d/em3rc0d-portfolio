@@ -3,7 +3,6 @@ import type { ReactNode } from "react";
 import localFont from "next/font/local";
 import { SiteHeader } from "@/components/shell/site-header";
 import { SiteFooter } from "@/components/shell/site-footer";
-import { PortfolioScene } from "@/components/scene/portfolio-scene";
 import { getSiteOrigin } from "@/lib/site-config";
 import { profile } from "@/content/profile";
 import type { Locale } from "@/i18n/config";
@@ -55,6 +54,6 @@ export function RootDocument({ lang, skipLabel, children }: { lang: Locale; skip
   return <html lang={lang} className={`${sans.variable} ${mono.variable}`}><body id="top">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(person).replace(/</g, "\\u003c") }}/>
     <a className="skip-link" href="#main-content">{skipLabel}</a>
-    <SiteHeader/>{children}<SiteFooter/><PortfolioScene/>
+    <SiteHeader/>{children}<SiteFooter/>
   </body></html>;
 }

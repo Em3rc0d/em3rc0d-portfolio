@@ -3,22 +3,22 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { profile } from "@/content/profile";
-import { localeFromPathname, localizedPath, locales, localeNames } from "@/i18n/config";
+import { localeFromPathname, localizedPath, locales, localeNames, type Locale } from "@/i18n/config";
 import { getMessages } from "@/i18n/messages";
 import { getReputationPolish } from "@/i18n/polish";
 
-const navPaths = [
-  ["systems", "/systems"],
-  ["notes", "/notes"],
-  ["about", "/about"],
-  ["contact", "/contact"],
-] as const;
+const navCopy: Record<Locale, { projects: string; about: string; cv: string; contact: string }> = {
+  en: { projects: "Projects", about: "About", cv: "CV", contact: "Contact" },
+  es: { projects: "Proyectos", about: "Sobre mí", cv: "CV", contact: "Contacto" },
+  pt: { projects: "Projetos", about: "Sobre mim", cv: "CV", contact: "Contato" },
+};
 
 export function SiteHeader() {
   const pathname = usePathname();
   const locale = localeFromPathname(pathname);
   const t = getMessages(locale);
   const polish = getReputationPolish(locale);
+  const nav = navCopy[locale];
   const [open, setOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
 
@@ -34,6 +34,10 @@ export function SiteHeader() {
     return () => window.removeEventListener("keydown", close);
   }, [open]);
 
+  const projectsHref = localizedPath(locale, "/systems");
+  const aboutHref = localizedPath(locale, "/about");
+  const contactHref = localizedPath(locale, "/contact");
+
   return <header className="site-header">
     <div className="container header-inner">
       <Link href={localizedPath(locale, "/")} className="brand" aria-label={polish.shell.brandHome} onClick={() => setOpen(false)}>
@@ -42,11 +46,10 @@ export function SiteHeader() {
       </Link>
       <button className="menu-toggle" type="button" ref={toggle} aria-controls="primary-navigation" aria-expanded={open} onClick={() => setOpen(!open)}>{open ? t.nav.close : t.nav.menu}<span aria-hidden="true">{open ? "−" : "+"}</span></button>
       <nav id="primary-navigation" className={open ? "primary-nav is-open" : "primary-nav"} aria-label={polish.shell.primaryNavigation}>
-        {navPaths.map(([key, href]) => {
-          const target = localizedPath(locale, href);
-          const label = t.nav[key];
-          return <Link key={href} href={target} className={href === "/contact" ? "nav-contact" : undefined} aria-current={pathname === target || pathname.startsWith(`${target}/`) ? "page" : undefined} onClick={() => setOpen(false)}>{label}{href === "/contact" && <span aria-hidden="true">↗</span>}</Link>;
-        })}
+        <Link href={projectsHref} aria-current={pathname === projectsHref || pathname.startsWith(`${projectsHref}/`) ? "page" : undefined} onClick={() => setOpen(false)}>{nav.projects}</Link>
+        <Link href={aboutHref} aria-current={pathname === aboutHref ? "page" : undefined} onClick={() => setOpen(false)}>{nav.about}</Link>
+        <a href={profile.cvDownload} onClick={() => setOpen(false)}>{nav.cv}<span aria-hidden="true"> ↓</span></a>
+        <Link href={contactHref} className="nav-contact" aria-current={pathname === contactHref ? "page" : undefined} onClick={() => setOpen(false)}>{nav.contact}<span aria-hidden="true">↗</span></Link>
         <div className="language-switcher" role="group" aria-label={t.language}>
           {locales.map((item) => <Link key={item} href={localizedPath(item, pathname)} lang={item} hrefLang={item} aria-current={item === locale ? "true" : undefined} aria-label={localeNames[item]} onClick={() => setOpen(false)}>{item.toUpperCase()}</Link>)}
         </div>
