@@ -25,3 +25,6 @@ Exact generation prompts: image-prompts.json. User-provided composition referenc
 
 ## Execution scope
 No build, tests, typecheck, lint, browser preview or visual QA performed, as explicitly requested. Implementation is not presented as tested or production-certified. No manual Vercel deployment or main merge is part of this delivery.
+
+## Individual project identity panels
+Replaced the generic artifact selector only in individual project heroes with eight dedicated SVG compositions. PlacaClara, AutoPulse, ECHO, CV Engine, TALOS, VIGIA, prodAgentic and FinanceSensor now encode their own input/transformation/output logic. Added scoped copper/bone styles, responsive stacking and localized descriptions; retained explicit conceptual boundaries. The detailed identity mapping is in DESIGN.md. No validation commands or manual deployments were executed.

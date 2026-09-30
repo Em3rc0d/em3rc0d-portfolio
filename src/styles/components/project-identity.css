@@ -1,0 +1,47 @@
+/* Case-study identity diagrams. Shared materials; project-specific geometry. */
+.system-artifact.project-identity {
+  --identity-ink: #eee5d7;
+  --identity-muted: #bcb4a8;
+  --identity-copper: var(--copper, #efa777);
+  color: var(--identity-copper);
+  background: radial-gradient(ellipse at 55% 42%, #25221c55, transparent 70%), #0a1013;
+  border-color: #615346;
+  box-shadow: 0 22px 70px #0003;
+  overflow: hidden;
+  isolation: isolate;
+}
+.project-identity .artifact-topline { align-items: baseline; padding: 20px 22px; gap: 12px; }
+.project-identity .artifact-topline > span:first-child { color: var(--identity-ink); font-size: .75rem; letter-spacing: .025em; }
+.project-identity .artifact-topline > span:last-child { color: var(--identity-muted); font-size: .625rem; }
+.project-identity > svg { display: block; width: 100%; height: auto; }
+.project-identity .identity-label { font: 500 13px var(--font-mono), monospace; letter-spacing: .3px; fill: var(--identity-ink); }
+.project-identity .identity-small { font-size: 11px; font-weight: 400; fill: var(--identity-muted); }
+.project-identity .identity-accent { fill: var(--identity-copper); }
+.project-identity .identity-route { fill: none; stroke: var(--identity-copper); stroke-width: 1.3; stroke-linejoin: round; stroke-linecap: round; }
+.project-identity .identity-soft { stroke: #9a8c79; stroke-opacity: .42; }
+.project-identity .identity-grid { fill: none; stroke: #bea78b; stroke-opacity: .055; stroke-width: .6; }
+.project-identity .identity-surface { fill: #151a1b; stroke: #b9906c; stroke-width: 1; }
+.project-identity .identity-window { fill: #b58a5b0e; stroke: #b58a5b66; stroke-width: 1; stroke-dasharray: 3 5; }
+.project-identity .identity-dot { fill: var(--identity-copper); }
+.project-identity .identity-dot-open { fill: #0a1013; stroke: #bcab93; stroke-width: 1.2; }
+.project-identity .identity-muted-dot { fill: var(--identity-muted); }
+.project-identity .identity-gate { fill: #211d17; stroke: var(--identity-copper); stroke-width: 1; }
+.project-identity .identity-cell { stroke: #9a8c7955; stroke-width: 1; fill: #0d1416; }
+.project-identity .identity-cell-1 { fill: #b58a5b18; stroke: #b58a5b99; }
+.project-identity .identity-cell-2 { fill: #b58a5b38; stroke: #d8aa7e; }
+.project-identity figcaption { padding: 19px 22px 22px; }
+.project-identity figcaption > p { color: var(--identity-muted); line-height: 1.6; font-size: .8rem; }
+.project-identity figcaption > .identity-boundary { font-size: .6875rem; color: #a59b8e; padding-top: 12px; border-top: 1px solid #b58a5b22; }
+.project-identity ol { color: var(--identity-ink); font-size: .75rem; }
+/* Stack earlier so neither the narrative nor diagram becomes a narrow column. */
+@media (min-width: 768px) and (max-width: 1100px) {
+  .case-hero-grid:has(.project-identity) { grid-template-columns: 1fr; }
+  .case-hero-grid > .project-identity { width: 100%; max-width: 720px; justify-self: center; }
+}
+@media (max-width: 480px) {
+  .project-identity .artifact-topline { padding: 16px 12px; }
+  .project-identity figcaption { padding: 16px 12px; }
+  .project-identity .identity-label { font-size: 14px; letter-spacing: 0; }
+  .project-identity .identity-small { font-size: 11.5px; }
+  .project-identity figcaption > p { font-size: .8125rem; }
+}

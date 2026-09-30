@@ -48,3 +48,26 @@ A dark editorial engineering portfolio: copper type, real work as the visual anc
 
 ## Delivery boundary
 User explicitly requested execution without tests or verification. No dependency installation, build, lint, typecheck, browser preview, screenshot run or automated test was executed. Responsive behavior and visual equivalence are implemented but not validated. Existing detailed case studies and their evidence boundaries remain authoritative.
+
+## Case-study system identities — 2026-09-30
+
+Scope: the right-hand panel in individual project pages, shared across EN/ES/PT. Homepage cards keep their existing rendering. The user-provided identity brief is OFFICIAL design direction; the new SVG compositions are handcrafted interpretations, not runtime evidence. Source coverage, matching cells, signals and maps are schematic and never assert measured results.
+
+| Project | Base geometry / stroke | Visual tension | Semantic progression |
+| --- | --- | --- | --- |
+| PlacaClara | Radial source constellation / nodal | Convergence; dashed variable coverage | Plate → Sources → Evidence → Report → Decision |
+| AutoPulse | Multichannel timeline / stepped traces | Partial capture gap over continuous stored history | Capture → Persist → Recover → Understand |
+| ECHO | Acoustic corridor / waveform windows | Candidate becoming temporally confirmed event | Audio → Inference → Event → Publish |
+| CV Engine | Comparison matrix / orthogonal cells | Aligned, partial and missing evidence | Evidence → Opportunity → Assessment → Application |
+| TALOS | Vertical authority chain / rectilinear gates | G1–G3 preceding execution; durable runtime loop | Source → Review → Approve → Execute |
+| VIGIA | Territory lattice / overlays | Alternative allocation scenarios | Territory → Constraints → Scenarios → Allocation |
+| prodAgentic | Editorial memory loop / curved return | Novelty check and explicit human gate | Idea → Memory → Novelty → Draft → Approve |
+| FinanceSensor | Layered signal stack / planes | Privacy boundary before observability | Signals → Normalize → Protect → Observe |
+
+Materials: existing carbon and copper palette, bone labels, muted sand secondary copy, thin technical lines and a low-opacity 30-unit grid. Helpers share only primitive labels, connectors and nodes; each system owns its composition. No animation, imagery, fake dashboards, external requests or additional dependencies.
+
+Responsive: SVG viewBox 600×420 preserves geometry; individual case heroes stack at 1100px and below to give diagrams more room. Small-screen captions provide readable explanations of the same flow. SVG title/description use unique IDs; prose is localized and technical diagram labels are marked English. Match states also use check, dash and dot shapes, not color alone. Mobile behavior is implemented, not visually validated.
+
+Implementation: src/components/systems/project-identity.tsx; styles scoped to .project-identity in src/styles/components/project-identity.css. Unspecified projects retain their existing SystemArtifact through an explicit fallback. No changes to content claims, evidence, routing, project state or homepage composition.
+
+Delivery: no tests, build, typecheck, lint, browser preview or deployment executed for this change, per request. Visual/runtime quality has not been verified in this pass.
