@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element -- project previews use public evidence captures */
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SystemArtifact } from "@/components/systems/system-artifact";
@@ -41,15 +42,36 @@ function visibleLimitations(system: SystemCase) {
 }
 
 export function LocalizedSystems({ locale }: { locale: Locale }) {
-  const t = getMessages(locale);
-  const polish = getReputationPolish(locale);
   const systems = localizedSystemCases(locale);
-  const featured = systems.filter((system) => system.placement === "FLAGSHIP");
+  const copy: Record<Locale, { eyebrow: string; title: string; lead: string; open: string }> = {
+    en: { eyebrow: "Projects", title: "Things I’ve built.", lead: "Products, experiments and professional engineering work. Open any project for the full story.", open: "View project" },
+    es: { eyebrow: "Proyectos", title: "Cosas que he construido.", lead: "Productos, experimentos y trabajo profesional de ingeniería. Abre cualquier proyecto para ver la historia completa.", open: "Ver proyecto" },
+    pt: { eyebrow: "Projetos", title: "Coisas que construí.", lead: "Produtos, experimentos e trabalho profissional de engenharia. Abra qualquer projeto para ver a história completa.", open: "Ver projeto" },
+  };
+  const t = copy[locale];
+
   return <main id="main-content" lang={locale} tabIndex={-1}>
-    <header className="page-intro container"><p className="eyebrow accent">{t.systems.eyebrow}</p><h1>{t.systems.title}</h1><p className="lead">{t.systems.lead}</p><p className="system-count-signal">{t.common.selectedCount}</p></header>
-    <section className="container" aria-label={t.systems.selectedLabel}>{featured.map((system,i)=>{const state=displayState(locale,system);return <article className={`system-encounter encounter-${i}`} key={system.slug} data-accent={system.accent}><div className="encounter-copy"><p className="eyebrow accent">{system.category}</p><h2>{system.name}</h2><p className="encounter-summary">{system.summary}</p><p className="encounter-built">{system.built}</p><p className="encounter-state">{state.label}</p><Link className="text-link" href={localePath(locale,`/systems/${system.slug}`)}>{t.common.explore} {system.name}<span aria-hidden="true">↗</span></Link></div><SystemArtifact system={system} locale={locale}/></article>})}</section>
-    <section className="section container"><div className="section-head"><div><p className="eyebrow accent">{t.systems.further}</p><h2><Lines value={t.systems.furtherTitle}/></h2></div><p>{t.systems.furtherText}</p></div><div className="supporting-systems">{systems.filter((system)=>system.placement!=="FLAGSHIP").map((system)=><Link href={localePath(locale,`/systems/${system.slug}`)} key={system.slug}><span className="eyebrow">{polish.system.placements[system.placement]}</span><div><h3>{system.name}</h3><p>{system.summary}</p><span className="support-state">{displayState(locale,system).label}</span></div><span className="row-arrow" aria-hidden="true">↗</span></Link>)}</div></section>
-    <div className="rule-top"><LocalizedConversation locale={locale}/></div>
+    <header className="page-intro container">
+      <p className="eyebrow accent">{t.eyebrow}</p>
+      <h1>{t.title}</h1>
+      <p className="lead">{t.lead}</p>
+    </header>
+    <section className="container simple-systems-grid" aria-label={t.eyebrow}>
+      {systems.map((system) => {
+        const media = system.media?.[0];
+        return <article className="simple-system-card" key={system.slug}>
+          <Link className="simple-system-thumb" href={localePath(locale, `/systems/${system.slug}`)} aria-label={`${t.open}: ${system.name}`}>
+            {media ? <img src={media.src} alt={media.alt} width={media.width} height={media.height} loading="lazy" decoding="async" referrerPolicy="no-referrer"/> : <span>{system.name}</span>}
+          </Link>
+          <div className="simple-system-body">
+            <p className="eyebrow">{system.category}</p>
+            <h2><Link href={localePath(locale, `/systems/${system.slug}`)}>{system.name}</Link></h2>
+            <p>{system.summary}</p>
+            <Link className="text-link" href={localePath(locale, `/systems/${system.slug}`)}>{t.open} <span aria-hidden="true">↗</span></Link>
+          </div>
+        </article>;
+      })}
+    </section>
   </main>;
 }
 
