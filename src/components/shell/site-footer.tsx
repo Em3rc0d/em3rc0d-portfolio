@@ -11,5 +11,21 @@ export function SiteFooter() {
   const locale = localeFromPathname(pathname);
   const t = getMessages(locale);
   const polish = getReputationPolish(locale);
-  return <footer className="site-footer"><div className="container footer-inner"><div><Link href={localizedPath(locale, "/")} className="footer-name">Eduardo Merino</Link><p>{t.footer.tagline}</p></div><nav aria-label={polish.shell.footerNavigation}><Link href={localizedPath(locale, "/evidence")}>{t.footer.evidence}</Link><a href={`mailto:${profile.email}`}>Email ↗</a><a href={profile.github} target="_blank" rel="noreferrer">GitHub ↗</a><a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a></nav><a href="#top" className="back-top">{t.footer.top}</a></div></footer>;
+  const labels = locale === "es"
+    ? { projects: "Proyectos", cv: "Descargar CV", email: "Correo" }
+    : locale === "pt"
+      ? { projects: "Projetos", cv: "Baixar CV", email: "E-mail" }
+      : { projects: "Projects", cv: "Download CV", email: "Email" };
+
+  return <footer className="site-footer"><div className="container footer-inner">
+    <div><Link href={localizedPath(locale, "/")} className="footer-name">Eduardo Merino</Link><p>{t.footer.tagline}</p></div>
+    <nav aria-label={polish.shell.footerNavigation}>
+      <Link href={localizedPath(locale, "/systems")}>{labels.projects}</Link>
+      <a href={profile.cvDownload}>{labels.cv} ↓</a>
+      <a href={`mailto:${profile.email}`}>{labels.email} ↗</a>
+      <a href={profile.github} target="_blank" rel="noreferrer">GitHub ↗</a>
+      <a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a>
+    </nav>
+    <a href="#top" className="back-top">{t.footer.top}</a>
+  </div></footer>;
 }
