@@ -39,8 +39,8 @@ test('identity, projects, CV and contact form a complete visitor path', async ({
 
   await page.getByRole('navigation', { name: 'Primary navigation' }).getByRole('link', { name: 'Contact' }).click();
   await expect(page).toHaveURL(/\/contact$/);
-  await expect(page.getByRole('link', { name: /^Email/ })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'LinkedIn', exact: true })).toBeVisible();
+  await expect(page.locator('.simple-contact-options').getByRole('link', { name: /^Email/ })).toBeVisible();
+  await expect(page.locator('.simple-contact-options').getByRole('link', { name: /^LinkedIn/ })).toBeVisible();
   expect(errors).toEqual([]);
 });
 
