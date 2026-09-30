@@ -17,7 +17,7 @@ for (const item of cases) {
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(item.title);
     await expect(page.getByRole("link", { name: item.cta, exact: true }).first()).toBeVisible();
     await expect(page.getByRole("link", { name: /CV/, exact: false }).first()).toBeVisible();
-    await expect(page.locator(".simple-project-card")).toHaveCount(3);
+    await expect(page.locator(".cinema-project")).toHaveCount(3);
     await context.close();
   });
 }
