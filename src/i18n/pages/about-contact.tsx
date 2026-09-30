@@ -10,10 +10,10 @@ const aboutCopy: Record<Locale, {
   areas: readonly {title:string; body:string}[];
 }> = {
   en: {
-    eyebrow:"About", title:"Hi, I’m Eduardo.", lead:"Software Engineer and full-stack builder based in Lima, Peru.",
-    body:"I like taking a real problem, understanding what actually matters, and turning it into software people can use. Recent work spans a live vehicle-research product, physical OBD telemetry, acoustic AI and governed process automation.",
+    eyebrow:"About", title:"Hi, I’m Eduardo.", lead:"I like software that has to deal with reality.",
+    body:"Connections drop. Providers disagree or return nothing. Models are uncertain. Payments and product outcomes can diverge. Those edges are where I enjoy engineering most: understanding what is actually true, making the boundary explicit, and building a product that still works.",
     current:"Full Stack Developer at Thradex Tech", education:"Systems & Informatics Engineering at UNMSM · final stage",
-    focus:"Product engineering · Full Stack · Applied AI", projects:"View projects", cv:"Download CV", contact:"Contact me",
+    focus:"Field systems · Product engineering · Applied AI", projects:"View projects", cv:"Download CV", contact:"Contact me",
     workTitle:"What I work with",
     areas:[
       {title:"Product engineering",body:"From requirements and architecture to implementation, deployment and iteration."},
@@ -23,10 +23,10 @@ const aboutCopy: Record<Locale, {
     ],
   },
   es: {
-    eyebrow:"Sobre mí", title:"Hola, soy Eduardo.", lead:"Software Engineer y desarrollador full-stack en Lima, Perú.",
-    body:"Me gusta tomar un problema real, entender qué importa de verdad y convertirlo en software que alguien pueda usar. Mi trabajo reciente abarca un producto vehicular en producción, telemetría OBD física, IA acústica y automatización de procesos gobernada.",
+    eyebrow:"Sobre mí", title:"Hola, soy Eduardo.", lead:"Me gusta el software que tiene que enfrentarse a la realidad.",
+    body:"Las conexiones se caen. Los proveedores discrepan o no devuelven nada. Los modelos son inciertos. Un pago y el resultado del producto pueden separarse. Esos bordes son donde más disfruto la ingeniería: entender qué es realmente cierto, hacer explícito el límite y construir un producto que aun así funcione.",
     current:"Full Stack Developer en Thradex Tech", education:"Ingeniería de Sistemas e Informática en UNMSM · etapa final",
-    focus:"Ingeniería de producto · Full Stack · IA aplicada", projects:"Ver proyectos", cv:"Descargar CV", contact:"Contactarme",
+    focus:"Sistemas de campo · Ingeniería de producto · IA aplicada", projects:"Ver proyectos", cv:"Descargar CV", contact:"Contactarme",
     workTitle:"Con qué trabajo",
     areas:[
       {title:"Ingeniería de producto",body:"Desde requerimientos y arquitectura hasta implementación, despliegue e iteración."},
@@ -36,10 +36,10 @@ const aboutCopy: Record<Locale, {
     ],
   },
   pt: {
-    eyebrow:"Sobre mim", title:"Olá, eu sou Eduardo.", lead:"Software Engineer e desenvolvedor full-stack baseado em Lima, Peru.",
-    body:"Gosto de pegar um problema real, entender o que realmente importa e transformá-lo em software que as pessoas possam usar. Meu trabalho recente inclui produto veicular em produção, telemetria OBD física, IA acústica e automação de processos governada.",
+    eyebrow:"Sobre mim", title:"Olá, eu sou Eduardo.", lead:"Gosto de software que precisa lidar com a realidade.",
+    body:"Conexões caem. Provedores discordam ou não retornam nada. Modelos são incertos. Pagamento e resultado do produto podem divergir. É nessas bordas que mais gosto de engenharia: entender o que é realmente verdadeiro, tornar o limite explícito e construir um produto que ainda assim funcione.",
     current:"Full Stack Developer na Thradex Tech", education:"Engenharia de Sistemas e Informática na UNMSM · etapa final",
-    focus:"Engenharia de produto · Full Stack · IA aplicada", projects:"Ver projetos", cv:"Baixar CV", contact:"Entrar em contato",
+    focus:"Sistemas de campo · Engenharia de produto · IA aplicada", projects:"Ver projetos", cv:"Baixar CV", contact:"Entrar em contato",
     workTitle:"Com o que trabalho",
     areas:[
       {title:"Engenharia de produto",body:"De requisitos e arquitetura até implementação, deploy e evolução."},
