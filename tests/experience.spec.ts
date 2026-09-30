@@ -44,6 +44,33 @@ test('identity, projects, CV and contact form a complete visitor path', async ({
   expect(errors).toEqual([]);
 });
 
+
+const projectIdentities = [
+  ['placaclara', 'Evidence Constellation'],
+  ['autopulse', 'Telemetry Session Engine'],
+  ['echo', 'Acoustic Event Corridor'],
+  ['cv-engine', 'Evidence Match Matrix'],
+  ['talos', 'Process Authority Chain'],
+  ['vigia', 'Territory Scenario Grid'],
+  ['prodagentic', 'Editorial Memory Loop'],
+  ['finance-sensor', 'Private Financial Signal Stack'],
+  ['prompt-machine', 'Workflow Certification Lane'],
+  ['infrastructure-site-mapper', 'Infrastructure Topology Lens'],
+  ['gpets', 'Realtime Sync Ring'],
+] as const;
+
+test('every public English project has its own system identity', async ({ page }) => {
+  const seen = new Set<string>();
+  for (const [slug, title] of projectIdentities) {
+    await page.goto(`/systems/${slug}`);
+    const identity = page.locator('.project-identity');
+    await expect(identity).toBeVisible();
+    await expect(identity.locator('.artifact-topline > span').first()).toHaveText(title);
+    seen.add(await identity.locator('.artifact-topline > span').first().innerText());
+  }
+  expect(seen.size).toBe(projectIdentities.length);
+});
+
 test('catalogs expose search, counts and a recoverable empty state', async ({ page }) => {
   for (const kind of ['notes', 'evidence']) {
     await page.goto(`/${kind}`);
