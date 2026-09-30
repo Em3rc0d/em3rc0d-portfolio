@@ -4,7 +4,7 @@ test('public homepage stays intentionally simple without a WebGL runtime', async
   await page.goto('/');
   await expect(page.locator('.scene-runtime')).toHaveCount(0);
   await expect(page.locator('canvas')).toHaveCount(0);
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('I build useful software.');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('I build systems for messy real-world problems.');
   await expect(page.locator('.simple-project-card')).toHaveCount(3);
   await page.screenshot({ path: info.outputPath('simple-home.png'), fullPage: true });
 });
@@ -13,7 +13,7 @@ test('mobile homepage keeps the simple presentation and primary actions', async 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   await expect(page.locator('canvas')).toHaveCount(0);
-  await expect(page.getByRole('link', { name: 'View projects', exact: true }).first()).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Explore the work', exact: true }).first()).toBeVisible();
   await expect(page.getByRole('link', { name: 'Download CV', exact: true }).first()).toBeVisible();
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
   expect(overflow).toBeLessThanOrEqual(1);
