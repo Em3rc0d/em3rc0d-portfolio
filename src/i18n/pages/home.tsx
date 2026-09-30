@@ -15,7 +15,7 @@ const copy: Record<Locale, {
     eyebrow: "Software Engineer · Full Stack · Lima, Peru",
     title: "I build useful software.",
     lead: "Web apps, mobile products, automation and AI-powered tools — from the first idea to a working product.",
-    projects: "Selected projects", projectsLead: "Three real products that show the kind of problems I like to solve.",
+    projects: "Selected projects", projectsLead: "Three current projects that show product thinking, real-world integration and applied AI.",
     viewProjects: "View projects", download: "Download CV", contact: "Contact me", openProject: "View project",
     more: "More work", moreLead: "Other products, experiments and professional engineering work.",
     about: "About me", aboutTitle: "Full-stack, from problem to product.",
@@ -27,7 +27,7 @@ const copy: Record<Locale, {
     eyebrow: "Software Engineer · Full Stack · Lima, Perú",
     title: "Construyo software útil.",
     lead: "Aplicaciones web, productos móviles, automatización y herramientas con IA — desde la idea hasta un producto funcionando.",
-    projects: "Proyectos destacados", projectsLead: "Tres productos reales que muestran el tipo de problemas que me gusta resolver.",
+    projects: "Proyectos destacados", projectsLead: "Tres proyectos actuales que muestran producto, integración con el mundo real e IA aplicada.",
     viewProjects: "Ver proyectos", download: "Descargar CV", contact: "Contactarme", openProject: "Ver proyecto",
     more: "Más trabajo", moreLead: "Otros productos, experimentos y trabajo profesional de ingeniería.",
     about: "Sobre mí", aboutTitle: "Full-stack, del problema al producto.",
@@ -39,7 +39,7 @@ const copy: Record<Locale, {
     eyebrow: "Software Engineer · Full Stack · Lima, Peru",
     title: "Eu construo software útil.",
     lead: "Aplicações web, produtos mobile, automação e ferramentas com IA — da primeira ideia até um produto funcionando.",
-    projects: "Projetos em destaque", projectsLead: "Três produtos reais que mostram o tipo de problema que gosto de resolver.",
+    projects: "Projetos em destaque", projectsLead: "Três projetos atuais que mostram produto, integração com o mundo real e IA aplicada.",
     viewProjects: "Ver projetos", download: "Baixar CV", contact: "Entrar em contato", openProject: "Ver projeto",
     more: "Mais trabalhos", moreLead: "Outros produtos, experimentos e trabalho profissional de engenharia.",
     about: "Sobre mim", aboutTitle: "Full-stack, do problema ao produto.",
@@ -51,18 +51,24 @@ const copy: Record<Locale, {
 
 const projectCopy: Record<Locale, Record<string, string>> = {
   en: {
+    placaclara: "Web product for researching a used car before buying: source-backed vehicle reports, payments, PDF/email delivery and clear coverage gaps.",
     autopulse: "Android app that reads live vehicle data through OBD-II, records driving sessions and preserves useful history when connections fail.",
     vigia: "Planning tool for comparing how limited resources could cover a territory under the same declared constraints.",
+    echo: "AI acoustic-event system that turns environmental audio into governed, time-aware events and publishes them through a reproducible runtime path.",
     prodagentic: "Content production workspace that remembers previous topics, checks repetition and keeps human approval in the loop.",
   },
   es: {
+    placaclara: "Producto web para investigar un auto usado antes de comprar: reportes con fuentes, pagos, entrega PDF/correo y brechas de cobertura visibles.",
     autopulse: "App Android que lee datos del vehículo por OBD-II, registra sesiones y conserva un historial útil incluso cuando la conexión falla.",
     vigia: "Herramienta de planificación para comparar cómo recursos limitados podrían cubrir un territorio bajo las mismas restricciones.",
+    echo: "Sistema de IA acústica que convierte audio ambiental en eventos gobernados y temporales mediante un runtime reproducible.",
     prodagentic: "Workspace de producción de contenido que recuerda temas anteriores, revisa repetición y mantiene la aprobación humana.",
   },
   pt: {
+    placaclara: "Produto web para pesquisar um carro usado antes da compra: relatórios com fontes, pagamentos, entrega PDF/e-mail e lacunas de cobertura visíveis.",
     autopulse: "App Android que lê dados do veículo por OBD-II, registra sessões e preserva histórico útil mesmo quando a conexão falha.",
     vigia: "Ferramenta de planejamento para comparar como recursos limitados poderiam cobrir um território sob as mesmas restrições.",
+    echo: "Sistema de IA acústica que transforma áudio ambiental em eventos governados e temporais por meio de um runtime reproduzível.",
     prodagentic: "Workspace de produção de conteúdo que lembra temas anteriores, verifica repetição e mantém aprovação humana.",
   },
 };

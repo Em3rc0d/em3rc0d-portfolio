@@ -1,7 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-const surfaces = ['/', '/systems', '/systems/autopulse', '/systems/vigia', '/systems/prodagentic', '/notes', '/notes/no-data-is-not-zero', '/about', '/contact', '/evidence', '/evidence/e-pa-01'];
+const surfaces = ['/', '/systems', '/systems/placaclara', '/systems/autopulse', '/systems/echo', '/systems/talos', '/systems/vigia', '/systems/prodagentic', '/notes', '/notes/no-data-is-not-zero', '/about', '/contact', '/evidence', '/evidence/e-pa-01'];
 async function noOverflow(page: Page) {
   const overflow = await page.evaluate(() => ({
     delta: document.documentElement.scrollWidth - innerWidth,
@@ -29,8 +29,8 @@ test('identity, projects, CV and contact form a complete visitor path', async ({
   await page.keyboard.press('Enter');
   await expect(page.locator('main')).toBeFocused();
 
-  await page.getByRole('link', { name: 'AutoPulse', exact: true }).first().click();
-  await expect(page).toHaveURL(/\/systems\/autopulse$/);
+  await page.getByRole('link', { name: 'PlacaClara', exact: true }).first().click();
+  await expect(page).toHaveURL(/\/systems\/placaclara$/);
   const details = page.locator('#how-it-works');
   await expect(details).not.toHaveAttribute('open');
   await details.locator('summary').focus();
@@ -137,8 +137,8 @@ test('no JavaScript still exposes identity, projects, CV and contact', async ({ 
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('I build useful software.');
   await expect(page.locator('.simple-hero-person img')).toBeVisible();
   await expect(page.getByRole('link', { name: 'Download CV', exact: true }).first()).toBeVisible();
-  await page.getByRole('link', { name: 'AutoPulse', exact: true }).first().click();
-  await expect(page).toHaveURL(/\/systems\/autopulse$/);
+  await page.getByRole('link', { name: 'PlacaClara', exact: true }).first().click();
+  await expect(page).toHaveURL(/\/systems\/placaclara$/);
   await page.locator('#how-it-works > summary').click();
   await expect(page.locator('#how-it-works')).toHaveAttribute('open');
   await context.close();
