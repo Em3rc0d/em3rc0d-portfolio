@@ -42,7 +42,7 @@ export function LocalizedResume({ locale = "en" }: { locale?: Locale }) {
   const t = copy[locale];
   const home = locale === "en" ? "/" : `/${locale}`;
   return <main id="main-content" className="resume-page container" lang={locale} tabIndex={-1}>
-    <header className="resume-header"><div><p className="eyebrow accent">Résumé / CV</p><h1>{t.title}</h1><p className="lead">{t.subtitle}</p></div><Link className="text-link resume-back" href={home}>← {t.back}</Link></header>
+    <header className="resume-header"><div><p className="eyebrow accent">Résumé / CV</p><h1>{t.title}</h1><p className="lead">{t.subtitle}</p></div><div className="actions"><a className="button primary resume-download" href={profile.cvDownload}>{locale === "es" ? "Descargar PDF" : locale === "pt" ? "Baixar PDF" : "Download PDF"} ↓</a><Link className="text-link resume-back" href={home}>← {t.back}</Link></div></header>
     <section className="resume-block"><p className="eyebrow">{t.profileLabel}</p><p>{t.profileText}</p></section>
     <section className="resume-grid"><div className="resume-block"><p className="eyebrow">{t.experience}</p><h2>{t.role}</h2><p>{t.roleDetail}</p></div><div className="resume-block"><p className="eyebrow">{t.education}</p><h2>UNMSM</h2><p>{t.educationDetail}</p></div></section>
     <section className="resume-block"><p className="eyebrow">{t.projects}</p><div className="resume-projects">{projects.map(([name,detail])=><article key={name}><h2>{name}</h2><p>{detail}</p></article>)}</div></section>
