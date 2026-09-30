@@ -304,7 +304,7 @@
   .simple-project-card:hover{transform:none;}
 }
 
-@media(min-width:768px) and (max-height:700px){
+@media(min-width:768px) and (max-height:820px){
   .simple-hero{min-height:auto;padding-block:2rem;}
   .simple-hero-copy h1{font-size:clamp(3rem,6vw,5.2rem);margin-block:1rem;}
   .simple-hero-lead{font-size:1.05rem;}
