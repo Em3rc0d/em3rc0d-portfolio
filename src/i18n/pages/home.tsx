@@ -147,7 +147,7 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
       <div className="hero-coordinate hero-coordinate-b" aria-hidden="true">LIM / PE</div>
       <div className="simple-hero-copy">
         <p className="eyebrow accent">{t.eyebrow}</p>
-        <h1><span>{t.titleA}</span><em>{t.titleB}</em></h1>
+        <h1><span>{t.titleA}</span>{" "}<em>{t.titleB}</em></h1>
         <p className="simple-hero-lead">{t.lead}</p>
         <div className="actions simple-hero-actions">
           <Link href="#projects" className="button primary">{t.viewProjects} <span aria-hidden="true">↓</span></Link>
