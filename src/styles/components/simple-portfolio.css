@@ -185,6 +185,9 @@
   border-bottom:1px solid var(--border);
   color:var(--muted);
 }
+.simple-about-area{padding:var(--space-5);background:var(--carbon-deep);border:1px solid var(--border);}
+.simple-about-area h3{font-size:1.25rem;margin-bottom:.6rem;}
+.simple-about-area p{color:var(--muted);line-height:1.6;}
 
 .simple-final-cta{
   background:var(--paper);
