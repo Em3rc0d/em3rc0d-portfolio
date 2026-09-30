@@ -3,7 +3,7 @@ export const prodagentic: SystemCase = {
   id: "06", slug: "prodagentic", name: "prodAgentic", category: "AI & workflow automation",
   summary: "Plan content that remembers what came before — while the person stays in control.",
   built: "A full-stack content workflow with versioned editorial profiles, batch planning, editorial memory and explainable novelty checks.",
-  placement: "FLAGSHIP", publicability: "PUBLIC", ownership: "Primary builder · product, backend, frontend and verification",
+  placement: "SUPPORT", publicability: "PUBLIC", ownership: "Primary builder · product, backend, frontend and verification",
   state: { label: "Verified planning foundation · product evolving", detail: "Published evidence on this portfolio certifies the MK1 S0–S2 planning baseline. The current product interface has evolved beyond that inspected scope and is shown here as product reality, without extending those earlier certificates.", boundary: "The detailed evidence below covers planning. Later product surfaces are visible, but they are not retroactively certified by the S0–S2 receipts. External publishing and commercial outcomes are not claimed." },
   problem: "A content workflow can produce more material and still repeat the same ideas. Editorial identity, previous topics and human approval need to survive from one batch to the next.",
   importance: "The useful outcome is a plan someone can review, explain and continue working from — with fewer repeated ideas and a clear record of the decisions.",
