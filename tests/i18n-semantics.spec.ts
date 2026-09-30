@@ -1,8 +1,8 @@
 import { test, expect } from "@playwright/test";
 
 const cases = [
-  { path: "/es", locale: "es", skip: "Saltar al contenido", nav: "Navegación principal", footer: "Navegación del pie de página", cta: "Ver proyectos", title: "Construyo software útil." },
-  { path: "/pt", locale: "pt", skip: "Ir para o conteúdo", nav: "Navegação principal", footer: "Navegação do rodapé", cta: "Ver projetos", title: "Eu construo software útil." },
+  { path: "/es", locale: "es", skip: "Saltar al contenido", nav: "Navegación principal", footer: "Navegación del pie de página", cta: "Explorar el trabajo", title: "Construyo sistemas para problemas reales y desordenados." },
+  { path: "/pt", locale: "pt", skip: "Ir para o conteúdo", nav: "Navegação principal", footer: "Navegação do rodapé", cta: "Explorar o trabalho", title: "Eu construo sistemas para problemas reais e bagunçados." },
 ] as const;
 
 for (const item of cases) {
