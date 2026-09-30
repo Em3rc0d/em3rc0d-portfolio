@@ -1,5 +1,4 @@
 import { LocalizedHome } from "@/i18n/pages/home";
-import { profile } from "@/content/profile";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata(
