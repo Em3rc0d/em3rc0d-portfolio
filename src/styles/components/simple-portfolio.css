@@ -46,6 +46,7 @@
 .simple-hero-person{
   margin:0;
   position:relative;
+  width:100%;
   max-width:520px;
   justify-self:end;
   background:var(--metal);
