@@ -1,8 +1,9 @@
-/* eslint-disable @next/next/no-img-element -- flagship captures are hosted in public project/evidence sources */
 import Image from "next/image";
 import Link from "next/link";
 import { profile } from "@/content/profile";
 import { systemCases } from "@/content/systems";
+import { SystemArtifact } from "@/components/systems/system-artifact";
+import { PortfolioIcon } from "@/components/profile/portfolio-icon";
 import { localePath, type Locale } from "@/i18n/config";
 
 type Principle = { code: string; body: string };
@@ -122,141 +123,119 @@ const pipelines: Record<Locale, Record<string, Pipeline>> = {
   },
 };
 
-function EchoVisual() {
-  return <div className="echo-system-visual" aria-hidden="true">
-    <div className="echo-visual-meta"><span>RAW AUDIO</span><span>EVENT ENGINE</span><span>MQTT</span></div>
-    <div className="echo-wave">
-      {[18,38,65,34,82,52,94,43,71,26,58,88,47,76,32,62,90,45,70,24,54,80,42,66].map((height,index)=>
-        <span key={index} style={{height:`${height}%`}}/>
-      )}
-    </div>
-    <div className="echo-event-track">
-      <span>RAW_INFERENCE</span><i>→</i><span>CANDIDATE</span><i>→</i><strong>CONFIRMED_EVENT</strong>
-    </div>
-  </div>;
-}
+const visualCopy = {
+  en: {
+    builder: "01 / BUILDER", viewCv: "View CV", all: "View all projects", more: "More projects exploring different problems, technologies and domains.",
+    contact: "Get in touch", invitation: "Role, project, collaboration or product idea.", about: "More about me", city: "Lima, Peru",
+    field: "FIELD", system: "SYSTEM", product: "PRODUCT", motto: <>REAL DATA.<br/>USEFUL SYSTEMS.</>,
+    subtitles: ["Know more before buying a used car.", "Vehicle intelligence in your hands.", "From environmental audio to meaningful events."],
+    tags: [["Live product", "Peru", "Payments", "Reports"], ["Android", "OBD-II", "Live telemetry", "Field tested"], ["Audio", "AI models", "Event engine", "MQTT"]],
+    states: ["LIVE PRODUCT", "ACTIVE R&D · FIELD OBSERVATIONS", "RESEARCH MVP · MODEL VALIDATION IN PROGRESS"],
+    deeper: ["Process intelligence and automation.", "Geospatial decision support.", "AI-assisted content production.", "Career intelligence with AI.", "Financial data and automation.", "Reusable AI workflows."],
+    illustration: "Conceptual audio-to-event pipeline",
+  },
+  es: {
+    builder: "01 / CONSTRUCTOR", viewCv: "Ver CV", all: "Ver todos los proyectos", more: "Más proyectos que exploran distintos problemas, tecnologías y dominios.",
+    contact: "Hablemos", invitation: "Una oportunidad, proyecto, colaboración o idea de producto.", about: "Más sobre mí", city: "Lima, Perú",
+    field: "CAMPO", system: "SISTEMA", product: "PRODUCTO", motto: <>DATOS REALES.<br/>SISTEMAS ÚTILES.</>,
+    subtitles: ["Conoce más antes de comprar un auto usado.", "Inteligencia vehicular en tus manos.", "Del audio ambiental a eventos con significado."],
+    tags: [["Producto activo", "Perú", "Pagos", "Reportes"], ["Android", "OBD-II", "Telemetría", "Pruebas de campo"], ["Audio", "Modelos IA", "Motor de eventos", "MQTT"]],
+    states: ["PRODUCTO ACTIVO", "I+D ACTIVA · OBSERVACIONES DE CAMPO", "MVP DE INVESTIGACIÓN · MODELO EN VALIDACIÓN"],
+    deeper: ["Inteligencia y automatización de procesos.", "Decisiones geoespaciales.", "Producción de contenido con IA.", "Inteligencia profesional con IA.", "Datos financieros y automatización.", "Workflows de IA reutilizables."],
+    illustration: "Flujo conceptual de audio a eventos",
+  },
+  pt: {
+    builder: "01 / CONSTRUTOR", viewCv: "Ver CV", all: "Ver todos os projetos", more: "Mais projetos explorando diferentes problemas, tecnologias e domínios.",
+    contact: "Vamos conversar", invitation: "Uma vaga, projeto, colaboração ou ideia de produto.", about: "Mais sobre mim", city: "Lima, Peru",
+    field: "CAMPO", system: "SISTEMA", product: "PRODUTO", motto: <>DADOS REAIS.<br/>SISTEMAS ÚTEIS.</>,
+    subtitles: ["Saiba mais antes de comprar um carro usado.", "Inteligência veicular nas suas mãos.", "Do áudio ambiental a eventos com significado."],
+    tags: [["Produto ativo", "Peru", "Pagamentos", "Relatórios"], ["Android", "OBD-II", "Telemetria", "Testes de campo"], ["Áudio", "Modelos IA", "Motor de eventos", "MQTT"]],
+    states: ["PRODUTO ATIVO", "P&D ATIVA · OBSERVAÇÕES DE CAMPO", "MVP DE PESQUISA · MODELO EM VALIDAÇÃO"],
+    deeper: ["Inteligência e automação de processos.", "Decisões geoespaciais.", "Produção de conteúdo com IA.", "Inteligência profissional com IA.", "Dados financeiros e automação.", "Workflows de IA reutilizáveis."],
+    illustration: "Fluxo conceitual de áudio a eventos",
+  },
+} as const;
+
+const deeperOrder = ["talos", "vigia", "prodagentic", "cv-engine", "finance-sensor", "prompt-machine"];
 
 export function LocalizedHome({ locale }: { locale: Locale }) {
   const t = copy[locale];
-  const featured = systemCases.filter((system) => system.placement === "FLAGSHIP");
-  const more = systemCases.filter((system) => system.placement !== "FLAGSHIP");
+  const v = visualCopy[locale];
+  const featured = systemCases.filter((system) => system.placement === "FLAGSHIP" && system.publicability !== "PRIVATE");
+  const more = deeperOrder.flatMap((slug) => systemCases.filter((system) => system.slug === slug && system.publicability !== "PRIVATE"));
 
-  return <main id="main-content" lang={locale} tabIndex={-1}>
-    <section className="simple-hero system-theme-hero container">
-      <div className="hero-coordinate hero-coordinate-a" aria-hidden="true">EM / 2026</div>
-      <div className="hero-coordinate hero-coordinate-b" aria-hidden="true">LIM / PE</div>
-      <div className="simple-hero-copy">
-        <p className="eyebrow accent">{t.eyebrow}</p>
-        <h1><span>{t.titleA}</span>{" "}<em>{t.titleB}</em></h1>
-        <p className="simple-hero-lead">{t.lead}</p>
-        <div className="actions simple-hero-actions">
-          <Link href="#projects" className="button primary">{t.viewProjects} <span aria-hidden="true">↓</span></Link>
-          <a href={profile.cvDownload} className="button">{t.download} <span aria-hidden="true">↓</span></a>
-          <Link href={localePath(locale, "/contact")} className="simple-contact-link">{t.contact} <span aria-hidden="true">↗</span></Link>
+  return <main id="main-content" className="portfolio-cinema" lang={locale} tabIndex={-1}>
+    <section className="cinema-hero" aria-labelledby="cinema-title">
+      <Image className="cinema-background hero-background" src="/media/portfolio/builder.webp" alt="" fill priority sizes="100vw"/>
+      <div className="cinema-hero-shade"/>
+      <div className="container cinema-hero-inner">
+        <div className="cinema-hero-copy">
+          <p className="cinema-eyebrow">{v.builder}</p>
+          <h1 id="cinema-title"><span>{t.titleA}</span><em>{t.titleB}</em></h1>
+          <p className="cinema-lead">{t.lead}</p>
+          <div className="cinema-actions">
+            <Link href="#projects" className="button primary">{t.viewProjects}<span aria-hidden="true">↓</span></Link>
+            <a href={profile.cvDownload} className="button">{v.viewCv}<span aria-hidden="true">↓</span></a>
+            <Link href="#contact" className="button">{t.contact}<span aria-hidden="true">→</span></Link>
+          </div>
         </div>
-        <div className="system-legend" aria-label="Portfolio theme">
-          <span><b>FIELD</b><small>{t.legendField}</small></span>
-          <span><b>SYSTEM</b><small>{t.legendSystem}</small></span>
-          <span><b>PRODUCT</b><small>{t.legendProduct}</small></span>
-        </div>
-      </div>
-      <figure className="simple-hero-person system-portrait">
-        <div className="portrait-tag" aria-hidden="true">01 / BUILDER</div>
-        <Image src={profile.portrait} alt="Eduardo Merino" width={640} height={760} priority sizes="(max-width: 767px) 80vw, 38vw"/>
-        <figcaption><strong>Eduardo Merino</strong><span>{profile.role} · Full Stack</span></figcaption>
-      </figure>
-    </section>
-
-    <section className="simple-projects section container" id="projects">
-      <div className="simple-section-heading themed-section-heading">
-        <div><p className="eyebrow accent">{t.projects}</p><h2>{t.projectsTitle}</h2></div>
-        <p>{t.projectsLead}</p>
-      </div>
-      <div className="simple-project-grid identity-project-grid">
-        {featured.map((system) => {
-          const media = system.media?.[0];
-          const pipeline = pipelines[locale][system.slug];
-          const primary = system.slug === "placaclara";
-          return <article className="simple-project-card identity-project-card" data-feature={primary ? "primary" : "secondary"} data-project={system.slug} key={system.slug}>
-            <div className="project-system-label"><span>{pipeline?.label ?? system.category}</span><span>{system.state.label}</span></div>
-            <Link href={localePath(locale, `/systems/${system.slug}`)} className="simple-project-visual identity-project-visual" aria-label={`${t.openProject}: ${system.name}`}>
-              {media ? <img src={media.src} alt={media.alt} width={media.width} height={media.height} loading="lazy" decoding="async" referrerPolicy="no-referrer"/> : system.slug === "echo" ? <EchoVisual/> : <div className="simple-project-placeholder">{system.name}</div>}
-            </Link>
-            <div className="simple-project-copy identity-project-copy">
-              <p className="eyebrow">{system.category}</p>
-              <h3><Link href={localePath(locale, `/systems/${system.slug}`)}>{system.name}</Link></h3>
-              <p>{projectCopy[locale][system.slug] ?? system.summary}</p>
-              {pipeline && <div className="project-pipeline" aria-label={`${system.name} system path`}>
-                <span><small>INPUT</small><strong>{pipeline.input}</strong></span>
-                <i aria-hidden="true">→</i>
-                <span><small>SYSTEM</small><strong>{pipeline.system}</strong></span>
-                <i aria-hidden="true">→</i>
-                <span><small>OUTCOME</small><strong>{pipeline.output}</strong></span>
-              </div>}
-              <Link className="text-link" href={localePath(locale, `/systems/${system.slug}`)}>{t.openProject} <span aria-hidden="true">↗</span></Link>
-            </div>
-          </article>;
-        })}
-      </div>
-    </section>
-
-    <section className="system-principles section">
-      <div className="container">
-        <div className="simple-section-heading themed-section-heading">
-          <div><p className="eyebrow accent">{t.principles}</p><h2>{t.principlesTitle}</h2></div>
-          <p>{t.principlesLead}</p>
-        </div>
-        <div className="principles-grid">
-          {t.principlesList.map((item,index)=><article key={item.code}>
-            <span className="principle-index">0{index+1}</span>
-            <h3>{item.code}</h3>
-            <p>{item.body}</p>
-          </article>)}
+        <aside className="cinema-coordinates" aria-hidden="true"><span>LIM / PE</span><span>EM / 2026</span><span>FIELD → SYSTEM → PRODUCT</span><p>{v.motto}</p></aside>
+        <div className="cinema-pipeline">
+          {[{title:v.field,body:t.legendField},{title:v.system,body:t.legendSystem},{title:v.product,body:t.legendProduct}].map((step,index)=><div key={step.title}>
+            <span className="cinema-pipeline-rule" aria-hidden="true">{index === 0 ? "◉" : "»"}</span><span><b>{step.title}</b><small>{step.body}</small></span>
+          </div>)}
         </div>
       </div>
     </section>
 
-    <section className="simple-more section deeper-systems">
-      <div className="container">
-        <div className="simple-section-heading themed-section-heading">
-          <div><p className="eyebrow accent">{t.more}</p><h2>{t.moreTitle}</h2></div>
-          <p>{t.moreLead}</p>
-        </div>
-        <div className="simple-more-list">
-          {more.map((system,index) => <Link href={localePath(locale, `/systems/${system.slug}`)} key={system.slug}>
-            <span><small>{String(index+4).padStart(2,"0")} / SYSTEM</small><strong>{system.name}</strong><small>{system.category}</small></span>
-            <p>{system.summary}</p>
-            <span aria-hidden="true">↗</span>
-          </Link>)}
-        </div>
-        <Link href={localePath(locale, "/systems")} className="text-link simple-all-projects">{t.viewProjects} <span aria-hidden="true">↗</span></Link>
+    <section id="projects" className="cinema-projects" aria-label={t.projects}>
+      {featured.map((system,index) => {
+        const pipeline = pipelines[locale][system.slug];
+        return <article key={system.slug} className={`cinema-project cinema-project-${system.slug}`} aria-labelledby={`project-${system.slug}`}>
+          <Image className="cinema-background" src={`/media/portfolio/${system.slug}.webp`} alt="" fill sizes={system.slug === "placaclara" ? "100vw" : "(max-width: 760px) 100vw, 50vw"}/>
+          <div className="cinema-project-shade"/>
+          {system.slug === "placaclara" && <div className="cinema-product-preview" aria-hidden="true">
+            <Image src="/media/portfolio/placaclara-product.webp" alt="" fill sizes="(max-width: 760px) 80vw, 44vw"/>
+          </div>}
+          {system.slug === "autopulse" && <div className="cinema-phone-preview" aria-hidden="true">
+            <Image src="/media/portfolio/autopulse-screen.webp" alt="" fill sizes="(max-width: 760px) 42vw, 21vw"/>
+          </div>}
+          {system.slug === "echo" && <div className="cinema-acoustic" aria-label={v.illustration}>
+            <svg viewBox="0 0 260 100" fill="none" aria-hidden="true"><path d="M0 50H20l3-9 4 18 4-30 4 42 4-30 4 9h12l4-17 4 34 4-55 4 76 4-59 4 42 4-27 4 6h13l4-24 4 46 4-63 4 82 4-98 4 82 4-54 4 44 4-20 4 5h13l4-16 4 30 4-44 4 55 4-35 4 17h11l4-7 4 14 4-7h29" stroke="currentColor" strokeWidth="1.2"/></svg>
+            <ol><li>RAW AUDIO</li><li>MODEL INFERENCE</li><li>CANDIDATE EVENT</li><li>CONFIRMED EVENT</li></ol>
+          </div>}
+          <div className="cinema-project-content">
+            <p className="cinema-eyebrow">{pipeline?.label ?? system.category}</p>
+            <h2 id={`project-${system.slug}`}>
+              <Link href={localePath(locale, `/systems/${system.slug}`)}>{system.slug === "placaclara" ? <>Placa<em>Clara</em></> : system.slug === "autopulse" ? <>Auto<em>Pulse</em></> : system.name}</Link>
+            </h2>
+            <p className="cinema-project-subtitle">{v.subtitles[index]}</p>
+            <p className="cinema-project-description">{projectCopy[locale][system.slug] ?? system.summary}</p>
+            <ul className="cinema-tags">{v.tags[index].map((tag,i)=><li key={tag}><PortfolioIcon name={system.slug === "echo" ? (i === 0 ? "audio" : "chip") : i === 1 ? "pin" : i === 3 ? "document" : "signal"}/>{tag}</li>)}</ul>
+            <Link className="button" href={localePath(locale, `/systems/${system.slug}`)}>{t.openProject}<span aria-hidden="true">→</span></Link>
+            <p className="cinema-project-state">{v.states[index]}</p>
+          </div>
+        </article>;
+      })}
+    </section>
+
+    <section className="cinema-deeper" aria-labelledby="deeper-title">
+      <div className="cinema-deeper-heading"><h2 id="deeper-title">{t.more}</h2><p>{v.more}</p><Link className="button" href={localePath(locale,"/systems")}>{v.all}<span aria-hidden="true">→</span></Link></div>
+      <div className="cinema-deeper-grid">
+        {more.map((system,index)=><Link className="cinema-mini-project" href={localePath(locale,`/systems/${system.slug}`)} key={system.slug}>
+          <div className="cinema-mini-art" aria-hidden="true">{system.media?.[0] ? <Image src={system.media[0].src} alt="" fill unoptimized sizes="(max-width: 760px) 50vw, 17vw"/> : <SystemArtifact system={system} locale={locale}/>}</div>
+          <span className="cinema-mini-number">{String(index+4).padStart(2,"0")}</span><h3>{system.name}</h3><p>{v.deeper[index]}</p><span className="cinema-mini-arrow" aria-hidden="true">↗</span>
+        </Link>)}
       </div>
     </section>
 
-    <section className="simple-about section container identity-about">
-      <div>
-        <p className="eyebrow accent">{t.about}</p>
-        <h2>{t.aboutTitle}</h2>
+    <section className="cinema-bottom" aria-label={t.about}>
+      <div className="cinema-about">
+        <div className="cinema-portrait"><Image src={profile.portrait} alt="Eduardo Merino" fill sizes="(max-width: 580px) 38vw, 20vw"/></div>
+        <div className="cinema-about-copy"><p className="cinema-eyebrow">{t.about}</p><h2>{t.aboutTitle}</h2><p>{t.aboutText}</p><div className="cinema-about-facts"><span>{profile.role} · {v.city}</span><span>{t.current}</span><span>{t.education}</span></div><Link href={localePath(locale,"/about")} className="button">{v.about}<span aria-hidden="true">→</span></Link></div>
       </div>
-      <div className="simple-about-copy">
-        <p className="lead">{t.aboutText}</p>
-        <div className="simple-about-facts">
-          <span>{t.current}</span>
-          <span>{t.education}</span>
-          <span>{profile.location}</span>
-        </div>
-        <div className="actions">
-          <Link href={localePath(locale, "/about")} className="button">{t.about} <span aria-hidden="true">↗</span></Link>
-          <a href={profile.cvDownload} className="button">{t.download} <span aria-hidden="true">↓</span></a>
-        </div>
-      </div>
-    </section>
-
-    <section className="simple-final-cta section identity-final-cta">
-      <div className="container simple-final-inner">
-        <div><p className="eyebrow accent">{t.contact}</p><h2>{t.finalCta}</h2></div>
-        <div><p>{t.finalText}</p><Link href={localePath(locale, "/contact")} className="button primary">{t.contact} <span aria-hidden="true">↗</span></Link></div>
-      </div>
+      <div className="cinema-principles"><h2 className="cinema-eyebrow">{t.principles}</h2><ol>{t.principlesList.map((item,index)=><li key={item.code}><span>{String(index+1).padStart(2,"0")}</span><div><h3>{item.code}</h3><p>{item.body}</p></div></li>)}</ol></div>
+      <div id="contact" className="cinema-contact"><h2 className="cinema-eyebrow">{v.contact}</h2><p>{v.invitation}</p><div className="cinema-contact-links"><a href={`mailto:${profile.email}`} className="button"><PortfolioIcon name="mail"/>Email<span aria-hidden="true">→</span></a><a href={profile.linkedin} target="_blank" rel="noreferrer" className="button"><PortfolioIcon name="linkedin"/>LinkedIn<span aria-hidden="true">→</span></a><a href={profile.github} target="_blank" rel="noreferrer" className="button"><PortfolioIcon name="github"/>GitHub<span aria-hidden="true">→</span></a></div><a href={profile.cvDownload} className="button cinema-cv">{t.download}<span aria-hidden="true">↓</span></a></div>
     </section>
   </main>;
 }

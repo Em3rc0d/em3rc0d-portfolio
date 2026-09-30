@@ -1,0 +1,27 @@
+# Cinematic portfolio implementation — 2026-09-30
+
+Implementation branch: feat/cinematic-portfolio.
+
+## Assets
+| File in public/media/portfolio | Origin | Use |
+| --- | --- | --- |
+| builder.webp | Generated with built-in image_gen | Decorative rear-view engineer/workstation background; not a portrait of Eduardo |
+| placaclara.webp | Generated with built-in image_gen | Garage/laptop atmosphere |
+| autopulse.webp | Generated with built-in image_gen | Night vehicle/OBD atmosphere |
+| echo.webp | Generated with built-in image_gen | Microphone/urban sound atmosphere |
+| placaclara-product.webp | Existing Em3rc0d/plate main public/placaclara-hero-master.webp | Existing product presentation image |
+| autopulse-screen.webp | Existing Drive image 1MU1279pjCSZIttkvi5I5Qk1MS2DAnbqQ | Existing physical-session capture |
+
+Four generated originals were converted to WebP for delivery. They are decorative illustrations and are not added to evidence records. Existing real media is kept separate from generated backgrounds. Generated blank devices have no invented branded interfaces or measured data.
+
+Exact generation prompts: image-prompts.json. User-provided composition reference: portfolio-reference.png. Semantic design contract: /DESIGN.md.
+
+## Changes
+- Replaced the separated portrait-and-card home with an integrated cinematic composition.
+- Added full-width PlacaClara, paired AutoPulse/ECHO, six compact deeper-project cards and compact portrait/principles/contact area.
+- Retained EN/ES/PT, existing case-study routes, CV endpoint, contact address, social profiles and mobile navigation.
+- Added responsive styles and reduced-motion handling without new dependencies.
+- Existing research/field boundaries remain visible; no fabricated event scores or business outcomes.
+
+## Execution scope
+No build, tests, typecheck, lint, browser preview or visual QA performed, as explicitly requested. Implementation is not presented as tested or production-certified. No manual Vercel deployment or main merge is part of this delivery.
