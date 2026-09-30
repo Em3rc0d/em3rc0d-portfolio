@@ -198,6 +198,81 @@ function FinancialStack() {
   </>;
 }
 
+
+function WorkflowCertificationLane() {
+  return <>
+    <Label x={28} y={36} small>OUTCOME WORKFLOW / CERTIFICATION BOUNDARY</Label>
+    <Route d="M58 112H542" soft/>
+    {[
+      { x: 78, title: "GOAL", sub: "USER OUTCOME" },
+      { x: 224, title: "WORKFLOW", sub: "INPUT → PROCESS → OUTPUT" },
+      { x: 378, title: "VERIFY", sub: "BEHAVIORAL RECEIPTS" },
+      { x: 522, title: "REUSE", sub: "PORTABLE KIT" },
+    ].map((stage, i) => <g key={stage.title}>
+      <circle cx={stage.x} cy="112" r={i === 2 ? 30 : 24} className={i === 2 ? "identity-surface" : "identity-window"}/>
+      <Label x={stage.x} y={116} anchor="middle" accent={i === 2}>{stage.title}</Label>
+      <Label x={stage.x} y={156} anchor="middle" small>{stage.sub}</Label>
+    </g>)}
+    <Route d="M224 184V252H365" dashed soft/>
+    <path d="M365 219H520V286H365Z" className="identity-surface"/>
+    <Label x={442} y={245} anchor="middle" accent>PROMPT QUARRY</Label>
+    <Label x={442} y={264} anchor="middle" small>INTERNAL FACTORY</Label>
+    <Route d="M442 286V324H378" dashed/>
+    <path d="M336 301L378 324L336 347L294 324Z" className="identity-gate"/>
+    <Label x={336} y={329} anchor="middle" small>GATE</Label>
+    <Route d="M294 324H151V252H224" dashed soft/>
+    <Label x={28} y={383} small>GENERATED ≠ TESTED ≠ CERTIFIED</Label>
+  </>;
+}
+
+function InfrastructureTopologyLens() {
+  return <>
+    <Label x={28} y={36} small>PHYSICAL INFRASTRUCTURE / OPERATIONAL CONTEXT</Label>
+    <Route d="M96 85V323" soft/>
+    {["SITE", "ZONE", "RACK", "EQUIPMENT"].map((label, i) => <g key={label}>
+      <Dot x={96} y={101 + i * 68}/>
+      <Route d={`M99 ${101 + i * 68}H188`} soft/>
+      <Label x={201} y={106 + i * 68} small>{label}</Label>
+    </g>)}
+    <path d="M270 78L491 114L465 289L246 252Z" className="identity-surface"/>
+    <path d="M294 102L443 126L425 168L315 151ZM280 181L377 170L429 198L391 243L296 235Z" className="identity-window"/>
+    <Route d="M246 252L324 202L465 289M270 78L356 148L491 114" soft/>
+    <circle cx="377" cy="170" r="43" className="identity-window"/>
+    <circle cx="377" cy="170" r="6" className="identity-dot"/>
+    <Route d="M408 201L488 301"/>
+    <Label x={499} y={318} anchor="end" accent>OPERATIONS</Label>
+    <Label x={377} y={177} anchor="middle" small>EQUIPMENT</Label>
+    <Label x={28} y={382} small>HIERARCHY → SPACE → EQUIPMENT → OPERATIONS</Label>
+  </>;
+}
+
+function RealtimeSyncRing() {
+  const nodes = [
+    { x: 300, y: 82, label: "BROWSER" },
+    { x: 474, y: 206, label: "API" },
+    { x: 300, y: 330, label: "PERSISTENCE" },
+    { x: 126, y: 206, label: "REALTIME" },
+  ];
+  return <>
+    <Label x={28} y={36} small>FULL-STACK STATE / ONLINE + OFFLINE CONTINUITY</Label>
+    <circle cx="300" cy="206" r="142" className="identity-window"/>
+    <Route d="M300 106C418 106 454 141 454 206C454 271 418 306 300 306C182 306 146 271 146 206C146 141 182 106 300 106"/>
+    {nodes.map((node, i) => <g key={node.label}>
+      <circle cx={node.x} cy={node.y} r="28" className="identity-surface"/>
+      <Label x={node.x} y={node.y + 5} anchor="middle" accent={i === 1}>{node.label}</Label>
+    </g>)}
+    <path d="M213 116L236 89L263 116" className="identity-route"/>
+    <path d="M448 161L480 170L462 195" className="identity-route"/>
+    <path d="M387 296L364 323L337 296" className="identity-route"/>
+    <path d="M152 251L120 242L138 217" className="identity-route"/>
+    <path d="M243 166H357V246H243Z" className="identity-surface"/>
+    <Label x={300} y={198} anchor="middle" accent>INCIDENT STATE</Label>
+    <Label x={300} y={219} anchor="middle" small>SYNC / REPLAY</Label>
+    <Route d="M244 246L186 286V355H269" dashed/>
+    <Label x={28} y={371} small>OFFLINE QUEUE / IDEMPOTENCY KEY</Label>
+  </>;
+}
+
 type Identity = { title: string; drawing: ComponentType; path: string[]; description: Record<Locale, string> };
 const identities: Record<string, Identity> = {
   placaclara: { title: "Evidence Constellation", drawing: PlateConstellation, path: ["Plate", "Sources", "Evidence", "Report", "Decision"], description: {
@@ -234,6 +309,21 @@ const identities: Record<string, Identity> = {
     en: "Editorial memory informs novelty checking and drafting. Human approval remains a distinct gate; the diagram does not imply external publication.",
     es: "La memoria editorial orienta la revisión de novedad y el borrador. La aprobación humana es una etapa propia; el diagrama no implica publicación externa.",
     pt: "A memória editorial orienta a revisão de novidade e o rascunho. A aprovação humana é uma etapa própria; o diagrama não implica publicação externa.",
+  } },
+  "prompt-machine": { title: "Workflow Certification Lane", drawing: WorkflowCertificationLane, path: ["Goal", "Workflow", "Verify", "Reuse"], description: {
+    en: "A user goal becomes a reusable workflow only after verification. The internal Prompt Quarry feeds candidates without turning generation into certification.",
+    es: "Un objetivo del usuario se convierte en workflow reutilizable solo después de verificación. Prompt Quarry alimenta candidatos sin convertir generación en certificación.",
+    pt: "Um objetivo do usuário vira workflow reutilizável somente após verificação. Prompt Quarry alimenta candidatos sem transformar geração em certificação.",
+  } },
+  "infrastructure-site-mapper": { title: "Infrastructure Topology Lens", drawing: InfrastructureTopologyLens, path: ["Hierarchy", "Space", "Equipment", "Operations"], description: {
+    en: "Infrastructure hierarchy is projected into spatial context so equipment can be located and operated without exposing private site topology.",
+    es: "La jerarquía de infraestructura se proyecta en contexto espacial para ubicar y operar equipos sin exponer la topología privada del sitio.",
+    pt: "A hierarquia de infraestrutura é projetada em contexto espacial para localizar e operar equipamentos sem expor a topologia privada do local.",
+  } },
+  gpets: { title: "Realtime Sync Ring", drawing: RealtimeSyncRing, path: ["Browser", "API", "Persistence", "Realtime"], description: {
+    en: "Browser, API, persistence and realtime updates share one state loop, with an offline queue and idempotent replay as a separate recovery path.",
+    es: "Browser, API, persistencia y actualizaciones realtime comparten un ciclo de estado, con cola offline y replay idempotente como ruta separada de recuperación.",
+    pt: "Browser, API, persistência e atualizações realtime compartilham um ciclo de estado, com fila offline e replay idempotente como rota separada de recuperação.",
   } },
   "finance-sensor": { title: "Private Financial Signal Stack", drawing: FinancialStack, path: ["Signals", "Normalize", "Protect", "Observe"], description: {
     en: "Multiple inputs become canonical events. A privacy boundary separates financial signals from system observability.",
