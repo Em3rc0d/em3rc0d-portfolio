@@ -285,6 +285,9 @@
 @media(max-width:767px){
   .simple-hero{grid-template-columns:1fr;min-height:auto;padding-top:var(--space-7);}
   .simple-hero-copy h1{font-size:clamp(3.5rem,16vw,5.4rem);}
+  .simple-hero-actions{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch;}
+  .simple-hero-actions .button{width:100%;padding-inline:.8rem;gap:.75rem;}
+  .simple-hero-actions .simple-contact-link{grid-column:1/-1;padding-inline:0;}
   .simple-hero-person{justify-self:start;max-width:360px;}
   .simple-section-heading,.simple-about,.simple-final-inner,.simple-contact-grid{grid-template-columns:1fr;gap:var(--space-6);}
   .simple-section-heading>p{justify-self:start;}
