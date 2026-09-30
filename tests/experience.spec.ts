@@ -17,9 +17,9 @@ test('identity, projects, CV and contact form a complete visitor path', async ({
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.goto('/');
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('I build useful software.');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('I build systems for messy real-world problems.');
   await expect(page.getByText('Eduardo Merino', { exact: true }).first()).toBeVisible();
-  await expect(page.getByRole('link', { name: 'View projects', exact: true }).first()).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Explore the work', exact: true }).first()).toBeVisible();
   await expect(page.getByRole('link', { name: 'Download CV', exact: true }).first()).toBeVisible();
   await expect(page.getByRole('link', { name: 'Contact me', exact: true }).first()).toBeVisible();
 
@@ -95,7 +95,7 @@ for (const height of [600, 700, 800]) {
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.goto('/');
     await noOverflow(page);
-    await expect(page.getByRole('link', { name: 'View projects', exact: true }).first()).toBeInViewport();
+    await expect(page.getByRole('link', { name: 'Explore the work', exact: true }).first()).toBeInViewport();
     await expect(page.getByRole('link', { name: 'Download CV', exact: true }).first()).toBeInViewport();
     await page.screenshot({ path: info.outputPath(`short-${height}.png`) });
   });
@@ -134,7 +134,7 @@ test('no JavaScript still exposes identity, projects, CV and contact', async ({ 
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.goto('/');
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('I build useful software.');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('I build systems for messy real-world problems.');
   await expect(page.locator('.simple-hero-person img')).toBeVisible();
   await expect(page.getByRole('link', { name: 'Download CV', exact: true }).first()).toBeVisible();
   await page.getByRole('link', { name: 'PlacaClara', exact: true }).first().click();
