@@ -44,18 +44,16 @@ function buildCvPdf() {
   gap();
 
   section("SELECTED ENGINEERING WORK");
+  body("PlacaClara", 48, "F2", 10);
+  body("Live used-car research product for Peru with payments, vehicle evidence, reports and PDF/email delivery.", 62);
   body("AutoPulse", 48, "F2", 10);
-  body("Android vehicle intelligence with live OBD-II telemetry and local-first driving sessions.", 62);
-  body("VIGIA", 48, "F2", 10);
-  body("Geospatial planning and fixed-budget territorial scenario comparison.", 62);
-  body("prodAgentic", 48, "F2", 10);
-  body("Governed content workflow with editorial memory, novelty controls and human approval.", 62);
+  body("Android vehicle intelligence with live OBD-II telemetry, durable sessions and physical field testing.", 62);
+  body("ECHO", 48, "F2", 10);
+  body("AI acoustic-event system with governed data, containerized runtime and MQTT event delivery.", 62);
+  body("TALOS", 48, "F2", 10);
+  body("Source-aware process intelligence with semantic review, approvals and durable Temporal execution.", 62);
   body("CV Engine", 48, "F2", 10);
   body("ATS and career opportunity intelligence with evidence-first CV generation.", 62);
-  body("TALOS", 48, "F2", 10);
-  body("Source-aware process intelligence with semantic validation and durable execution.", 62);
-  body("FinanceSensor", 48, "F2", 10);
-  body("Privacy-first financial telemetry R&D with canonical events and E2EE architecture.", 62);
   gap();
 
   section("TECHNICAL SCOPE");
