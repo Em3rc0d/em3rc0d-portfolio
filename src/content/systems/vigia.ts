@@ -3,7 +3,7 @@ export const vigia: SystemCase = {
   id: "05", slug: "vigia", name: "VIGIA", category: "Geospatial decision support",
   summary: "See how limited resources can cover a territory — and what changes when the plan changes.",
   built: "A planning and simulation system for comparing territorial coverage under explicit resource and operating constraints.",
-  placement: "FLAGSHIP", publicability: "ABSTRACTED", ownership: "Primary builder · problem model, software and comparison experience",
+  placement: "SUPPORT", publicability: "ABSTRACTED", ownership: "Primary builder · problem model, software and comparison experience",
   state: { label: "Planning prototype · active R&D", detail: "The system separates equal-budget comparisons, full-service planning and evaluated capacity scenarios.", boundary: "This public case is an abstracted explanation. The source and internal validation records are private; the product capture demonstrates the interface, not an independent operational certification." },
   problem: "When resources are limited, a map is not enough. A planner needs to understand what can be covered, what remains outside the plan and which constraints shape the answer.",
   importance: "Two plans are only meaningfully comparable when the comparison is fair. A plan that uses more time or resources should not quietly appear better than one with less.",
