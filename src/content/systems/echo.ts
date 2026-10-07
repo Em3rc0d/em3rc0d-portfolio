@@ -6,22 +6,22 @@ export const echo: SystemCase = {
   name: "ECHO",
   category: "Applied AI · Acoustic intelligence",
   summary: "Turn environmental audio into classified acoustic events with provenance, timing and a reproducible path from source to delivery.",
-  built: "An AI acoustic-event system with governed datasets, deterministic preprocessing, containerized replay/runtime infrastructure, temporal event semantics and MQTT delivery.",
+  built: "A governed acoustic-event engineering system with certified research/data tooling, deterministic corpus controls, versioned event contracts and a frozen MK1 architecture for later inference, Event Engine and MQTT execution.",
   placement: "FLAGSHIP",
   publicability: "PUBLIC",
   ownership: "Primary builder · research system, data governance, runtime architecture and validation",
   state: {
-    label: "MVP runtime active · model evidence still gated",
-    detail: "MK0 is certified and the first runtime path is being exercised with Docker/Mosquitto replay and MQTT round-trip verification. Corpus/model promotion remains fail-closed until the project-specific data and benchmark gates pass.",
-    boundary: "ECHO does not claim production acoustic accuracy, field-camera performance or a final model winner before the corpus, benchmark and field-evidence gates close."
+    label: "MK0 certified · MK1 corpus closure active",
+    detail: "MK1 specification, design and architecture are closed for build, and the Data Foundry/toolchain has scoped certificates. The current corpus readiness is fail-closed: coverage still has 16 empirical gaps, CERT-MK1-DF-CORPUS-001 remains open and modeling_allowed=false. Benchmark A/B/C, replay progression and real-camera progression remain locked until that gate closes.",
+    boundary: "ECHO does not claim an active MVP runtime, production acoustic accuracy, field-camera performance, calibrated thresholds or a final model winner while the corpus certificate and downstream empirical gates remain open."
   },
   problem: "A neural-network score on an audio clip is not yet a dependable event. A useful system must preserve source identity, timing, confidence, temporal confirmation and the path that produced the observation.",
   importance: "Environmental audio is noisy and ambiguous. The system needs to distinguish observable acoustic evidence from conclusions about what happened in the world.",
   capabilities: [
-    "Ingest deterministic replay and prepare a path toward real audio sources without changing event semantics.",
-    "Normalize audio into bounded windows and preserve source identity through inference and event processing.",
-    "Separate raw inference, candidate events and confirmed events with temporal rules and deduplication.",
-    "Publish confirmed events through MQTT with explicit QoS/idempotency expectations."
+    "Govern release-safe acoustic data with provenance, rights, fingerprints, grouping, deduplication and deterministic split controls.",
+    "Preserve source identity and timing through the frozen audio/window/inference/event contracts.",
+    "Keep raw inference, candidate-event and confirmed-event semantics separate before downstream delivery.",
+    "Gate model benchmarking, replay and real-camera progression on corpus certification instead of bypassing weak data."
   ],
   path: ["Audio", "Inference", "Event", "Publish"],
   artifact: "signal",
@@ -29,7 +29,7 @@ export const echo: SystemCase = {
   architecture: [
     { title: "Audio-to-event pipeline", body: "Source registry, decoding, mono PCM normalization, bounded buffers, window production and inference all preserve source_id and timing before the Event Engine applies temporal confirmation." },
     { title: "Governed data path", body: "Dataset admission requires provenance, rights, canonical fingerprints, grouping and split integrity. Model work is gated when the corpus does not meet the frozen evidence contract." },
-    { title: "Runtime delivery", body: "The MVP path uses Docker and Mosquitto to exercise replay-to-MQTT delivery. QoS 1 means consumers must tolerate duplicate delivery and use event_id for idempotency." }
+    { title: "Frozen delivery contract", body: "MK1 defines Event Engine and MQTT delivery semantics, including QoS 1 duplicate tolerance and event_id idempotency. Executed replay progression remains gated until the corpus certificate authorizes modeling." }
   ],
   decisions: [
     { title: "Detect sounds, not stories", body: "ECHO may classify a siren or glass shatter; it does not infer that a robbery, crash or emergency occurred from the sound alone." },
@@ -38,7 +38,7 @@ export const echo: SystemCase = {
   ],
   limitations: [
     "No final production model or calibrated field-performance claim is made while corpus/model gates remain open.",
-    "The current MVP/replay path does not prove real-camera distance, SNR or multi-source capacity.",
+    "Replay, model benchmarking and real-camera progression remain locked while corpus readiness is fail-closed.",
     "MQTT QoS 1 permits duplicate delivery; downstream consumers require idempotency.",
     "ECHO intentionally avoids speaker identification, voice profiling and continuous raw-audio retention by default."
   ],
