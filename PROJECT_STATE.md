@@ -8,12 +8,14 @@ THE BUILD ROOM V2 is live at `https://em3rc0d-portfolio.vercel.app` and the port
 
 - Stable branch: `main`.
 - Integration branch: `develop`.
-- V2 integration PR: `#21` → `develop`.
-- V2 production release PR: `#22` → `main`.
-- Runtime production merge: `bed2449a4829be5f44dabed2c6a6b8dbaf0638a4`.
-- Vercel production deployment: `dpl_8NkJDjsqYe6gfS1z9PCefiJH4iSZ` — `READY`, target `production`, Git ref `main`, Git SHA exactly `bed2449a4829be5f44dabed2c6a6b8dbaf0638a4`.
-- Production origin observation after deployment: HTTP `200`, V2 title/canonical/JSON-LD/navigation/Hero present.
-- Vercel grouped runtime-error query after release: no runtime errors found in the observed one-hour window. This is a bounded observation, not a permanent zero-error claim.
+- Original V2 integration PR: `#21` → `develop`.
+- Original V2 production release PR: `#22` → `main`.
+- Original V2 production merge: `bed2449a4829be5f44dabed2c6a6b8dbaf0638a4` — historical release authority for the first V2 production closeout.
+- **Current production source authority:** `main@514e9acea5ae1692c62ccfd86f0eace7ed886357`.
+- **Current Vercel production deployment:** `dpl_4iTZn73nKAQvLKGsqQCgVSMEfQ6S` — `READY`, target `production`, Git ref `main`, Git SHA exactly `514e9acea5ae1692c62ccfd86f0eace7ed886357`.
+- **Current production quality execution:** GitHub Actions `V2 Experience Quality` run `36730970268` — `SUCCESS` on exact source SHA `514e9acea5ae1692c62ccfd86f0eace7ed886357`.
+- Current production origin was re-observed on 2026-10-07 returning HTTP `200`.
+- The earlier release proof and closeout documents remain historical exact-state evidence for their recorded revisions. They must not be silently reinterpreted as proof for later production commits.
 
 ## Verification chain
 
@@ -47,6 +49,8 @@ Supporting placements remain evidence-bounded: FinanceSensor and Prompt Machine 
 
 ## Frozen measured candidate signals
 
+The measurements below belong to the original verified V2 candidate/release lineage documented in `evidence/THE_BUILD_ROOM_V2_RELEASE_PROOF.md`. They are preserved as historical exact-state evidence and are **not automatically re-attributed to current production `514e9ac...`**.
+
 Under the deliberately constrained lab profile `390×844 / 150 ms latency / 1.6 Mbps / 4× CPU slowdown / Chromium software renderer`:
 
 - CLS: `0.04398438643988014`.
@@ -74,6 +78,6 @@ CONTACT / COLLABORATION
 
 The next work is reputation distribution and evidence evolution, not adding pages or visual effects for their own sake.
 
-Current authorities: `design/THE_BUILD_ROOM_V2_DESIGN.md`, `arch/THE_BUILD_ROOM_V2_ARCHITECTURE.md`, `evidence/THE_BUILD_ROOM_V2_RELEASE_PROOF.md`, and `build/THE_BUILD_ROOM_V2_CLOSEOUT.md`.
+Current product/runtime authority starts with this file plus the actual `main` revision and live deployment identity. Historical V2 design/release evidence remains in `design/THE_BUILD_ROOM_V2_DESIGN.md`, `arch/THE_BUILD_ROOM_V2_ARCHITECTURE.md`, `evidence/THE_BUILD_ROOM_V2_RELEASE_PROOF.md`, and `build/THE_BUILD_ROOM_V2_CLOSEOUT.md`, each bounded to its recorded revision.
 
 The former V1 state remains preserved at `deprecated/runtime-v1/PROJECT_STATE.md` for its historical scope. Production success does not strengthen any underlying system claim beyond its source evidence. `UNKNOWN != PASS` remains permanent.
