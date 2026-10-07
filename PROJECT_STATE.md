@@ -8,12 +8,14 @@ THE BUILD ROOM V2 is live at `https://em3rc0d-portfolio.vercel.app` and the port
 
 - Stable branch: `main`.
 - Integration branch: `develop`.
-- V2 integration PR: `#21` → `develop`.
-- V2 production release PR: `#22` → `main`.
-- Runtime production merge: `bed2449a4829be5f44dabed2c6a6b8dbaf0638a4`.
-- Vercel production deployment: `dpl_8NkJDjsqYe6gfS1z9PCefiJH4iSZ` — `READY`, target `production`, Git ref `main`, Git SHA exactly `bed2449a4829be5f44dabed2c6a6b8dbaf0638a4`.
-- Production origin observation after deployment: HTTP `200`, V2 title/canonical/JSON-LD/navigation/Hero present.
-- Vercel grouped runtime-error query after release: no runtime errors found in the observed one-hour window. This is a bounded observation, not a permanent zero-error claim.
+- Original V2 integration PR: `#21` → `develop`.
+- Original V2 production release PR: `#22` → `main`.
+- Original V2 production merge: `bed2449a4829be5f44dabed2c6a6b8dbaf0638a4` — historical release authority for the first V2 production closeout.
+- **Current production source authority:** `main@514e9acea5ae1692c62ccfd86f0eace7ed886357`.
+- **Current Vercel production deployment:** `dpl_4iTZn73nKAQvLKGsqQCgVSMEfQ6S` — `READY`, target `production`, Git ref `main`, Git SHA exactly `514e9acea5ae1692c62ccfd86f0eace7ed886357`.
+- **Current production quality execution:** GitHub Actions `V2 Experience Quality` run `36730970268` — `SUCCESS` on exact source SHA `514e9acea5ae1692c62ccfd86f0eace7ed886357`.
+- Current production origin was re-observed on 2026-10-07 returning HTTP `200`.
+- The earlier release proof and closeout documents remain historical exact-state evidence for their recorded revisions. They must not be silently reinterpreted as proof for later production commits.
 
 ## Verification chain
 
@@ -29,13 +31,17 @@ The V2 quality workflow covers clean install/build, payload budget, responsive/b
 
 ## Public reputation model
 
-Selected flagships:
+Current runtime flagship selection is derived from `systemCases.filter(system => system.placement === "FLAGSHIP")`.
 
-1. **AutoPulse** — connected systems / public with bounded field evidence.
-2. **VIGIA** — geospatial decision support / abstracted; private source and data remain private.
-3. **prodAgentic** — AI & workflow automation / public within its frozen evidence scope.
+At `main@514e9acea5ae1692c62ccfd86f0eace7ed886357`, the selected flagships are:
 
-Supporting placements remain evidence-bounded: FinanceSensor and Prompt Machine are R&D signals, CV Engine preserves historical lineage, Infrastructure Site Mapper remains an abstracted professional contribution record, and GPets remains archived supporting work.
+1. **PlacaClara** — vehicle intelligence / live public product with bounded provider and report-coverage claims.
+2. **AutoPulse** — connected systems / public with bounded physical field evidence.
+3. **ECHO** — applied AI / acoustic-event system with certified MK0 scope and fail-closed model/data gates.
+
+Current supporting placements include TALOS, CV Engine, VIGIA and prodAgentic. FinanceSensor and Prompt Machine remain R&D signals; Infrastructure Site Mapper remains an abstracted professional contribution record; GPets remains archived supporting work.
+
+This supersedes the original V2 flagship set (AutoPulse, VIGIA, prodAgentic) as **current portfolio routing** only. Historical release proof that names the earlier set remains valid for its recorded revision and must not be rewritten as if the later selection existed then.
 
 ## Runtime model
 
@@ -46,6 +52,8 @@ Supporting placements remain evidence-bounded: FinanceSensor and Prompt Machine 
 - Meaningful content remains HTML and works without JavaScript/WebGL.
 
 ## Frozen measured candidate signals
+
+The measurements below belong to the original verified V2 candidate/release lineage documented in `evidence/THE_BUILD_ROOM_V2_RELEASE_PROOF.md`. They are preserved as historical exact-state evidence and are **not automatically re-attributed to current production `514e9ac...`**.
 
 Under the deliberately constrained lab profile `390×844 / 150 ms latency / 1.6 Mbps / 4× CPU slowdown / Chromium software renderer`:
 
@@ -74,6 +82,6 @@ CONTACT / COLLABORATION
 
 The next work is reputation distribution and evidence evolution, not adding pages or visual effects for their own sake.
 
-Current authorities: `design/THE_BUILD_ROOM_V2_DESIGN.md`, `arch/THE_BUILD_ROOM_V2_ARCHITECTURE.md`, `evidence/THE_BUILD_ROOM_V2_RELEASE_PROOF.md`, and `build/THE_BUILD_ROOM_V2_CLOSEOUT.md`.
+Current product/runtime authority starts with this file plus the actual `main` revision and live deployment identity. Historical V2 design/release evidence remains in `design/THE_BUILD_ROOM_V2_DESIGN.md`, `arch/THE_BUILD_ROOM_V2_ARCHITECTURE.md`, `evidence/THE_BUILD_ROOM_V2_RELEASE_PROOF.md`, and `build/THE_BUILD_ROOM_V2_CLOSEOUT.md`, each bounded to its recorded revision.
 
 The former V1 state remains preserved at `deprecated/runtime-v1/PROJECT_STATE.md` for its historical scope. Production success does not strengthen any underlying system claim beyond its source evidence. `UNKNOWN != PASS` remains permanent.
