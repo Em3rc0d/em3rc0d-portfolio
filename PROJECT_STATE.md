@@ -11,11 +11,22 @@ THE BUILD ROOM V2 is live at `https://em3rc0d-portfolio.vercel.app` and the port
 - Original V2 integration PR: `#21` → `develop`.
 - Original V2 production release PR: `#22` → `main`.
 - Original V2 production merge: `bed2449a4829be5f44dabed2c6a6b8dbaf0638a4` — historical release authority for the first V2 production closeout.
-- **Current production source authority:** `main@514e9acea5ae1692c62ccfd86f0eace7ed886357`.
-- **Current Vercel production deployment:** `dpl_4iTZn73nKAQvLKGsqQCgVSMEfQ6S` — `READY`, target `production`, Git ref `main`, Git SHA exactly `514e9acea5ae1692c62ccfd86f0eace7ed886357`.
-- **Current production quality execution:** GitHub Actions `V2 Experience Quality` run `36730970268` — `SUCCESS` on exact source SHA `514e9acea5ae1692c62ccfd86f0eace7ed886357`.
-- Current production origin was re-observed on 2026-10-07 returning HTTP `200`.
-- The earlier release proof and closeout documents remain historical exact-state evidence for their recorded revisions. They must not be silently reinterpreted as proof for later production commits.
+- **Current source authority is resolved from the actual GitHub `main` head.**
+- **Current deployment authority is resolved from the latest Vercel deployment with `target=production` and Git ref `main`.**
+- This file does **not** permanently pin either value as “current”; merging a documentation update changes `main` and may trigger a new production deployment.
+- Exact SHAs, deployment IDs and quality-run IDs below are therefore **observed snapshots**, not perpetual aliases for current state.
+
+### Latest observed production snapshot
+
+Observed on 2026-10-07 after DOGFOOD-002 promotion:
+
+- GitHub source: `main@5a0da2dd633d47530e8d88150428e717584480d6`.
+- Vercel production: `dpl_GLF9anbhs8uKatu92iBMdoyYFdbs` — `READY`, target `production`, Git ref `main`, Git SHA `5a0da2dd633d47530e8d88150428e717584480d6`.
+- Promotion inputs were exact-head green before merge:
+  - PR #39 final head `f7deb278377ba7e57eb23bd425e787262ad44ccb`: Portfolio CI + V2 Experience Quality PASS.
+  - PR #40 rebased final head `82d52ae1a5eaead9f80cfb739bd7164ac1131bef`: Portfolio CI + V2 Experience Quality PASS.
+- Production origin had already been observed returning HTTP `200` during the baseline audit.
+- Earlier release proofs and snapshots remain historical exact-state evidence for their recorded revisions. They must not be silently reinterpreted as proof for later production commits.
 
 ## Verification chain
 
@@ -33,7 +44,7 @@ The V2 quality workflow covers clean install/build, payload budget, responsive/b
 
 Current runtime flagship selection is derived from `systemCases.filter(system => system.placement === "FLAGSHIP")`.
 
-At `main@514e9acea5ae1692c62ccfd86f0eace7ed886357`, the selected flagships are:
+Runtime flagship selection is derived from code, not from a pinned documentation SHA. The DOGFOOD-002 audit observed the following current set, and the selector remains `systemCases.filter(system => system.placement === "FLAGSHIP")`:
 
 1. **PlacaClara** — vehicle intelligence / live public product with bounded provider and report-coverage claims.
 2. **AutoPulse** — connected systems / public with bounded physical field evidence.
@@ -82,6 +93,6 @@ CONTACT / COLLABORATION
 
 The next work is reputation distribution and evidence evolution, not adding pages or visual effects for their own sake.
 
-Current product/runtime authority starts with this file plus the actual `main` revision and live deployment identity. Historical V2 design/release evidence remains in `design/THE_BUILD_ROOM_V2_DESIGN.md`, `arch/THE_BUILD_ROOM_V2_ARCHITECTURE.md`, `evidence/THE_BUILD_ROOM_V2_RELEASE_PROOF.md`, and `build/THE_BUILD_ROOM_V2_CLOSEOUT.md`, each bounded to its recorded revision.
+Current product/runtime authority starts with the actual `main` revision and live deployment identity; this file records routing rules and bounded observations rather than pretending its own embedded SHA can remain permanently current. Historical V2 design/release evidence remains in `design/THE_BUILD_ROOM_V2_DESIGN.md`, `arch/THE_BUILD_ROOM_V2_ARCHITECTURE.md`, `evidence/THE_BUILD_ROOM_V2_RELEASE_PROOF.md`, and `build/THE_BUILD_ROOM_V2_CLOSEOUT.md`, each bounded to its recorded revision.
 
 The former V1 state remains preserved at `deprecated/runtime-v1/PROJECT_STATE.md` for its historical scope. Production success does not strengthen any underlying system claim beyond its source evidence. `UNKNOWN != PASS` remains permanent.
