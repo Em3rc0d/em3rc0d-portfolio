@@ -31,13 +31,17 @@ The V2 quality workflow covers clean install/build, payload budget, responsive/b
 
 ## Public reputation model
 
-Selected flagships:
+Current runtime flagship selection is derived from `systemCases.filter(system => system.placement === "FLAGSHIP")`.
 
-1. **AutoPulse** — connected systems / public with bounded field evidence.
-2. **VIGIA** — geospatial decision support / abstracted; private source and data remain private.
-3. **prodAgentic** — AI & workflow automation / public within its frozen evidence scope.
+At `main@514e9acea5ae1692c62ccfd86f0eace7ed886357`, the selected flagships are:
 
-Supporting placements remain evidence-bounded: FinanceSensor and Prompt Machine are R&D signals, CV Engine preserves historical lineage, Infrastructure Site Mapper remains an abstracted professional contribution record, and GPets remains archived supporting work.
+1. **PlacaClara** — vehicle intelligence / live public product with bounded provider and report-coverage claims.
+2. **AutoPulse** — connected systems / public with bounded physical field evidence.
+3. **ECHO** — applied AI / acoustic-event system with certified MK0 scope and fail-closed model/data gates.
+
+Current supporting placements include TALOS, CV Engine, VIGIA and prodAgentic. FinanceSensor and Prompt Machine remain R&D signals; Infrastructure Site Mapper remains an abstracted professional contribution record; GPets remains archived supporting work.
+
+This supersedes the original V2 flagship set (AutoPulse, VIGIA, prodAgentic) as **current portfolio routing** only. Historical release proof that names the earlier set remains valid for its recorded revision and must not be rewritten as if the later selection existed then.
 
 ## Runtime model
 
