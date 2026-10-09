@@ -5,6 +5,10 @@ on:
   push:
     branches: [main, develop]
   workflow_dispatch:
+concurrency:
+  group: portfolio-quality-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 permissions:
   contents: read
 env:
@@ -46,4 +50,4 @@ jobs:
             test-results/
             verification-output/
           if-no-files-found: error
-          retention-days: 30
+          retention-days: 7
