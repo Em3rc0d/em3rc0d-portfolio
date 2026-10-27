@@ -176,7 +176,7 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
           <div className="cinema-actions">
             <Link href="#projects" className="button primary">{t.viewProjects}<span aria-hidden="true">↓</span></Link>
             <a href={profile.cvDownload} className="button">{t.download}<span aria-hidden="true">↓</span></a>
-            <Link href="#contact" className="button">{t.contact}<span aria-hidden="true">→</span></Link>
+            <Link href={localePath(locale,"/contact")} className="button">{t.contact}<span aria-hidden="true">→</span></Link>
           </div>
         </div>
         <aside className="cinema-coordinates" aria-hidden="true"><span>LIM / PE</span><span>EM / 2026</span><span>FIELD → SYSTEM → PRODUCT</span><p>{v.motto}</p></aside>
