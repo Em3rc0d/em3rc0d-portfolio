@@ -26,9 +26,9 @@ const mono = localFont({
 const origin = getSiteOrigin();
 export const baseMetadata: Metadata = {
   metadataBase: origin ?? undefined,
-  title: { default: "Eduardo Merino — Software Engineer · Full Stack & Applied AI", template: "%s — Eduardo Merino" },
+  title: { default: "Em3rc0d (Eduardo Merino) — Software Engineer · Full Stack & Applied AI", template: "%s — Eduardo Merino" },
   description: `${profile.proposition} ${profile.scope}`,
-  applicationName: "Eduardo Merino — Engineering Portfolio",
+  applicationName: "Em3rc0d | Eduardo Merino — Engineering Portfolio",
   authors: [{ name: profile.name }],
   creator: profile.name,
   robots: { index: true, follow: true },
@@ -38,6 +38,7 @@ const person = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: profile.name,
+  alternateName: profile.alternateNames,
   ...(origin ? { url: origin.toString() } : {}),
   jobTitle: profile.role,
   sameAs: [profile.linkedin, profile.github],
