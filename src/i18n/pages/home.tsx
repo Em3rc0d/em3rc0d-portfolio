@@ -170,7 +170,7 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
       <div className="cinema-hero-shade"/>
       <div className="container cinema-hero-inner">
         <div className="cinema-hero-copy">
-          <p className="cinema-eyebrow">{v.builder}</p>
+          <p className="cinema-eyebrow">{v.builder} · {t.eyebrow}</p>
           <h1 id="cinema-title"><span>{t.titleA}</span>{" "}<em>{t.titleB}</em></h1>
           <p className="cinema-lead">{t.lead}</p>
           <div className="cinema-actions">
