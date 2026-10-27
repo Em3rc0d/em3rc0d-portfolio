@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: Props) {
   const [section, slug, ...rest] = segments;
   if (rest.length) return {};
 
-  if (!section) return pageMetadata("Eduardo Merino — Software Engineer · Full Stack & Applied AI", locale === "es" ? "Software Engineer construyendo productos y sistemas para problemas reales entre web, mobile, software conectado e IA aplicada." : "Software Engineer construindo produtos e sistemas para problemas reais entre web, mobile, software conectado e IA aplicada.", "/", "/opengraph-image", locale);
+  if (!section) return pageMetadata("Em3rc0d (Eduardo Merino) — Software Engineer · Full Stack & Applied AI", locale === "es" ? "Em3rc0d es el alias digital de Eduardo Merino, ingeniero de software que desarrolla sistemas web, móviles e IA aplicada." : "Em3rc0d é o nome digital de Eduardo Merino, engenheiro de software que desenvolve sistemas web, móveis e IA aplicada.", "/", "/opengraph-image", locale);
   if (section === "systems" && !slug) return pageMetadata(t.systems.title, t.systems.lead, "/systems", "/opengraph-image", locale);
   if (section === "systems" && slug) { const system = findLocalizedSystem(locale, slug); return system ? pageMetadata(system.name, system.summary, `/systems/${slug}`, `/systems/${slug}/opengraph-image`, locale) : {}; }
   if (section === "notes" && !slug) return pageMetadata(t.notes.eyebrow, t.notes.lead, "/notes", "/opengraph-image", locale);

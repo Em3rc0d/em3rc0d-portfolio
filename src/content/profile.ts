@@ -1,5 +1,7 @@
 export const profile = {
   name: "Eduardo Merino",
+  handle: "Em3rc0d",
+  alternateNames: ["Em3rc0d", "Emercod"],
   fullName: "Eduardo Farid Merino Cordova",
   role: "Software Engineer",
   specialty: "Full Stack · Applied AI · Systems",

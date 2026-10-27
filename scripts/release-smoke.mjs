@@ -20,6 +20,10 @@ for (const url of routes) {
   const personText = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];
   assert(personText, `JSON-LD ${url.pathname}`); const person = JSON.parse(personText);
   assert.equal(person['@type'], 'Person'); assert.equal(person.url, `${origin}/`);
+  assert.equal(person.name, 'Eduardo Merino');
+  assert.deepEqual(person.alternateName, ['Em3rc0d', 'Emercod']);
+  assert(person.sameAs.includes('https://github.com/Em3rc0d'));
+  assert(person.sameAs.includes('https://www.linkedin.com/in/emerinoc'));
   for (const match of html.matchAll(/<a\b[^>]*href="([^"]+)"/g)) {
     const href = decode(match[1]); const link = new URL(href, url);
     if (link.origin === origin) links.add(link.pathname + link.hash); else external.add(link.href);
