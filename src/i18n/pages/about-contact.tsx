@@ -10,7 +10,7 @@ const aboutCopy: Record<Locale, {
   areas: readonly {title:string; body:string}[];
 }> = {
   en: {
-    eyebrow:"About", title:"Hi, I’m Eduardo.", lead:"I like software that has to deal with reality.",
+    eyebrow:"About", title:"Hi, I’m Eduardo.", lead:"I’m Eduardo Merino, also known online as Em3rc0d. I like software that has to deal with reality.",
     body:"Connections drop. Providers disagree or return nothing. Models are uncertain. Payments and product outcomes can diverge. Those edges are where I enjoy engineering most: understanding what is actually true, making the boundary explicit, and building a product that still works.",
     current:"Full Stack Developer at Thradex Tech", education:"Systems & Informatics Engineering at UNMSM · final stage",
     focus:"Field systems · Product engineering · Applied AI", projects:"View projects", cv:"Download CV", contact:"Contact me",
@@ -23,7 +23,7 @@ const aboutCopy: Record<Locale, {
     ],
   },
   es: {
-    eyebrow:"Sobre mí", title:"Hola, soy Eduardo.", lead:"Me gusta el software que tiene que enfrentarse a la realidad.",
+    eyebrow:"Sobre mí", title:"Hola, soy Eduardo.", lead:"Soy Eduardo Merino, también conocido en internet como Em3rc0d. Me gusta el software que tiene que enfrentarse a la realidad.",
     body:"Las conexiones se caen. Los proveedores discrepan o no devuelven nada. Los modelos son inciertos. Un pago y el resultado del producto pueden separarse. Esos bordes son donde más disfruto la ingeniería: entender qué es realmente cierto, hacer explícito el límite y construir un producto que aun así funcione.",
     current:"Full Stack Developer en Thradex Tech", education:"Ingeniería de Sistemas e Informática en UNMSM · etapa final",
     focus:"Sistemas de campo · Ingeniería de producto · IA aplicada", projects:"Ver proyectos", cv:"Descargar CV", contact:"Contactarme",
@@ -36,7 +36,7 @@ const aboutCopy: Record<Locale, {
     ],
   },
   pt: {
-    eyebrow:"Sobre mim", title:"Olá, eu sou Eduardo.", lead:"Gosto de software que precisa lidar com a realidade.",
+    eyebrow:"Sobre mim", title:"Olá, eu sou Eduardo.", lead:"Sou Eduardo Merino, também conhecido online como Em3rc0d. Gosto de software que precisa lidar com a realidade.",
     body:"Conexões caem. Provedores discordam ou não retornam nada. Modelos são incertos. Pagamento e resultado do produto podem divergir. É nessas bordas que mais gosto de engenharia: entender o que é realmente verdadeiro, tornar o limite explícito e construir um produto que ainda assim funcione.",
     current:"Full Stack Developer na Thradex Tech", education:"Engenharia de Sistemas e Informática na UNMSM · etapa final",
     focus:"Sistemas de campo · Engenharia de produto · IA aplicada", projects:"Ver projetos", cv:"Baixar CV", contact:"Entrar em contato",
