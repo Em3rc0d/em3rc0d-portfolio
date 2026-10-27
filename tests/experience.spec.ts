@@ -21,7 +21,7 @@ test('identity, projects, CV and contact form a complete visitor path', async ({
   await expect(page.getByText('Eduardo Merino', { exact: true }).first()).toBeVisible();
   await expect(page.getByRole('link', { name: 'Explore the work', exact: true }).first()).toBeVisible();
   await expect(page.getByRole('link', { name: 'Download CV', exact: true }).first()).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Contact me', exact: true }).first()).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Discuss a role', exact: true }).first()).toBeVisible();
 
   await page.keyboard.press('Tab');
   await expect(page.getByRole('link', { name: 'Skip to content' })).toBeFocused();
