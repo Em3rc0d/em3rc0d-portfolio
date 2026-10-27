@@ -20,11 +20,11 @@ const copy: Record<Locale, {
   legendField: string; legendSystem: string; legendProduct: string;
 }> = {
   en: {
-    eyebrow: "Software Engineer · Full Stack · Applied AI · Lima, Peru",
+    eyebrow: "Em3rc0d / Eduardo Merino",
     titleA: "I build systems",
     titleB: "for messy real-world problems.",
     lead: "From vehicle data and acoustic signals to payments, automation and AI — I turn uncertain inputs into software people can actually use.",
-    viewProjects: "Explore the work", download: "Download CV", contact: "Contact me",
+    viewProjects: "Explore the work", download: "Download CV", contact: "Discuss a role",
     projects: "Selected work", projectsTitle: "Field. System. Product.", projectsLead: "The projects are different. The engineering responsibility is not: understand the signal, preserve what is true, and build a useful outcome.",
     openProject: "View project",
     principles: "Engineering principles", principlesTitle: "A few things I refuse to blur.", principlesLead: "The systems change. These boundaries keep showing up in the work.",
@@ -42,11 +42,11 @@ const copy: Record<Locale, {
     legendField: "Reality / signal", legendSystem: "Engineering / decisions", legendProduct: "Useful / outcome",
   },
   es: {
-    eyebrow: "Software Engineer · Full Stack · IA aplicada · Lima, Perú",
+    eyebrow: "Em3rc0d / Eduardo Merino",
     titleA: "Construyo sistemas",
     titleB: "para problemas reales y desordenados.",
     lead: "Desde datos vehiculares y señales acústicas hasta pagos, automatización e IA — convierto entradas inciertas en software que la gente puede usar de verdad.",
-    viewProjects: "Explorar el trabajo", download: "Descargar CV", contact: "Contactarme",
+    viewProjects: "Explorar el trabajo", download: "Descargar CV", contact: "Hablar de un puesto",
     projects: "Trabajo destacado", projectsTitle: "Campo. Sistema. Producto.", projectsLead: "Los proyectos son distintos. La responsabilidad de ingeniería no: entender la señal, preservar lo verdadero y construir un resultado útil.",
     openProject: "Ver proyecto",
     principles: "Principios de ingeniería", principlesTitle: "Hay cosas que no mezclo.", principlesLead: "Los sistemas cambian. Estos límites aparecen una y otra vez en el trabajo.",
@@ -64,11 +64,11 @@ const copy: Record<Locale, {
     legendField: "Realidad / señal", legendSystem: "Ingeniería / decisiones", legendProduct: "Producto / resultado",
   },
   pt: {
-    eyebrow: "Software Engineer · Full Stack · IA aplicada · Lima, Peru",
+    eyebrow: "Em3rc0d / Eduardo Merino",
     titleA: "Eu construo sistemas",
     titleB: "para problemas reais e bagunçados.",
     lead: "De dados veiculares e sinais acústicos a pagamentos, automação e IA — transformo entradas incertas em software que as pessoas realmente conseguem usar.",
-    viewProjects: "Explorar o trabalho", download: "Baixar CV", contact: "Entrar em contato",
+    viewProjects: "Explorar o trabalho", download: "Baixar CV", contact: "Falar sobre uma vaga",
     projects: "Trabalho em destaque", projectsTitle: "Campo. Sistema. Produto.", projectsLead: "Os projetos são diferentes. A responsabilidade de engenharia não: entender o sinal, preservar a verdade e construir um resultado útil.",
     openProject: "Ver projeto",
     principles: "Princípios de engenharia", principlesTitle: "Há coisas que eu não misturo.", principlesLead: "Os sistemas mudam. Estes limites continuam aparecendo no trabalho.",
@@ -126,7 +126,7 @@ const pipelines: Record<Locale, Record<string, Pipeline>> = {
 const visualCopy = {
   en: {
     builder: "01 / BUILDER", viewCv: "View CV", all: "View all projects", more: "More projects exploring different problems, technologies and domains.",
-    contact: "Get in touch", invitation: "Role, project, collaboration or product idea.", about: "More about me", city: "Lima, Peru",
+    contact: "Work with me", invitation: "Hiring an engineer or planning a software project? See my work and get in touch.", about: "More about me", city: "Lima, Peru",
     field: "FIELD", system: "SYSTEM", product: "PRODUCT", motto: <>REAL DATA.<br/>USEFUL SYSTEMS.</>,
     subtitles: ["Know more before buying a used car.", "Vehicle intelligence in your hands.", "From environmental audio to meaningful events."],
     tags: [["Live product", "Peru", "Payments", "Reports"], ["Android", "OBD-II", "Live telemetry", "Field tested"], ["Audio", "AI models", "Event engine", "MQTT"]],
@@ -136,7 +136,7 @@ const visualCopy = {
   },
   es: {
     builder: "01 / CONSTRUCTOR", viewCv: "Ver CV", all: "Ver todos los proyectos", more: "Más proyectos que exploran distintos problemas, tecnologías y dominios.",
-    contact: "Hablemos", invitation: "Una oportunidad, proyecto, colaboración o idea de producto.", about: "Más sobre mí", city: "Lima, Perú",
+    contact: "Trabajemos juntos", invitation: "¿Buscas un ingeniero o necesitas desarrollar un sistema? Revisa mis proyectos y conversemos.", about: "Más sobre mí", city: "Lima, Perú",
     field: "CAMPO", system: "SISTEMA", product: "PRODUCTO", motto: <>DATOS REALES.<br/>SISTEMAS ÚTILES.</>,
     subtitles: ["Conoce más antes de comprar un auto usado.", "Inteligencia vehicular en tus manos.", "Del audio ambiental a eventos con significado."],
     tags: [["Producto activo", "Perú", "Pagos", "Reportes"], ["Android", "OBD-II", "Telemetría", "Pruebas de campo"], ["Audio", "Modelos IA", "Motor de eventos", "MQTT"]],
@@ -146,7 +146,7 @@ const visualCopy = {
   },
   pt: {
     builder: "01 / CONSTRUTOR", viewCv: "Ver CV", all: "Ver todos os projetos", more: "Mais projetos explorando diferentes problemas, tecnologias e domínios.",
-    contact: "Vamos conversar", invitation: "Uma vaga, projeto, colaboração ou ideia de produto.", about: "Mais sobre mim", city: "Lima, Peru",
+    contact: "Vamos trabalhar juntos", invitation: "Contratando um engenheiro ou planejando um projeto de software? Conheça meu trabalho e entre em contato.", about: "Mais sobre mim", city: "Lima, Peru",
     field: "CAMPO", system: "SISTEMA", product: "PRODUTO", motto: <>DADOS REAIS.<br/>SISTEMAS ÚTEIS.</>,
     subtitles: ["Saiba mais antes de comprar um carro usado.", "Inteligência veicular nas suas mãos.", "Do áudio ambiental a eventos com significado."],
     tags: [["Produto ativo", "Peru", "Pagamentos", "Relatórios"], ["Android", "OBD-II", "Telemetria", "Testes de campo"], ["Áudio", "Modelos IA", "Motor de eventos", "MQTT"]],
