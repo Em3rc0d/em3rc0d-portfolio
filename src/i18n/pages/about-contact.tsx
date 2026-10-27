@@ -94,24 +94,38 @@ export function LocalizedContact({ locale }: { locale: Locale }) {
   const copy: Record<Locale, {
     eyebrow: string; title: string; lead: string; email: string; linkedin: string; github: string;
     note: string; cv: string;
+    rolesTitle: string; rolesText: string; rolesCta: string; rolesSubject: string;
+    projectsTitle: string; projectsText: string; projectsCta: string; projectsSubject: string;
   }> = {
     en: {
-      eyebrow: "Contact", title: "Let’s talk.", lead: "A role, a project, a collaboration or a product idea — send me the context and we can start from there.",
+      eyebrow: "Contact", title: "Hire or collaborate with Em3rc0d.", lead: "I’m Eduardo Merino. If you are hiring a software engineer or exploring a scoped software project, choose the route that fits your needs.",
       email: "Email", linkedin: "LinkedIn", github: "GitHub",
       note: "You do not need a polished brief. A few lines about what you are working on, what you need and what a useful result would look like are enough.",
       cv: "Download CV",
+      rolesTitle: "Hiring a software engineer?", rolesText: "For an engineering role, share the position, team, working arrangement and interview process. See my CV and selected projects for evidence of my work.",
+      rolesCta: "Discuss an engineering role", rolesSubject: "Engineering opportunity — Eduardo Merino (Em3rc0d)",
+      projectsTitle: "Planning a software project?", projectsText: "For software delivery or technical collaboration, share the business problem, expected outcome, constraints and an approximate timeline. We can first check scope and availability.",
+      projectsCta: "Discuss a software project", projectsSubject: "Software project inquiry — Em3rc0d",
     },
     es: {
-      eyebrow: "Contacto", title: "Hablemos.", lead: "Una oportunidad laboral, un proyecto, una colaboración o una idea de producto — cuéntame el contexto y empezamos desde ahí.",
+      eyebrow: "Contacto", title: "Contrata o colabora con Em3rc0d.", lead: "Soy Eduardo Merino. Si buscas contratar a un ingeniero de software o desarrollar un proyecto, elige la opción que corresponda a tu necesidad.",
       email: "Correo", linkedin: "LinkedIn", github: "GitHub",
       note: "No necesitas un brief perfecto. Bastan unas líneas sobre qué estás haciendo, qué necesitas y cómo se vería un buen resultado.",
       cv: "Descargar CV",
+      rolesTitle: "¿Buscas un ingeniero de software?", rolesText: "Comparte el puesto, el equipo, la modalidad de trabajo y las etapas del proceso. Puedes revisar mi CV y proyectos para evaluar mi experiencia.",
+      rolesCta: "Proponer una oportunidad laboral", rolesSubject: "Oportunidad laboral — Eduardo Merino (Em3rc0d)",
+      projectsTitle: "¿Necesitas un sistema o proyecto?", projectsText: "Cuéntame el problema del negocio, el resultado esperado, las restricciones y un plazo aproximado. Primero podemos validar el alcance y la disponibilidad.",
+      projectsCta: "Consultar por un proyecto de software", projectsSubject: "Consulta de proyecto de software — Em3rc0d",
     },
     pt: {
-      eyebrow: "Contato", title: "Vamos conversar.", lead: "Uma vaga, um projeto, uma colaboração ou uma ideia de produto — envie o contexto e podemos começar por aí.",
+      eyebrow: "Contato", title: "Contrate ou colabore com Em3rc0d.", lead: "Sou Eduardo Merino. Se você está contratando um engenheiro de software ou planejando um projeto, escolha a opção adequada.",
       email: "E-mail", linkedin: "LinkedIn", github: "GitHub",
       note: "Você não precisa de um briefing perfeito. Algumas linhas sobre o que está fazendo, o que precisa e como seria um bom resultado já bastam.",
       cv: "Baixar CV",
+      rolesTitle: "Procurando um engenheiro de software?", rolesText: "Compartilhe a vaga, a equipe, o modelo de trabalho e as etapas da seleção. Consulte meu currículo e meus projetos para avaliar a experiência.",
+      rolesCta: "Conversar sobre uma vaga", rolesSubject: "Oportunidade de engenharia — Eduardo Merino (Em3rc0d)",
+      projectsTitle: "Precisa de um sistema ou projeto?", projectsText: "Descreva o problema de negócio, o resultado esperado, as restrições e um prazo aproximado. Podemos primeiro avaliar escopo e disponibilidade.",
+      projectsCta: "Conversar sobre um projeto de software", projectsSubject: "Consulta de projeto de software — Em3rc0d",
     },
   };
   const t = copy[locale];
@@ -123,6 +137,16 @@ export function LocalizedContact({ locale }: { locale: Locale }) {
           <p className="eyebrow accent">{t.eyebrow}</p>
           <h1>{t.title}</h1>
           <p className="lead">{t.lead}</p>
+          <div className="capability-list" data-testid="engagement-paths">
+            <section className="simple-about-area">
+              <h2>{t.rolesTitle}</h2><p>{t.rolesText}</p>
+              <a className="text-link" href={`mailto:${profile.email}?subject=${encodeURIComponent(t.rolesSubject)}`}>{t.rolesCta} <span aria-hidden="true">↗</span></a>
+            </section>
+            <section className="simple-about-area">
+              <h2>{t.projectsTitle}</h2><p>{t.projectsText}</p>
+              <a className="text-link" href={`mailto:${profile.email}?subject=${encodeURIComponent(t.projectsSubject)}`}>{t.projectsCta} <span aria-hidden="true">↗</span></a>
+            </section>
+          </div>
           <EmailActions locale={locale}/>
           <p className="simple-contact-note">{t.note}</p>
         </div>
